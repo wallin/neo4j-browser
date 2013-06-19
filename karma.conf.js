@@ -7,8 +7,8 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'app/bower_components/angular/angular.js',
-  'app/bower_components/angular-mocks/angular-mocks.js',
+  'app/components/angular/angular.js',
+  'app/components/angular-mocks/angular-mocks.js',
   'app/scripts/*.coffee',
   'app/scripts/**/*.coffee',
   'test/mock/**/*.coffee',
@@ -46,7 +46,7 @@ autoWatch = false;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome'];
+browsers = ['PhantomJS'];
 
 // If browser does not capture in given timeout [ms], kill it
 captureTimeout = 5000;
