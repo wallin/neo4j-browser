@@ -5,6 +5,8 @@ mountFolder = (connect, dir) ->
 
 module.exports = (grunt) ->
 
+  grunt.loadNpmTasks 'grunt-contrib-stylus'
+
   # load all grunt tasks
   require("matchdep").filterDev("grunt-*").forEach grunt.loadNpmTasks
 
@@ -29,6 +31,10 @@ module.exports = (grunt) ->
       compass:
         files: ["<%= yeoman.app %>/styles/{,*/}*.{scss,sass}"]
         tasks: ["compass"]
+
+      stylus:
+        files: 'app/styles/*.styl',
+        tasks: ["stylus"]
 
       livereload:
         files: ["<%= yeoman.app %>/{,*/}*.html", "{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css", "{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js", "<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}"]
@@ -108,6 +114,11 @@ module.exports = (grunt) ->
       server:
         options:
           debugInfo: true
+
+    stylus:
+      compile:
+        files:
+          '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/*.styl']
 
     concat:
       dist:
@@ -193,7 +204,7 @@ module.exports = (grunt) ->
         ]
 
   grunt.renameTask "regarde", "watch"
-  grunt.registerTask "server", ["clean:server", "coffee:dist", "compass:server", "livereload-start", "connect:livereload", "open", "watch"]
+  grunt.registerTask "server", ["clean:server", "coffee:dist", "compass:server", "stylus", "livereload-start", "connect:livereload", "open", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "compass", "connect:test", "karma"]
   grunt.registerTask "build", ["clean:dist", "jshint", "test", "coffee", "compass:dist", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "cdnify", "ngmin", "uglify", "rev", "usemin"]
   grunt.registerTask "default", ["build"]
