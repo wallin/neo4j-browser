@@ -1,9 +1,8 @@
-<div class="hero-unit">
-  <h1>Neo4j Magical UI</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
-</div>
+<form ng-submit="console.run()">
+  <input type="text" ng-model="console.query"></input>
+</form>
+<ul id="results">
+  <li ng-repeat="result in console.results">
+    {{result}}
+  </li>
+</ul>
