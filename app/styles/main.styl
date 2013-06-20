@@ -1,13 +1,44 @@
 @import 'nib'
 global-reset()
 
+size(w, h)
+  width: w
+  height: h
+
 body
   box-sizing: border-box;
   font: 16px Helvetica, Arial, sans-serif
   background: #2B778B
   color: #C8FAA2
 
+header
+  absolute: top left
+  right: 0
+  height: 100px
+  background: #232323
+
+  h1.logo
+    font-size: 23px
+    height: 35px
+    line-height: 35px
+    padding-left: 45px
+    margin: 30px 39px
+    image: '/images/logo.png'
+    background-repeat: no-repeat
+
+.feed
+  absolute: top 100px left
+  right: 0
+  bottom: 100px
+  background: #2E2D2D
+
+footer
+  absolute: bottom 0 left
+  right: 0
+  height: 47px
+  background: #232323
+  padding: 39px
+
 #results
   font-family: monospace
   white-space: pre
-
