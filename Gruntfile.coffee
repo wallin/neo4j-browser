@@ -40,6 +40,10 @@ module.exports = (grunt) ->
         files: ["<%= yeoman.app %>/{,*/}*.html", "{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css", "{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js", "<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}"]
         tasks: ["livereload"]
 
+      jade:
+        files: 'app/views/*.jade'
+        tasks: ['jade:html']
+
     connect:
       options:
         port: 9000
@@ -119,6 +123,13 @@ module.exports = (grunt) ->
       compile:
         files:
           '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/*.styl']
+
+    jade:
+      html:
+        src: ["app/views/*.jade"]
+        dest: "app/views"
+        options:
+          client: false
 
     concat:
       dist:
@@ -204,7 +215,7 @@ module.exports = (grunt) ->
         ]
 
   grunt.renameTask "regarde", "watch"
-  grunt.registerTask "server", ["clean:server", "coffee:dist", "stylus", "livereload-start", "connect:livereload", "watch"]
+  grunt.registerTask "server", ["clean:server", "coffee:dist", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "connect:test", "karma"]
-  grunt.registerTask "build", ["clean:dist", "jshint", "test", "coffee", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "cdnify", "ngmin", "uglify", "rev", "usemin"]
+  grunt.registerTask "build", ["clean:dist", "jshint", "test", "coffee", "jade", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "cdnify", "ngmin", "uglify", "rev", "usemin"]
   grunt.registerTask "default", ["build"]

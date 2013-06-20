@@ -1,0 +1,12 @@
+header
+  h1.logo.
+    Neo4j Console
+
+.feed
+  ul#results
+    li(ng-repeat="result in console.results").
+      {{result}}
+
+footer
+  form(ng-submit="console.run()")
+    input(type="text", ng-model="console.query")
