@@ -41,4 +41,5 @@ Type `yo` or see [AngularJS generator](https://github.com/yeoman/generator-angul
 
 * [Getting started with Yeoman](http://yeoman.io/gettingstarted.html)
 * [Angular tutorials](http://www.egghead.io/)
+* [Angular best practices](http://www.youtube.com/watch?v=ZhfUv0spHCY)
 * [Karma test runner introduction](http://www.youtube.com/watch?v=MVw8N3hTfCI)
