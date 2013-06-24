@@ -28,12 +28,21 @@ This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS g
     $ grunt          # Build the application for production
     $ grunt clean    # Clean build files
 
+### Adding new files
+
 The [AngularJS generator](https://github.com/yeoman/generator-angular) provides a couple of Yeoman tasks for generating new files. Eg. to generate a new controller:
 
     $ yo angular:controller user --coffee --minsafe
 
 Type `yo` or see [AngularJS generator](https://github.com/yeoman/generator-angular) for complete reference
 
+### Adding new dependencies
+
+[Bower](http://bower.io) is used to install and add new package, eg:
+
+    $ bower install jquery --save
+
+This will automatically add the dependency to the `bower.json` file.
 
 ## Documentation and resources
 

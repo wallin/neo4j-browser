@@ -1,19 +1,22 @@
 'use strict';
 
 angular.module('neo4jApp')
-  .factory 'terminal', [
+  .factory 'terminalService', [
     '$http',
     ($http) ->
       {
         query: ''
+        result: ''
         results: []
-        run: ->
+        run: (query)->
+          @query = query if query?
           $http.post('http://localhost:7474/db/manage/server/console',
             command: @query
             engine: 'shell'
           ).success((data) =>
             @query = ""
-            @results.push(data[0])
+            @result = data[0]
+            @results.push(@result)
           )
       }
   ]

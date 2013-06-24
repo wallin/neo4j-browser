@@ -1,14 +1,14 @@
 'use strict'
 
-describe 'Service: terminal', () ->
+describe 'Service: terminalService', () ->
 
   # load the service's module
   beforeEach module 'neo4jApp'
 
   # instantiate service
   terminal = {}
-  beforeEach inject (_terminal_) ->
-    terminal = _terminal_
+  beforeEach inject (_terminalService_) ->
+    terminal = _terminalService_
 
   it 'should do something', () ->
     expect(!!terminal).toBe true;
