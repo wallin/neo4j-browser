@@ -34,6 +34,12 @@ The tools directory has a small [SBT](http://www.scala-sbt.org) project which bu
     $ grunt          # Build the application for production
     $ grunt clean    # Clean build files
 
+## Publish
+
+    $ grunt build            # Build the application for distribution
+    $ ./tools/sbt assembly   # Build a maven pom which Neo4j can use
+
+
 ### Adding new files
 
 The [AngularJS generator](https://github.com/yeoman/generator-angular) provides a couple of Yeoman tasks for generating new files. Eg. to generate a new controller:
