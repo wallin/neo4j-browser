@@ -13,7 +13,7 @@ module.exports = (grunt) ->
   # configurable paths
   yeomanConfig =
     app: "app"
-    dist: "dist"
+    dist: "dist/webui"
 
   try
     yeomanConfig.app = require("./component.json").appPath or yeomanConfig.app

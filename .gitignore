@@ -12,4 +12,3 @@ app/views/*.html
 
 # sbt
 target
-tools/target
