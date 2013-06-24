@@ -5,3 +5,11 @@ dist
 app/components
 app/styles/main.css
 app/views/*.html
+
+# neo4j
+*.graphdb
+.shell_history
+
+# sbt
+target
+tools/target

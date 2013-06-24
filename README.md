@@ -11,8 +11,6 @@ This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS g
 
 * [git](https://help.github.com/articles/set-up-git) (of course :smiley: ) - to get source
 * [NodeJS + NPM](http://nodejs.org/) - for building and hosting the application
-* [Ruby](http://www.ruby-lang.org/) - for running compass
-* [Compass](http://compass-style.org/install/) - for authoring CSS
 * [PhantomJS](http://phantomjs.org) - for testing
 
 ## Install
