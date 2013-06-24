@@ -21,6 +21,12 @@ This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS g
     $ npm install
     $ bower install
 
+## Run Neo4j
+
+The tools directory has a small [SBT](http://www.scala-sbt.org) project which builds and runs a local Neo4j server. 
+
+    $ ./tools/sbt run
+
 ## Develop
 
     $ grunt test     # Run tests
