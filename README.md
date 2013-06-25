@@ -12,7 +12,9 @@ This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS g
 * [git](https://help.github.com/articles/set-up-git) (of course :smiley: ) - to get source
 * [NodeJS + NPM](http://nodejs.org/) - for building and hosting the application
 * [PhantomJS](http://phantomjs.org) - for testing
-
+* [SBT](http://www.scala-sbt.org) - for packaging up as a maven artifact
+  - the `tools` directory has an sbt script and the needed jar
+  
 ## Install
 
     $ npm install -g yo grunt-cli bower
@@ -23,9 +25,10 @@ This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS g
 
 ## Run Neo4j
 
-The tools directory has a small [SBT](http://www.scala-sbt.org) project which builds and runs a local Neo4j server. 
+The tools directory has a small SBT project which builds and runs a local Neo4j server
+as a "test" application. 
 
-    $ ./tools/sbt run
+    $ ./tools/sbt test:run
 
 ## Develop
 
@@ -37,7 +40,7 @@ The tools directory has a small [SBT](http://www.scala-sbt.org) project which bu
 ## Publish
 
     $ grunt build            # Build the application for distribution
-    $ ./tools/sbt assembly   # Build a maven pom which Neo4j can use
+    $ ./tools/sbt publish    # Build a maven artifact which Neo4j can integrate
 
 
 ### Adding new files

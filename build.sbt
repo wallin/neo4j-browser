@@ -1,12 +1,14 @@
-import AssemblyKeys._
+name := "neo4j-web-ui"
 
-name := "GraphBridge"
+organization := "org.neo4j.app"
 
 version := "1.0"
 
 scalaVersion := "2.10.2"
 
-scalaSource in Compile <<= baseDirectory(_ / "tools" / "src")
+scalaSource in Compile <<= baseDirectory(_ / "tools" / "src" / "main")
+
+scalaSource in Test <<= baseDirectory(_ / "tools" / "src" / "test")
 
 resourceDirectory in Compile <<= baseDirectory(_ / "dist")
 
@@ -25,26 +27,16 @@ libraryDependencies ++= Seq(
     "com.sun.jersey" % "jersey-servlet" % "1.14"
   )
 
-// custom assembly for web-app, but not the java/scala stuff
 
-assemblySettings
+// publish!
+crossPaths := false
 
-jarName in assembly := "neo4j-webui.jar"
+publishMavenStyle := true
 
-test in assembly := {}
-
-assembleArtifact in packageScala := false
-
-// exclude class files
-mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
-  {
-    case PathList("org", xs @ _*) => MergeStrategy.discard
-    case x => old(x)
-  }
+publishTo <<= version { (v: String) =>
+  if (v.trim.endsWith("SNAPSHOT"))
+    // Some("snapshots" at "http://m2.neo4j.org/content/repositories/snapshots")
+    Some(Resolver.file("file", new File(Path.userHome.absolutePath+"/.m2/repository")))
+  else
+    Some(Resolver.file("file", new File(Path.userHome.absolutePath+"/.m2/repository")))
 }
-
-// exclude all jars
-excludedJars in assembly <<= (fullClasspath in assembly) map { cp => 
-  cp filter { _ => true }
-}
-
