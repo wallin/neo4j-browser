@@ -14,6 +14,8 @@ target <<= baseDirectory { _ / "tools" / "target" }
 
 mainClass in (Compile, run) := Some("org.neo4j.tools.localgraph.LocalGraph")
 
+resolvers += "Neo4j Snapshots" at "http://m2.neo4j.org/content/groups/everything/"
+
 libraryDependencies ++= Seq(
     "org.neo4j" % "neo4j-community" % "2.0.0-M03",
     "org.neo4j.app" % "neo4j-server" % "2.0.0-M03",
