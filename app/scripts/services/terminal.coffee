@@ -1,22 +1,29 @@
 'use strict';
 
-angular.module('neo4jApp')
+app = angular.module('neo4jApp')
+
+app
   .factory 'terminalService', [
     '$http',
     ($http) ->
-      {
-        query: ''
-        result: ''
-        results: []
-        run: (query)->
-          @query = query if query?
+      class Terminal
+        constructor: (@name = 'default')->
+          @buffer  = []
+          @history = []
+          @prompt  = '> '
+          @input   = ''
+
+        run: (input)->
+          @input = input if input?
+          @buffer.push @prompt + @input
+          @history.push @input
           $http.post('http://localhost:7474/db/manage/server/console',
-            command: @query
+            command: @input
             engine: 'shell'
           ).success((data) =>
-            @query = ""
-            @result = data[0]
-            @results.push(@result)
+            @input = ""
+            @buffer.push(data[0])
           )
-      }
+
+      new Terminal
   ]
