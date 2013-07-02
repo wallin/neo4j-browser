@@ -8,6 +8,8 @@ $topbar-title-font-size = 20px
 $topbar-title-weight = normal
 $topbar-height = 63px
 
+horizontal-padding = 21px
+
 @import 'foundation'
 @import 'nib'
 global-reset()
@@ -42,7 +44,7 @@ body
   left: 0
   right: 0
   height: 92px
-  padding 25px 21px 0
+  padding 25px horizontal-padding 0
 
   input
     margin 0
@@ -72,6 +74,14 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   left: 0
   right: 0
 
+  #view-result
+    //background-color: #ccc
+    position: absolute
+    top: 300px
+    right: 200px
+    left: 200px
+    bottom: 0
+
   #view-sidebar
     //background-color: #ccc
     position: absolute
@@ -90,19 +100,23 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   #view-history
     //background-color: white
     position: absolute
-    padding 25px 21px 0
+    padding 25px horizontal-padding 0
     top: 0
     right: 0
     width: 260px
     bottom: 0
 
     li
+      cursor: pointer
       font-size: 14px
       font-weight: bold
       padding: 8px
       margin-bottom: 8px
       border: 2px solid #ECF0F1;
       border-radius: 6px;
+      &:hover
+        transition: border .25s linear, color .25s linear;
+        border-color: $primary-color
 
 
 path.link {
