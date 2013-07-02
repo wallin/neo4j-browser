@@ -18,7 +18,7 @@
     ul
       li('ng-repeat' = 'view in views.history', 'ng-click' = 'views.select($index)')
         span
-          {{view.response.input}}
+          {{view.response.input | autotitle}}
         div(style="width: 100%;height: 200px")
           svg(d3=true, d3-data="view.response.visualization", d3-renderer="renderer.dynamic")
             g#paths
