@@ -1,3 +1,11 @@
+$primary-color = #1abc9c
+$topbar-bg = #34495e
+$body-font-color = #34495e
+$table-head-font-color = $body-font-color
+$table-row-font-color = $body-font-color
+$table-head-bg ?= #eff0f2
+
+@import 'foundation'
 @import 'nib'
 global-reset()
 
@@ -14,38 +22,18 @@ html, body
 
 body
   font: 16px Helvetica, Arial, sans-serif
-  background: #CCC
-  color: #C8FAA2
-
-header
-  position: absolute
-  top: 0
-  left: 0
-  right: 0
-  height: 100px
-  background: #232323
-  padding: 30px 39px
-
-  h1.logo
-    font-size: 23px
-    height: 35px
-    line-height: 35px
-    padding-left: 45px
-    margin: 0
-    image: '/images/logo.png'
-    background-repeat: no-repeat
+  background: #ECF0F1
+  color: #34495e
 
 #page-container
   background-color: #eee
   position: absolute
-  top: 100px
   left: 0
   right: 0
   bottom: 0
 
-
 #query-bar
-  background-color: #555
+  background-color: #BDC3C7
   position: absolute
   top: 0
   left: 200px
@@ -90,12 +78,12 @@ header
 
 path.link {
   fill: none;
-  stroke: #666;
+  stroke: #34495E;
   stroke-width: 2px;
 }
 
 circle {
-  fill: steelblue;
+  fill: #3498DB;
   stroke: #fff;
   stroke-width: 1.5px;
 }
