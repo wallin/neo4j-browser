@@ -14,22 +14,25 @@ app
 
         select: (idx) ->
           @current = @history[idx] if @history[idx]
+          @currentIdx = idx
 
         run: (input)->
           @input = input if input?
           @current =
             input: @input
-            output: null
-          @history.push @current
+            response: null
+          @currentIdx = 0
+          @history.unshift @current
           $rootScope.$broadcast 'views:changed'
           $http.post('http://localhost:7474/db/manage/server/console',
             command: @input
             engine: 'shell'
           ).success((data) =>
-            @input = ""
-            @current.output =
-              response: data[0]
+            @current.response =
+              input: @input
+              text: data[0]
               visualization: angular.copy(dummy)
+            @input = ""
           )
 
       new ViewStore

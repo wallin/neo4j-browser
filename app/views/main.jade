@@ -6,17 +6,18 @@
   #view-sidebar
   #view-active
     #view-editor
-      textarea('ui-codemirror'=true, 'ng-model'='views.current.response')
+      textarea('ui-codemirror'=true, 'ng-model'='views.current.input')
     #view-result(style="height:300px;")
-      svg(d3=true, d3-data="graph", d3-renderer="renderer.dynamic")
-        defs
-        g#paths
-        g#path_texts
+      //svg(d3=true, d3-data="graph", d3-renderer="renderer.dynamic")
+      //  defs
+      //  g#paths
+      //  g#path_texts
+      visualization(query='views.current.input')
   #view-history
     ul
-      li('ng-repeat' = 'view in views.history')
-        span('ng-click' = 'views.select($index)')
-          {{view.output.response}}
+      li('ng-repeat' = 'view in views.history', 'ng-click' = 'views.select($index)')
+        span
+          {{view.response.input}}
         div(style="width: 100%;height: 200px")
-          svg(d3=true, d3-data="view.output.visualization", d3-renderer="renderer.dynamic")
+          svg(d3=true, d3-data="view.response.visualization", d3-renderer="renderer.dynamic")
             g#paths
