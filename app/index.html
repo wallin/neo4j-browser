@@ -12,6 +12,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="components/CodeMirror/lib/codemirror.css">
     <!-- endbuild -->
   </head>
   <body ng-app="neo4jApp">
@@ -25,12 +26,19 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view></div>
+    <header>
+      <h1 class="logo">Neo4j Browser</h1>
+    </header>
+    <div id="page-container" ng-view></div>
 
     <script src="components/angular/angular.js"></script>
     <script src="components/angular-resource/angular-resource.js"></script>
     <script src="components/angular-cookies/angular-cookies.js"></script>
     <script src="components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="components/CodeMirror/lib/codemirror.js"></script>
+    <script src="components/angular-ui-codemirror/ui-codemirror.js"></script>
+    <script src="components/d3/d3.js"></script>
+    <script src="components/d3-angular/dist/angular-d3.js"></script>
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>

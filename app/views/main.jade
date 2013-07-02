@@ -1,5 +1,17 @@
-header
-  h1.logo.
-    Neo4j Console
+#query-bar
+  form('ng-submit' = 'execute()')
+    input(type="text")
 
-div(terminal=true)
+#query-view-container
+  #view-sidebar
+  #view-active
+    #view-editor
+      //-textarea('ui-codemirror'=true, 'ng-model'='editorInput')
+    #view-result
+      svg(viewBox="0 0 800 400", preserveAspectRatio="xMidyMid", d3=true, d3-data="graph", d3-renderer="graphRenderer")
+        defs
+        g#paths
+        g#path_texts
+  #view-history
+
+

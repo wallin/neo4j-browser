@@ -5,41 +5,103 @@ size(w, h)
   width: w
   height: h
 
+html, body
+  margin 0
+  padding 0
+
+*
+  outline: none
+
 body
-  box-sizing: border-box;
   font: 16px Helvetica, Arial, sans-serif
-  background: #2B778B
+  background: #CCC
   color: #C8FAA2
 
 header
-  absolute: top left
+  position: absolute
+  top: 0
+  left: 0
   right: 0
   height: 100px
   background: #232323
+  padding: 30px 39px
 
   h1.logo
     font-size: 23px
     height: 35px
     line-height: 35px
     padding-left: 45px
-    margin: 30px 39px
+    margin: 0
     image: '/images/logo.png'
     background-repeat: no-repeat
 
-.feed
-  absolute: top 100px left
+#page-container
+  background-color: #eee
+  position: absolute
+  top: 100px
+  left: 0
   right: 0
-  bottom: 100px
-  background: #2E2D2D
-  padding: 39px
+  bottom: 0
 
-footer
-  absolute: bottom 0 left
+
+#query-bar
+  background-color: #555
+  position: absolute
+  top: 0
+  left: 200px
+  right: 200px
+  height: 100px
+  padding 25px 39px 0
+
+  input
+    margin 0
+
+#query-view-container
+  background-color: #fff
+  position absolute
+  top: 100px
+  bottom: 0
+  left: 0
   right: 0
-  height: 47px
-  background: #232323
-  padding: 39px
 
-#results
-  font-family: monospace
-  white-space: pre
+  #view-sidebar
+    //background-color: #ccc
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 200px
+
+  #view-active
+    position: absolute
+    top: 0
+    left: 200px
+    bottom: 0
+    right: 200px
+
+  #view-history
+    //background-color: white
+    position: absolute
+    top: 0
+    right: 0
+    width: 200px
+    bottom: 0
+
+
+path.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 2px;
+}
+
+circle {
+  fill: steelblue;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  fill: #000;
+  font: 10px sans-serif;
+  pointer-events: none;
+}
