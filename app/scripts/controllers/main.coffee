@@ -3,7 +3,9 @@
 angular.module('neo4jApp')
 .controller 'MainCtrl', [
   '$scope'
-  ($scope) ->
+  'viewService'
+  ($scope, viewService) ->
+    $scope.views = viewService
     $scope.circles = []
     $scope.graph = dummy
     $scope.circleRenderer = (el, data) ->
@@ -31,12 +33,9 @@ angular.module('neo4jApp')
       .attr("r", 0)
       .remove()
 
-    $scope.execute = () ->
-      for i in [0..10]
-        $scope.circles.push
-          cx: Math.random() * 1024
-          cy: Math.random() * 768
-          r: Math.random() * 50
+    $scope.execute = ->
+      viewService.run(@query)
+      @query = ""
 
 
     $scope.graphRenderer = (el, data)->

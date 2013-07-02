@@ -3,9 +3,9 @@
 angular.module('neo4jApp')
   .controller('directive.TerminalCtrl', [
     '$scope',
-    'terminalService',
-    ($scope, terminalService) ->
-      term = $scope.terminal = terminalService
+    'viewService',
+    ($scope, viewService) ->
+      term = $scope.terminal = viewService
 
       # TODO: improve
       idx = 1
@@ -23,8 +23,8 @@ angular.module('neo4jApp')
 
 angular.module('neo4jApp')
   .directive('terminal', [
-    'terminalService',
-    (terminalService) ->
+    'viewService',
+    (viewService) ->
       controller: 'directive.TerminalCtrl'
       restrict: 'EA'
       replace: yes
