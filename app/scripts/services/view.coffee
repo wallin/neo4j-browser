@@ -19,6 +19,8 @@ app
             @response =
               input: @input
               text: data[0]
+              isError: data[0].indexOf('SyntaxException') == 0 ||
+                data[0].indexOf('Unknown command') == 0
               visualization: angular.copy(dummy)
           )
 

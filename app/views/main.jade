@@ -16,7 +16,7 @@
       visualization(query='views.current.response.input')
   #view-history
     ul
-      li('ng-repeat' = 'view in views.history', 'ng-click' = 'views.select($index)')
+      li('ng-repeat' = 'view in views.history', 'ng-click' = 'views.select($index)', 'ng-class'='{error: view.response.isError}')
         span
           {{view.response.input | autotitle}}
         div(style="width: 100%;height: 200px")
