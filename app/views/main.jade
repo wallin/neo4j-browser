@@ -3,10 +3,11 @@
     input.fixed-font('ng-model'="query", type="text", placeholder='Enter a query...')
 
 #query-view-container
-  #view-sidebar
+  //- #view-sidebar
   #view-active
     #view-editor
-      textarea('ui-codemirror'=true, 'ng-model'='views.current.input')
+      textarea('ui-codemirror'='{lineNumbers: true}', 'ng-model'='views.current.input')
+      .button.right Run
     #view-result(style="height:300px;")
       //svg(d3=true, d3-data="graph", d3-renderer="renderer.dynamic")
       //  defs
