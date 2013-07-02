@@ -3,7 +3,10 @@ $topbar-bg = #34495e
 $body-font-color = #34495e
 $table-head-font-color = $body-font-color
 $table-row-font-color = $body-font-color
-$table-head-bg ?= #eff0f2
+$table-head-bg = #eff0f2
+$topbar-title-font-size = 20px
+$topbar-title-weight = normal
+$topbar-height = 63px
 
 @import 'foundation'
 @import 'nib'
@@ -21,8 +24,8 @@ html, body
   outline: none
 
 body
-  font: 16px Helvetica, Arial, sans-serif
-  background: #ECF0F1
+  font: 17px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif
+  background: #fff
   color: #34495e
 
 #page-container
@@ -33,7 +36,7 @@ body
   bottom: 0
 
 #query-bar
-  background-color: #BDC3C7
+  background-color: #edeff1
   position: absolute
   top: 0
   left: 200px
@@ -43,6 +46,23 @@ body
 
   input
     margin 0
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input
+  border: 2px solid #bdc3c7;
+  color: $body-font-color;
+  font-size: 16px;
+  padding: 8px 5px;
+  height: 40px;
+  text-indent: 6px;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: border .25s linear, color .25s linear;
+  -webkit-backface-visibility: hidden;
+  &:focus
+    border-color: #1abc9c;
+    box-shadow: none;
+  &.fixed-font
+    font-family: Monaco, Menlo, 'Ubuntu Mono', 'Droid Sans Mono', Consolas, monospace;
 
 #query-view-container
   background-color: #fff
