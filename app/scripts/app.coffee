@@ -18,3 +18,20 @@ app.config([
     $httpProvider.defaults.headers.common['X-stream'] = true
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 ])
+
+app.run(['$rootScope', '$http', ($rootScope, $http) ->
+  timer = null
+  check = ->
+    clearTimeout timer
+    $http.get('http://localhost:7474/db/manage/server/monitor/fetch')
+    .success(->
+      $rootScope.online = yes
+      timer = setTimeout(check, 5000)
+    )
+    .error(->
+      $rootScope.online = no
+      timer = setTimeout(check, 5000)
+    )
+
+  check()
+])
