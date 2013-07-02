@@ -9,7 +9,7 @@
     "angular-cookies": "~1.0.5",
     "angular-sanitize": "~1.0.5",
     "angular-ui-codemirror": "~0.0.4",
-    "CodeMirror": "~3.14.0",
+    "codemirror": "~3.14.0",
     "d3": "~3.2.2",
     "d3-angular": "latest"
   },
