@@ -7,7 +7,7 @@
   #view-active
     #view-editor
       textarea('ui-codemirror'='{lineNumbers: true}', 'ng-model'='views.current.input')
-      .button.right Run
+      .button.right('ng-click' = 'views.current.exec()') Run
     #view-result(style="height:300px;")
       //svg(d3=true, d3-data="graph", d3-renderer="renderer.dynamic")
       //  defs

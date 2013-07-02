@@ -7,6 +7,22 @@ app
     '$http',
     '$rootScope'
     ($http, $rootScope) ->
+      class View
+        constructor: (@input)->
+          @response = null
+
+        exec: ->
+          $http.post('http://localhost:7474/db/manage/server/console',
+            command: @input
+            engine: 'shell'
+          ).success((data) =>
+            @response =
+              input: @input
+              text: data[0]
+              visualization: angular.copy(dummy)
+          )
+
+
       class ViewStore
         constructor: ->
           @history = []
@@ -17,23 +33,11 @@ app
           @currentIdx = idx
 
         run: (input)->
-          @input = input if input?
-          @current =
-            input: @input
-            response: null
+          return unless input
+          @current = new View(input)
+          @current.exec()
           @currentIdx = 0
           @history.unshift @current
-          $rootScope.$broadcast 'views:changed'
-          $http.post('http://localhost:7474/db/manage/server/console',
-            command: @input
-            engine: 'shell'
-          ).success((data) =>
-            @current.response =
-              input: @input
-              text: data[0]
-              visualization: angular.copy(dummy)
-            @input = ""
-          )
 
       new ViewStore
   ]

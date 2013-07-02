@@ -25,10 +25,10 @@ app.run(['$rootScope', '$http', ($rootScope, $http) ->
     clearTimeout timer
     $http.get('http://localhost:7474/db/manage/server/monitor/fetch')
     .success(->
-      $rootScope.online = yes
+      $rootScope.offline = no
     )
     .error(->
-      $rootScope.online = no
+      $rootScope.offline = yes
     )
     .then(-> timer = setTimeout(check, 5000))
 
