@@ -6,9 +6,8 @@
   #view-sidebar
   #view-active
     #view-editor
-      //-textarea('ui-codemirror'=true, 'ng-model'='editorInput')
-      {{ views.current.response }}
-    #view-result
+      textarea('ui-codemirror'=true, 'ng-model'='views.current.response')
+    #view-result(style="height:300px;")
       svg(d3=true, d3-data="graph", d3-renderer="renderer.dynamic")
         defs
         g#paths
