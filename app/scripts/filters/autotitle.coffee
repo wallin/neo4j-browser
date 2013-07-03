@@ -5,7 +5,7 @@ angular.module('neo4jApp')
     (input) ->
       return '' unless input?
       firstRow = input.split('\n')[0]
-      if firstRow[0] == '#'
+      if firstRow.indexOf('//') is 0
         firstRow[2..-1]
       else
         input
