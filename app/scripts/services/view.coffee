@@ -1,8 +1,6 @@
 'use strict';
 
-app = angular.module('neo4jApp')
-
-app
+angular.module('neo4jApp.services')
   .factory 'viewService', [
     '$http',
     '$rootScope'

@@ -1,6 +1,16 @@
 'use strict'
 
-app = angular.module('neo4jApp', ['ui.codemirror', 'd3.directives'])
+angular.module('neo4jApp.directives', [])
+angular.module('neo4jApp.filters', [])
+angular.module('neo4jApp.services', [])
+
+app = angular.module('neo4jApp', [
+  'neo4jApp.directives'
+  'neo4jApp.filters'
+  'neo4jApp.services'
+  'ui.codemirror'
+  'd3.directives'
+])
 
 app
   .config ['$routeProvider', ($routeProvider) ->

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('neo4jApp')
+angular.module('neo4jApp.services')
   .factory 'graphService', [
     '$http'
     '$q'

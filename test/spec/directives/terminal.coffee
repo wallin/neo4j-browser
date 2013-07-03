@@ -1,7 +1,7 @@
 'use strict'
 
 describe 'Directive: terminal', () ->
-  beforeEach module 'neo4jApp'
+  beforeEach module 'neo4jApp.directives', 'neo4jApp.services'
 
   element = {}
 

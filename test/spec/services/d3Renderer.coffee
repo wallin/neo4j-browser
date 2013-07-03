@@ -3,7 +3,7 @@
 describe 'Service: d3Renderer', () ->
 
   # load the service's module
-  beforeEach module 'neo4jApp'
+  beforeEach module 'neo4jApp.services'
 
   # instantiate service
   d3Renderer = {}

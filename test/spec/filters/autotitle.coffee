@@ -3,7 +3,7 @@
 describe 'Filter: autotitle', () ->
 
   # load the filter's module
-  beforeEach module 'neo4jApp'
+  beforeEach module 'neo4jApp.filters'
 
   # initialize a new instance of the filter before each test
   autotitle = {}
@@ -15,5 +15,5 @@ describe 'Filter: autotitle', () ->
     expect(autotitle text).toBe text
 
   it 'should return the first comment as title:"', () ->
-    text = '# My script\nSTART n=node(0)\nMATCH n-[r:KNOWS*]-m\nRETURN n AS Neo,r,m'
+    text = '//My script\nSTART n=node(0)\nMATCH n-[r:KNOWS*]-m\nRETURN n AS Neo,r,m'
     expect(autotitle text).toBe 'My script'

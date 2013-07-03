@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('neo4jApp')
+angular.module('neo4jApp.directives')
   .controller('directive.TerminalCtrl', [
     '$scope',
     'viewService',
@@ -21,7 +21,7 @@ angular.module('neo4jApp')
             idx = 1
   ])
 
-angular.module('neo4jApp')
+angular.module('neo4jApp.directives')
   .directive('terminal', [
     'viewService',
     (viewService) ->

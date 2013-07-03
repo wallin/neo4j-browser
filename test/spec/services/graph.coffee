@@ -3,7 +3,7 @@
 describe 'Service: graphService', () ->
 
   # load the service's module
-  beforeEach module 'neo4jApp'
+  beforeEach module 'neo4jApp.services'
 
   # instantiate service
   graphService = {}
