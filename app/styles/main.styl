@@ -26,6 +26,10 @@ stretch()
   right 0
   bottom 0
 
+transist(property)
+  transition: property 0.4s
+  transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
+
 html, body
   margin 0
   padding 0
@@ -61,8 +65,7 @@ body
   top: 63px;
   bottom: 0;
   left: 0;
-  transition: width 0.4s
-  transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
+  transist width
   border-right: 2px solid #EBEFF1
   width: 400px
 
@@ -81,6 +84,7 @@ body
       right: 17px
       background-image: url('/images/triangle.png')
       z-index: 1000
+      transist all
 
 #view-result
   position: absolute;
@@ -91,16 +95,22 @@ body
   transition: left 0.4s
   transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
 
+#update-button
+  position:absolute
+  top: 80px
+  right: 21px
+  transist right
+
 .hide-editor
   #view-editor
     width: 0
     .handle:after
       transform: rotate(180deg)
-      transition: all 0.4s
-      transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
       right: 15px
   #view-result
     left: 0
+  #update-button
+    right: -140px
 
 #query-bar
   background-color: #edeff1
