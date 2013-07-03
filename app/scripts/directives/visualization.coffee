@@ -28,8 +28,8 @@ angular.module('neo4jApp.directives')
           return unless val
           graphService.executeQuery(scope.$eval(attr.query)).then(
             (g) ->
-              scope.rows = g.rows
-              scope.columns = g.columns
+              #scope.rows = g.rows
+              #scope.columns = g.columns
               scope.result =
                 nodes: g.nodes
                 links: []

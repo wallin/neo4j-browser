@@ -19,29 +19,30 @@ angular.module('neo4jApp.services')
       markers = el.select('defs')
       markers = markers.selectAll("marker")
         .data(["end"])
+      markers.exit().remove()
       markers.enter().append("svg:marker")
-          .attr("id", String)
-          .attr("viewBox", "0 -5 10 10")
-          .attr("refX", 22)
-          .attr("refY", -0.5)
-          .attr("markerWidth", 5)
-          .attr("markerHeight", 5)
-          .attr("orient", "auto")
+        .attr("id", String)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 22)
+        .attr("refY", -0.5)
+        .attr("markerWidth", 5)
+        .attr("markerHeight", 5)
+        .attr("orient", "auto")
         .append("svg:path")
         .attr("d", "M0,-5L10,0L0,5");
-      markers.exit().remove()
 
       paths = el.select("#paths")
       path = paths.selectAll("path")
           .data(force.links())
+      path.exit().remove()
       path.enter().append("svg:path")
           .attr("class", "link")
           .attr("id", (d) -> "path#{d.id}")
           .attr("marker-end", "url(#end)")
-      path.exit().remove()
 
       path_texts = el.select('#path_texts').selectAll('text')
         .data(force.links())
+      path_texts.exit().remove()
       path_texts.enter()
         .append('text')
         .attr('font-size', '42.5')
@@ -52,24 +53,20 @@ angular.module('neo4jApp.services')
         .attr('text-anchor', 'middle')
         .attr('xlink:href', (d) -> "#path#{d.id}")
 
-      path_texts.exit().remove()
 
       node = el.selectAll(".node")
         .data(force.nodes())
-      node.enter().append("g")
+      node.exit().remove()
+      node = node.enter().append("g")
         .attr("class", "node")
-        .call(force.drag)
-
-
       node.append("circle")
-        .attr("r", 15);
-
+        .attr("r", 15)
       node.append("text")
         .attr("x", 15)
         .attr("dy", ".35em")
-        .text((d) -> d.name );
+        .text((d) -> d.name )
+      node.call(force.drag)
 
-      node.exit().remove()
 
       force.on "tick", ->
         path.attr("d", (d) ->

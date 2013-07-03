@@ -3,14 +3,10 @@
 angular.module('neo4jApp')
 .controller 'MainCtrl', [
   '$scope'
-  'd3Renderer'
   'viewService'
-  ($scope, d3Renderer, viewService) ->
+  ($scope, viewService) ->
     $scope.views = viewService
-    $scope.renderer = d3Renderer
-    $scope.graph = dummy
-    #$scope.query = "START n=node(*) RETURN n;"
-    viewService.run("START n=node:node_auto_index(name='Neo')\nMATCH n-[r:KNOWS*]-m\nRETURN n AS Neo,r,m")
+    viewService.run("START n=node(*)\nRETURN n;")
     $scope.execute = ->
       viewService.run(@query)
       @query = ""

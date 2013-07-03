@@ -3,10 +3,6 @@
     a.handle('ng-click'="isEditorHidden = !isEditorHidden")
     textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='views.current.input')
   #view-result
-    svg(d3=true, d3-data="graph", d3-renderer="renderer.dynamic")
-      defs
-      g#paths
-      g#path_texts
     visualization(query='views.current.response.input')
   #update-button.button.right('ng-click' = 'views.current.exec()') Update
 
