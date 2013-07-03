@@ -19,6 +19,13 @@ size(w, h)
   width: w
   height: h
 
+stretch()
+  position absolute
+  top 0
+  left 0
+  right 0
+  bottom 0
+
 html, body
   margin 0
   padding 0
@@ -30,17 +37,70 @@ body
   font: 17px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif
   background: #fff
   color: #34495e
+  stretch()
+  overflow: hidden
 
 .CodeMirror
-  border: 2px solid #bdc3c7;;
-  border-radius: 6px;
+  background-color: transparent !important
+  font-size: 14px !important
+  font-family: Monaco, Menlo, 'Ubuntu Mono', 'Droid Sans Mono', Consolas, monospace !important
+  line-height: 22px !important
+  height: 100% !important
+  margin: 18px
 
-#page-container
+/*#page-container
   background-color: #eee
   position: absolute
   left: 0
   right: 0
-  bottom: 0
+  bottom: 0*/
+
+#view-editor
+  background-color: #EBECEF
+  position: absolute;
+  top: 63px;
+  bottom: 0;
+  left: 0;
+  transition: width 0.4s
+  transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
+  border-right: 2px solid #EBEFF1
+  width: 400px
+
+  .handle
+    position: absolute
+    size 51px 44px
+    top: 15px
+    right: -40px
+    background-image: url('/images/handle.png')
+    z-index: 1000
+    &:after
+      content: ' '
+      position: absolute
+      size 9px 14px
+      top: 15px
+      right: 17px
+      background-image: url('/images/triangle.png')
+      z-index: 1000
+
+#view-result
+  position: absolute;
+  top: 63px;
+  bottom: 0;
+  right: 0;
+  left: 400px
+  transition: left 0.4s
+  transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
+
+.hide-editor
+  #view-editor
+    width: 0
+    .handle:after
+      transform: rotate(180deg)
+      transition: all 0.4s
+      transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
+      right: 15px
+  #view-result
+    left: 0
 
 #query-bar
   background-color: #edeff1
@@ -78,8 +138,8 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 #query-view-container
   background-color: #fff
-  position absolute
-  top: 120px
+  position: absolute
+  top: 63px
   bottom: 0
   left: 0
   right: 0
@@ -154,18 +214,15 @@ text {
   pointer-events: none;
 }
 
-
-.cm-node {
-    color:#fa8072;
-}
-.cm-relationship {
-    color:#87cefa;
-}
-
-.cm-keyword {
-    color:#70E0BC;
-}
-
-.cm-function {
-    color:#C370E0;
-}
+.CodeMirror.cm-s-neo
+  color: #7F8C8D
+  .cm-keyword
+    color: #1ABC9C
+  .cm-atom
+    color: #9B59B6
+  .cm-node
+    color: #E67D22
+  .cm-string
+    color: #3498DB
+  .cm-variable
+    color: #2C3E50
