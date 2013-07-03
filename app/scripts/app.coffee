@@ -9,7 +9,6 @@ app = angular.module('neo4jApp', [
   'neo4jApp.filters'
   'neo4jApp.services'
   'ui.codemirror'
-  'd3.directives'
 ])
 
 app

@@ -46,6 +46,7 @@ angular.module('neo4jApp.services')
             .success((result) =>
               @_clear()
               @nodes = createNodesFromResult(result.data)
+              @links = []
               @rows    = result.data.map @_cleanResultRow
               @columns = result.columns
               q.resolve(@)
