@@ -17,9 +17,9 @@ angular.module('neo4jApp.services')
         .start();
 
       markers = el.select('defs')
-      markers.selectAll("marker")
+      markers = markers.selectAll("marker")
         .data(["end"])
-        .enter().append("svg:marker")
+      markers.enter().append("svg:marker")
           .attr("id", String)
           .attr("viewBox", "0 -5 10 10")
           .attr("refX", 22)
@@ -29,19 +29,20 @@ angular.module('neo4jApp.services')
           .attr("orient", "auto")
         .append("svg:path")
         .attr("d", "M0,-5L10,0L0,5");
-
+      markers.exit().remove()
 
       paths = el.select("#paths")
       path = paths.selectAll("path")
           .data(force.links())
-        .enter().append("svg:path")
+      path.enter().append("svg:path")
           .attr("class", "link")
           .attr("id", (d) -> "path#{d.id}")
-          .attr("marker-end", "url(#end)");
+          .attr("marker-end", "url(#end)")
+      path.exit().remove()
 
       path_texts = el.select('#path_texts').selectAll('text')
         .data(force.links())
-        .enter()
+      path_texts.enter()
         .append('text')
         .attr('font-size', '42.5')
         .append('textPath').text((d)->
@@ -51,11 +52,15 @@ angular.module('neo4jApp.services')
         .attr('text-anchor', 'middle')
         .attr('xlink:href', (d) -> "#path#{d.id}")
 
+      path_texts.exit().remove()
+
       node = el.selectAll(".node")
-          .data(force.nodes())
-        .enter().append("g")
-          .attr("class", "node")
-          .call(force.drag);
+        .data(force.nodes())
+      node.enter().append("g")
+        .attr("class", "node")
+        .call(force.drag)
+
+
       node.append("circle")
         .attr("r", 15);
 
@@ -63,6 +68,8 @@ angular.module('neo4jApp.services')
         .attr("x", 15)
         .attr("dy", ".35em")
         .text((d) -> d.name );
+
+      node.exit().remove()
 
       force.on "tick", ->
         path.attr("d", (d) ->
