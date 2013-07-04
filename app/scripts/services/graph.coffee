@@ -13,22 +13,43 @@ angular.module('neo4jApp.services')
             rv.push new Node(cell)
         rv
 
+      parseId = (resource) ->
+        +resource.substr(resource.lastIndexOf("/")+1)
+
+      class Relationship
+        constructor: (data) ->
+          @id = parseId(data.self)
+          @start = parseId(data.start)
+          @source = @start
+          @target = parseId(data.end)
+          @type = data.type
+
+
       class Node
         constructor: (@$raw) ->
           angular.extend @, @$raw.data
-          @id = +@$raw.self.substr(@$raw.self.lastIndexOf("/")+1)
-          @$neighbors = null
+          @id = parseId(@$raw.self)
+          @children = null
+          @relations = null
 
         $traverse: ->
           return unless @$raw.self
           q = $q.defer()
-          $http.get(@$raw.self + '/traverse')
+          q2 = $q.defer()
+          $http.post(@$raw.self + '/traverse/node')
             .success((result) =>
-              @$neighbors = createNodesFromResult(result)
+              @children = (new Node(n) for n in result)
               q.resolve(@)
             )
             .error(=> q.reject(@))
-          return q.promise
+
+          $http.get(@$raw.self + '/relationships/all')
+            .success((result) =>
+              @relations = (new Relationship(r) for r in result)
+              q2.resolve(@)
+            )
+            .error(=> q2.reject(@))
+          return $q.all([q.promise, q2.promise])
 
       class GraphService
 
