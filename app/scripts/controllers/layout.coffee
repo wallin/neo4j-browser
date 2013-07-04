@@ -2,9 +2,9 @@
 
 angular.module('neo4jApp')
   .controller 'LayoutCtrl', ($scope) ->
-    $scope.isEditorHidden = false
+    $scope._isEditorHidden = $scope.isEditorHidden = false
     $scope.toggleEditor = ->
-      $scope.isEditorHidden ^= true
+      $scope._isEditorHidden = $scope.isEditorHidden ^= true
 
     $scope.isGraphExpanded = false
     $scope.toggleGraph = ->
@@ -17,3 +17,5 @@ angular.module('neo4jApp')
     $scope.isHistoryShown = false
     $scope.toggleHistory = ->
       $scope.isHistoryShown ^= true
+      $scope.isEditorHidden = if $scope.isHistoryShown then true else $scope._isEditorHidden
+

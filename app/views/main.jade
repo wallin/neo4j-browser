@@ -1,3 +1,26 @@
+nav.top-bar
+  ul.title-area
+    li.name
+      h1
+        a Neo4j Browser
+  section.top-bar-section
+    ul.left
+      li.divider
+      li
+        a(ng-click='execute()') New
+      li.divider
+    ul.right
+      li.divider.hide-for-small
+      li
+        a(ng-click='toggleHistory()') History
+
+#history
+  .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleHistory()") Close
+  ul
+    li('ng-repeat' = 'view in views.history', 'ng-click' = 'views.select($index)', 'ng-class'='{error: view.response.isError}')
+      a('ng-click'="toggleHistory()")
+        {{view.response.input | autotitle}}
+
 #view
   #view-editor
     a.handle('ng-click'="toggleEditor()")
@@ -9,28 +32,3 @@
       visualization(query='views.current.response.input')
     #view-result-table
       .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleTable()") Toggle
-
-//- #query-bar
-//-   form('ng-submit' = 'execute()')
-//-     input.fixed-font('ng-model'="query", type="text", placeholder='Enter a query...')
-
-//- #query-view-container
-//-   //- #view-sidebar
-//-   #view-active(ng-show="views.current")
-//-     #view-editor
-//-       textarea('ui-codemirror'='{lineNumbers: true}', 'ng-model'='views.current.input')
-//-       .button.right('ng-click' = 'views.current.exec()') Run
-//-     #view-result(style="height:300px;")
-//-       visualization(query='views.current.response.input', style="float:left;")
-//-       svg.graph-viz(d3=true, d3-data="graph", d3-renderer="renderer.dynamic")
-//-         defs
-//-         g#paths
-//-         g#path_texts
-//-   #view-history
-//-     ul
-//-       li('ng-repeat' = 'view in views.history', 'ng-click' = 'views.select($index)', 'ng-class'='{error: view.response.isError}')
-//-         span
-//-           {{view.response.input | autotitle}}
-//-         div(style="width: 100%;height: 200px")
-//-           svg(d3=true, d3-data="view.response.visualization", d3-renderer="renderer.dynamic")
-//-             g#paths

@@ -1,6 +1,6 @@
 $primary-color = #1abc9c
 $alert-color = #E13329
-$topbar-bg = #34495e
+$topbar-bg = #2C3E50
 $body-font-color = #34495e
 $table-head-font-color = $body-font-color
 $table-row-font-color = $body-font-color
@@ -14,6 +14,7 @@ $topbar-link-hover-lightness = 0
 $topbar-dropdown-bg = $primary-color
 
 horizontal-padding = 21px
+history-width = 400px
 
 @import 'foundation'
 @import 'nib'
@@ -48,6 +49,12 @@ body
   stretch()
   overflow: hidden
 
+h1
+  image: '/images/logo.png' 22px 28px
+  background-repeat: no-repeat
+  background-position: 21px 17px
+  padding-left: 33px
+
 .CodeMirror
   background-color: transparent !important
   font-size: 14px !important
@@ -56,12 +63,20 @@ body
   height: 100% !important
   margin: 18px
 
-/*#page-container
-  background-color: #eee
+.top-bar
+  transist: margin
+  z-index: 1
+
+#history
+  color: #fff
+  //background-color: white
   position: absolute
-  left: 0
+  padding 17px horizontal-padding 0
+  top: 0
   right: 0
-  bottom: 0*/
+  width: history-width
+  bottom: 0
+
 #view
   position: absolute
   top: 63px
@@ -69,9 +84,11 @@ body
   left: 0
   right: 0
   transist all
+  &.anim
+    transform: scale(0.9, 0.9)
 
   #view-editor
-    background-color: #EBECEF
+    background-color: #34495E
     position: absolute;
     top: 0
     bottom: 0;
@@ -82,17 +99,18 @@ body
 
     .handle
       position: absolute
-      size 51px 44px
+      size 56px 41px
       top: 15px
       right: -40px
       background-image: url('/images/handle.png')
       z-index: 1000
+      transist all
       &:after
         content: ' '
         position: absolute
         size 9px 14px
-        top: 15px
-        right: 17px
+        top: 14px
+        right: 18px
         background-image: url('/images/triangle.png')
         z-index: 1000
         transist all
@@ -134,7 +152,7 @@ body
     width: 0
     .handle:after
       transform: rotate(180deg)
-      right: 15px
+      right: 16px
   #view-result
     left: 0
 
@@ -150,9 +168,15 @@ body
   #view-result-table
     height: 100%
 
-.show-history #view
-  left: -280px;
-  right: 280px;
+.show-history
+  .top-bar
+    margin-right: history-width
+  #view
+    left: -history-width;
+    right: history-width;
+    #view-editor
+      .handle
+        opacity: 0
 
 #query-bar
   background-color: #edeff1
@@ -219,15 +243,6 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     bottom: 0
     right: 260px
 
-  #view-history
-    //background-color: white
-    position: absolute
-    padding 0 horizontal-padding 0
-    top: 0
-    right: 0
-    width: 260px
-    bottom: 0
-
     li
       cursor: pointer
       font-size: 14px
@@ -279,14 +294,14 @@ line.link {
 }
 
 .CodeMirror.cm-s-neo
-  color: #7F8C8D
+  color: #ECF0F1
   .cm-keyword
-    color: #1ABC9C
+    color: #3498DB
   .cm-atom
     color: #9B59B6
   .cm-node
-    color: #E67D22
+    color: #E74C3C
   .cm-string
-    color: #3498DB
+    color: #E67E22
   .cm-variable
-    color: #2C3E50
+    color: #1ABC9C
