@@ -1,10 +1,14 @@
-#main('ng-init'='isEditorHidden = false', 'ng-class'="{'hide-editor': isEditorHidden}")
+#view
   #view-editor
-    a.handle('ng-click'="isEditorHidden = !isEditorHidden")
+    a.handle('ng-click'="toggleEditor()")
     textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='views.current.input')
+    #update-button.button.right('ng-click' = 'views.current.exec()') Execute
   #view-result
-    visualization(query='views.current.response.input')
-  #update-button.button.right('ng-click' = 'views.current.exec()') Update
+    #view-result-graph
+      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleGraph()") Toggle
+      visualization(query='views.current.response.input')
+    #view-result-table
+      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleTable()") Toggle
 
 //- #query-bar
 //-   form('ng-submit' = 'execute()')

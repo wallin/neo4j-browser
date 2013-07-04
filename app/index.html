@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="components/CodeMirror/lib/codemirror.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="neo4jApp">
+  <body ng-app="neo4jApp" ng-class="{'hide-editor': isEditorHidden, 'expand-graph': isGraphExpanded, 'expand-table': isTableExpanded, 'show-history': isHistoryShown}" ng-controller="LayoutCtrl">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -38,6 +38,22 @@
           <h1><a href="#">Neo4j Browser</a></h1>
         </li>
       </ul>
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="left">
+          <li class="divider"></li>
+          <li class=""><a>New</a></li>
+          <li class="divider"></li>
+          <li class=""><a>Duplicate</a></li>
+          <li class="divider"></li>
+          <li class=""><a>Share</a></li>
+          <li class="divider"></li>
+        </ul>
+        <ul class="right">
+          <li class="divider hide-for-small"></li>
+          <li class=""><a ng-click="toggleHistory()">History</a></li>
+        </ul>
+      </section>
     </nav>
     <div id="page-container" ng-view></div>
 
@@ -53,6 +69,7 @@
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/layout.js"></script>
     <script src="scripts/directives/visualization.js"></script>
     <script src="scripts/services/view.js"></script>
     <script src="scripts/services/graph.js"></script>

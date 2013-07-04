@@ -9,6 +9,10 @@ $topbar-title-font-size = 20px
 $topbar-title-weight = normal
 $topbar-height = 63px
 
+$topbar-link-font-size = 16px
+$topbar-link-hover-lightness = 0
+$topbar-dropdown-bg = $primary-color
+
 horizontal-padding = 21px
 
 @import 'foundation'
@@ -39,7 +43,7 @@ html, body
 
 body
   font: 17px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif
-  background: #fff
+  background: #222
   color: #34495e
   stretch()
   overflow: hidden
@@ -58,50 +62,74 @@ body
   left: 0
   right: 0
   bottom: 0*/
+#view
+  position: absolute
+  top: 63px
+  bottom: 0
+  left: 0
+  right: 0
+  transist all
 
-#view-editor
-  background-color: #EBECEF
-  position: absolute;
-  top: 63px;
-  bottom: 0;
-  left: 0;
-  transist width
-  border-right: 2px solid #EBEFF1
-  width: 400px
+  #view-editor
+    background-color: #EBECEF
+    position: absolute;
+    top: 0
+    bottom: 0;
+    left: 0;
+    transist width
+    border-right: 2px solid #EBEFF1
+    width: 400px
 
-  .handle
-    position: absolute
-    size 51px 44px
-    top: 15px
-    right: -40px
-    background-image: url('/images/handle.png')
-    z-index: 1000
-    &:after
-      content: ' '
+    .handle
       position: absolute
-      size 9px 14px
+      size 51px 44px
       top: 15px
-      right: 17px
-      background-image: url('/images/triangle.png')
+      right: -40px
+      background-image: url('/images/handle.png')
       z-index: 1000
-      transist all
+      &:after
+        content: ' '
+        position: absolute
+        size 9px 14px
+        top: 15px
+        right: 17px
+        background-image: url('/images/triangle.png')
+        z-index: 1000
+        transist all
 
-#view-result
-  position: absolute;
-  top: 63px;
-  bottom: 0;
-  right: 0;
-  left: 400px
-  transition: left 0.4s
-  transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
+  #view-result
+    position: absolute;
+    top: 0
+    bottom: 0;
+    right: 0;
+    left: 400px
+    transist left
+    #view-result-graph
+      background-color: #fff
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      height: 50%
+      transist height
+    #view-result-table
+      background-color: #f7f7f7
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      height: 50%
+      transist height
+      border-top: 2px solid #ccc
 
 #update-button
   position:absolute
-  top: 80px
-  right: 21px
-  transist right
+  bottom: 16px
+  right: 16px
 
-.hide-editor
+// UI states
+
+.hide-editor #view
   #view-editor
     width: 0
     .handle:after
@@ -109,8 +137,22 @@ body
       right: 15px
   #view-result
     left: 0
-  #update-button
-    right: -140px
+
+.expand-graph #view #view-result
+  #view-result-graph
+    height: 100%
+  #view-result-table
+    height: 0
+
+.expand-table #view #view-result
+  #view-result-graph
+    height: 0
+  #view-result-table
+    height: 100%
+
+.show-history #view
+  left: -280px;
+  right: 280px;
 
 #query-bar
   background-color: #edeff1
