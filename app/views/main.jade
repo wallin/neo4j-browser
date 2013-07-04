@@ -28,7 +28,7 @@ nav.top-bar
     #update-button.button.right('ng-click' = 'views.current.exec()') Execute
   #view-result
     #view-result-graph
-      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleGraph()") Toggle
+      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleGraph()") {{isGraphExpanded && 'Restore' || 'Maximize'}}
       visualization(query='views.current.response.input')
     #view-result-table
-      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleTable()") Toggle
+      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleTable()") {{isTableExpanded && 'Reset' || 'Maximize'}}
