@@ -54,12 +54,12 @@ angular.module('neo4jApp.services')
       class GraphService
 
         constructor : () ->
+          @nodes = []
           @_clear()
-          @query = "// Enter query "
 
-        executeQuery : (query = "START n=node(*) RETURN n;") ->
+        executeQuery : (query) ->
+          return unless query
           @_clear()
-          @query     = query
           @isLoading = true
 
           q = $q.defer()
@@ -67,7 +67,6 @@ angular.module('neo4jApp.services')
             .success((result) =>
               @_clear()
               @nodes = createNodesFromResult(result.data)
-              @links = []
               @rows    = result.data.map @_cleanResultRow
               @columns = result.columns
               q.resolve(@)
@@ -78,6 +77,7 @@ angular.module('neo4jApp.services')
               q.reject(@)
             )
           return q.promise
+
 
         _cleanResultRow : (row) ->
           for cell in row

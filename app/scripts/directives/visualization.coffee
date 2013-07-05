@@ -1,62 +1,87 @@
 'use strict';
 
 angular.module('neo4jApp.directives')
-  .controller('visualizationCtrl', [
-    ->
-      force = null
-
-      root = null
+  .controller('visualizationCtrl', ['$q'
+    '$q'
+    ($q)->
+      #
+      # Local variables
+      #
       el = null
 
-      link = null
-      node = null
+      d3link = null
+      d3node = null
 
+      graph = null
+
+      #
+      # Local classes
+      #
+
+      # Generic collection.
+      # TODO: put elsewhere
+      class Collection
+        constructor: (items) ->
+          @items = []
+          @_byId = {}
+          @add(items) if items?
+
+        add: (items) ->
+          items = [items] unless items instanceof Array
+          for i in items
+            if i.id?
+              if not @_byId[i.id]
+                @_byId[i.id] = i
+                @items.push i
+            else
+              @items.push i
+
+        all: ->
+          @items
+
+        get: (id) ->
+          id = parseInt(id, 10)
+          return null unless id?
+          @_byId[id]
+
+        reset: (items) ->
+          @_reset()
+          @add(items)
+
+        _reset: ->
+          @items = []
+          @_byId = {}
+
+      class GraphModel
+        constructor: (nodes) ->
+          @nodes = new Collection(nodes)
+          @links = new Collection()
+
+        expand: (nodeId) ->
+          node = @nodes.get(nodeId)
+          q = $q.defer()
+          if not node?
+            q.reject()
+            return q.promise
+
+          node.$traverse().then((result)=>
+            for n in result[0].children
+              @nodes.add(n) unless @nodes.get(n.id)
+            for n in result[0].relations
+              @links.add(n) unless @links.get(n.id)
+            q.resolve()
+          )
+
+          q.promise
+
+      #
+      # Local methods
+      #
       click = (d) =>
-        if not d.children
-          d.$traverse().then(@update)
-          d._children = null
-        else
-          d._children = d.children
-          d.children = null
-          d.relations = null
-          @update();
-
-
-      getNodes = ->
-        return [] unless root
-        nodes = {}
-        recurse = (node) ->
-          if nodes[node.id]
-            angular.extend(nodes[node.id], node)
-          else
-            nodes[node.id] = node
-
-          if node.children
-            recurse(n) for n in node.children when not nodes[n.id]
-
-
-        recurse(n) for n in root
-        n for i, n of nodes
-        #nodes
-
-      getLinks = ->
-        return [] unless root
-        links = {}
-        recurse = (node) ->
-          if node.relations
-            for rel in node.relations
-              if links[rel.id]
-                angular.extend(links[rel.id], rel)
-              else
-                links[rel.id] = rel
-          if node.children
-            recurse(n) for n in node.children
-
-        recurse(n) for n in root
-        n for i, n of links
+        graph.expand(d.id).then(@update) unless d.children
 
       tick = ->
-        link.attr("x1", (d) ->
+        d3link.attr("x1", (d) ->
           d.source.x
         ).attr("y1", (d) ->
           d.source.y
@@ -65,7 +90,7 @@ angular.module('neo4jApp.directives')
         ).attr "y2", (d) ->
           d.target.y
 
-        node.attr("cx", (d) ->
+        d3node.attr("cx", (d) ->
           d.x
         ).attr "cy", (d) ->
           d.y
@@ -92,23 +117,26 @@ angular.module('neo4jApp.directives')
         .on('tick', tick)
 
       color = (d) ->
-        (if d._children then "#3182bd" else (if d.children then "#c6dbef" else "#fd8d3c"))
+        if d.children then "#c6dbef" else "#fd8d3c"
 
+      #
+      # Public methods
+      #
       @update = =>
-        nodes = getNodes()
-        links = getLinks(nodes)
+        nodes = graph.nodes.all()
+        links = graph.links.all()
         force
           .nodes(nodes)
           .links(links)
           .start()
 
 
-        link = el.selectAll("line.link").data(links, (d) ->
+        d3link = el.selectAll("line.link").data(links, (d) ->
           d.target.id
         )
 
         # Enter any new links.
-        link.enter().insert("svg:line", ".node").attr("class", "link").attr("x1", (d) ->
+        d3link.enter().insert("svg:line", ".node").attr("class", "link").attr("x1", (d) ->
           d.source.x
         ).attr("y1", (d) ->
           d.source.y
@@ -119,25 +147,28 @@ angular.module('neo4jApp.directives')
 
 
         # Exit any old links.
-        link.exit().remove()
+        d3link.exit().remove()
 
         # Update the nodes…
-        node = el.selectAll("circle.node").data(nodes, (d) ->
+        d3node = el.selectAll("circle.node").data(nodes, (d) ->
           d.id
         ).style("fill", color)
 
         # Enter any new nodes.
-        node.enter()
+        d3node.enter()
         .append("svg:circle")
         .attr("class", "node")
         .attr("cx", (d) ->
-          d.x
+          0
         ).attr("cy", (d) ->
-          d.y
-        ).attr("r", 15).style("fill", color).on("click", click).call force.drag
+          0
+        ).attr("r", 15)
+        .style("fill", color)
+        .on("click", click)
+        .call force.drag
 
         # Exit any old nodes.
-        node.exit().remove()
+        d3node.exit().remove()
 
 
         return
@@ -194,10 +225,11 @@ angular.module('neo4jApp.directives')
           .text((d) -> d.id )
         node.call(force.drag)
 
-      @render = (elm, data) ->
-        return unless data
+      @render = (elm, result) ->
+        return unless result
+        graph = new GraphModel(result.nodes)
+
         el = elm
-        root = data.nodes
         @update()
 
   ])
