@@ -5,12 +5,12 @@ nav.top-bar
         a Neo4j Browser
   section.top-bar-section
     ul.left
-      li.divider
+
       li
         a(ng-click='execute()') New
-      li.divider
+
     ul.right
-      li.divider.hide-for-small
+
       li
         a(ng-click='toggleHistory()') History
 
@@ -26,9 +26,12 @@ nav.top-bar
     a.handle('ng-click'="toggleEditor()")
     textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='views.current.input')
     #update-button.button.right('ng-click' = 'views.current.exec()') Execute
+
   #view-result
-    #view-result-graph
-      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleGraph()") {{isGraphExpanded && 'Restore' || 'Maximize'}}
-      visualization(query='views.current.response.input')
-    #view-result-table
-      .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleTable()") {{isTableExpanded && 'Reset' || 'Maximize'}}
+    .status-bar Returned <b>X nodes</b> in <b>Y ms</b>
+    .split-pane
+      #view-result-graph
+        .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleGraph()") {{isGraphExpanded && 'Restore' || 'Maximize'}}
+        visualization(query='views.current.response.input')
+      #view-result-table
+        .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleTable()") {{isTableExpanded && 'Reset' || 'Maximize'}}

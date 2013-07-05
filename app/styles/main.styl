@@ -7,8 +7,7 @@ $table-row-font-color = $body-font-color
 $table-head-bg = #eff0f2
 $topbar-title-font-size = 20px
 $topbar-title-weight = normal
-$topbar-height = 63px
-
+$topbar-height = 57px
 $topbar-link-font-size = 16px
 $topbar-link-hover-lightness = 0
 $topbar-dropdown-bg = $primary-color
@@ -16,6 +15,7 @@ $topbar-dropdown-bg = $primary-color
 horizontal-padding = 21px
 history-width = 400px
 editor-width = 440px
+topbar-height = $topbar-height
 
 @import 'foundation'
 @import 'nib'
@@ -53,7 +53,7 @@ body
 h1
   image: '/images/logo.png' 22px 28px
   background-repeat: no-repeat
-  background-position: 21px 17px
+  background-position: 21px 14px
   padding-left: 33px
 
 .CodeMirror
@@ -80,7 +80,7 @@ h1
 
 #view
   position: absolute
-  top: 63px
+  top: topbar-height
   bottom: 0
   left: 0
   right: 0
@@ -101,7 +101,7 @@ h1
     .handle
       position: absolute
       size 56px 41px
-      top: 15px
+      top: 7px
       right: -40px
       background-image: url('/images/handle.png')
       z-index: 1000
@@ -116,6 +116,8 @@ h1
         z-index: 1000
         transist all
 
+
+
   #view-result
     position: absolute;
     top: 0
@@ -123,23 +125,41 @@ h1
     right: 0;
     left: editor-width
     transist left
-    #view-result-graph
-      background-color: #fff
-      position: absolute
+    .status-bar
+      position: absolute;
       top: 0
+      height: 57px
       left: 0
       right: 0
-      height: 50%
-      transist height
-    #view-result-table
-      background-color: #f7f7f7
+      color: #9EA3A6
+      background-color: #ECF0F1
+      line-height: 56px
+      text-align: right
+      padding-right: 20px
+      font-size: 16px
+    .split-pane
       position: absolute
-      bottom: 0
+      top: 56px
       left: 0
       right: 0
-      height: 50%
-      transist height
-      border-top: 2px solid #ccc
+      bottom: 0
+      #view-result-graph
+        background-color: #fff
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        height: 50%
+        transist height
+      #view-result-table
+        background-color: #f7f7f7
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        height: 50%
+        transist height
+        border-top: 2px solid #ccc
 
 #update-button
   position:absolute
@@ -216,7 +236,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 #query-view-container
   background-color: #fff
   position: absolute
-  top: 63px
+  top: topbar-height
   bottom: 0
   left: 0
   right: 0
