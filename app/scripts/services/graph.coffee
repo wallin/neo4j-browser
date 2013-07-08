@@ -17,6 +17,10 @@ angular.module('neo4jApp.services')
           q = $q.defer()
           ids = @nodes.pluck('id')
           Cypher.send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b").then((result) =>
+            for id in ids
+              n = @nodes.get(id)
+              n.expanded = yes if n
+
             for n in result.nodes
               @nodes.add(n) unless @nodes.get(n.id)
 

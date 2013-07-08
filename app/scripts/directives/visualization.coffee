@@ -97,7 +97,7 @@ angular.module('neo4jApp.directives')
         )
 
         # Enter any new links.
-        d3link.enter().insert("line", ".node").attr("class", "link").attr("x1", (d) ->
+        d3link.enter().insert("line", ".node").attr("x1", (d) ->
           d.source.x
         ).attr("y1", (d) ->
           d.source.y
@@ -107,6 +107,7 @@ angular.module('neo4jApp.directives')
           d.target.y
         ).attr('marker-start', (d) -> 'url(#arrow-start)' if d.incoming)
         .attr('marker-end', (d) -> 'url(#arrow-end)' unless d.incoming)
+        .attr('class', (d) -> if (d.source.expanded and d.target.expanded) then 'link' else 'link faded' )
         .attr "xlink:href", (d) ->
           "#path" + d.source.index + "_" + d.target.index
 
@@ -136,7 +137,7 @@ angular.module('neo4jApp.directives')
             "alignment-baseline": "middle"
             "text-anchor": "middle"
           )
-        .attr("class", "node")
+        .attr("class", (d) -> if d.expanded then 'node' else 'node faded' )
         .style("fill", color)
         .on("click", click)
         .call force.drag
