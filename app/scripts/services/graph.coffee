@@ -5,17 +5,34 @@ angular.module('neo4jApp.services')
     '$http'
     '$q'
     'cypher'
-    ($http, $q, cypher)->
-
-      createNodesFromResult = (data) ->
-        rv = []
-        for row in data
-          for cell in row
-            rv.push new Node(cell)
-        rv
+    'Collection'
+    ($http, $q, cypher, Collection)->
 
       parseId = (resource) ->
         +resource.substr(resource.lastIndexOf("/")+1)
+
+      class GraphModel
+        constructor: (cypher) ->
+          nodes = (new Node(n) for n in cypher.nodes())
+          @nodes = new Collection(nodes)
+          @links = new Collection()
+
+        expand: (nodeId) ->
+          node = @nodes.get(nodeId)
+          q = $q.defer()
+          if not node?
+            q.reject()
+            return q.promise
+
+          node.$traverse().then((result)=>
+            for n in result[0].children
+              @nodes.add(n) unless @nodes.get(n.id)
+            for n in result[0].relations
+              @links.add(n) unless @links.get(n.id)
+            q.resolve()
+          )
+
+          q.promise
 
       class Relationship
         constructor: (data) ->
@@ -64,34 +81,25 @@ angular.module('neo4jApp.services')
           @isLoading = true
 
           q = $q.defer()
-          cypher.send(query)
-            .success((result) =>
+          cypher.send(query).then(
+            (result) =>
               @_clear()
-              @nodes = createNodesFromResult(result.data)
-              @rows    = result.data.map @_cleanResultRow
-              @columns = result.columns
+              @graph   = new GraphModel(result)
+              @rows    = result.rows()
+              @columns = result.columns()
               q.resolve(@)
-            )
-            .error((error) =>
+          ,
+            (error) =>
               @_clear()
               @error = error
               q.reject(@)
-            )
+          )
           return q.promise
-
-
-        _cleanResultRow : (row) ->
-          for cell in row
-            if not (cell?)
-              null
-            else if cell.self?
-              cell.data
-            else
-              cell
 
         _clear : ->
           @rows    = []
           @columns = []
+          @graph   = null
           @error   = null
           @isLoading = false
 

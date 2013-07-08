@@ -2,9 +2,7 @@
 
 angular.module('neo4jApp.directives')
   .controller('visualizationCtrl', [
-    '$q'
-    'Collection'
-    ($q, Collection)->
+    ->
       #
       # Local variables
       #
@@ -14,32 +12,6 @@ angular.module('neo4jApp.directives')
       d3node = null
 
       graph = null
-
-      #
-      # Local classes
-      #
-
-      class GraphModel
-        constructor: (nodes) ->
-          @nodes = new Collection(nodes)
-          @links = new Collection()
-
-        expand: (nodeId) ->
-          node = @nodes.get(nodeId)
-          q = $q.defer()
-          if not node?
-            q.reject()
-            return q.promise
-
-          node.$traverse().then((result)=>
-            for n in result[0].children
-              @nodes.add(n) unless @nodes.get(n.id)
-            for n in result[0].relations
-              @links.add(n) unless @links.get(n.id)
-            q.resolve()
-          )
-
-          q.promise
 
       #
       # Local methods
@@ -194,7 +166,7 @@ angular.module('neo4jApp.directives')
 
       @render = (elm, result) ->
         return unless result
-        graph = new GraphModel(result.nodes)
+        graph = result.graph
 
         el = elm
         @update()
