@@ -29,10 +29,9 @@ angular.module('neo4jApp.directives')
         ).attr "y2", (d) ->
           d.target.y
 
-        d3node.attr("cx", (d) ->
-          d.x
-        ).attr "cy", (d) ->
-          d.y
+        d3node.attr "transform", (d) ->
+          "translate(" + d.x + "," + d.y + ")"
+
         return
         link.attr("d", (d) ->
             #dx = d.target.x - d.source.x
@@ -70,11 +69,11 @@ angular.module('neo4jApp.directives')
           .start()
 
         d3link = el.selectAll("line.link").data(links, (d) ->
-          d.target.id
+          d.id
         )
 
         # Enter any new links.
-        d3link.enter().insert("svg:line", ".node").attr("class", "link").attr("x1", (d) ->
+        d3link.enter().insert("line", ".node").attr("class", "link").attr("x1", (d) ->
           d.source.x
         ).attr("y1", (d) ->
           d.source.y
@@ -88,19 +87,30 @@ angular.module('neo4jApp.directives')
         d3link.exit().remove()
 
         # Update the nodes…
-        d3node = el.selectAll("circle.node").data(nodes, (d) ->
+        d3node = el.selectAll("g").data(nodes, (d) ->
+          console.log d
           d.id
-        ).style("fill", color)
+        )
 
         # Enter any new nodes.
         d3node.enter()
-        .append("svg:circle")
+        .append("g")
+        .each ->
+          g = d3.select(@)
+          g.append("circle").attr
+            cx: (d, i) -> 0
+            cy: (d, i) -> 0
+            r: 18
+            fill: "#BADBDA"
+            stroke: "#2F3550"
+            "stroke-width": 2.4192
+          g.append("text").text((d) ->
+            d.id
+          ).attr(
+            "alignment-baseline": "middle"
+            "text-anchor": "middle"
+          )
         .attr("class", "node")
-        .attr("cx", (d) ->
-          d.x
-        ).attr("cy", (d) ->
-          d.y
-        ).attr("r", 15)
         .style("fill", color)
         .on("click", click)
         .call force.drag
