@@ -4,7 +4,8 @@ angular.module('neo4jApp.services')
   .factory 'graphService', [
     '$http'
     '$q'
-    ($http, $q)->
+    'cypher'
+    ($http, $q, cypher)->
 
       createNodesFromResult = (data) ->
         rv = []
@@ -63,7 +64,7 @@ angular.module('neo4jApp.services')
           @isLoading = true
 
           q = $q.defer()
-          $http.post("http://localhost:7474/db/data/cypher", { query : query })
+          cypher.send(query)
             .success((result) =>
               @_clear()
               @nodes = createNodesFromResult(result.data)
