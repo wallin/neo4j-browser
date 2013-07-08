@@ -17,7 +17,7 @@ angular.module('neo4jApp.directives')
       # Local methods
       #
       click = (d) =>
-        graph.expand(d.id).then(@update) unless d.children
+        graph.expand(d.id).then(@update) unless d.expanded
 
       tick = ->
         d3link.attr("x1", (d) ->
@@ -88,7 +88,6 @@ angular.module('neo4jApp.directives')
 
         # Update the nodes…
         d3node = el.selectAll("g").data(nodes, (d) ->
-          console.log d
           d.id
         )
 
