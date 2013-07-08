@@ -8,16 +8,37 @@ angular.module('neo4jApp.services')
     'Collection'
     ($http, $q, Cypher, Collection)->
 
-      parseId = (resource) ->
-        id = resource.substr(resource.lastIndexOf("/")+1)
-        return parseInt(id, 10)
-
       class GraphModel
         constructor: (cypher) ->
-          nodes = (new Node(n) for n in cypher.nodes)
-          links = (new Relationship(n) for n in cypher.relationships)
-          @nodes = new Collection(nodes)
-          @links = new Collection(links)
+          @nodes = new Collection(cypher.nodes)
+          @links = new Collection(cypher.relationships)
+
+        expandAll: ->
+          q = $q.defer()
+          ids = @nodes.pluck('id')
+          Cypher.send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b").then((result) =>
+            for id in ids
+              n = @nodes.get(id)
+              n.expanded = yes if n
+
+            for n in result.nodes
+              @nodes.add(n) unless @nodes.get(n.id)
+
+            for r in result.relationships
+              @links.add(r) unless @links.get(r.id)
+              # Connect children
+              node = @nodes.get(r.start) or @nodes.get(r.end)
+              if node
+                r.source = @nodes.get(r.start)
+                r.target = @nodes.get(r.end)
+                r.incoming = r.end is node.id
+                node.relationships.push r
+                node.children.push(if r.source.id is node.id then r.target else r.source)
+
+            q.resolve(@)
+          )
+          q.promise
+
 
         expand: (nodeId) ->
           node = @nodes.get(nodeId)
@@ -26,20 +47,15 @@ angular.module('neo4jApp.services')
             q.reject()
             return q.promise
 
-          node.$traverse().then((result)=>
-            for n in result.children
+          node.$traverse().then((node)=>
+            node.expanded = yes
+            for n in node.children
               @nodes.add(n) unless @nodes.get(n.id)
-            for n in result.relations
-              unless @links.get(n.id)
-                # XXX
+            for n in node.relationships
+              if not @links.get(n.id)
                 n.source = @nodes.get(n.start)
                 n.target = @nodes.get(n.end)
-                # TODO: mark relation as either incoming or outgoing
-                if n.end is node.id
-                  [n.source, n.target] = [n.target, n.source]
-                # Inherit position from parent
-                n.target.x = node.x
-                n.target.y = node.y
+                n.incoming = n.end is node.id
                 @links.add(n)
 
             q.resolve()
@@ -47,33 +63,7 @@ angular.module('neo4jApp.services')
 
           q.promise
 
-      class Relationship
-        constructor: (data) ->
-          @id = parseId(data.self)
-          @start = parseId(data.start)
-          @end = parseId(data.end)
-          @type = data.type
-
-
-      class Node
-        constructor: (@$raw) ->
-          angular.extend @, @$raw.data
-          @id = parseId(@$raw.self)
-          @children = null
-          @relations = null
-
-        $traverse: ->
-          return unless @$raw.self
-          q = $q.defer()
-          Cypher.send("START a = node(#{@id}) MATCH a -[r]- b RETURN r, b;").then((result) =>
-            @children = (new Node(n) for n in result.nodes)
-            @relations = (new Relationship(r) for r in result.relationships)
-            q.resolve(@)
-          )
-          return q.promise
-
       class GraphService
-
         constructor : () ->
           @nodes = []
           @_clear()
@@ -90,7 +80,7 @@ angular.module('neo4jApp.services')
               @graph   = new GraphModel(result)
               @rows    = result.rows()
               @columns = result.columns()
-              q.resolve(@)
+              @graph.expandAll().then(=> q.resolve(@))
           ,
             (error) =>
               @_clear()

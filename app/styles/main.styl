@@ -95,7 +95,6 @@ h1
     bottom: 0;
     left: 0;
     transist width
-    border-right: 2px solid #EBEFF1
     width: editor-width
 
     .handle
@@ -159,7 +158,6 @@ h1
         right: 0
         height: 50%
         transist height
-        border-top: 2px solid #ccc
 
 #update-button
   position:absolute
@@ -286,14 +284,14 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 path.link {
   fill: none;
-  stroke: #34495E;
+  stroke: #7F8C8D;
   stroke-width: 2px;
 }
 
 circle {
   fill: #3498DB;
   stroke: #fff;
-  stroke-width: 1.5px;
+  stroke-width: 0;
 }
 
 text {
@@ -304,13 +302,13 @@ text {
 
 circle.node {
   cursor: pointer;
-  stroke: #3182bd;
-  stroke-width: 1.5px;
+  stroke: #ff;
+  stroke-width: 2px;
 }
 
 line.link {
   fill: none;
-  stroke: #9ecae1;
+  stroke: #BDC3C7;
   stroke-width: 1.5px;
 }
 
@@ -326,3 +324,27 @@ line.link {
     color: #E67E22
   .cm-variable
     color: #1ABC9C
+
+marker
+  fill: #BDC3C7
+
+text
+  fill: #fff
+  .faded
+    fill: #333
+
+.node
+  circle
+    fill: #1ABC9C
+    stroke-width: 2px;
+    stroke: #fff
+
+.node.faded
+  circle
+    fill: #C7F0E6
+
+line.link
+  fill: #BDC3C7
+  &.faded
+    stroke: #ECF0F1
+    stroke-dasharray: 0,2 1

@@ -17,7 +17,7 @@ angular.module('neo4jApp.directives')
       # Local methods
       #
       click = (d) =>
-        graph.expand(d.id).then(@update) unless d.children
+        graph.expand(d.id).then(@update) unless d.expanded
 
       tick = ->
         d3link.attr("x1", (d) ->
@@ -29,10 +29,9 @@ angular.module('neo4jApp.directives')
         ).attr "y2", (d) ->
           d.target.y
 
-        d3node.attr("cx", (d) ->
-          d.x
-        ).attr "cy", (d) ->
-          d.y
+        d3node.attr "transform", (d) ->
+          "translate(" + d.x + "," + d.y + ")"
+
         return
         link.attr("d", (d) ->
             #dx = d.target.x - d.source.x
@@ -69,38 +68,76 @@ angular.module('neo4jApp.directives')
           .links(links)
           .start()
 
+        # Markers
+        el.append("defs")
+        .selectAll("marker")
+        .data(["arrow-start", "arrow-end"])
+        .enter().append("marker")
+        .attr("id", String)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", (m) ->
+          if m == 'arrow-start'
+            -20
+          else
+            18 + 12
+        )
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6).attr("orient", "auto")
+        .append("path")
+        .attr("d", (m) ->
+          if m == 'arrow-start'
+            'M10,-5L10,5L0,0'
+          else
+            "M0,-5L10,0L0,5"
+        )
+
         d3link = el.selectAll("line.link").data(links, (d) ->
-          d.target.id
+          d.id
         )
 
         # Enter any new links.
-        d3link.enter().insert("svg:line", ".node").attr("class", "link").attr("x1", (d) ->
+        d3link.enter().insert("line", ".node").attr("x1", (d) ->
           d.source.x
         ).attr("y1", (d) ->
           d.source.y
         ).attr("x2", (d) ->
           d.target.x
-        ).attr "y2", (d) ->
+        ).attr("y2", (d) ->
           d.target.y
-
+        ).attr('marker-start', (d) -> 'url(#arrow-start)' if d.incoming)
+        .attr('marker-end', (d) -> 'url(#arrow-end)' unless d.incoming)
+        .attr('class', (d) -> if (d.source.expanded and d.target.expanded) then 'link' else 'link faded' )
+        .attr "xlink:href", (d) ->
+          "#path" + d.source.index + "_" + d.target.index
 
         # Exit any old links.
         d3link.exit().remove()
 
         # Update the nodes…
-        d3node = el.selectAll("circle.node").data(nodes, (d) ->
+        d3node = el.selectAll("g").data(nodes, (d) ->
           d.id
-        ).style("fill", color)
+        )
 
         # Enter any new nodes.
         d3node.enter()
-        .append("svg:circle")
-        .attr("class", "node")
-        .attr("cx", (d) ->
-          d.x
-        ).attr("cy", (d) ->
-          d.y
-        ).attr("r", 15)
+        .append("g")
+        .each ->
+          g = d3.select(@)
+          g.append("circle").attr
+            cx: (d, i) -> 0
+            cy: (d, i) -> 0
+            r: 18
+            fill: "#BADBDA"
+            stroke: "#2F3550"
+            "stroke-width": 2.4192
+          g.append("text").text((d) ->
+            d.id
+          ).attr(
+            "alignment-baseline": "middle"
+            "text-anchor": "middle"
+          )
+        .attr("class", (d) -> if d.expanded then 'node' else 'node faded' )
         .style("fill", color)
         .on("click", click)
         .call force.drag
