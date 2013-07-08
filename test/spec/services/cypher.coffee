@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Service: cypher', () ->
+describe 'Service: Cypher', () ->
   backend = null
 
   # load the service's module
@@ -14,8 +14,8 @@ describe 'Service: cypher', () ->
 
   # instantiate service
   cypher = {}
-  beforeEach inject (_cypher_) ->
-    cypher = _cypher_
+  beforeEach inject (_Cypher_) ->
+    cypher = _Cypher_
 
 
   describe "send:", ->

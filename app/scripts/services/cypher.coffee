@@ -1,20 +1,35 @@
 'use strict';
 
 angular.module('neo4jApp.services')
-  .factory 'cypher', [
+  .factory 'Cypher', [
     '$http',
     '$q'
     ($http, $q) ->
+      [NODE, RELATIONSHIP, OTHER] = [1, 2, 3]
+      resultType = (data) ->
+        if angular.isObject(data) and data.self
+          type = if data.self.match('/node/')
+            NODE
+          else if data.self.match('/relationship/')
+            RELATIONSHIP
+        else
+          type = OTHER
+        type
 
       class CypherResult
         constructor: (@response = []) ->
-
-        nodes: ->
-          rv = []
+          @nodes = []
+          @relationships = []
+          @other = []
           for row in @response.data
             for cell in row
-              rv.push cell
-          rv
+              type = resultType(cell)
+              switch type
+                when NODE         then @nodes.push cell
+                when RELATIONSHIP then @relationships.push cell
+                else
+                  @other.push cell
+
 
         rows: ->
           @response.data.map (row) ->

@@ -4,18 +4,19 @@ angular.module('neo4jApp.services')
   .factory 'graphService', [
     '$http'
     '$q'
-    'cypher'
+    'Cypher'
     'Collection'
-    ($http, $q, cypher, Collection)->
+    ($http, $q, Cypher, Collection)->
 
       parseId = (resource) ->
         +resource.substr(resource.lastIndexOf("/")+1)
 
       class GraphModel
         constructor: (cypher) ->
-          nodes = (new Node(n) for n in cypher.nodes())
+          nodes = (new Node(n) for n in cypher.nodes)
+          links = (new Relationship(n) for n in cypher.relationships)
           @nodes = new Collection(nodes)
-          @links = new Collection()
+          @links = new Collection(links)
 
         expand: (nodeId) ->
           node = @nodes.get(nodeId)
@@ -25,9 +26,9 @@ angular.module('neo4jApp.services')
             return q.promise
 
           node.$traverse().then((result)=>
-            for n in result[0].children
+            for n in result.children
               @nodes.add(n) unless @nodes.get(n.id)
-            for n in result[0].relations
+            for n in result.relations
               @links.add(n) unless @links.get(n.id)
             q.resolve()
           )
@@ -53,21 +54,12 @@ angular.module('neo4jApp.services')
         $traverse: ->
           return unless @$raw.self
           q = $q.defer()
-          q2 = $q.defer()
-          $http.post(@$raw.self + '/traverse/node')
-            .success((result) =>
-              @children = (new Node(n) for n in result)
-              q.resolve(@)
-            )
-            .error(=> q.reject(@))
-
-          $http.get(@$raw.self + '/relationships/all')
-            .success((result) =>
-              @relations = (new Relationship(r) for r in result)
-              q2.resolve(@)
-            )
-            .error(=> q2.reject(@))
-          return $q.all([q.promise, q2.promise])
+          Cypher.send("START a = node(#{@id}) MATCH a -[r]- b RETURN r, b;").then((result) =>
+            @children = (new Node(n) for n in result.nodes)
+            @relations = (new Relationship(r) for r in result.relationships)
+            q.resolve(@)
+          )
+          return q.promise
 
       class GraphService
 
@@ -81,7 +73,7 @@ angular.module('neo4jApp.services')
           @isLoading = true
 
           q = $q.defer()
-          cypher.send(query).then(
+          Cypher.send(query).then(
             (result) =>
               @_clear()
               @graph   = new GraphModel(result)
