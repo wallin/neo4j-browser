@@ -30,3 +30,12 @@ describe 'Service: Collection', () ->
     it 'should be able to retrieve item by id', ->
       item = Collection.get(1)
       expect(item.name).toBe 'shoe'
+
+    it 'should be able to handle undefined input', ->
+      expect(Collection.get).not.toThrow()
+
+    it 'should return undefined on non numeric input', ->
+      expect(Collection.get('hello')).toBe undefined
+
+    it 'should return undefined on non existant id', ->
+      expect(Collection.get(3)).toBe undefined
