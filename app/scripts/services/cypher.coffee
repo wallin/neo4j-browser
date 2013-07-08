@@ -17,10 +17,11 @@ angular.module('neo4jApp.services')
         type
 
       class CypherResult
-        constructor: (@response = []) ->
+        constructor: (@response = {}) ->
           @nodes = []
           @relationships = []
           @other = []
+          return unless @response.data?
           for row in @response.data
             for cell in row
               type = resultType(cell)
