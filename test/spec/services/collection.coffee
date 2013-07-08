@@ -19,6 +19,10 @@ describe 'Service: Collection', () ->
       Collection.add([1, 2, 3])
       expect(Collection.all().length).toBe 3
 
+    it "should return the item being added", ->
+      item = {id: 1}
+      expect(Collection.add(item)).toBe item
+
   describe 'get:', ->
     beforeEach ->
       Collection.add({id: 1, name: 'shoe'}, {id: 2, name: 'tie'})
