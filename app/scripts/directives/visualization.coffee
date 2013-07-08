@@ -57,6 +57,12 @@ angular.module('neo4jApp.directives')
       color = (d) ->
         if d.children then "#c6dbef" else "#fd8d3c"
 
+      nodeClass = (d) ->
+        if d.expanded then 'node' else 'node faded'
+
+      linkClass = (d) ->
+        if (d.source.expanded and d.target.expanded) then 'link' else 'link faded'
+
       #
       # Public methods
       #
@@ -94,7 +100,7 @@ angular.module('neo4jApp.directives')
 
         d3link = el.selectAll("line.link").data(links, (d) ->
           d.id
-        )
+        ).attr('class', linkClass)
 
         # Enter any new links.
         d3link.enter().insert("line", ".node").attr("x1", (d) ->
@@ -107,7 +113,7 @@ angular.module('neo4jApp.directives')
           d.target.y
         ).attr('marker-start', (d) -> 'url(#arrow-start)' if d.incoming)
         .attr('marker-end', (d) -> 'url(#arrow-end)' unless d.incoming)
-        .attr('class', (d) -> if (d.source.expanded and d.target.expanded) then 'link' else 'link faded' )
+        .attr('class', linkClass )
         .attr "xlink:href", (d) ->
           "#path" + d.source.index + "_" + d.target.index
 
@@ -117,7 +123,7 @@ angular.module('neo4jApp.directives')
         # Update the nodes…
         d3node = el.selectAll("g").data(nodes, (d) ->
           d.id
-        )
+        ).attr("class", nodeClass )
 
         # Enter any new nodes.
         d3node.enter()
@@ -137,7 +143,7 @@ angular.module('neo4jApp.directives')
             "alignment-baseline": "middle"
             "text-anchor": "middle"
           )
-        .attr("class", (d) -> if d.expanded then 'node' else 'node faded' )
+        .attr("class", nodeClass )
         .style("fill", color)
         .on("click", click)
         .call force.drag
