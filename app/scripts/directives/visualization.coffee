@@ -68,6 +68,30 @@ angular.module('neo4jApp.directives')
           .links(links)
           .start()
 
+        # Markers
+        el.append("defs")
+        .selectAll("marker")
+        .data(["arrow-start", "arrow-end"])
+        .enter().append("marker")
+        .attr("id", String)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", (m) ->
+          if m == 'arrow-start'
+            -20
+          else
+            18 + 12
+        )
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6).attr("orient", "auto")
+        .append("path")
+        .attr("d", (m) ->
+          if m == 'arrow-start'
+            'M10,-5L10,5L0,0'
+          else
+            "M0,-5L10,0L0,5"
+        )
+
         d3link = el.selectAll("line.link").data(links, (d) ->
           d.id
         )
@@ -79,9 +103,12 @@ angular.module('neo4jApp.directives')
           d.source.y
         ).attr("x2", (d) ->
           d.target.x
-        ).attr "y2", (d) ->
+        ).attr("y2", (d) ->
           d.target.y
-
+        ).attr('marker-start', (d) -> 'url(#arrow-start)' if d.incoming)
+        .attr('marker-end', (d) -> 'url(#arrow-end)' unless d.incoming)
+        .attr "xlink:href", (d) ->
+          "#path" + d.source.index + "_" + d.target.index
 
         # Exit any old links.
         d3link.exit().remove()
