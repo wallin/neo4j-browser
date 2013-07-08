@@ -1,4 +1,4 @@
-name := "neo4j-web-ui"
+name := "neo4j-browser"
 
 organization := "org.neo4j.app"
 
