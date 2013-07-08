@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('neo4jApp.directives')
-  .controller('visualizationCtrl', ['$q'
+  .controller('visualizationCtrl', [
     '$q'
-    ($q)->
+    'Collection'
+    ($q, Collection)->
       #
       # Local variables
       #
@@ -17,40 +18,6 @@ angular.module('neo4jApp.directives')
       #
       # Local classes
       #
-
-      # Generic collection.
-      # TODO: put elsewhere
-      class Collection
-        constructor: (items) ->
-          @items = []
-          @_byId = {}
-          @add(items) if items?
-
-        add: (items) ->
-          items = [items] unless items instanceof Array
-          for i in items
-            if i.id?
-              if not @_byId[i.id]
-                @_byId[i.id] = i
-                @items.push i
-            else
-              @items.push i
-
-        all: ->
-          @items
-
-        get: (id) ->
-          id = parseInt(id, 10)
-          return null unless id?
-          @_byId[id]
-
-        reset: (items) ->
-          @_reset()
-          @add(items)
-
-        _reset: ->
-          @items = []
-          @_byId = {}
 
       class GraphModel
         constructor: (nodes) ->
