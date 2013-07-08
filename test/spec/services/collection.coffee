@@ -25,7 +25,7 @@ describe 'Service: Collection', () ->
 
   describe 'get:', ->
     beforeEach ->
-      Collection.add({id: 1, name: 'shoe'}, {id: 2, name: 'tie'})
+      Collection.add([{id: 1, name: 'shoe'}, {id: 2, name: 'tie'}])
 
     it 'should be able to retrieve item by id', ->
       item = Collection.get(1)
@@ -39,3 +39,11 @@ describe 'Service: Collection', () ->
 
     it 'should return undefined on non existant id', ->
       expect(Collection.get(3)).toBe undefined
+
+  describe 'pluck:', ->
+    beforeEach ->
+      Collection.add([{id: 1}, {id: 2}, {id: 3}])
+    it 'should return a list of given item attribute', ->
+      attrs = Collection.pluck('id')
+      expect(attrs.length).toBe 3
+      expect(attrs).toContain attr for attr in [1...3]

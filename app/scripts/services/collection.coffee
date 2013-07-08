@@ -41,5 +41,9 @@ angular.module('neo4jApp.services')
           @items = []
           @_byId = {}
 
+        pluck: (attr) ->
+          return undefined unless angular.isString(attr)
+          i[attr] for i in @items
+
       Collection
 ]
