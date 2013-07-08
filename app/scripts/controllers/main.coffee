@@ -6,9 +6,9 @@ angular.module('neo4jApp')
   'viewService'
   ($scope, viewService) ->
     $scope.views = viewService
-    viewService.run("START n=node(*)\nRETURN n;")
+    viewService.run("START n=node(0)\nRETURN n;")
     $scope.execute = ->
-      viewService.run("START n=node(*)\nRETURN n;")
+      viewService.run("START n=node(0)\nRETURN n;")
       #viewService.run(@query)
       @query = ""
 

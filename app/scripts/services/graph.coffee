@@ -9,7 +9,8 @@ angular.module('neo4jApp.services')
     ($http, $q, Cypher, Collection)->
 
       parseId = (resource) ->
-        +resource.substr(resource.lastIndexOf("/")+1)
+        id = resource.substr(resource.lastIndexOf("/")+1)
+        return parseInt(id, 10)
 
       class GraphModel
         constructor: (cypher) ->
@@ -29,7 +30,18 @@ angular.module('neo4jApp.services')
             for n in result.children
               @nodes.add(n) unless @nodes.get(n.id)
             for n in result.relations
-              @links.add(n) unless @links.get(n.id)
+              unless @links.get(n.id)
+                # XXX
+                n.source = @nodes.get(n.start)
+                n.target = @nodes.get(n.end)
+                # TODO: mark relation as either incoming or outgoing
+                if n.end is node.id
+                  [n.source, n.target] = [n.target, n.source]
+                # Inherit position from parent
+                n.target.x = node.x
+                n.target.y = node.y
+                @links.add(n)
+
             q.resolve()
           )
 
@@ -39,8 +51,7 @@ angular.module('neo4jApp.services')
         constructor: (data) ->
           @id = parseId(data.self)
           @start = parseId(data.start)
-          @source = @start
-          @target = parseId(data.end)
+          @end = parseId(data.end)
           @type = data.type
 
 

@@ -51,7 +51,7 @@ angular.module('neo4jApp.directives')
 
       force = d3.layout.force()
         .size([640, 480])
-        .linkDistance(200)
+        .linkDistance(80)
         .charge(-1000)
         .on('tick', tick)
 
@@ -68,7 +68,6 @@ angular.module('neo4jApp.directives')
           .nodes(nodes)
           .links(links)
           .start()
-
 
         d3link = el.selectAll("line.link").data(links, (d) ->
           d.target.id
@@ -98,9 +97,9 @@ angular.module('neo4jApp.directives')
         .append("svg:circle")
         .attr("class", "node")
         .attr("cx", (d) ->
-          0
+          d.x
         ).attr("cy", (d) ->
-          0
+          d.y
         ).attr("r", 15)
         .style("fill", color)
         .on("click", click)
