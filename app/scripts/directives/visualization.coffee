@@ -147,14 +147,14 @@ angular.module('neo4jApp.directives')
 
 angular.module('neo4jApp.directives')
   .directive('visualization', [
-    'graphService'
-    (graphService) ->
+    'Cypher'
+    (Cypher) ->
       restrict: 'EA'
       scope: "@"
       link: (scope, elm, attr, ctrl) ->
         scope.$watch(attr.query, (val, oldVal)->
           return unless val
-          graphService.byCypher(scope.$eval(attr.query)).then(
+          Cypher.send(scope.$eval(attr.query)).then(
             (result) ->
               scope.result = result
             ,
@@ -186,8 +186,7 @@ angular.module('neo4jApp.directives')
 
 angular.module('neo4jApp.directives')
   .directive('neoTable', [
-    'GraphModel'
-    (GraphModel)->
+    ->
       replace: yes
       restrict: 'EA'
       templateUrl: 'views/neo-table.html'
