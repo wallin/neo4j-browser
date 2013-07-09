@@ -12,7 +12,7 @@ $topbar-link-font-size = 16px
 $topbar-link-hover-lightness = 0
 $topbar-dropdown-bg = $primary-color
 
-horizontal-padding = 21px
+horizontal-padding = 16px
 history-width = 400px
 editor-width = 440px
 topbar-height = $topbar-height
@@ -67,7 +67,7 @@ h1
 .top-bar
   transist: margin
   z-index: 1
-  .icon.plus
+  .icon.menu-plus
     margin-right: 8px;
     position: relative;
     top: 1px;
@@ -79,15 +79,49 @@ h1
 
 #history
   color: #fff
-  //background-color: white
   position: absolute
-  padding 17px horizontal-padding 0
   top: 0
   right: 0
   width: history-width
   bottom: 0
+  h3, h4
+    color: #fff
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0 horizontal-padding;
+    margin: 0;
+    line-height: 57px
+  h3
+    font-size: 17px
+    border-bottom: 2px solid #333;
+  h4
+    background-color: #333
+    line-height: 35px;
+    font-size: 14px
+
   .icon.close-history
-    absolute: top 16px right 16px
+    absolute: top 20px right 16px
+  ul
+    padding: 16px horizontal-padding;
+    li
+      position: relative
+      padding: 5px 0
+      .star
+        absolute: left 0 top 0
+        width image-size('icon-star.png')[0]
+        height image-size('icon-star.png')[1] + 10px
+        background: url('/images/icon-star.png') 0 10px no-repeat
+        &:hover
+          background-image: url('/images/icon-star_hover.png')
+      a
+        font-size 16px
+        padding-left: 25px;
+        color #eee
+  ul.starred li .star
+    background-image: url('/images/icon-starred.png')
+    &:hover
+      background-image: url('/images/icon-starred_hover.png')
+
 
 #view
   position: absolute
@@ -386,14 +420,15 @@ icon(type, do-no-hover=false)
   unless do-no-hover
     &:hover
       background: url('/images/icon-' + type + '_hover.png')
-      transform: scale(1.2, 1.2)
+      unless do-no-scale
+        transform: scale(1.2, 1.2)
 
 .icon
   display: inline-block
   cursor: pointer
   background-repeat: no-repeat;
-  &.plus
-    icon: plus no-hover
+  &.menu-plus
+    icon: menu-plus no-hover
   &.history
     icon: history
   &.download

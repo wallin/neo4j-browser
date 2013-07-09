@@ -7,7 +7,11 @@ angular.module('neo4jApp.services')
     ($http, $rootScope) ->
       class View
         constructor: (@input)->
+          @starred = false
           @response = null
+
+        toggleStar: ->
+          @starred = !@starred
 
         exec: ->
           $http.post('http://localhost:7474/db/manage/server/console',
