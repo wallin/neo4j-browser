@@ -17,6 +17,7 @@ angular.module('neo4jApp.directives')
       # Local methods
       #
       click = (d) =>
+        d.fixed = yes
         graph.expand(d.id).then(@update) unless d.expanded
 
       tick = ->
