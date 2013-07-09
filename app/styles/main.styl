@@ -105,22 +105,43 @@ h1
     padding: 16px horizontal-padding;
     li
       position: relative
-      padding: 5px 0
+      //padding: 5px 0
+      height: 30px
       .star
         absolute: left 0 top 0
         width image-size('icon-star.png')[0]
-        height image-size('icon-star.png')[1] + 10px
-        background: url('/images/icon-star.png') 0 10px no-repeat
+        height image-size('icon-star.png')[1] + 6px
+        background: url('/images/icon-star.png') 0 6px no-repeat
         &:hover
           background-image: url('/images/icon-star_hover.png')
       a
         font-size 16px
         padding-left: 25px;
         color #eee
+        &:hover
+          color: $primary-color
   ul.starred li .star
     background-image: url('/images/icon-starred.png')
     &:hover
       background-image: url('/images/icon-starred_hover.png')
+
+  ul li
+    &.animate-enter, &.animate-leave {
+      transition: 400ms cubic-bezier(0.250, 0.100, 0.250, 1.000) all
+      position: relative
+      display: block
+      overflow: hidden
+    }
+    &.animate-enter.animate-enter-active,
+    &.animate-leave {
+      opacity: 1
+      height: 30px
+    }
+    &.animate-leave.animate-leave-active,
+    &.animate-enter {
+      opacity: 0
+      height: 0px
+    }
 
 
 #view
