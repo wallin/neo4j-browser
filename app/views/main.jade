@@ -20,7 +20,7 @@ nav.top-bar
   h3 Views
   h4 Saved
   ul.starred
-    li('ng-repeat' = "view in views.history | filter:{starred:true}", 'ng-click' = 'views.select($index)', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = "view in views.history | filter:{starred:true}", 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
       a('ng-click'="toggleHistory()")
         {{view.response.input | autotitle}}
