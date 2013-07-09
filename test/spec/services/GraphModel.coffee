@@ -31,7 +31,7 @@ describe 'Service: GraphModel', () ->
     }
     new Cypher.Node(data)
 
-  describe 'addNode: ', ->
+  describe 'addNode:', ->
     beforeEach ->
       graph = new GraphModel
     it 'should add a node to collection', ->
