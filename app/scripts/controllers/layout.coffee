@@ -25,5 +25,5 @@ angular.module('neo4jApp')
         alert "TBD: Execute"
       else if e.keyCode is 27 # Esc
         $scope.toggleEditor()
-      else if e.keyCode is 72 # h
-        $scope.toggleHistory()
+      #else if e.keyCode is 72 # h
+      #  $scope.toggleHistory()
