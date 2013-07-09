@@ -31,20 +31,21 @@ nav.top-bar
       a('ng-click'="toggleHistory()")
         {{view.response.input | autotitle}}
 
-#view
-  #view-editor
-    a.handle('ng-click'="toggleEditor()")
-    textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='views.current.input')
-    #update-button.button.right('ng-click' = 'views.current.exec()') Execute
+#views
+  .view('ng-repeat' = 'view in views.history', 'ng-show' = 'view.id == views.current.id')
+    .view-editor
+      a.handle('ng-click'="toggleEditor()")
+      textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='views.current.input')
+      .update-button.button.right('ng-click' = 'views.current.exec()') Execute
 
-  visualization#view-result(query='views.current.response.input')
-    .status-bar Returned <b>X nodes</b> in <b>Y ms</b>
-    .split-pane
-      #view-result-graph
-        .icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
-        .icon.download
-        neo-graph
-      #view-result-table
-        .icon.download
-        .icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
-        neo-table
+    visualization.view-result(query='views.current.response.input')
+      .status-bar Returned <b>{{result.nodes.length}} nodes</b> in <b>Y ms</b>
+      .split-pane
+        .view-result-graph
+          .icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
+          .icon.download
+          neo-graph
+        .view-result-table
+          .icon.download
+          .icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
+          neo-table

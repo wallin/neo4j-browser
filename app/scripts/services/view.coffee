@@ -6,7 +6,7 @@ angular.module('neo4jApp.services')
     '$rootScope'
     ($http, $rootScope) ->
       class View
-        constructor: (@input)->
+        constructor: (@input, @id)->
           @starred = false
           @response = null
 
@@ -23,7 +23,6 @@ angular.module('neo4jApp.services')
               text: data[0]
               isError: data[0].indexOf('SyntaxException') == 0 ||
                 data[0].indexOf('Unknown command') == 0
-              #visualization: angular.copy(dummy)
           )
 
 
@@ -38,10 +37,12 @@ angular.module('neo4jApp.services')
 
         run: (input)->
           return unless input
-          @current = new View(input)
+          @current = new View(input, @history.length)
           @current.exec()
           @currentIdx = 0
           @history.unshift @current
+
+
 
       new ViewStore
   ]

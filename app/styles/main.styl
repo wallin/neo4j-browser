@@ -144,9 +144,16 @@ h1
     }
 
 
-#view
+#views
   position: absolute
   top: topbar-height
+  bottom: 0
+  left: 0
+  right: 0
+
+.view
+  position: absolute
+  top: 0
   bottom: 0
   left: 0
   right: 0
@@ -154,7 +161,7 @@ h1
   &.anim
     transform: scale(0.9, 0.9)
 
-  #view-editor
+  .view-editor
     background-color: #34495E
     position: absolute;
     top: 0
@@ -183,7 +190,7 @@ h1
 
 
 
-  #view-result
+  .view-result
     position: absolute;
     top: 0
     bottom: 0;
@@ -214,7 +221,7 @@ h1
       left: 0
       right: 0
       bottom: 0
-      #view-result-graph
+      .view-result-graph
         background-color: #fff
         position: absolute
         top: 0
@@ -222,7 +229,7 @@ h1
         right: 0
         height: 50%
         transist height
-      #view-result-table
+      .view-result-table
         background-color: #f7f7f7
         position: absolute
         bottom: 0
@@ -231,41 +238,41 @@ h1
         height: 50%
         transist height
 
-#update-button
+.update-button
   position:absolute
   bottom: 16px
   right: 16px
 
 // UI states
 
-.hide-editor #view
-  #view-editor
+.hide-editor .view
+  .view-editor
     width: 0
     .handle:after
       transform: rotate(180deg)
       right: 16px
-  #view-result
+  .view-result
     left: 0
 
-.expand-graph #view #view-result
-  #view-result-graph
+.expand-graph .view .view-result
+  .view-result-graph
     height: 100%
-  #view-result-table
+  .view-result-table
     height: 0
 
-.expand-table #view #view-result
-  #view-result-graph
+.expand-table .view .view-result
+  .view-result-graph
     height: 0
-  #view-result-table
+  .view-result-table
     height: 100%
 
 .show-history
   .top-bar
     margin-right: history-width
-  #view
+  .view
     left: -history-width;
     right: history-width;
-    #view-editor
+    .view-editor
       .handle
         opacity: 0
 
@@ -303,51 +310,6 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   .close
     display: none
 
-#query-view-container
-  background-color: #fff
-  position: absolute
-  top: topbar-height
-  bottom: 0
-  left: 0
-  right: 0
-
-  #view-result
-    //background-color: #ccc
-    position: absolute
-    top: 300px
-    right: 200px
-    left: 0
-    bottom: 0
-
-  #view-sidebar
-    //background-color: #ccc
-    position: absolute
-    top: 0
-    left: 0
-    bottom: 0
-    width: 200px
-
-  #view-active
-    position: absolute
-    top: 0
-    left: horizontal-padding
-    bottom: 0
-    right: 260px
-
-    li
-      cursor: pointer
-      font-size: 14px
-      font-weight: bold
-      padding: 8px
-      margin-bottom: 8px
-      border: 2px solid #ECF0F1;
-      border-radius: 6px;
-      &:hover
-        transition: border .25s linear, color .25s linear;
-        border-color: $primary-color
-      &.error
-        background-color: #FEF1F0
-        border-color: $alert-color
 
 .graph-viz {
   float: left;
