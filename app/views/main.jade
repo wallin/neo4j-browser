@@ -23,13 +23,13 @@ nav.top-bar
     li('ng-repeat' = "view in views.history | filter:{starred:true}", 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
       a('ng-click'="toggleHistory()")
-        {{view.response.input | autotitle}}
+        {{view.input | autotitle}}
   h4 Unsaved
   ul
     li('ng-repeat' = 'view in views.history | filter:{starred:false}', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
       a('ng-click'="views.select($index)")
-        {{view.response.input | autotitle}}
+        {{view.input | autotitle}}
 
 #views
   #view-background
