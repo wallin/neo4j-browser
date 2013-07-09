@@ -45,3 +45,8 @@ describe 'Service: GraphModel', () ->
       graph.addNode(node1)
       graph.addNode(node2)
       expect(graph.nodes.all().length).toBe 1
+
+    it 'should be able to add a node with id 0', ->
+      node = createNode(0)
+      graph.addNode(node)
+      expect(graph.nodes.all().length).toBe 1

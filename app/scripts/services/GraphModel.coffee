@@ -12,13 +12,13 @@ angular.module('neo4jApp.services')
           @links = new Collection(cypher.relationships)
 
         addNode: (node) ->
-          return false unless node?.id
+          return false unless node?.id?
           # TODO: merge nodes if already existing
           @nodes.add(node) unless @nodes.get(node.id)
           node
 
         addRelationship: (rel) ->
-          return false unless rel?.id
+          return false unless rel?.id?
           @links.add(rel) unless @links.get(rel.id)
           node = @nodes.get(rel.start) or @nodes.get(rel.end)
 
