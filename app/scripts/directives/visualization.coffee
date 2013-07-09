@@ -152,9 +152,11 @@ angular.module('neo4jApp.directives')
       restrict: 'EA'
       scope: "@"
       link: (scope, elm, attr, ctrl) ->
+        currentQuery = null
         scope.$watch(attr.query, (val, oldVal)->
-          return unless val
-          Cypher.send(scope.$eval(attr.query)).then(
+          return if not val or val is currentQuery
+          currentQuery = val
+          Cypher.send(val).then(
             (result) ->
               scope.result = result
             ,
