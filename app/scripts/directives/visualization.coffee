@@ -60,7 +60,7 @@ angular.module('neo4jApp.directives')
           .start()
 
         # Markers
-        el.append("defs")
+        el.select("defs")
         .selectAll("marker")
         .data(["arrow-start", "arrow-end"])
         .enter().append("marker")
@@ -154,8 +154,8 @@ angular.module('neo4jApp.directives')
       scope: "@"
       replace: yes
       template: """
-      <svg style="pointer-events:fill;" viewbox="0 0 640 480" preserveAspectRatio="xMidyMid">
-
+      <svg style="pointer-events:fill;" viewbox="0 0 1024 768" preserveAspectRatio="xMidyMid">
+        <defs>
       </svg>
       """
       link: (scope, elm, attr, ctrl) ->
