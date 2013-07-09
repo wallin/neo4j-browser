@@ -161,7 +161,7 @@ angular.module('neo4jApp.directives')
       link: (scope, elm, attr, ctrl) ->
         scope.$watch(attr.query, (val, oldVal)->
           return unless val
-          graphService.executeQuery(scope.$eval(attr.query)).then(
+          graphService.byCypher(scope.$eval(attr.query)).then(
             (graph) ->
               graph.expandAll().then(->ctrl.render(d3.select(elm[0]), graph))
             ,

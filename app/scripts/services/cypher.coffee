@@ -17,20 +17,19 @@ angular.module('neo4jApp.services')
           type = OTHER
         type
 
-      parseId = (resource) ->
+      parseId = (resource = "") ->
         id = resource.substr(resource.lastIndexOf("/")+1)
         return parseInt(id, 10)
 
-      class Relationship
-        constructor: (data) ->
+      class CypherRelationship
+        constructor: (data = {}) ->
           @id = parseId(data.self)
           @start = parseId(data.start)
           @end = parseId(data.end)
           @type = data.type
 
-
-      class Node
-        constructor: (@$raw) ->
+      class CypherNode
+        constructor: (@$raw = {}) ->
           angular.extend @, @$raw.data
           @id = parseId(@$raw.self)
           @children = []
@@ -56,8 +55,8 @@ angular.module('neo4jApp.services')
             for cell in row
               type = resultType(cell)
               switch type
-                when NODE         then @nodes.push new Node(cell)
-                when RELATIONSHIP then @relationships.push new Relationship(cell)
+                when NODE         then @nodes.push new CypherNode(cell)
+                when RELATIONSHIP then @relationships.push new CypherRelationship(cell)
                 else
                   @other.push cell
 
@@ -85,6 +84,10 @@ angular.module('neo4jApp.services')
             .success((result)-> q.resolve(new CypherResult(result)))
             .error(-> q.reject())
           q.promise
+
+        Node: CypherNode
+
+        Relationship: CypherRelationship
 
       Cypher = new CypherService()
 ]
