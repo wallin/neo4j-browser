@@ -50,6 +50,7 @@ angular.module('neo4jApp.services')
           @nodes = []
           @relationships = []
           @other = []
+          @response.data ?= []
           return unless @response.data?
           for row in @response.data
             for cell in row

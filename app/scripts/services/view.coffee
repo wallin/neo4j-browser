@@ -42,7 +42,5 @@ angular.module('neo4jApp.services')
           @currentIdx = 0
           @history.unshift @current
 
-
-
       new ViewStore
   ]
