@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('neo4jApp.directives')
-  .controller('visualizationCtrl', [
-    ->
+  .controller('neoGraphCtrl', [
+    '$element'
+    ($element) ->
       #
       # Local variables
       #
-      el = null
+      el = d3.select($element[0])
 
       d3link = null
       d3node = null
@@ -136,37 +137,64 @@ angular.module('neo4jApp.directives')
         # Exit any old nodes.
         d3node.exit().remove()
 
-      @render = (elm, result) ->
+      @render = (result) ->
         return unless result
         graph = result
-
-        el = elm
         @update()
 
   ])
+
 
 angular.module('neo4jApp.directives')
   .directive('visualization', [
     'graphService'
     (graphService) ->
       restrict: 'EA'
-      controller: 'visualizationCtrl'
       scope: "@"
+      link: (scope, elm, attr, ctrl) ->
+        scope.$watch(attr.query, (val, oldVal)->
+          return unless val
+          graphService.byCypher(scope.$eval(attr.query)).then(
+            (result) ->
+              scope.result = result
+            ,
+            ->
+              scope.result = null
+          )
+        , true)
+  ])
+
+angular.module('neo4jApp.directives')
+  .directive('neoGraph', [
+    'GraphModel'
+    (GraphModel)->
+      controller: 'neoGraphCtrl'
       replace: yes
+      restrict: 'EA'
       template: """
       <svg style="pointer-events:fill;" viewbox="0 0 1024 768" preserveAspectRatio="xMidyMid">
         <defs>
       </svg>
       """
       link: (scope, elm, attr, ctrl) ->
-        scope.$watch(attr.query, (val, oldVal)->
-          return unless val
-          graphService.byCypher(scope.$eval(attr.query)).then(
-            (graph) ->
-              graph.expandAll().then(->ctrl.render(d3.select(elm[0]), graph))
-            ,
-            ->
-              #TODO: clear, display error etc.
-          )
-        , true)
+        scope.$watch('result', (result) ->
+          return unless result
+          graph = new GraphModel(result)
+          graph.expandAll().then(->ctrl.render(graph))
+        )
+  ])
+
+angular.module('neo4jApp.directives')
+  .directive('neoTable', [
+    'GraphModel'
+    (GraphModel)->
+      replace: yes
+      restrict: 'EA'
+      templateUrl: 'views/neo-table.html'
+      link: (scope, elm, attr, ctrl) ->
+        scope.$watch('result', (result) ->
+          return unless result
+          scope.rows = result.rows()
+          scope.columns = result.columns()
+        )
   ])

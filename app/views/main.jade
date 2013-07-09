@@ -28,13 +28,14 @@ nav.top-bar
     textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='views.current.input')
     #update-button.button.right('ng-click' = 'views.current.exec()') Execute
 
-  #view-result
+  visualization#view-result(query='views.current.response.input')
     .status-bar Returned <b>X nodes</b> in <b>Y ms</b>
     .split-pane
       #view-result-graph
         .icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
         .icon.download
-        visualization(query='views.current.response.input')
+        neo-graph
       #view-result-table
         .icon.download
         .icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
+        neo-table

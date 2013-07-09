@@ -1,0 +1,7 @@
+table
+  thead
+    tr
+      th(ng-repeat='column in columns') {{ column }}
+  tbody
+    tr(ng-repeat='row in rows')
+      td(ng-repeat='cell in row') {{ cell }}

@@ -4,11 +4,9 @@ angular.module('neo4jApp.services')
   .factory 'graphService', [
     '$q'
     'Cypher'
-    'GraphModel'
-    ($q, Cypher, GraphModel)->
+    ($q, Cypher)->
       class GraphService
         constructor : () ->
-          @nodes = []
           @_clear()
 
         byCypher : (query) ->
@@ -20,7 +18,7 @@ angular.module('neo4jApp.services')
           Cypher.send(query).then(
             (result) =>
               @_clear()
-              q.resolve(new GraphModel(result))
+              q.resolve(result)
           ,
             (error) =>
               @_clear()
