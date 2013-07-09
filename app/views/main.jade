@@ -26,19 +26,19 @@ nav.top-bar
         {{view.response.input | autotitle}}
   h4 Unsaved
   ul
-    li('ng-repeat' = 'view in views.history | filter:{starred:false}', 'ng-click' = 'views.select($index)', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = 'view in views.history | filter:{starred:false}', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
-      a('ng-click'="toggleHistory()")
+      a('ng-click'="views.select($index)")
         {{view.response.input | autotitle}}
 
 #views
   .view('ng-repeat' = 'view in views.history', 'ng-show' = 'view.id == views.current.id')
     .view-editor
       a.handle('ng-click'="toggleEditor()")
-      textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='views.current.input')
-      .update-button.button.right('ng-click' = 'views.current.exec()') Execute
+      textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='view.input')
+      .update-button.button.right('ng-click' = 'view.exec()') Execute
 
-    visualization.view-result(query='views.current.response.input')
+    visualization.view-result(query='view.response.input')
       .status-bar Returned <b>{{result.nodes.length}} nodes</b> in <b>Y ms</b>
       .split-pane
         .view-result-graph
