@@ -138,7 +138,7 @@ angular.module('neo4jApp.directives')
 
       @render = (elm, result) ->
         return unless result
-        graph = result.graph
+        graph = result
 
         el = elm
         @update()
@@ -162,10 +162,11 @@ angular.module('neo4jApp.directives')
         scope.$watch(attr.query, (val, oldVal)->
           return unless val
           graphService.executeQuery(scope.$eval(attr.query)).then(
-            (g) ->
-              return ctrl.render(d3.select(elm[0]), g)
+            (graph) ->
+              graph.expandAll().then(->ctrl.render(d3.select(elm[0]), graph))
             ,
             ->
+              #TODO: clear, display error etc.
           )
         , true)
   ])

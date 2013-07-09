@@ -13,29 +13,39 @@ angular.module('neo4jApp.services')
           @nodes = new Collection(cypher.nodes)
           @links = new Collection(cypher.relationships)
 
+        addNode: (node) ->
+          return false unless node?.id
+          # TODO: merge nodes if already existing
+          @nodes.add(node) unless @nodes.get(node.id)
+          node
+
+        addRelationship: (rel) ->
+          return false unless rel?.id
+          @links.add(rel) unless @links.get(rel.id)
+          node = @nodes.get(rel.start) or @nodes.get(rel.end)
+
+          # Connect children if they are missing
+          if node and not (node.source and source.target)
+            rel.source = @nodes.get(rel.start)
+            rel.target = @nodes.get(rel.end)
+            rel.incoming = rel.end is node.id
+            #node.relationships.push rel
+            #node.children.push(if rel.source.id is node.id then rel.target else rel.source)
+          rel
+
         expandAll: ->
           q = $q.defer()
           ids = @nodes.pluck('id')
           return if ids.length is 0
           Cypher.send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b").then((result) =>
+            # Mark current nodes as expanded
             for id in ids
               n = @nodes.get(id)
               n.expanded = yes if n
 
-            for n in result.nodes
-              @nodes.add(n) unless @nodes.get(n.id)
-
-            for r in result.relationships
-              @links.add(r) unless @links.get(r.id)
-              # Connect children
-              node = @nodes.get(r.start) or @nodes.get(r.end)
-              if node
-                r.source = @nodes.get(r.start)
-                r.target = @nodes.get(r.end)
-                r.incoming = r.end is node.id
-                node.relationships.push r
-                node.children.push(if r.source.id is node.id then r.target else r.source)
-
+            # Add result to current graph
+            @addNode(n) for n in result.nodes
+            @addRelationship(r) for r in result.relationships
             q.resolve(@)
           )
           q.promise
@@ -48,20 +58,13 @@ angular.module('neo4jApp.services')
             q.reject()
             return q.promise
 
-          node.$traverse().then((node)=>
-            node.expanded = yes
-            for n in node.children
-              @nodes.add(n) unless @nodes.get(n.id)
-            for n in node.relationships
-              if not @links.get(n.id)
-                n.source = @nodes.get(n.start)
-                n.target = @nodes.get(n.end)
-                n.incoming = n.end is node.id
-                @links.add(n)
+          node.$traverse().then((result)=>
+            result.expanded = yes
 
+            @addNode(n) for n in result.children
+            @addRelationship(r) for r in result.relationships
             q.resolve()
           )
-
           q.promise
 
       class GraphService
@@ -78,10 +81,7 @@ angular.module('neo4jApp.services')
           Cypher.send(query).then(
             (result) =>
               @_clear()
-              @graph   = new GraphModel(result)
-              @rows    = result.rows()
-              @columns = result.columns()
-              @graph.expandAll().then(=> q.resolve(@))
+              q.resolve(new GraphModel(result))
           ,
             (error) =>
               @_clear()
@@ -91,9 +91,6 @@ angular.module('neo4jApp.services')
           return q.promise
 
         _clear : ->
-          @rows    = []
-          @columns = []
-          @graph   = null
           @error   = null
           @isLoading = false
 
