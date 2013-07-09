@@ -1,9 +1,15 @@
 'use strict'
 
 describe 'Service: GraphModel', () ->
-  graph = null
+  [backend, graph] = [null, null]
   # load the service's module
   beforeEach module 'neo4jApp.services'
+
+  beforeEach inject ($httpBackend) ->
+    backend = $httpBackend
+
+  afterEach ->
+    backend.verifyNoOutstandingRequest()
 
   # instantiate service
   GraphModel = {}
@@ -50,3 +56,28 @@ describe 'Service: GraphModel', () ->
       node = createNode(0)
       graph.addNode(node)
       expect(graph.nodes.all().length).toBe 1
+
+  describe 'expandAll', ->
+    beforeEach ->
+      graph = new GraphModel
+    it 'should return promise even if there are no nodes', inject ($rootScope) ->
+      expect(graph.nodes.all().length).toBe 0
+
+      promise = graph.expandAll()
+      expect(typeof(promise.then)).toBe 'function'
+
+      callback = jasmine.createSpy('callback')
+      promise.then(callback)
+      $rootScope.$apply();
+      expect(callback).toHaveBeenCalled()
+
+    it 'should expand existing nodes', ->
+      graph.addNode(createNode(0))
+      backend.expectPOST(/db\/data\/cypher/).respond()
+
+      node = null
+      graph.expandAll().then((g)->
+        node = g.nodes.get(0)
+      )
+      backend.flush()
+      expect(node.expanded).toBeTruthy()
