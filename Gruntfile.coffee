@@ -124,7 +124,7 @@ module.exports = (grunt) ->
         files:
           '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/*.styl']
       options:
-        paths: ["<%= yeoman.app %>/vendor/foundation"]
+        paths: ["<%= yeoman.app %>/vendor/foundation", "<%= yeoman.app %>/images"]
 
     jade:
       html:

@@ -67,6 +67,15 @@ h1
 .top-bar
   transist: margin
   z-index: 1
+  .icon.plus
+    margin-right: 8px;
+    position: relative;
+    top: 1px;
+  ul.right
+    background-color: $topbar-bg
+    .icon.history
+      margin-right: 16px;
+      margin-top: 16px;
 
 #history
   color: #fff
@@ -77,6 +86,8 @@ h1
   right: 0
   width: history-width
   bottom: 0
+  .icon.close-history
+    absolute: top 16px right 16px
 
 #view
   position: absolute
@@ -136,6 +147,12 @@ h1
       text-align: right
       padding-right: 20px
       font-size: 16px
+    .icon
+      absolute: top 16px
+      &.expand
+        right: 16px
+      &.download
+        right: 48px
     .split-pane
       position: absolute
       top: 56px
@@ -334,17 +351,58 @@ text
     fill: #333
 
 .node
+  transist all
   circle
     fill: #1ABC9C
     stroke-width: 2px;
     stroke: #fff
+    transform: scale(1.0, 1.0)
+    transist all
+  &:hover
+    cursor: pointer
+    circle
+      transform: scale(1.2, 1.2)
+      fill: #C7F0E6
 
 .node.faded
   circle
     fill: #C7F0E6
+  &:hover
+    circle
+      transform: scale(1.2, 1.2)
 
 line.link
   fill: #BDC3C7
   &.faded
     stroke: #ECF0F1
     stroke-dasharray: 0,2 1
+
+icon(type, do-no-hover=false)
+  width image-size('icon-' + type + '.png')[0]
+  height image-size('icon-' + type + '.png')[1]
+  background: url('/images/icon-' + type + '.png')
+  transform: scale(1.0, 1.0)
+  transist all
+  unless do-no-hover
+    &:hover
+      background: url('/images/icon-' + type + '_hover.png')
+      transform: scale(1.2, 1.2)
+
+.icon
+  display: inline-block
+  cursor: pointer
+  background-repeat: no-repeat;
+  &.plus
+    icon: plus no-hover
+  &.history
+    icon: history
+  &.download
+    icon: download
+  &.close-history
+    icon: close-history no-hover
+  &.expand
+    icon expand
+    &.restore
+      background: url('/images/icon-restore.png')
+      &:hover
+        background: url('/images/icon-restore_hover.png')

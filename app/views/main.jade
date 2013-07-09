@@ -5,17 +5,18 @@ nav.top-bar
         a Neo4j Browser
   section.top-bar-section
     ul.left
-
       li
-        a(ng-click='execute()') New
+        a(ng-click='execute()')
+          .icon.plus
+          | New
 
     ul.right
 
       li
-        a(ng-click='toggleHistory()') History
+        .icon.history(ng-click='toggleHistory()')
 
 #history
-  .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleHistory()") Close
+  .icon.close-history('ng-click'="toggleHistory()")
   ul
     li('ng-repeat' = 'view in views.history', 'ng-click' = 'views.select($index)', 'ng-class'='{error: view.response.isError}')
       a('ng-click'="toggleHistory()")
@@ -31,7 +32,9 @@ nav.top-bar
     .status-bar Returned <b>X nodes</b> in <b>Y ms</b>
     .split-pane
       #view-result-graph
-        .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleGraph()") {{isGraphExpanded && 'Restore' || 'Maximize'}}
+        .icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
+        .icon.download
         visualization(query='views.current.response.input')
       #view-result-table
-        .button.small(style='position:absolute;top:16px;right:16px', 'ng-click'="toggleTable()") {{isTableExpanded && 'Reset' || 'Maximize'}}
+        .icon.download
+        .icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
