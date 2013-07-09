@@ -32,6 +32,7 @@ nav.top-bar
         {{view.response.input | autotitle}}
 
 #views
+  #view-background
   .view('ng-repeat' = 'view in views.history', 'ng-show' = 'view.id == views.current.id')
     .view-editor
       a.handle('ng-click'="toggleEditor()")
