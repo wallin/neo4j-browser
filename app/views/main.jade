@@ -21,13 +21,13 @@ nav.top-bar
   h4 Saved
   ul.starred
     li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
-      a.star('ng-click'="view.toggleStar()")
+      a.star('ng-click'="views.toggleStar(view.id)")
       a('ng-click'="views.select(view.id)")
         {{view.input | autotitle}}
   h4 Unsaved
   ul
     li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
-      a.star('ng-click'="view.toggleStar()")
+      a.star('ng-click'="views.toggleStar(view.id)")
       a('ng-click'="views.select(view.id)")
         {{view.input | autotitle}}
 

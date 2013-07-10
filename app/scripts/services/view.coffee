@@ -51,21 +51,28 @@ angular.module('neo4jApp.services')
           )
 
 
+      # TODO: Make better API for views
       class ViewStore
         constructor: ->
           @history = new Collection()
           @current = null
 
+        add: (view) ->
+          @history.add view unless @history.get(view.id)
+
         push: (input)->
           view = new View(input, @history.all().length)
-          @history.add view
+          @add view
 
         select: (id) ->
           # id is reversed index
           @current = @history.get id
 
-        star: (id) ->
-
+        toggleStar: (id) ->
+          view = @history.get(id)
+          return unless view?
+          view.toggleStar()
+          localStorageService.add('saved', JSON.stringify(@history.where(starred: true)))
 
         run: (input)->
           return unless input
@@ -78,6 +85,15 @@ angular.module('neo4jApp.services')
       for example in defaultQueries
         view = ViewStore.push(example.trim())
         view.toggleStar()
+
+      savedScripts = JSON.parse(localStorageService.get('saved'))
+
+      if angular.isArray(savedScripts)
+        for v in savedScripts
+          view = new View(v.input, v.id)
+          view.toggleStar()
+          ViewStore.add(view)
+
 
       ViewStore
   ]
