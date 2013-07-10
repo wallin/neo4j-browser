@@ -1,6 +1,6 @@
 $primary-color = #1abc9c
 $alert-color = #E13329
-$topbar-bg = #2C3E50
+$topbar-bg = #222
 $body-font-color = #34495e
 $table-head-font-color = $body-font-color
 $table-row-font-color = $body-font-color
@@ -13,8 +13,9 @@ $topbar-link-hover-lightness = 0
 $topbar-dropdown-bg = $primary-color
 
 horizontal-padding = 16px
-history-width = 400px
+history-width = 300px
 editor-width = 440px
+editor-height = 150px
 topbar-height = $topbar-height
 
 @import 'foundation'
@@ -80,11 +81,11 @@ h1
 #history
   color: #fff
   position: absolute
-  top: 0
-  right: 0
+  top: $topbar-height
+  right: left
   width: history-width
   bottom: 0
-  background-color: #272727
+  background-color: #3A4549
   h3, h4
     color: #fff
     text-transform: uppercase;
@@ -94,35 +95,58 @@ h1
     line-height: 57px
   h3
     font-size: 17px
-    border-bottom: 2px solid #333;
   h4
-    background-color: #333
+    background-color: #2E383C
     line-height: 35px;
     font-size: 14px
+    border-bottom: 1px solid #465054
+    &:first-child
+      border-top: 1px solid #465054
 
   .icon.close-history
     absolute: top 20px right 16px
   ul
-    padding: 16px horizontal-padding;
     li
+      padding: 12px horizontal-padding 16px
       position: relative
-      //padding: 5px 0
-      height: 30px
+      border-bottom: 1px solid #465054
+      &:hover
+        a
+          color: #fff
+        background-color: #404C50
       .star
-        absolute: left 0 top 0
+        absolute: right 16px top 12px
         width image-size('icon-star.png')[0]
         height image-size('icon-star.png')[1] + 6px
         background: url('/images/icon-star.png') 0 6px no-repeat
         &:hover
           background-image: url('/images/icon-star_hover.png')
-      a
-        font-size 16px
-        padding-left: 25px;
-        color #eee
-        &.active
-          color: $primary-color
+      .refresh
+        absolute: right 40px top 13px
+        width image-size('icon-query-refresh.png')[0]
+        height image-size('icon-query-refresh.png')[1] + 6px
+        background: url('/images/icon-query-refresh.png') 0 6px no-repeat
         &:hover
-          text-decoration: underline
+          background-image: url('/images/icon-query-refresh_hover.png')
+      .contents
+        //padding-left: 25px;
+        a
+          font-size 16px
+          color #9AA7AC
+          width: 214px
+          display: inline-block
+          line-height: 1.3
+          &.active
+            color: #fff
+          &:hover
+            color: #fff
+            text-decoration: underline
+        .meta
+          color: #728187
+          font-size: 12px
+          .icon
+            relative: top 1px
+            margin-right: 4px
   ul.starred li .star
     background-image: url('/images/icon-starred.png')
     &:hover
@@ -174,14 +198,19 @@ h1
     transform: translate(0, 0)
 
   .view-editor
-    background-color: #34495E
+    background-color: #fff
+    border-right: 1px solid #E2E6E7
     position: absolute;
     top: 0
-    bottom: 0;
-    left: 0;
+    left: 0
+    right: 0
+    height: editor-height
+    border-bottom: 1px solid #E2E6E7
     transist width
-    width: editor-width
-
+    //width: editor-width
+    .icon.editor-refresh
+      absolute: top 16px right 16px
+      z-index: 2
     .handle
       position: absolute
       size 56px 41px
@@ -204,19 +233,20 @@ h1
 
   .view-result
     position: absolute;
-    top: 0
-    bottom: 0;
-    right: 0;
-    left: editor-width
+    top: editor-height
+    bottom: 0
+    right: 0
+    left: 0
     transist left
     .status-bar
       position: absolute;
       top: 0
-      height: 57px
+      height: 56px
       left: 0
       right: 0
-      color: #9EA3A6
-      background-color: #ECF0F1
+      color: #9EA4A6
+      background-color: #FAFBFB
+      border-bottom: 1px solid #E2E6E7
       line-height: 56px
       text-align: right
       padding-right: 20px
@@ -231,7 +261,7 @@ h1
       &.expand
         right: 16px
       &.download
-        right: 48px
+        right: 16px
     .split-pane
       position: absolute
       top: 56px
@@ -239,13 +269,14 @@ h1
       right: 0
       bottom: 0
       .view-result-graph
-        background-color: #fff
+        background-color: #F5F6F6
         position: absolute
         top: 0
         left: 0
         right: 0
         height: 50%
         transist height
+        border-bottom: 1px solid #E2E6E7
       .view-result-table
         background-color: #f7f7f7
         position: absolute
@@ -293,10 +324,10 @@ h1
 
 .show-history
   .top-bar
-    margin-right: history-width
+    //margin-right: history-width
   #views, #view-background
-    left: -(history-width);
-    right: history-width;
+    left: (history-width);
+    //right: history-width;
     .view-editor
       .handle
         opacity: 0
@@ -372,7 +403,7 @@ line.link {
 }
 
 .CodeMirror.cm-s-neo
-  color: #ECF0F1
+  color: #2E383C
   .cm-keyword
     color: #3498DB
   .cm-atom
@@ -435,6 +466,12 @@ icon(type, do-no-hover=false)
   display: inline-block
   cursor: pointer
   background-repeat: no-repeat;
+  &.editor-refresh
+    icon: editor-refresh
+  &.query-success
+    icon: query-success no-hover
+  &.query-error
+    icon: query-error no-hover
   &.menu-plus
     icon: menu-plus no-hover
   &.history
