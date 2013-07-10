@@ -29,10 +29,12 @@ angular.module('neo4jApp.services')
           @starred = !@starred
 
         exec: ->
+          @isLoading = yes
           $http.post('http://localhost:7474/db/manage/server/console',
             command: @input
             engine: 'shell'
           ).success((data) =>
+            @isLoading  = no
             @response =
               input: @input
               text: data[0]
@@ -40,6 +42,10 @@ angular.module('neo4jApp.services')
                 data[0].indexOf('Unknown command') is 0
             if @response.hasErrors
               @response.errorText = data[0].split("\n\n")[0]
+          ).error(->
+            @hasErrors = yes
+            @errorText = "Sorry, something went wrong"
+            @isLoading   = no
           )
 
 
