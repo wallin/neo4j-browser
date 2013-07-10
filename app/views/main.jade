@@ -33,26 +33,24 @@ nav.top-bar
   //-.icon.close-history('ng-click'="toggleHistory()")
   h4 Saved
   ul.starred
-    li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.response.isError, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="views.toggleStar(view.id)")
-      a.refresh
+      a.refresh(ng-click='view.exec()')
       .contents
         a('ng-click'="views.select(view.id)")
           {{view.input | autotitle}}
-        .meta
-          .icon.query-success
-          //- .icon.query-error
+        .meta(ng-show='view.response')
+          .icon(ng-class='{"query-error": view.response.hasErrors, "query-success": !view.response.hasErrors}')
           | 10 min ago
   h4 Unsaved
   ul
-    li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.response.isError, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="views.toggleStar(view.id)")
       .contents
         a('ng-click'="views.select(view.id)")
           {{view.input | autotitle}}
-        .meta
-          .icon.query-success
-          //- .icon.query-error
+        .meta(ng-show='view.response')
+          .icon(ng-class='{"query-error": view.response.hasErrors, "query-success": !view.response.hasErrors}')
           | 10 min ago
 
 #views
