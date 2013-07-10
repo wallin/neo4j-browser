@@ -144,26 +144,48 @@ angular.module('neo4jApp.directives')
 
   ])
 
+angular.module('neo4jApp.directives')
+  .controller('visualizationCtrl', [
+    '$scope'
+    'Cypher'
+    '$window'
+    ($scope, Cypher, $window) ->
+      currentQuery = null
+      $scope.export = ->
+        return unless $scope.result
+
+        text = $scope.result.columns().join(';') + "\n"
+        for row in $scope.result.rows()
+          r = (JSON.stringify(cell) for cell in row)
+          text += r.join(';') + "\n"
+
+        blob = new Blob([text], {type: "text/csv;charset=utf-8"});
+        $window.saveAs(blob, "export.csv");
+
+      @query = $scope.query = (query = currentQuery)->
+        return unless query?
+        currentQuery = query
+        Cypher.send(query).then(
+          (result) ->
+            $scope.result = result
+          ,
+          ->
+            $scope.result = null
+        )
+  ])
 
 angular.module('neo4jApp.directives')
   .directive('visualization', [
-    'Cypher'
-    (Cypher) ->
+    ->
+      controller: 'visualizationCtrl'
       restrict: 'EA'
       scope: "@"
       link: (scope, elm, attr, ctrl) ->
         currentQuery = null
         scope.$watch(attr.query, (val, oldVal)->
           return if not val or val is currentQuery
-          currentQuery = val
-          Cypher.send(val).then(
-            (result) ->
-              scope.result = result
-            ,
-            ->
-              scope.result = null
-          )
-        , true)
+          ctrl.query(val)
+        )
   ])
 
 angular.module('neo4jApp.directives')

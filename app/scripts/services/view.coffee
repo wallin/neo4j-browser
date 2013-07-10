@@ -63,7 +63,6 @@ angular.module('neo4jApp.services')
           @current = view
           @current.exec()
           @currentIdx = 0
-          console.log  @
 
       ViewStore = new ViewStore
 

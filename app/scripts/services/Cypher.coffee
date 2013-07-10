@@ -45,6 +45,9 @@ angular.module('neo4jApp.services')
           )
           return q.promise
 
+        toString: ->
+          JSON.stringify(@$raw.data)
+
       class CypherResult
         constructor: (@_response = {}) ->
           @queryTime = (new Date()).getTime()

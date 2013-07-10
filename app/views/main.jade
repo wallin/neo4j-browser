@@ -47,11 +47,11 @@ nav.top-bar
           | in <b>{{result.queryTime}} ms</b>
       .split-pane
         .view-result-graph
+          .icon.download('ng-click'='export()')
           .icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
-          .icon.download
           neo-graph
         .view-result-table
-          .icon.download
+          .icon.download('ng-click'='export()')
           .icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
           .view-result-table-scroll
             neo-table
