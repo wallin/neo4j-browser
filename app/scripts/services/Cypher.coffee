@@ -46,13 +46,21 @@ angular.module('neo4jApp.services')
           return q.promise
 
       class CypherResult
-        constructor: (@response = {}) ->
+        constructor: (@_response = {}) ->
+          @queryTime = (new Date()).getTime()
+          @clear()
+
+        clear: ->
           @nodes = []
           @relationships = []
           @other = []
-          @response.data ?= []
-          return unless @response.data?
-          for row in @response.data
+
+        response: (r) ->
+          return @_response unless r?
+          @_response = r
+          @_response.data ?= []
+          return @_response unless @_response.data?
+          for row in @_response.data
             for cell in row
               type = resultType(cell)
               switch type
@@ -60,10 +68,11 @@ angular.module('neo4jApp.services')
                 when RELATIONSHIP then @relationships.push new CypherRelationship(cell)
                 else
                   @other.push cell
-
+          @queryTime = (new Date()).getTime() - @queryTime
+          @_response
 
         rows: ->
-          @response.data.map (row) ->
+          for row in @_response.data
             for cell in row
               if not (cell?)
                 null
@@ -73,7 +82,11 @@ angular.module('neo4jApp.services')
                 cell
 
         columns: ->
-          @response.columns
+          @_response.columns
+
+        # Tell wether the result is pure text (ie. no nodes or relations)
+        isTextOnly: ->
+          @nodes.length is 0 and @relationships.length is 0
 
 
       class CypherService
@@ -81,8 +94,12 @@ angular.module('neo4jApp.services')
 
         send: (query) ->
           q = $q.defer()
+          res = new CypherResult()
           $http.post("http://localhost:7474/db/data/cypher", { query : query })
-            .success((result)-> q.resolve(new CypherResult(result)))
+            .success((result)->
+              res.response(result)
+              q.resolve(res)
+            )
             .error(-> q.reject())
           q.promise
 

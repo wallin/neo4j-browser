@@ -40,7 +40,11 @@ nav.top-bar
       .update-button.button.right('ng-click' = 'view.exec()') Execute
     visualization.view-result(query='view.response.input')
       .status-bar
-        {{view.input}} Returned <b>{{result.nodes.length}} nodes</b> in <b>Y ms</b>
+        div(ng-show='result')
+          | Returned
+          <b ng-show='!result.isTextOnly()'>{{result.nodes.length}} nodes</b>
+          <b ng-show='result.isTextOnly()'>{{result.other.length}} rows</b>
+          | in <b>{{result.queryTime}} ms</b>
       .split-pane
         .view-result-graph
           .icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
