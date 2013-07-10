@@ -9,8 +9,7 @@ angular.module('neo4jApp.services')
     () ->
       class Collection
         constructor: (items) ->
-          @items = []
-          @_byId = {}
+          @_reset()
           @add(items) if items?
 
         add: (items) ->
@@ -44,6 +43,22 @@ angular.module('neo4jApp.services')
         pluck: (attr) ->
           return undefined unless angular.isString(attr)
           i[attr] for i in @items
+
+        where: (attrs) ->
+          rv = []
+          return rv unless angular.isObject(attrs)
+
+          numAttrs = Object.keys(attrs).length
+
+          for item in @items
+            matches = 0
+            for key, val of attrs
+              matches++ if item[key] is val
+
+            rv.push item if numAttrs is matches
+
+          rv
+
 
       Collection
 ]

@@ -19,7 +19,9 @@ angular.module('neo4jApp.services')
   .factory 'viewService', [
     '$http',
     '$rootScope'
-    ($http, $rootScope) ->
+    'Collection'
+    'localStorageService'
+    ($http, $rootScope, Collection, localStorageService) ->
       class View
         constructor: (@input, @id)->
           @starred = false
@@ -51,26 +53,25 @@ angular.module('neo4jApp.services')
 
       class ViewStore
         constructor: ->
-          @history = []
+          @history = new Collection()
           @current = null
 
         push: (input)->
-          view = new View(input, @history.length)
-          @history.unshift view
-          view
+          view = new View(input, @history.all().length)
+          @history.add view
 
         select: (id) ->
           # id is reversed index
-          idx = @history.length - id - 1
-          @current = @history[idx] if @history[idx]
-          @currentIdx = idx
+          @current = @history.get id
+
+        star: (id) ->
+
 
         run: (input)->
           return unless input
           view = @push(input)
-          @current = view
+          @select(view.id)
           @current.exec()
-          @currentIdx = 0
 
       ViewStore = new ViewStore
 

@@ -47,3 +47,15 @@ describe 'Service: Collection', () ->
       attrs = Collection.pluck('id')
       expect(attrs.length).toBe 3
       expect(attrs).toContain attr for attr in [1...3]
+
+  describe 'where:', ->
+    beforeEach ->
+      Collection.add([{id: 1, name: 'shoe'}, {id: 2, name: 'tie'}, {id: 3, name: 'tie'}])
+
+    it 'should return a list of items that matches provided attrbutes', ->
+      items = Collection.where({name: 'tie'})
+      expect(items.length).toBe 2
+
+    it 'should return a list of items matching several provided attrbutes', ->
+      items = Collection.where({name: 'tie', id: 3})
+      expect(items.length).toBe 1

@@ -20,20 +20,20 @@ nav.top-bar
   h3 Views
   h4 Saved
   ul.starred
-    li('ng-repeat' = "view in views.history | filter:{starred:true}", 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
       a('ng-click'="views.select(view.id)")
         {{view.input | autotitle}}
   h4 Unsaved
   ul
-    li('ng-repeat' = 'view in views.history | filter:{starred:false}', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
       a('ng-click'="views.select(view.id)")
         {{view.input | autotitle}}
 
 #views
   #view-background
-  .view('ng-repeat' = 'view in views.history', 'ng-show' = 'view.id == views.current.id')
+  .view('ng-repeat' = 'view in views.history.all()', 'ng-show' = 'view.id == views.current.id')
     .view-editor
       a.handle('ng-click'="toggleEditor()")
       textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='view.input')
