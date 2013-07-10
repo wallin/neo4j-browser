@@ -14,18 +14,17 @@ nav.top-bar
           .icon.menu-plus
           | Fork
 
-    ul.right
-      li
-        ul.button-group(style='position:relative;top:5px;right:16px')
-            li
-              span
-                a.small.button.secondary('ng-click'="toggleEditor()") Editor
-            li
-              span
-                a.small.button.secondary('ng-click'="toggleGraph()") Graph
-            li
-              span
-                a.small.button.secondary('ng-click'="toggleTable()") Table
+    .right
+      ul.button-group(style='position:relative;top:5px;right:16px;z-index:10')
+          li
+            span
+              a.small.button('ng-click'="toggleEditor()", 'ng-class'='{secondary: !isEditorHidden}') Editor
+          li
+            span
+              a.small.button('ng-click'="toggleGraph()", 'ng-class'='{secondary: !isGraphExpanded}') Graph
+          li
+            span
+              a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
 
     //-     .icon.history(ng-click='toggleHistory()')
 
