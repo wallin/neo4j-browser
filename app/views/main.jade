@@ -6,9 +6,13 @@ nav.top-bar
   section.top-bar-section
     ul.left
       li
-        a(ng-click='execute()')
+        a(ng-click='createView()')
           .icon.menu-plus
           | New
+      li
+        a(ng-click='createView(views.current.input)')
+          .icon.menu-plus
+          | Fork
 
     ul.right
 

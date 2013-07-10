@@ -22,6 +22,13 @@ angular.module('neo4jApp.services')
     'Collection'
     'localStorageService'
     ($http, $rootScope, Collection, localStorageService) ->
+
+      stripComments = (input) ->
+        rows = input.split("\n")
+        rv = []
+        rv.push row for row in rows when row.indexOf('//') isnt 0
+        rv.join("\n")
+
       class View
         constructor: (@input, @id)->
           @starred = false
@@ -31,6 +38,8 @@ angular.module('neo4jApp.services')
           @starred = !@starred
 
         exec: ->
+          query = stripComments(@input.trim())
+          return if query.length is 0
           @isLoading = yes
           $http.post('http://localhost:7474/db/manage/server/console',
             command: @input
