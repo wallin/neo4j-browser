@@ -103,7 +103,7 @@ angular.module('neo4jApp.services')
               res.response(result)
               q.resolve(res)
             )
-            .error(-> q.reject())
+            .error(-> q.reject(res))
           q.promise
 
         Node: CypherNode

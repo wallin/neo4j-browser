@@ -39,7 +39,8 @@ nav.top-bar
       textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='view.input')
       .update-button.button.right('ng-click' = 'view.exec()') Execute
     visualization.view-result(query='view.response.input')
-      .status-bar
+      .status-bar(ng-class='{error: view.response.hasErrors}')
+        span(ng-show='view.response.hasErrors') {{view.response.errorText}}
         div(ng-show='result')
           | Returned
           <b ng-show='!result.isTextOnly()'>{{result.nodes.length}} nodes</b>

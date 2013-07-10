@@ -36,8 +36,10 @@ angular.module('neo4jApp.services')
             @response =
               input: @input
               text: data[0]
-              isError: data[0].indexOf('SyntaxException') == 0 ||
-                data[0].indexOf('Unknown command') == 0
+              hasErrors: data[0].indexOf('SyntaxException') is 0 or
+                data[0].indexOf('Unknown command') is 0
+            if @response.hasErrors
+              @response.errorText = data[0].split("\n\n")[0]
           )
 
 
