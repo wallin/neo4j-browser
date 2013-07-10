@@ -22,13 +22,13 @@ nav.top-bar
   ul.starred
     li('ng-repeat' = "view in views.history | filter:{starred:true}", 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
-      a('ng-click'="toggleHistory()")
+      a('ng-click'="views.select(view.id)")
         {{view.input | autotitle}}
   h4 Unsaved
   ul
     li('ng-repeat' = 'view in views.history | filter:{starred:false}', 'ng-class'='{error: view.response.isError}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
-      a('ng-click'="views.select($index)")
+      a('ng-click'="views.select(view.id)")
         {{view.input | autotitle}}
 
 #views
@@ -38,9 +38,9 @@ nav.top-bar
       a.handle('ng-click'="toggleEditor()")
       textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='view.input')
       .update-button.button.right('ng-click' = 'view.exec()') Execute
-
     visualization.view-result(query='view.response.input')
-      .status-bar Returned <b>{{result.nodes.length}} nodes</b> in <b>Y ms</b>
+      .status-bar
+        {{view.input}} Returned <b>{{result.nodes.length}} nodes</b> in <b>Y ms</b>
       .split-pane
         .view-result-graph
           .icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')

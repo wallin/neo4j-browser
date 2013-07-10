@@ -1,5 +1,20 @@
 'use strict';
 
+defaultQueries = [
+  """
+// Example table data
+start user=node(*)
+match user-[:FRIEND]-friend-[r:RATED]->movie
+where r.stars > 3
+return friend.name, movie.title, r.stars, r.comment?
+  """
+  """
+// Example node data
+start n=node(0,343)
+return n
+  """
+]
+
 angular.module('neo4jApp.services')
   .factory 'viewService', [
     '$http',
@@ -31,16 +46,30 @@ angular.module('neo4jApp.services')
           @history = []
           @current = null
 
-        select: (idx) ->
+        push: (input)->
+          view = new View(input, @history.length)
+          @history.unshift view
+          view
+
+        select: (id) ->
+          # id is reversed index
+          idx = @history.length - id - 1
           @current = @history[idx] if @history[idx]
           @currentIdx = idx
 
         run: (input)->
           return unless input
-          @current = new View(input, @history.length)
+          view = @push(input)
+          @current = view
           @current.exec()
           @currentIdx = 0
-          @history.unshift @current
+          console.log  @
 
-      new ViewStore
+      ViewStore = new ViewStore
+
+      for example in defaultQueries
+        view = ViewStore.push(example.trim())
+        view.toggleStar()
+
+      ViewStore
   ]
