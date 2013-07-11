@@ -12,6 +12,9 @@ angular.module('neo4jApp.services')
           @_reset()
           @add(items) if items?
 
+        #
+        # Instance methods
+        #
         add: (items) ->
           itemsToAdd = if angular.isArray(items) then items else [items]
           for i in itemsToAdd
@@ -26,19 +29,22 @@ angular.module('neo4jApp.services')
         all: ->
           @items
 
+        first: ->
+          @items.sort((a, b) -> a.id-b.id)[0]
+
         get: (id) ->
           return undefined unless id?
           id = parseInt(id, 10)
           return undefined if isNaN(id)
           @_byId[id]
 
+        last: ->
+          @items.sort((a, b) -> b.id-a.id)[0]
+
+
         reset: (items) ->
           @_reset()
           @add(items)
-
-        _reset: ->
-          @items = []
-          @_byId = {}
 
         pluck: (attr) ->
           return undefined unless angular.isString(attr)
@@ -59,6 +65,13 @@ angular.module('neo4jApp.services')
 
           rv
 
+        #
+        # Internal methods
+        #
+
+        _reset: ->
+          @items = []
+          @_byId = {}
 
       Collection
 ]

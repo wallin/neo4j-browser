@@ -23,6 +23,13 @@ describe 'Service: Collection', () ->
       item = {id: 1}
       expect(Collection.add(item)).toBe item
 
+  describe 'first:', ->
+    beforeEach ->
+      Collection.add([{id: 2}, {id: 3}, {id: 1}])
+
+    it 'should retrieve item with lowest id', ->
+      expect(Collection.first().id).toBe 1
+
   describe 'get:', ->
     beforeEach ->
       Collection.add([{id: 1, name: 'shoe'}, {id: 2, name: 'tie'}])
@@ -39,6 +46,13 @@ describe 'Service: Collection', () ->
 
     it 'should return undefined on non existant id', ->
       expect(Collection.get(3)).toBe undefined
+
+  describe 'last:', ->
+    beforeEach ->
+      Collection.add([{id: 2}, {id: 3}, {id: 1}])
+
+    it 'should retrieve item with highest id', ->
+      expect(Collection.last().id).toBe 3
 
   describe 'pluck:', ->
     beforeEach ->
