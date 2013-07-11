@@ -13,7 +13,7 @@
     "file-saver": "latest",
     "angular-local-storage": "latest",
     "local-storage-js": "latest",
-    "angular-moment": "https://github.com/wallin/angular-moment.git",
+    "angular-moment": "https://raw.github.com/wallin/angular-moment/master/angular-moment.js",
     "moment": "~2.1.0"
   },
   "devDependencies": {
