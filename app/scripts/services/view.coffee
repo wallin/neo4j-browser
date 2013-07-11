@@ -66,7 +66,7 @@ angular.module('neo4jApp.services')
             (result) =>
               @isLoading = no
               @hasErrors = yes
-              @errorText = result.exception + ": " + result.message
+              @errorText = result.exception + ": " + result.message.split("\n")[0]
               @runTime = timer.stop().time()
           )
 
