@@ -74,7 +74,11 @@ h1
   font-family: Monaco, Menlo, 'Ubuntu Mono', 'Droid Sans Mono', Consolas, monospace !important
   line-height: 22px !important
   height: 100% !important
-  margin: 18px
+  margin: 18px horizontal-padding
+  pre
+    padding: 0 !important
+.CodeMirror-lines
+  padding: 0 !important
 
 .top-bar
   transist: margin
@@ -148,11 +152,8 @@ h1
         background: url('/images/icon-query-refresh.png') 0 0 no-repeat
         &:hover
           background-image: url('/images/icon-query-refresh_hover.png')
-      .running
-        absolute: right 40px top 18px
-        width image-size('icon-query-running.png')[0]
-        height image-size('icon-query-running.png')[1]
-        background: url('/images/icon-query-running.png') 0 0 no-repeat
+        &.running
+          background: url('/images/icon-query-running.png') 0 0 no-repeat
       .contents
         //padding-left: 25px;
         a
