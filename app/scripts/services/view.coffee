@@ -24,7 +24,7 @@ angular.module('neo4jApp.services')
     'localStorageService'
     'Timer'
     ($http, $rootScope, Collection, Cypher, localStorageService, Timer) ->
-
+      viewStore = null
       stripComments = (input) ->
         rows = input.split("\n")
         rv = []
@@ -38,16 +38,20 @@ angular.module('neo4jApp.services')
 
         toggleStar: ->
           @starred = !@starred
+          viewStore.persist()
 
         exec: ->
           query = stripComments(@input.trim())
           return if query.length is 0
+
           query = query + ";" unless query.endsWith(';')
           @isLoading = yes
           @hasErrors = no
           @response  = null
           timer = Timer.start()
           @startTime = timer.started()
+          viewStore.persist()
+
           Cypher.send(query).then(
             (cypherResult) =>
               @isLoading = no
@@ -68,8 +72,26 @@ angular.module('neo4jApp.services')
           @history = new Collection()
           @current = null
 
+          for example in defaultQueries
+            view = @push(example.trim())
+            view.starred = yes
+
+          savedScripts = @persisted()
+
+          if angular.isArray(savedScripts)
+            for v in savedScripts
+              view = new View(v.input, v.id)
+              view.starred = yes
+              @add(view)
+
         add: (view) ->
           @history.add view unless @history.get(view.id)
+
+        persist: ->
+          localStorageService.add('saved', JSON.stringify(@history.where(starred: true)))
+
+        persisted: ->
+          JSON.parse(localStorageService.get('saved'))
 
         push: (input)->
           view = new View(input, @history.all().length)
@@ -78,32 +100,9 @@ angular.module('neo4jApp.services')
         select: (id) ->
           @current = @history.get id
 
-        toggleStar: (id) ->
-          view = @history.get(id)
-          return unless view?
-          view.toggleStar()
-          localStorageService.add('saved', JSON.stringify(@history.where(starred: true)))
 
-        run: (input)->
-          return unless input
-          view = @push(input)
-          @select(view.id)
-          @current.exec()
-
-      ViewStore = new ViewStore
-
-      for example in defaultQueries
-        view = ViewStore.push(example.trim())
-        view.toggleStar()
-
-      savedScripts = JSON.parse(localStorageService.get('saved'))
-
-      if angular.isArray(savedScripts)
-        for v in savedScripts
-          view = new View(v.input, v.id)
-          view.toggleStar()
-          ViewStore.add(view)
+      viewStore = new ViewStore
 
 
-      ViewStore
+      viewStore
   ]
