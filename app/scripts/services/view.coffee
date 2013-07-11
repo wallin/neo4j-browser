@@ -56,7 +56,11 @@ angular.module('neo4jApp.services')
             (cypherResult) =>
               @isLoading = no
               @errorText = no
-              @response = cypherResult
+              if cypherResult.isTooLarge
+                @hasErrors = yes
+                @errorText = "Resultset is too large"
+              else
+                @response = cypherResult
               @runTime = timer.stop().time()
             ,
             (result) =>

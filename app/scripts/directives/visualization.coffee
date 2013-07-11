@@ -191,6 +191,8 @@ angular.module('neo4jApp.directives')
       link: (scope, elm, attr, ctrl) ->
         scope.$watch('result', (result) ->
           return unless result
+          # TODO: show something if result is too large
+          return if result.isTooLarge
           graph = new GraphModel(result)
           graph.expandAll().then(->ctrl.render(graph))
         )
@@ -205,6 +207,8 @@ angular.module('neo4jApp.directives')
       link: (scope, elm, attr, ctrl) ->
         scope.$watch('result', (result) ->
           return unless result
+          # TODO: show something if result is too large
+          return if result.isTooLarge
           scope.rows = result.rows()
           scope.columns = result.columns()
         )

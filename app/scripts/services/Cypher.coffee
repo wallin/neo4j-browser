@@ -50,17 +50,16 @@ angular.module('neo4jApp.services')
 
       class CypherResult
         constructor: (@_response = {}) ->
-          @queryTime = (new Date()).getTime()
-          @clear()
-
-        clear: ->
           @nodes = []
-          @relationships = []
           @other = []
+          @relationships = []
+          @size = 0
 
-        response: (r) ->
-          return @_response unless r?
-          @_response = r
+          @size = @_response.data?.length or 0
+
+          # TODO: determine max result size
+          @isTooLarge = !(@size and @size < 1000)
+          return if @isTooLarge
           @_response.data ?= []
           return @_response unless @_response.data?
           for row in @_response.data
@@ -71,8 +70,10 @@ angular.module('neo4jApp.services')
                 when RELATIONSHIP then @relationships.push new CypherRelationship(cell)
                 else
                   @other.push cell
-          @queryTime = (new Date()).getTime() - @queryTime
+
           @_response
+
+        response: -> @_response
 
         rows: ->
           for row in @_response.data
@@ -97,12 +98,8 @@ angular.module('neo4jApp.services')
 
         send: (query) ->
           q = $q.defer()
-          res = new CypherResult()
           $http.post("http://localhost:7474/db/data/cypher", { query : query })
-            .success((result)->
-              res.response(result)
-              q.resolve(res)
-            )
+            .success((result)-> q.resolve(new CypherResult(result)))
             .error((r) -> q.reject(r))
           q.promise
 
