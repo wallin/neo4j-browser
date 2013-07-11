@@ -1,13 +1,10 @@
 {
   "name": "neo4j",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
-    "angular": "~1.0.5",
+    "angular": "~1.0.7",
     "json3": "~3.2.4",
     "es5-shim": "~2.0.8",
-    "angular-resource": "~1.0.5",
-    "angular-cookies": "~1.0.5",
-    "angular-sanitize": "~1.0.5",
     "angular-ui-codemirror": "~0.0.4",
     "codemirror": "~3.14.0",
     "d3": "~3.2.2",
@@ -16,7 +13,7 @@
     "file-saver": "latest",
     "angular-local-storage": "latest",
     "local-storage-js": "latest",
-    "angular-moment": "~0.1.4",
+    "angular-moment": "https://github.com/wallin/angular-moment.git",
     "moment": "~2.1.0"
   },
   "devDependencies": {
