@@ -74,7 +74,7 @@ nav.top-bar
               | Returned
               <b ng-show='!result.isTextOnly()'>{{result.nodes.length}} nodes</b>
               <b ng-show='result.isTextOnly()'>{{result.other.length}} rows</b>
-              | in <b>{{result.queryTime}} ms</b>
+              | in <b>{{view.runTime}} ms</b>
             div(ng-hide='result')
               .icon.status-info
               | Press Cmd-Enter to execute query
