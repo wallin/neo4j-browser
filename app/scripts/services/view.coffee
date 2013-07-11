@@ -20,8 +20,10 @@ angular.module('neo4jApp.services')
     '$http',
     '$rootScope'
     'Collection'
+    'Cypher'
     'localStorageService'
-    ($http, $rootScope, Collection, localStorageService) ->
+    'Timer'
+    ($http, $rootScope, Collection, Cypher, localStorageService, Timer) ->
 
       stripComments = (input) ->
         rows = input.split("\n")
@@ -31,7 +33,7 @@ angular.module('neo4jApp.services')
 
       class View
         constructor: (@input, @id)->
-          @starred = false
+          @starred = no
           @response = null
 
         toggleStar: ->
@@ -40,25 +42,25 @@ angular.module('neo4jApp.services')
         exec: ->
           query = stripComments(@input.trim())
           return if query.length is 0
+          query = query + ";" unless query.endsWith(';')
           @isLoading = yes
-          $http.post('http://localhost:7474/db/manage/server/console',
-            command: @input
-            engine: 'shell'
-          ).success((data) =>
-            @isLoading  = no
-            @response =
-              input: @input
-              text: data[0]
-              hasErrors: data[0].indexOf('SyntaxException') is 0 or
-                data[0].indexOf('Unknown command') is 0
-            if @response.hasErrors
-              @response.errorText = data[0].split("\n\n")[0]
-          ).error(->
-            @hasErrors = yes
-            @errorText = "Sorry, something went wrong"
-            @isLoading   = no
+          timer = Timer.start()
+          @startTime = timer.started()
+          Cypher.send(query).then(
+            (cypherResult) =>
+              @isLoading = no
+              @hasErrors = no
+              @errorText = no
+              @response = cypherResult
+              @runTime = timer.stop().time()
+            ,
+            (result) =>
+              @isLoading = no
+              @hasErrors = yes
+              @errorText = result.exception + ": " + result.message
+              @response  = null
+              @runTime = timer.stop().time()
           )
-
 
       # TODO: Make better API for views
       class ViewStore

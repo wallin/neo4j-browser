@@ -32,25 +32,25 @@ nav.top-bar
   //-.icon.close-history('ng-click'="toggleHistory()")
   h4 Saved
   ul.starred
-    li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.response.isError, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="views.toggleStar(view.id)")
       a.refresh(ng-click='view.exec()')
       .contents
         a(href="{{viewPath(view.id)}}")
           {{view.input | autotitle}}
-        .meta(ng-show='view.response')
-          .icon(ng-class='{"query-error": view.response.hasErrors, "query-success": !view.response.hasErrors}')
-          | 10 min ago
+        .meta(ng-show='view.runTime')
+          .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+          | {{view.startTime | date:'mediumTime'}}
   h4 Unsaved
   ul
-    li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.response.isError, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
+    li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="views.toggleStar(view.id)")
       .contents
         a(href="{{viewPath(view.id)}}")
           {{view.input | autotitle}}
-        .meta(ng-show='view.response')
-          .icon(ng-class='{"query-error": view.response.hasErrors, "query-success": !view.response.hasErrors}')
-          | 10 min ago
+        .meta(ng-show='view.runTime')
+          .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+          | {{view.startTime | date:'mediumTime'}}
 
 #views
   #view-background
@@ -60,9 +60,9 @@ nav.top-bar
       textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='view.input', 'ui-refresh'='views.current.id')
       .icon.editor-refresh('ng-click' = 'view.exec()')
       //-.update-button.button.right('ng-click' = 'view.exec()') Execute
-    visualization.view-result(query='view.response.input')
-      .status-bar(ng-class='{error: view.response.hasErrors, loading: view.isLoading}')
-        span(ng-show='view.response.hasErrors') {{view.response.errorText}}
+    visualization.view-result(result='view.response')
+      .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}')
+        span(ng-show='view.hasErrors') {{view.errorText}}
         span(ng-show='view.isLoading') Loading...
         div(ng-show='result')
           | Returned
