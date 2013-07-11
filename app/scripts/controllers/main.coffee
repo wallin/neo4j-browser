@@ -15,6 +15,14 @@ angular.module('neo4jApp')
       view = viewService.push(query)
       $location.path("/#{view.id}")
 
+    $scope.copyView = (view) ->
+      return unless view.id
+      query = view.input
+      # Modify comment if any
+      if query.beginsWith('//')
+        query = query.replace(/\/\/\s?(.)/, "// Copy of $1")
+
+      $scope.createView(query)
 
     if viewService.history.where(starred: no).length is 0
       $scope.createView()

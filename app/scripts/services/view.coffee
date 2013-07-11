@@ -32,7 +32,7 @@ angular.module('neo4jApp.services')
         rv.join("\n")
 
       class View
-        constructor: (@input, @id)->
+        constructor: (@input = '', @id)->
           @starred = no
           @response = null
 
