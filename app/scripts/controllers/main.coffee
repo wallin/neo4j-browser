@@ -16,7 +16,7 @@ angular.module('neo4jApp')
       $location.path("/#{view.id}") if navigate
 
     $scope.copyView = (view) ->
-      return unless view.id
+      return unless view?.id?
       query = view.input
       # Modify comment if any
       if query.beginsWith('//')

@@ -33,7 +33,7 @@ nav.top-bar
   ul.starred
     li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
-      a.refresh(ng-click='view.exec()', ng-class='{"running": view.isLoading}')
+      a.refresh(ng-click='view.exec()', ng-class='{"running spin": view.isLoading}')
       .contents
         a(href="{{viewPath(view.id)}}")
           {{view.input | autotitle}}
