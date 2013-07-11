@@ -36,7 +36,7 @@ nav.top-bar
       a.star('ng-click'="views.toggleStar(view.id)")
       a.refresh(ng-click='view.exec()')
       .contents
-        a('ng-click'="views.select(view.id)")
+        a(href="{{viewPath(view.id)}}")
           {{view.input | autotitle}}
         .meta(ng-show='view.response')
           .icon(ng-class='{"query-error": view.response.hasErrors, "query-success": !view.response.hasErrors}')
@@ -46,7 +46,7 @@ nav.top-bar
     li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.response.isError, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="views.toggleStar(view.id)")
       .contents
-        a('ng-click'="views.select(view.id)")
+        a(href="{{viewPath(view.id)}}")
           {{view.input | autotitle}}
         .meta(ng-show='view.response')
           .icon(ng-class='{"query-error": view.response.hasErrors, "query-success": !view.response.hasErrors}')

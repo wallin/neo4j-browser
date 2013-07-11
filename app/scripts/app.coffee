@@ -14,9 +14,7 @@ app = angular.module('neo4jApp', [
 app
   .config ['$routeProvider', ($routeProvider) ->
     $routeProvider
-      .when '/',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
+      .when('/:viewId')
       .otherwise
         redirectTo: '/'
   ]
@@ -42,4 +40,9 @@ app.run(['$rootScope', '$http', '$timeout', ($scope, $http, $timeout) ->
     .then(-> timer = $timeout(check, 5000))
 
   check()
+])
+
+
+app.run(['$rootScope', ($rootScope) ->
+  $rootScope.viewPath = (id) -> "#/#{id}"
 ])

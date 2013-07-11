@@ -32,7 +32,7 @@
       <a href="#" class="close">&times;</a>
     </div>
 
-    <div id="page-container" ng-view></div>
+    <div id="page-container" ng-controller="MainCtrl" ng-include="'views/main.html'"></div>
 
     <script src="components/local-storage-js/storage.js"></script>
     <script src="components/angular/angular.js"></script>
