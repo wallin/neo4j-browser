@@ -14,17 +14,20 @@ nav.top-bar
           .icon.menu-fork
           | Duplicate
 
-    .right
-      ul.button-group(style='position:relative;top:5px;right:16px;z-index:10')
-          li
-            span
-              a.small.button('ng-click'="toggleEditor()", 'ng-class'='{secondary: !isEditorHidden}') Editor
-          li
-            span
-              a.small.button('ng-click'="toggleGraph()", 'ng-class'='{secondary: !isGraphExpanded}') Graph
-          li
-            span
-              a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
+    ul.right
+      li
+        a(href = "http://neo4j.org", target="_BLANK")
+          | Help
+      //- ul.button-group(style='position:relative;top:5px;right:16px;z-index:10')
+      //-     li
+      //-       span
+      //-         a.small.button('ng-click'="toggleEditor()", 'ng-class'='{secondary: !isEditorHidden}') Editor
+      //-     li
+      //-       span
+      //-         a.small.button('ng-click'="toggleGraph()", 'ng-class'='{secondary: !isGraphExpanded}') Graph
+      //-     li
+      //-       span
+      //-         a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
 
 #history
   h3 History
