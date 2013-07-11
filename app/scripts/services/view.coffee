@@ -46,7 +46,6 @@ angular.module('neo4jApp.services')
 
           query = query + ";" unless query.endsWith(';')
           @isLoading = yes
-          @hasErrors = no
           @response  = null
           timer = Timer.start()
           @startTime = timer.started()
@@ -60,6 +59,7 @@ angular.module('neo4jApp.services')
                 @hasErrors = yes
                 @errorText = "Resultset is too large"
               else
+                @hasErrors = no
                 @response = cypherResult
               @runTime = timer.stop().time()
             ,
