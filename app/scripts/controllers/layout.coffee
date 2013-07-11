@@ -22,7 +22,7 @@ angular.module('neo4jApp')
 
     $scope.globalKey = (e) ->
       if e.metaKey and e.keyCode is 13 # Cmd-Enter
-        alert "TBD: Execute"
+        alert "Not implemented yet. In the meantime, click the play button."
       else if e.keyCode is 27 # Esc
         $scope.toggleEditor()
       #else if e.keyCode is 72 # h

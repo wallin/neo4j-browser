@@ -57,22 +57,32 @@ nav.top-bar
       textarea('ui-codemirror'="{theme: 'neo'}", 'ng-model'='view.input', 'ui-refresh'='views.current.id')
       .icon.editor-refresh('ng-click' = 'view.exec()')
       //-.update-button.button.right('ng-click' = 'view.exec()') Execute
-    visualization.view-result(result='view.response')
+    visualization.view-result(result='view.response', ng-class='{error: view.hasErrors}')
       .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}')
-        span(ng-show='view.hasErrors') {{view.errorText}}
-        span(ng-show='view.isLoading') Loading...
-        div(ng-show='result')
-          | Returned
-          <b ng-show='!result.isTextOnly()'>{{result.nodes.length}} nodes</b>
-          <b ng-show='result.isTextOnly()'>{{result.other.length}} rows</b>
-          | in <b>{{result.queryTime}} ms</b>
-      .split-pane
+        div(ng-hide='view.isLoading')
+          span(ng-show='view.hasErrors')
+            .icon.status-error
+            {{view.errorText}}
+          div(ng-hide='view.hasErrors')
+            div(ng-show='result')
+              .icon.status-success
+              | Returned
+              <b ng-show='!result.isTextOnly()'>{{result.nodes.length}} nodes</b>
+              <b ng-show='result.isTextOnly()'>{{result.other.length}} rows</b>
+              | in <b>{{result.queryTime}} ms</b>
+            div(ng-hide='result')
+              .icon.status-info
+              | Press Cmd-Enter to execute query
+        span(ng-show='view.isLoading')
+          .icon.status-running.spin
+          | Executing query...
+      .split-pane(ng-class='{hidden: view.hasErrors || !result}')
         .view-result-graph
-          .icon.download('ng-click'='export()')
+          //- .icon.download('ng-click'='export()')
           //-.icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
           neo-graph
         .view-result-table
-          .icon.download('ng-click'='export()')
+          //- .icon.download('ng-click'='export()')
           //-.icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
           .view-result-table-scroll
             neo-table

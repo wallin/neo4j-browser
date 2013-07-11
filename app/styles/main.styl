@@ -111,7 +111,7 @@ h1
     font-size: 17px
   h4
     background-color: #2E383C
-    line-height: 35px;
+    line-height: 39px;
     font-size: 14px
 
   .icon.close-history
@@ -259,36 +259,54 @@ h1
     right: 0
     left: 0
     transist left
+    background: #F5F6F6 url('/images/background-pending.png') 50% 50% no-repeat
+    &.error
+      background-image: url('/images/background-error.png')
     .status-bar
       position: absolute;
       top: 0
-      height: 56px
+      height: 39px
+      line-height: 38px
       left: 0
       right: 0
       color: #9EA4A6
       background-color: #FAFBFB
       border-bottom: 1px solid #E2E6E7
-      line-height: 56px
-      text-align: right
-      padding-right: 20px
-      font-size: 16px
+      padding-left: horizontal-padding
+      font-size: 14px
       &.error
-        background-color: firebrick
-        color: #ddd;
+        color: #E74C3C
+      .icon
+        position: relative
+        margin-right: 6px
+        &.status-info
+          top: 2px
+        &.status-success
+          top: 1px
+        &.status-error
+          top: 2px
+        &.status-running
+          top: 2px
 
-    .icon
+      /*
+      .icon
       absolute: top 16px
       z-index: 10
       &.expand
         right: 16px
       &.download
         right: 16px
+      */
     .split-pane
       position: absolute
-      top: 56px
+      top: 39px
       left: 0
       right: 0
       bottom: 0
+      height: 100%
+      transist: all
+      &.hidden
+        height: 0
       .view-result-graph
         background-color: #F5F6F6
         position: absolute
@@ -297,8 +315,8 @@ h1
         right: 0
         height: 50%
         transist height
-        border-bottom: 1px solid #E2E6E7
       .view-result-table
+        border-top: 1px solid #E2E6E7
         background-color: #f7f7f7
         position: absolute
         bottom: 0
@@ -487,6 +505,14 @@ icon(type, do-no-hover=false)
   display: inline-block
   cursor: pointer
   background-repeat: no-repeat;
+  &.status-info
+    icon: status-info no-hover
+  &.status-success
+    icon: status-success no-hover
+  &.status-error
+    icon: status-error no-hover
+  &.status-running
+    icon: status-running no-hover
   &.editor-refresh
     icon: editor-refresh
   &.query-success
