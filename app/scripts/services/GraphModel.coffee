@@ -27,19 +27,22 @@ angular.module('neo4jApp.services')
             rel.source = @nodes.get(rel.start)
             rel.target = @nodes.get(rel.end)
             rel.incoming = rel.end is node.id
-            #node.relationships.push rel
-            #node.children.push(if rel.source.id is node.id then rel.target else rel.source)
+
           rel
 
         expandAll: ->
-          q = $q.defer()
           ids = @nodes.pluck('id')
+          @expand(ids)
+
+        expand: (ids) ->
+          q = $q.defer()
+          ids = [ids] unless angular.isArray(ids)
           if ids.length is 0
             q.resolve(@)
             return q.promise
 
-          Cypher.send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b").then((result) =>
-            # Mark current nodes as expanded
+          Cypher.send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b;").then((result) =>
+            # Mark requested nodes as expanded
             for id in ids
               n = @nodes.get(id)
               n.expanded = yes if n
@@ -48,23 +51,6 @@ angular.module('neo4jApp.services')
             @addNode(n) for n in result.nodes
             @addRelationship(r) for r in result.relationships
             q.resolve(@)
-          )
-          q.promise
-
-
-        expand: (nodeId) ->
-          node = @nodes.get(nodeId)
-          q = $q.defer()
-          if not node?
-            q.reject()
-            return q.promise
-
-          node.$traverse().then((result)=>
-            result.expanded = yes
-
-            @addNode(n) for n in result.children
-            @addRelationship(r) for r in result.relationships
-            q.resolve()
           )
           q.promise
 

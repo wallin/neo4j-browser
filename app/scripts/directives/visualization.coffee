@@ -41,7 +41,7 @@ angular.module('neo4jApp.directives')
         .on('tick', tick)
 
       color = (d) ->
-        if d.children then "#c6dbef" else "#fd8d3c"
+        if d.expanded then "#c6dbef" else "#fd8d3c"
 
       nodeClass = (d) ->
         if d.expanded then 'node' else 'node faded'

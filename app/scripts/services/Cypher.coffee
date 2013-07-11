@@ -21,29 +21,22 @@ angular.module('neo4jApp.services')
         id = resource.substr(resource.lastIndexOf("/")+1)
         return parseInt(id, 10)
 
+
       class CypherRelationship
-        constructor: (data = {}) ->
-          @id = parseId(data.self)
-          @start = parseId(data.start)
-          @end = parseId(data.end)
-          @type = data.type
+        constructor: (@$raw = {}) ->
+          angular.extend @, @$raw.data
+          @id = parseId(@$raw.self)
+          @start = parseId(@$raw.start)
+          @end = parseId(@$raw.end)
+          @type = @$raw.type
+
+        toString: ->
+          JSON.stringify(@$raw.data)
 
       class CypherNode
         constructor: (@$raw = {}) ->
           angular.extend @, @$raw.data
           @id = parseId(@$raw.self)
-          @children = []
-          @relationships = []
-
-        $traverse: ->
-          return unless @id?
-          q = $q.defer()
-          Cypher.send("START a = node(#{@id}) MATCH a -[r]- b RETURN r, b;").then((result) =>
-            @children = result.nodes
-            @relationships = result.relationships
-            q.resolve(@)
-          )
-          return q.promise
 
         toString: ->
           JSON.stringify(@$raw.data)
