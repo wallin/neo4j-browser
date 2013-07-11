@@ -57,6 +57,17 @@ h1
   background-position: 21px 14px
   padding-left: 33px
 
+
+@keyframes spinning
+  from
+    transform: rotate(0deg)
+    transform-origin: 50% 50%
+  to
+    transform-origin: 50% 50%
+    transform: rotate(360deg)
+.spin
+  animation: spinning 1.5s linear infinite
+
 .CodeMirror
   background-color: transparent !important
   font-size: 14px !important
@@ -115,19 +126,24 @@ h1
           color: #fff
         background-color: #404C50
       .star
-        absolute: right 16px top 12px
+        absolute: right 16px top 17px
         width image-size('icon-star.png')[0]
-        height image-size('icon-star.png')[1] + 6px
-        background: url('/images/icon-star.png') 0 6px no-repeat
+        height image-size('icon-star.png')[1]
+        background: url('/images/icon-star.png') 0 0 no-repeat
         &:hover
           background-image: url('/images/icon-star_hover.png')
       .refresh
-        absolute: right 40px top 13px
+        absolute: right 40px top 18px
         width image-size('icon-query-refresh.png')[0]
-        height image-size('icon-query-refresh.png')[1] + 6px
-        background: url('/images/icon-query-refresh.png') 0 6px no-repeat
+        height image-size('icon-query-refresh.png')[1]
+        background: url('/images/icon-query-refresh.png') 0 0 no-repeat
         &:hover
           background-image: url('/images/icon-query-refresh_hover.png')
+      .running
+        absolute: right 40px top 18px
+        width image-size('icon-query-running.png')[0]
+        height image-size('icon-query-running.png')[1]
+        background: url('/images/icon-query-running.png') 0 0 no-repeat
       .contents
         //padding-left: 25px;
         a
