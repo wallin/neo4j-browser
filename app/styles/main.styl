@@ -79,10 +79,13 @@ h1
 .top-bar
   transist: margin
   z-index: 1
-  .icon.menu-plus
-    margin-right: 8px;
-    position: relative;
-    top: 1px;
+  .icon
+    margin-right: 8px
+    position: relative
+    &.menu-fork
+      top: 1px
+    &.menu-fork
+      top: 3px
   ul.right
     background-color: $topbar-bg
     .icon.history
@@ -490,6 +493,8 @@ icon(type, do-no-hover=false)
     icon: query-error no-hover
   &.menu-plus
     icon: menu-plus no-hover
+  &.menu-fork
+    icon: menu-fork no-hover
   &.history
     icon: history
   &.download
