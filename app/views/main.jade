@@ -26,15 +26,12 @@ nav.top-bar
             span
               a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
 
-    //-     .icon.history(ng-click='toggleHistory()')
-
 #history
-  //-.icon.close-history('ng-click'="toggleHistory()")
   h4 Saved
   ul.starred
     li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="views.toggleStar(view.id)")
-      a.refresh(ng-click='view.exec()')
+      a.refresh(ng-click='view.exec()', ng-class='{"running": view.isLoading}')
       .contents
         a(href="{{viewPath(view.id)}}")
           {{view.input | autotitle}}
