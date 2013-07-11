@@ -9,11 +9,11 @@ angular.module('neo4jApp')
   ($location, $route, $scope, viewService) ->
     $scope.views = viewService
 
-    $scope.createView = (query) ->
+    $scope.createView = (query, navigate = yes) ->
       len = viewService.history.all().length + 1
-      query ?= "//Query no. #{len}"
+      query ?= "// Query no. #{len}"
       view = viewService.push(query)
-      $location.path("/#{view.id}")
+      $location.path("/#{view.id}") if navigate
 
     $scope.copyView = (view) ->
       return unless view.id
@@ -25,7 +25,7 @@ angular.module('neo4jApp')
       $scope.createView(query)
 
     if viewService.history.where(starred: no).length is 0
-      $scope.createView()
+      $scope.createView(undefined, no) # Create new view with default name
 
     $scope.$on '$routeChangeSuccess', ->
       viewId = parseInt($route.current.params.viewId, 10)

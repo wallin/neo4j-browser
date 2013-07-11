@@ -44,12 +44,13 @@ angular.module('neo4jApp.services')
           return if query.length is 0
           query = query + ";" unless query.endsWith(';')
           @isLoading = yes
+          @hasErrors = no
+          @response  = null
           timer = Timer.start()
           @startTime = timer.started()
           Cypher.send(query).then(
             (cypherResult) =>
               @isLoading = no
-              @hasErrors = no
               @errorText = no
               @response = cypherResult
               @runTime = timer.stop().time()
@@ -58,7 +59,6 @@ angular.module('neo4jApp.services')
               @isLoading = no
               @hasErrors = yes
               @errorText = result.exception + ": " + result.message
-              @response  = null
               @runTime = timer.stop().time()
           )
 
@@ -76,7 +76,6 @@ angular.module('neo4jApp.services')
           @add view
 
         select: (id) ->
-          # id is reversed index
           @current = @history.get id
 
         toggleStar: (id) ->
