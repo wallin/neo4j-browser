@@ -37,7 +37,7 @@ nav.top-bar
           {{view.input | autotitle}}
         .meta(ng-show='view.runTime')
           .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-          | {{view.startTime | date:'mediumTime'}}
+          span('am-time-ago' = 'view.startTime')
   h4 Unsaved
   ul
     li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
@@ -47,7 +47,7 @@ nav.top-bar
           {{view.input | autotitle}}
         .meta(ng-show='view.runTime')
           .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-          | {{view.startTime | date:'mediumTime'}}
+          span('am-time-ago' = 'view.startTime')
 
 #views
   #view-background
