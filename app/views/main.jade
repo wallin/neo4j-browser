@@ -2,7 +2,7 @@ nav.top-bar
   ul.title-area
     li.name
       h1
-        a Neo4j Browser
+        a('ng-click'="toggleHistory()") Neo4j Browser
   section.top-bar-section
     ul.left
       li
@@ -27,6 +27,8 @@ nav.top-bar
               a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
 
 #history
+  h3 History
+  a.icon.history-close('ng-click'="toggleHistory()")
   h4 Starred
   ul.starred
     li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
@@ -38,7 +40,7 @@ nav.top-bar
         .meta(ng-show='view.runTime')
           .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
           span('am-time-ago' = 'view.startTime')
-  h4 History
+  h4 Recent
   ul
     li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")

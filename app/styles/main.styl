@@ -108,6 +108,8 @@ h1
   width: history-width
   bottom: 0
   background-color: #3A4549
+  .icon.history-close
+    absolute: top 21px right 16px
   h3, h4
     color: #fff
     text-transform: uppercase;
@@ -204,6 +206,7 @@ h1
   bottom: 0
   left: 0
   right: 0
+  box-shadow: rgba(0,0,0,0.25) -2px 0 11px;
   transist all
   #view-background
     stretch()
@@ -528,8 +531,8 @@ icon(type, do-no-hover=false)
     icon: menu-plus no-hover
   &.menu-fork
     icon: menu-fork no-hover
-  &.history
-    icon: history
+  &.history-close
+    icon: history-close
   &.download
     icon: download
   &.close-history
