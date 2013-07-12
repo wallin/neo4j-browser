@@ -47,6 +47,8 @@ angular.module('neo4jApp.services')
           return if query.length is 0
 
           query = query + ";" unless query.endsWith(';')
+          @errorText = no
+          @hasErrors = no
           @isLoading = yes
           @response  = null
           timer = Timer.start()
@@ -56,12 +58,10 @@ angular.module('neo4jApp.services')
           Cypher.send(query).then(
             (cypherResult) =>
               @isLoading = no
-              @errorText = no
               if cypherResult.isTooLarge
                 @hasErrors = yes
                 @errorText = "Resultset is too large"
               else
-                @hasErrors = no
                 @response = cypherResult
               @runTime = timer.stop().time()
               $rootScope.$broadcast 'viewService:changed', @
