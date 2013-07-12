@@ -131,10 +131,19 @@ h1
       padding: 12px horizontal-padding 16px
       position: relative
       border-bottom: 1px solid #465054
+      &:after
+        content: ' '
+        stretch()
+        background-color: #C9F9A1
+        transist all
+        width 0
+        opacity 0
       &:last-child
         border-bottom: none
       &.active
-        border-left: 4px solid #C9F9A1
+        &:after
+          width 4px
+          opacity 1
         background-color: #404C50
       &:hover
         a
