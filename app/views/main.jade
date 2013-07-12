@@ -30,29 +30,31 @@ nav.top-bar
       //-         a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
 
 #history
-  h3 History
+  h3 Views
   a.icon.history-close('ng-click'="toggleHistory()")
   h4 Starred
   ul.starred
     li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
+      a.background(href="{{viewUrl(view.id)}}")
       a.star('ng-click'="view.toggleStar()")
       a.refresh(ng-click='view.exec()', ng-class='{"running spin": view.isLoading}')
       .contents
-        a(href="{{viewUrl(view.id)}}")
+        a
           {{view.input | autotitle}}
-        .meta(ng-show='view.runTime')
-          .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-          span('am-time-ago' = 'view.startTime')
+          .meta(ng-show='view.runTime')
+            .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+            span('am-time-ago' = 'view.startTime')
   h4 Recent
   ul
     li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
+      a.background(href="{{viewUrl(view.id)}}")
       a.star('ng-click'="view.toggleStar()")
       .contents
-        a(href="{{viewUrl(view.id)}}")
+        a
           {{view.input | autotitle}}
-        .meta(ng-show='view.runTime')
-          .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-          span('am-time-ago' = 'view.startTime')
+          .meta(ng-show='view.runTime')
+            .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+            span('am-time-ago' = 'view.startTime')
 
 #views
   #view-background
