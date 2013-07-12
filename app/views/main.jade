@@ -39,7 +39,7 @@ nav.top-bar
       a.star('ng-click'="view.toggleStar()")
       a.refresh(ng-click='view.exec()', ng-class='{"running spin": view.isLoading}')
       .contents
-        a
+        a(href="{{viewUrl(view.id)}}")
           {{view.input | autotitle}}
           .meta(ng-show='view.runTime')
             .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
@@ -50,7 +50,7 @@ nav.top-bar
       a.background(href="{{viewUrl(view.id)}}")
       a.star('ng-click'="view.toggleStar()")
       .contents
-        a
+        a(href="{{viewUrl(view.id)}}")
           {{view.input | autotitle}}
           .meta(ng-show='view.runTime')
             .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
