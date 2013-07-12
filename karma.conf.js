@@ -14,10 +14,8 @@ files = [
   'app/components/codemirror/lib/codemirror.js',
   'app/components/angular-ui-codemirror/ui-codemirror.js',
   'app/components/d3/d3.js',
-  'app/components/d3-angular/dist/angular-d3.js',
   'app/scripts/*.coffee',
   'app/scripts/**/*.coffee',
-  'test/mock/**/*.coffee',
   'test/spec/**/*.coffee'
 ];
 
