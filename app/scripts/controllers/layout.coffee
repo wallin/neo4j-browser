@@ -2,6 +2,8 @@
 
 angular.module('neo4jApp')
   .controller 'LayoutCtrl', ($scope) ->
+    currentView = null
+
     $scope._isEditorHidden = $scope.isEditorHidden = false
     $scope.toggleEditor = ->
       #unless $scope.isHistoryShown
@@ -22,7 +24,7 @@ angular.module('neo4jApp')
 
     $scope.globalKey = (e) ->
       if e.metaKey and e.keyCode is 13 # Cmd-Enter
-        alert "Not implemented yet. In the meantime, click the play button."
+        currentView?.exec()
       else if e.keyCode is 27 # Esc
         $scope.toggleEditor()
       #else if e.keyCode is 72 # h
@@ -30,6 +32,7 @@ angular.module('neo4jApp')
 
 
     $scope.$on 'viewService:changed', (evt, view) ->
+      currentView = view
       return unless view?
       layout = view.layout()
       $scope.isGraphExpanded = layout.graph
