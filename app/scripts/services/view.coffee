@@ -36,10 +36,6 @@ angular.module('neo4jApp.services')
           @starred = no
           @response = null
 
-        toggleStar: ->
-          @starred = !@starred
-          viewStore.persist()
-
         exec: ->
           query = stripComments(@input.trim())
           return if query.length is 0
@@ -62,13 +58,27 @@ angular.module('neo4jApp.services')
                 @hasErrors = no
                 @response = cypherResult
               @runTime = timer.stop().time()
+              $rootScope.$broadcast 'viewService:changed', @
             ,
-            (result) =>
+            (result = {}) =>
               @isLoading = no
               @hasErrors = yes
-              @errorText = result.exception + ": " + result.message.split("\n")[0]
+              if result.exception and result.message
+                @errorText = result.exception + ": " + result.message.split("\n")[0]
+              else
+                @errorText = "Empty response"
               @runTime = timer.stop().time()
           )
+
+        layout: ->
+          return {
+            table: @response?.other.length > 0
+            graph: !@response?.isTextOnly()
+          }
+
+        toggleStar: ->
+          @starred = !@starred
+          viewStore.persist()
 
       # TODO: Make better API for views
       class ViewStore
@@ -103,6 +113,7 @@ angular.module('neo4jApp.services')
 
         select: (id) ->
           @current = @history.get id
+          $rootScope.$broadcast 'viewService:changed', @current
 
 
       viewStore = new ViewStore

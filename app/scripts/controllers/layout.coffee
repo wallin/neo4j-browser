@@ -27,3 +27,10 @@ angular.module('neo4jApp')
         $scope.toggleEditor()
       #else if e.keyCode is 72 # h
       #  $scope.toggleHistory()
+
+
+    $scope.$on 'viewService:changed', (evt, view) ->
+      return unless view?
+      layout = view.layout()
+      $scope.isGraphExpanded = layout.graph
+      $scope.isTableExpanded = layout.table
