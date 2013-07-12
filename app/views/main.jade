@@ -86,8 +86,11 @@ nav.top-bar
           //- .icon.download('ng-click'='export()')
           //-.icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
           neo-graph
+          .icon.table-show('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded")
         .view-result-table
           //- .icon.download('ng-click'='export()')
           //-.icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
           .view-result-table-scroll
             neo-table
+          .icon.table-download('ng-click'='export()', ng-class='{alone: isTableExpanded}')
+          .icon.table-hide('ng-click' = 'toggleGraph()', ng-hide="isTableExpanded")

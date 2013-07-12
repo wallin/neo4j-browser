@@ -1,22 +1,29 @@
-$primary-color = #1abc9c
-$alert-color = #E13329
-$topbar-bg = #222
-$body-font-color = #34495e
-$table-head-font-color = $body-font-color
-$table-row-font-color = $body-font-color
-$table-head-bg = #eff0f2
-$topbar-title-font-size = 20px
-$topbar-title-weight = normal
-$topbar-height = 57px
-$topbar-link-font-size = 16px
-$topbar-link-hover-lightness = 0
-$topbar-dropdown-bg = $primary-color
-
 horizontal-padding = 16px
 history-width = 300px
 editor-width = 440px
 editor-height = 150px
-topbar-height = $topbar-height
+topbar-height = 57px
+middlebar-height = 39px
+
+$primary-color = #1abc9c
+$alert-color = #E13329
+$topbar-bg = #222
+$body-font-color = #34495e
+$table-head-bg = #fff
+$table-head-font-color = #2E383C
+$table-head-padding = 0 horizontal-padding
+$table-head-font-weight = bold
+$table-head-font-size = 16px
+$table-row-padding = 0 horizontal-padding
+$table-row-font-color = #748287
+$table-row-font-size = 14px
+$table-even-row-bg = #F7f8f8
+$topbar-title-font-size = 20px
+$topbar-title-weight = normal
+$topbar-height = topbar-height
+$topbar-link-font-size = 16px
+$topbar-link-hover-lightness = 0
+$topbar-dropdown-bg = $primary-color
 
 @import 'foundation'
 @import 'nib'
@@ -57,6 +64,16 @@ h1
   background-position: 17px 14px
   padding-left: 30px
 
+table
+  th
+    border-bottom: 1px solid #ECF0F1
+  thead tr th, tfoot tr th
+    line-height: topbar-height
+    font-weight: bold
+  tbody tr td, tr td, tfoot tr td
+    vertical-align: top
+    line-height: 1.3 * $table-row-font-size
+    padding: ((middlebar-height - 1.3 * $table-row-font-size) / 2) horizontal-padding
 
 @keyframes spinning
   from
@@ -283,7 +300,7 @@ h1
       overflow: hidden
       position: absolute;
       top: 0
-      height: 39px
+      height: middlebar-height
       line-height: 38px
       left: 0
       right: 0
@@ -332,7 +349,9 @@ h1
         left: 0
         right: 0
         height: 50%
-        transist height
+        //transist height
+        .icon.table-show
+          absolute: bottom 57px right horizontal-padding
       .view-result-table
         border-top: 1px solid #E2E6E7
         background-color: #f7f7f7
@@ -341,7 +360,13 @@ h1
         left: 0
         right: 0
         height: 50%
-        transist height
+        //transist height
+        .icon.table-download
+          absolute: top 17px right horizontal-padding*2+20
+          &.alone
+            right: horizontal-padding
+        .icon.table-hide
+          absolute: top 20px right horizontal-padding
         .view-result-table-scroll
           position: absolute
           top: 0
@@ -523,6 +548,10 @@ icon(type, do-no-hover=false)
   display: inline-block
   cursor: pointer
   background-repeat: no-repeat;
+  &.table-show
+    icon: table-show
+  &.table-hide
+    icon: table-hide
   &.status-info
     icon: status-info no-hover
   &.status-success
@@ -543,8 +572,8 @@ icon(type, do-no-hover=false)
     icon: menu-fork no-hover
   &.history-close
     icon: history-close
-  &.download
-    icon: download
+  &.table-download
+    icon: table-download
   &.close-history
     icon: close-history no-hover
   &.expand
