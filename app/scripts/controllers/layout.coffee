@@ -34,6 +34,6 @@ angular.module('neo4jApp')
     $scope.$on 'viewService:changed', (evt, view) ->
       currentView = view
       return unless view?
-      layout = view.layout()
+      layout = view.suggestedLayout()
       $scope.isGraphExpanded = layout.graph
       $scope.isTableExpanded = layout.table

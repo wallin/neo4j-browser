@@ -38,7 +38,7 @@ nav.top-bar
       a.star('ng-click'="view.toggleStar()")
       a.refresh(ng-click='view.exec()', ng-class='{"running spin": view.isLoading}')
       .contents
-        a(href="{{viewPath(view.id)}}")
+        a(href="{{viewUrl(view.id)}}")
           {{view.input | autotitle}}
         .meta(ng-show='view.runTime')
           .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
@@ -48,7 +48,7 @@ nav.top-bar
     li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
       a.star('ng-click'="view.toggleStar()")
       .contents
-        a(href="{{viewPath(view.id)}}")
+        a(href="{{viewUrl(view.id)}}")
           {{view.input | autotitle}}
         .meta(ng-show='view.runTime')
           .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')

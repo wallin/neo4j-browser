@@ -1,18 +1,18 @@
 'use strict';
 
 defaultQueries = [
-  """
+  ["example_1", """
 // Example table data
 start user=node(*)
 match user-[:FRIEND]-friend-[r:RATED]->movie
 where r.stars > 3
 return friend.name, movie.title, r.stars, r.comment?
-  """
-  """
+  """]
+  ["example_2", """
 // Example node data
 start n=node(0,343)
 return n
-  """
+  """]
 ]
 
 angular.module('neo4jApp.services')
@@ -32,9 +32,15 @@ angular.module('neo4jApp.services')
         rv.join("\n")
 
       class View
-        constructor: (@input = '', @id)->
+        constructor: (data = {})->
           @starred = no
           @response = null
+          @input = null
+          if angular.isObject(data)
+            angular.extend(@, data)
+          else if angular.isString(data)
+            @input = data
+          @id ?= UUID.genV1().toString()
 
         exec: ->
           query = stripComments(@input.trim())
@@ -70,7 +76,7 @@ angular.module('neo4jApp.services')
               @runTime = timer.stop().time()
           )
 
-        layout: ->
+        suggestedLayout: ->
           return {
             table: @response?.other.length > 0
             graph: !@response?.isTextOnly()
@@ -87,14 +93,14 @@ angular.module('neo4jApp.services')
           @current = null
 
           for example in defaultQueries
-            view = @push(example.trim())
+            view = @create(example[1].trim(), example[0])
             view.starred = yes
 
           savedScripts = @persisted()
 
           if angular.isArray(savedScripts)
             for v in savedScripts
-              view = new View(v.input, v.id)
+              view = new View(input: v.input, id: v.id)
               view.starred = yes
               @add(view)
 
@@ -107,8 +113,8 @@ angular.module('neo4jApp.services')
         persisted: ->
           JSON.parse(localStorageService.get('saved'))
 
-        push: (input)->
-          view = new View(input, @history.all().length)
+        create: (input, id)->
+          view = new View(input: input, id: id)
           @add view
 
         select: (id) ->

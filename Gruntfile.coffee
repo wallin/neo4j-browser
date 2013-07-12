@@ -87,6 +87,8 @@ module.exports = (grunt) ->
         singleRun: true
 
     coffee:
+      options:
+        force: true
       dist:
         files: [
           expand: true

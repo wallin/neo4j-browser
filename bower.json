@@ -17,7 +17,8 @@
     "angular-local-storage": "latest",
     "local-storage-js": "latest",
     "angular-moment": "https://raw.github.com/wallin/angular-moment/master/angular-moment.js",
-    "moment": "~2.1.0"
+    "moment": "~2.1.0",
+    "UUID.js": "git@github.com:LiosK/UUID.js.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.5",
