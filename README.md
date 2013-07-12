@@ -14,7 +14,7 @@ This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS g
 * [PhantomJS](http://phantomjs.org) - for testing
 * [SBT](http://www.scala-sbt.org) - for packaging up as a maven artifact
   - the `tools` directory has an sbt script and the needed jar
-  
+
 ## Install
 
     $ npm install -g yo grunt-cli bower
@@ -26,22 +26,20 @@ This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS g
 ## Run Neo4j
 
 The tools directory has a small SBT project which builds and runs a local Neo4j server
-as a "test" application. 
+as a "test" application.
 
     $ ./tools/sbt test:run
 
 ## Develop
 
-    $ grunt test     # Run tests
     $ grunt server   # Run server for development
     $ grunt          # Build the application for production
     $ grunt clean    # Clean build files
 
-## Publish
+### Running tests
 
-    $ grunt build            # Build the application for distribution
-    $ ./tools/sbt publish    # Build a maven artifact which Neo4j can integrate
-
+    $ grunt test     # Single test run
+    $ karma start    # Continously run tests as source files changes
 
 ### Adding new files
 
@@ -58,6 +56,12 @@ Type `yo` or see [AngularJS generator](https://github.com/yeoman/generator-angul
     $ bower install jquery --save
 
 This will automatically add the dependency to the `bower.json` file.
+
+## Publish
+
+    $ grunt build            # Build the application for distribution
+    $ ./tools/sbt publish    # Build a maven artifact which Neo4j can integrate
+
 
 ## Documentation and resources
 
