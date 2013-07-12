@@ -34,8 +34,6 @@ angular.module('neo4jApp.services')
 
         get: (id) ->
           return undefined unless id?
-          id = parseInt(id, 10)
-          return undefined if isNaN(id)
           @_byId[id]
 
         last: ->

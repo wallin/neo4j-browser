@@ -47,6 +47,10 @@ describe 'Service: Collection', () ->
     it 'should return undefined on non existant id', ->
       expect(Collection.get(3)).toBe undefined
 
+    it 'should allow both numerical and string based ID', ->
+      Collection.add({id: 'identifier'})
+      expect(Collection.get('identifier').id).toBe 'identifier'
+
   describe 'last:', ->
     beforeEach ->
       Collection.add([{id: 2}, {id: 3}, {id: 1}])
