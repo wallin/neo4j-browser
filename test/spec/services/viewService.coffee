@@ -9,6 +9,3 @@ describe 'Service: viewService', () ->
   view = {}
   beforeEach inject (_viewService_) ->
     view = _viewService_
-
-  it 'should do something', () ->
-    expect(!!view).toBe true;
