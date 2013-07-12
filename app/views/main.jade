@@ -81,7 +81,7 @@ nav.top-bar
         span(ng-show='view.isLoading')
           .icon.status-running.spin
           | Executing query...
-      .split-pane(ng-class='{hidden: (view.hasErrors && !view.isLoading) || !result}')
+      .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !result')
         .view-result-graph
           //- .icon.download('ng-click'='export()')
           //-.icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
