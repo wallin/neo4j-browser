@@ -34,34 +34,14 @@ nav.top-bar
   a.icon.history-close('ng-click'="toggleHistory()")
   h4 Starred
   ul.starred
-    li('ng-repeat' = "view in views.history.where({starred:true})", 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
-      a.background(href="{{viewUrl(view.id)}}")
-      a.star('ng-click'="view.toggleStar()")
-      a.refresh(ng-click='view.exec()', ng-class='{"running spin": view.isLoading}')
-      .contents
-        a(href="{{viewUrl(view.id)}}")
-          {{view.input | autotitle}}
-          span(ng-hide='view.isLoading')
-            .meta(ng-show='view.runTime')
-              .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-              //- span('am-time-ago' = 'view.startTime', ng-hide='view.stats')
-              {{view.stats}}
-              span(ng-include=" 'views/result-status.html' ")
-
+    li(ng-repeat="view in views.history.where({starred:true})",
+       ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
+       ng-include=" 'views/list-item.html' ")
   h4 Recent
   ul
-    li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
-      a.background(href="{{viewUrl(view.id)}}")
-      a.star('ng-click'="view.toggleStar()")
-      .contents
-        a(href="{{viewUrl(view.id)}}")
-          {{view.input | autotitle}}
-          span(ng-hide='view.isLoading')
-            .meta(ng-show='view.runTime')
-              .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-              //- span('am-time-ago' = 'view.startTime', ng-hide='view.stats')
-              {{view.stats}}
-              span(ng-include=" 'views/result-status.html' ")
+    li(ng-repeat='view in views.history.where({starred:false})',
+       ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
+       ng-include=" 'views/list-item.html' ")
 
 #views
   #view-background
