@@ -61,7 +61,7 @@ nav.top-bar
   .view('ng-repeat' = 'view in views.history.all()', 'ng-show' = 'view.id == views.current.id')
     .view-editor
       //- a.handle('ng-click'="toggleEditor()")
-      textarea('ui-codemirror'="{theme: 'neo', autofocus: true}", 'ng-model'='view.input', 'ui-refresh'='views.current.id', 'focus-on' = 'view.id == views.current.id')
+      textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true}", 'ng-model'='view.input', 'ui-refresh'='views.current.id', 'focus-on' = 'view.id == views.current.id')
       .icon.editor-refresh('ng-click' = 'view.exec()')
       //-.update-button.button.right('ng-click' = 'view.exec()') Execute
     visualization.view-result(result='view.response', ng-class='{error: view.hasErrors}')
