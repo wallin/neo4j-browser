@@ -41,9 +41,13 @@ nav.top-bar
       .contents
         a(href="{{viewUrl(view.id)}}")
           {{view.input | autotitle}}
-          .meta(ng-show='view.runTime')
-            .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-            span('am-time-ago' = 'view.startTime')
+          span(ng-hide='view.isLoading')
+            .meta(ng-show='view.runTime')
+              .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+              //- span('am-time-ago' = 'view.startTime', ng-hide='view.stats')
+              {{view.stats}}
+              span(ng-include=" 'views/result-status.html' ")
+
   h4 Recent
   ul
     li('ng-repeat' = 'view in views.history.where({starred:false})', 'ng-class'='{error: view.hasErrors, active: view.id == views.current.id}', 'ng-animate'=" 'animate' ")
@@ -52,9 +56,12 @@ nav.top-bar
       .contents
         a(href="{{viewUrl(view.id)}}")
           {{view.input | autotitle}}
-          .meta(ng-show='view.runTime')
-            .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-            span('am-time-ago' = 'view.startTime')
+          span(ng-hide='view.isLoading')
+            .meta(ng-show='view.runTime')
+              .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+              //- span('am-time-ago' = 'view.startTime', ng-hide='view.stats')
+              {{view.stats}}
+              span(ng-include=" 'views/result-status.html' ")
 
 #views
   #view-background
@@ -73,10 +80,8 @@ nav.top-bar
           div(ng-hide='view.hasErrors')
             div(ng-show='result')
               .icon.status-success
-              | Returned
-              <b ng-show='!result.isTextOnly()'>{{result.nodes.length}} nodes</b>
-              <b ng-show='result.isTextOnly()'>{{result.other.length}} rows</b>
-              | in <b>{{view.runTime}} ms</b>
+              span(ng-include=" 'views/result-status.html' ")
+              span  in <b>{{view.runTime}} ms</b>
             div(ng-hide='result')
               .icon.status-info
               | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.

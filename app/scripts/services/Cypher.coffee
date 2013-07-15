@@ -50,6 +50,8 @@ angular.module('neo4jApp.services')
 
           @size = @_response.data?.length or 0
 
+          @stats = @_response.stats
+
           # TODO: determine max result size
           @isTooLarge = !(@size? and @size < 1000)
           return if @isTooLarge
@@ -92,7 +94,7 @@ angular.module('neo4jApp.services')
 
         send: (query) ->
           q = $q.defer()
-          $http.post("http://localhost:7474/db/data/cypher", { query : query })
+          $http.post("http://localhost:7474/db/data/cypher?includeStats=true", { query : query })
             .success((result)-> q.resolve(new CypherResult(result)))
             .error((r) -> q.reject(r))
           q.promise
