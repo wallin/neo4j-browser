@@ -82,6 +82,7 @@ angular.module('neo4jApp.services')
                 @errorText = "Resultset is too large"
               else
                 @response = cypherResult
+                @savedInput = @input
               @runTime = timer.stop().time()
               $rootScope.$broadcast 'viewService:changed', @
             ,
@@ -104,6 +105,9 @@ angular.module('neo4jApp.services')
         toggleStar: ->
           @starred = !@starred
           viewStore.persist()
+
+        revertCode: ->
+          @input = @savedInput
 
       # TODO: Make better API for views
       class ViewStore

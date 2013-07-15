@@ -72,6 +72,10 @@ nav.top-bar
               .icon.status-success
               span(ng-include=" 'views/result-status.html' ")
               span  in <b>{{view.runTime}} ms</b>
+              .updated-code(ng-show='view.savedInput != view.input')
+                .icon.status-info
+                | Code has changed since last execution.&nbsp;
+                a(ng-click='view.revertCode()') Revert
             div(ng-hide='result')
               .icon.status-info
               | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.
