@@ -51,7 +51,7 @@ angular.module('neo4jApp.services')
           @size = @_response.data?.length or 0
 
           # TODO: determine max result size
-          @isTooLarge = !(@size and @size < 1000)
+          @isTooLarge = !(@size? and @size < 1000)
           return if @isTooLarge
           @_response.data ?= []
           return @_response unless @_response.data?
