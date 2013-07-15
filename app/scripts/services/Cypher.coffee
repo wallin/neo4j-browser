@@ -30,16 +30,16 @@ angular.module('neo4jApp.services')
           @end = parseId(@$raw.end)
           @type = @$raw.type
 
-        toString: ->
-          JSON.stringify(@$raw.data)
+        toJSON: ->
+          @$raw.data
 
       class CypherNode
         constructor: (@$raw = {}) ->
           angular.extend @, @$raw.data
           @id = parseId(@$raw.self)
 
-        toString: ->
-          JSON.stringify(@$raw.data)
+        toJSON: ->
+          @$raw.data
 
       class CypherResult
         constructor: (@_response = {}) ->
@@ -69,14 +69,15 @@ angular.module('neo4jApp.services')
         response: -> @_response
 
         rows: ->
+          # TODO: Maybe cache rows
           for row in @_response.data
             for cell in row
               if not (cell?)
                 null
               else if cell.self?
-                cell.data
+                angular.copy(cell.data)
               else
-                cell
+                angular.copy(cell)
 
         columns: ->
           @_response.columns

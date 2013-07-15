@@ -148,17 +148,18 @@ angular.module('neo4jApp.directives')
   .controller('visualizationCtrl', [
     '$scope'
     '$window'
-    ($scope, $window) ->
+    'CSV'
+    ($scope, $window, CSV) ->
       currentQuery = null
       $scope.export = ->
         return unless $scope.result
+        csv = new CSV.Serializer()
 
-        text = $scope.result.columns().join(';') + "\n"
+        csv.columns($scope.result.columns())
         for row in $scope.result.rows()
-          r = (JSON.stringify(cell) for cell in row)
-          text += r.join(';') + "\n"
+          csv.append(row)
 
-        blob = new Blob([text], {type: "text/csv;charset=utf-8"});
+        blob = new Blob([csv.output()], {type: "text/csv;charset=utf-8"});
         $window.saveAs(blob, "export.csv");
   ])
 
