@@ -15,6 +15,10 @@ return n
   """]
 ]
 
+defaultFolders = [
+  ["tutorials", "Tutorials"]
+]
+
 angular.module('neo4jApp.services')
   .factory 'viewService', [
     '$http',
@@ -43,6 +47,10 @@ angular.module('neo4jApp.services')
           @name = 'Unnamed folder'
           @expanded = yes
           super data
+
+        toggle: ->
+          @expanded = !@expanded
+          viewStore.persist('folders')
 
       class View extends IdAble
         constructor: (data = {})->
@@ -104,9 +112,13 @@ angular.module('neo4jApp.services')
           @folders = new Collection()
           @current = null
 
+          for f in defaultFolders
+            @addFolder new Folder(id: f[0], name: f[1])
+
           for example in defaultQueries
             view = @create(example[1].trim(), example[0])
             view.starred = yes
+            view.folder = 'tutorials'
 
           savedViews = @persisted('views')
           if angular.isArray(savedViews)
@@ -136,7 +148,7 @@ angular.module('neo4jApp.services')
             when 'views'   then @history.where(starred: true)
             when 'folders' then @folders.all()
 
-          localStorageService.add('views', JSON.stringify(data))
+          localStorageService.add(type, JSON.stringify(data))
 
         persisted: (type = 'scripts') ->
           JSON.parse(localStorageService.get(type))

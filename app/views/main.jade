@@ -35,11 +35,16 @@ nav.top-bar
   h4
     | Saved
     .icon.folder-add
-  h5.folder.open
-    | Tutorials
-    .icon.folder-trash
-  ul.starred.indented
-    li(ng-repeat="view in views.history.where({starred:true})",
+  div(ng-repeat='folder in views.folders.all()')
+    h5.folder.open(ng-click='folder.toggle()')
+      | {{folder.name}}
+      .icon.folder-trash
+    ul.starred.indented(ng-show='folder.expanded')
+      li(ng-repeat="view in views.history.where({starred:true, folder: folder.id})",
+         ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
+         ng-include=" 'views/list-item.html' ")
+  ul.starred
+    li(ng-repeat="view in views.history.where({starred:true, folder: false})",
        ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
        ng-include=" 'views/list-item.html' ")
   h4 Recent

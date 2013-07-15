@@ -1,7 +1,7 @@
 'use strict'
 
 describe 'Service: viewService', () ->
-  [backend, view, folder] = [null, null, null]
+  [backend, view] = [null, null]
 
   # load the service's module
   beforeEach module 'neo4jApp.services'
@@ -33,13 +33,13 @@ describe 'Service: viewService', () ->
       expect(view.folder).toBeFalsy()
 
   describe 'createFolder', ->
-    beforeEach ->
-      folder = viewService.createFolder('My folder')
-
     it 'should add the created folder to folder collection', ->
-      expect(viewService.folders.all().length).toBe 1
+      len = viewService.folders.all().length
+      folder = viewService.createFolder('My folder')
+      expect(viewService.folders.all().length).toBe len+1
 
     it 'should create a folder that is expanded by default', ->
+      folder = viewService.createFolder('My folder')
       expect(folder.expanded).toBeTruthy()
 
   describe 'View', ->
