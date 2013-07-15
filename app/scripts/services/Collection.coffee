@@ -24,6 +24,7 @@ angular.module('neo4jApp.services')
                 @items.push i
             else
               @items.push i
+            @length++
           return items
 
         all: ->
@@ -33,12 +34,24 @@ angular.module('neo4jApp.services')
           @items.sort((a, b) -> a.id-b.id)[0]
 
         get: (id) ->
+          id = id.id if angular.isObject(id)
           return undefined unless id?
+
           @_byId[id]
 
         last: ->
           @items.sort((a, b) -> b.id-a.id)[0]
 
+        remove: (items) ->
+          itemsToRemove = if angular.isArray(items) then items else [items]
+          for item in itemsToRemove
+            item = @get(item);
+            continue unless item
+            delete @_byId[item.id];
+            index = @items.indexOf(item);
+            @items.splice(index, 1);
+            @length--
+          @
 
         reset: (items) ->
           @_reset()
@@ -70,6 +83,7 @@ angular.module('neo4jApp.services')
         _reset: ->
           @items = []
           @_byId = {}
+          @length = 0
 
       Collection
 ]

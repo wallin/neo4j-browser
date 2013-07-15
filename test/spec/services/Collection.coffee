@@ -38,6 +38,11 @@ describe 'Service: Collection', () ->
       item = Collection.get(1)
       expect(item.name).toBe 'shoe'
 
+    it 'should be able to retrieve item by reference', ->
+      item = Collection.get(1)
+      item_copy = Collection.get(item)
+      expect(item_copy).toBe item
+
     it 'should be able to handle undefined input', ->
       expect(Collection.get).not.toThrow()
 
@@ -57,6 +62,16 @@ describe 'Service: Collection', () ->
 
     it 'should retrieve item with highest id', ->
       expect(Collection.last().id).toBe 3
+
+  describe 'remove:', ->
+    beforeEach ->
+      Collection.add([{id: 2}, {id: 3}, {id: 1}])
+    it 'should be able to remove and item by reference', ->
+      len = Collection.all().length
+      item = Collection.get 1
+      Collection.remove item
+      expect(Collection.all().length).toBe len-1
+
 
   describe 'pluck:', ->
     beforeEach ->
