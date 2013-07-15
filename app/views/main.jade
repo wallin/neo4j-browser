@@ -34,11 +34,11 @@ nav.top-bar
   a.icon.history-close('ng-click'="toggleHistory()")
   h4
     | Saved
-    .icon.folder-add
+    .icon.folder-add(ng-click='views.createFolder()')
   div(ng-repeat='folder in views.folders.all()')
     h5.folder.open(ng-click='folder.toggle()')
       | {{folder.name}}
-      .icon.folder-trash
+      .icon.folder-trash(ng-click='views.removeFolder(folder.id)')
     ul.starred.indented(ng-show='folder.expanded')
       li(ng-repeat="view in views.history.where({starred:true, folder: folder.id})",
          ng-class='{error: view.hasErrors, active: view.id == views.current.id}',

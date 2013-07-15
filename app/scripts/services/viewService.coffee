@@ -44,9 +44,9 @@ angular.module('neo4jApp.services')
 
       class Folder extends IdAble
         constructor: (data) ->
-          @name = 'Unnamed folder'
           @expanded = yes
           super data
+          @name ?= 'Unnamed folder'
 
         toggle: ->
           @expanded = !@expanded
@@ -143,6 +143,12 @@ angular.module('neo4jApp.services')
 
         createFolder: (name) ->
           @addFolder new Folder(name: name)
+          @persist('folders')
+
+        removeFolder: (folder) ->
+          return unless @folders.get folder
+          @folders.remove(folder)
+          @persist('folders')
 
         move: (view, toFolder) ->
 
