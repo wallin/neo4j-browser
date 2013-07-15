@@ -32,8 +32,13 @@ nav.top-bar
 #history
   h3 Views
   a.icon.history-close('ng-click'="toggleHistory()")
-  h4 Starred
-  ul.starred
+  h4
+    | Saved
+    .icon.folder-add
+  h5.folder.open
+    | Tutorials
+    .icon.folder-trash
+  ul.starred.indented
     li(ng-repeat="view in views.history.where({starred:true})",
        ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
        ng-include=" 'views/list-item.html' ")

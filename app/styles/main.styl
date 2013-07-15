@@ -135,7 +135,8 @@ table
   background-color: #3A4549
   .icon.history-close
     absolute: top 21px right 16px
-  h3, h4
+  h3, h4, h5
+    position: relative
     color: #fff
     text-transform: uppercase;
     font-weight: bold;
@@ -148,6 +149,25 @@ table
     background-color: #2E383C
     line-height: 39px;
     font-size: 14px
+    .icon.folder-add
+      absolute: top 11px right 15px
+  h5
+    line-height: 35px;
+    font-size: 12px
+    line-height: 39px;
+    font-size: 14px
+    padding-left: 42px
+    border-bottom: 1px solid #465054
+    &:after
+      content: ' '
+      position: absolute
+      size 15px 14px
+      top: 12px
+      left: 15px
+      background-image: url('/images/icon-folder-open.png')
+    .icon.folder-trash
+      absolute: top 3px right 2px
+
 
   .icon.close-history
     absolute: top 20px right 16px
@@ -211,6 +231,9 @@ table
           .icon
             relative: top 1px
             margin-right: 4px
+  ul.indented
+    li
+      padding-left: 42px
   ul.starred li .star
     background-image: url('/images/icon-starred.png')
     &:hover
@@ -540,6 +563,10 @@ icon(type, do-no-hover=false)
   display: inline-block
   cursor: pointer
   background-repeat: no-repeat;
+  &.folder-add
+    icon: folder-add
+  &.folder-trash
+    icon: folder-trash
   &.table-show
     icon: table-show
   &.table-hide
