@@ -29,8 +29,7 @@ angular.module('neo4jApp.services')
 
         _escape: (string) ->
           string = JSON.stringify(string) unless angular.isString(string)
-          d = @options.delimiter
-          if string.indexOf(d) > 0 or string.indexOf('"') >= 0
+          if string.indexOf(@options.delimiter) > 0 or string.indexOf('"') >= 0
             string = '"' + string.replace(/"/g, '""') + '"'
 
           string

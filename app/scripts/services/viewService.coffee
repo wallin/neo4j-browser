@@ -31,16 +31,27 @@ angular.module('neo4jApp.services')
         rv.push row for row in rows when row.indexOf('//') isnt 0
         rv.join("\n")
 
-      class View
+      class IdAble
         constructor: (data = {})->
-          @starred = no
-          @response = null
-          @input = null
           if angular.isObject(data)
             angular.extend(@, data)
-          else if angular.isString(data)
-            @input = data
           @id ?= UUID.genV1().toString()
+
+
+      class Folder extends IdAble
+        constructor: (data) ->
+          @name = 'Unnamed folder'
+          @expanded = yes
+          super data
+
+      class View extends IdAble
+        constructor: (data = {})->
+          @starred = no
+          @folder = no
+          super data
+
+          if angular.isString(data)
+            @input = data
 
         exec: ->
           query = stripComments(@input.trim())
@@ -90,32 +101,45 @@ angular.module('neo4jApp.services')
       class ViewStore
         constructor: ->
           @history = new Collection()
+          @folders = new Collection()
           @current = null
 
           for example in defaultQueries
             view = @create(example[1].trim(), example[0])
             view.starred = yes
 
-          savedScripts = @persisted()
+          savedViews = @persisted('views')
+          if angular.isArray(savedViews)
+            @add(new View(v)) for v in savedViews
 
-          if angular.isArray(savedScripts)
-            for v in savedScripts
-              view = new View(input: v.input, id: v.id)
-              view.starred = yes
-              @add(view)
+          savedFolders = @persisted('folders')
+          if angular.isArray(savedFolders)
+            @addFolder new Folder(f) for f in savedFolders
 
         add: (view) ->
           @history.add view unless @history.get(view.id)
 
-        persist: ->
-          localStorageService.add('saved', JSON.stringify(@history.where(starred: true)))
-
-        persisted: ->
-          JSON.parse(localStorageService.get('saved'))
+        addFolder: (folder) ->
+          @folders.add folder unless @folders.get(folder.id)
 
         create: (input, id)->
-          view = new View(input: input, id: id)
-          @add view
+          @add new View(input: input, id: id)
+
+        createFolder: (name) ->
+          @addFolder new Folder(name: name)
+
+        move: (view, toFolder) ->
+
+
+        persist: (type = 'views') ->
+          data = switch type
+            when 'views'   then @history.where(starred: true)
+            when 'folders' then @folders.all()
+
+          localStorageService.add('views', JSON.stringify(data))
+
+        persisted: (type = 'scripts') ->
+          JSON.parse(localStorageService.get(type))
 
         select: (id) ->
           @current = @history.get id
