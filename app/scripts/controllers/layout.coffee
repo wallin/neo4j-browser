@@ -23,12 +23,15 @@ angular.module('neo4jApp')
       #$scope.isEditorHidden = if $scope.isHistoryShown then true else $scope._isEditorHidden
 
     $scope.globalKey = (e) ->
-      if e.metaKey and e.keyCode is 13 # Cmd-Enter
+
+      if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
         currentView?.exec()
+      else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
+        alert "TBD: goto previous view"
+      else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down
+        alert "TBD: goto next view"
       else if e.keyCode is 27 # Esc
         $scope.toggleEditor()
-      #else if e.keyCode is 72 # h
-      #  $scope.toggleHistory()
 
 
     $scope.$on 'viewService:changed', (evt, view) ->
