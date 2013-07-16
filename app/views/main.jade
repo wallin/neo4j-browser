@@ -85,6 +85,10 @@ nav.top-bar
       //-         a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
 
 #history
+  .container(resizable)
+    .resize(resize="top")
+      .drag(handle)
+
   h3 Views
   a.icon.history-close('ng-click'="toggleHistory()")
   h4
@@ -113,14 +117,14 @@ nav.top-bar
 
 #views
   #view-background
-  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id')
-    .view-editor
+  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
+    .view-editor(resize="height")
       //- a.handle('ng-click'="toggleEditor()")
       textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true}", 'ng-model'='view.input', 'ui-refresh'='currentView.id', 'focus-on' = 'view.id == currentView.id')
       .icon.editor-refresh('ng-click' = 'view.exec()')
       //-.update-button.button.right('ng-click' = 'view.exec()') Execute
-    visualization.view-result(result='view.response', ng-class='{error: view.hasErrors}')
-      .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}')
+    visualization.view-result(result='view.response', ng-class='{error: view.hasErrors}', resize="top")
+      .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
         div(ng-hide='view.isLoading')
           span(ng-show='view.hasErrors')
             .icon.status-error
