@@ -142,8 +142,10 @@ angular.module('neo4jApp.services')
           @add new View(input: input, id: id)
 
         createFolder: (name) ->
-          @addFolder new Folder(name: name)
+          folder = new Folder(name: name)
+          @addFolder folder
           @persist('folders')
+          folder
 
         removeFolder: (folder) ->
           return unless @folders.get folder
