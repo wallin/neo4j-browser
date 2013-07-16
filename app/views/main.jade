@@ -1,3 +1,58 @@
+.popup(ng-show="isShortcutsShown")
+  .background
+  .inner
+    h2 Keyboard shortcuts
+    h3 Global
+    ul
+      li
+        .left-col
+          .key Ctrl-Enter
+        .right-col
+          | Execute current query
+      li
+        .left-col
+          .key Ctrl-Up
+        .right-col
+          | Goto previous view
+      li
+        .left-col
+          .key Ctrl-Down
+        .right-col
+          | Goto next view
+      li
+        .left-col
+          .key Esc
+        .right-col
+          | Toggle editor
+
+    h3 Only when editor is hidden
+    ul
+      li
+        .left-col
+          .key ?
+        .right-col
+          | Toggle this view
+      li
+        .left-col
+          .key h
+        .right-col
+          | Toggle history
+      li
+        .left-col
+          .key t
+        .right-col
+          | Toggle table
+      li
+        .left-col
+          .key n
+        .right-col
+          | Create a new view
+      li
+        .left-col
+          .key d
+        .right-col
+          | Duplicate current view
+
 nav.top-bar
   ul.title-area
     li.name

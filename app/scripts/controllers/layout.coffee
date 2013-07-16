@@ -20,9 +20,15 @@ angular.module('neo4jApp')
     $scope.isHistoryShown = true
     $scope.toggleHistory = ->
       $scope.isHistoryShown ^= true
-      #$scope.isEditorHidden = if $scope.isHistoryShown then true else $scope._isEditorHidden
+
+    $scope.isShortcutsShown = false
+    $scope.toggleShortcuts = ->
+      $scope.isShortcutsShown ^= true
 
     $scope.globalKey = (e) ->
+
+      # Don't toggle anything when shortcut popup is open
+      return if $scope.isShortcutsShown and e.keyCode != 191
 
       if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
         currentView?.exec()
@@ -32,7 +38,17 @@ angular.module('neo4jApp')
         alert "TBD: goto next view"
       else if e.keyCode is 27 # Esc
         $scope.toggleEditor()
-
+      else if $scope.isEditorHidden
+        if e.keyCode is 72 # h
+          $scope.toggleHistory()
+        else if e.keyCode is 84 # t
+          $scope.toggleGraph()
+        else if e.keyCode is 191 # ?
+          $scope.toggleShortcuts()
+        else if e.keyCode is 78 # n
+          alert "create a new view"
+        else if e.keyCode is 68 # d
+          alert "duplicate current view"
 
     $scope.$on 'viewService:changed', (evt, view) ->
       currentView = view

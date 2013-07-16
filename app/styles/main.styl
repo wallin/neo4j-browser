@@ -125,6 +125,55 @@ table
 .top-bar-section li a:not(.button)
   background: linear-gradient(top, #333, #181818)
 
+.popup
+  z-index 10000
+  stretch()
+  .background
+    stretch()
+    background-color #000
+    opacity 0.5
+  .inner
+    fixed top 80px left 100px
+    background-color #fff
+    padding: 32px 40px
+    width: 480px
+    relative left 50%
+    margin-left: -240px
+    border-radius 6px
+    box-shadow: rgba(0,0,0,0.5) 0 1px 6px
+    h2, h3
+      font-weight bold
+    h2
+      font-size 24px
+      margin-bottom: 8px
+    h3
+      margin-bottom: 16px
+      margin-top: 24px
+    li
+      overflow hidden
+      margin-bottom 4px
+      .left-col
+        float left
+        width: 30%
+      .right-col
+        float left
+        width: 70%
+    .key
+      display: inline-block
+      min-width: 24px
+      padding: 5px 6px
+      font-size: 14px
+      line-height: 1
+      color: #eee
+      text-align: center
+      text-shadow: 0 1px 0 rgba(0,0,0,0.5)
+      text-transform: capitalize
+      background-color: #333
+      border-radius: 3px
+      box-shadow: inset 0 -2px 0 #111
+      .single
+        width: 80px
+
 #history
   color: #fff
   position: absolute
@@ -403,12 +452,9 @@ table
 
 .hide-editor .view
   .view-editor
-    width: 0
-    .handle:after
-      transform: rotate(180deg)
-      right: 16px
+    display: none
   .view-result
-    left: 0
+    top: 0
 
 .expand-graph .view .view-result
   .view-result-graph
