@@ -16,14 +16,12 @@ angular.module('neo4jApp.services')
         # Instance methods
         #
         add: (items) ->
+          return unless items?
           itemsToAdd = if angular.isArray(items) then items else [items]
           for i in itemsToAdd
-            if i.id?
-              if not @_byId[i.id]
-                @_byId[i.id] = i
-                @items.push i
-            else
-              @items.push i
+            continue if not i? or @get(i)
+            @_byId[if i.id? then i.id else i] = i
+            @items.push i
             @length++
           return items
 
