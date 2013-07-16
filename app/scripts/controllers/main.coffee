@@ -99,6 +99,7 @@ angular.module('neo4jApp.controllers')
 
     $scope.toggleStar = (view) ->
       view.starred = !view.starred
+      view.folder = false unless view.starred
       viewService.persist('views', $scope.views.where(starred: yes))
 
     $scope.viewUrl = (id) -> "##{$scope.viewPath(id)}"
