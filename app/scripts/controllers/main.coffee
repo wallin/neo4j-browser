@@ -41,6 +41,7 @@ angular.module('neo4jApp.controllers')
           # Get insertion index offset
           first = $scope.views.where(folder: folder)[0]
           idx = $scope.views.indexOf(first)
+          idx = 0 if idx < 0
           $scope.views.remove(view)
           $scope.views.add(view, {at: idx + idxOffset})
 
