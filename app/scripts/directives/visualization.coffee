@@ -206,6 +206,8 @@ angular.module('neo4jApp.directives')
       restrict: 'EA'
       templateUrl: 'views/neo-table.html'
       link: (scope, elm, attr, ctrl) ->
+        predicate = null
+        scope.reverse = no
         scope.$watch('result', (result) ->
           return unless result
           # TODO: show something if result is too large
@@ -213,4 +215,16 @@ angular.module('neo4jApp.directives')
           scope.rows = result.rows()
           scope.columns = result.columns()
         )
+
+        scope.orderBy = (col) ->
+          if col is predicate
+            scope.reverse = !scope.reverse
+          else
+            scope.reverse = no
+          predicate = col
+
+
+        scope.sortOrder = (item) ->
+          if predicate? then item[predicate] else null
+
   ])

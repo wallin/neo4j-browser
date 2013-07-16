@@ -1,7 +1,7 @@
 table
   thead
     tr
-      th(ng-repeat='column in columns') {{ column }}
+      th(ng-repeat='column in columns', ng-click="orderBy($index)") {{ column }}
   tbody
-    tr(ng-repeat='row in rows')
+    tr(ng-repeat='row in rows | orderBy:sortOrder:reverse')
       td(ng-repeat='cell in row') {{ cell }}
