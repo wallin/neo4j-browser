@@ -128,7 +128,7 @@ angular.module('neo4jApp.services')
           for p in persisted
             switch type
               when 'views' then new View(p)
-              when 'folder'  then new Folder(p)
+              when 'folders'  then new Folder(p)
 
         View: View
         Folder: Folder

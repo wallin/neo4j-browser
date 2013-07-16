@@ -90,23 +90,26 @@ nav.top-bar
   h4
     | Saved
     .icon.folder-add(ng-click='createFolder()')
-  div(ng-repeat='folder in folders.all()')
+  .droppable(ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
     h5.folder.open(ng-click='toggleFolder(folder)')
       | {{folder.name}}
       .icon.folder-trash(ng-click='removeFolder(folder)')
-    ul.starred.indented.droppable(ng-show='folder.expanded', ui-sortable="sortableOptions")
+    ul.starred.indented(ng-show='folder.expanded')
       li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
          ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
          ng-include=" 'views/list-item.html' ")
-  ul.starred.droppable(ui-sortable="sortableOptions")
-    li(ng-repeat="view in views.where({starred: true, folder: false})",
-       ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-       ng-include=" 'views/list-item.html' ")
-  h4 Recent
-  ul.droppable(ui-sortable="sortableOptions")
-    li(ng-repeat='view in views.where({starred: false})',
-       ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-       ng-include=" 'views/list-item.html' ")
+  .droppable(ui-sortable="sortableOptions")
+    ul.starred
+      li(ng-repeat="view in views.where({starred: true, folder: false})",
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
+         ng-include=" 'views/list-item.html' ")
+
+  .droppable(ui-sortable="sortableOptions")
+    h4 Recent
+    ul
+      li(ng-repeat='view in views.where({starred: false})',
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
+         ng-include=" 'views/list-item.html' ")
 
 #views
   #view-background

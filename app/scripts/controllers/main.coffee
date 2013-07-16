@@ -9,6 +9,7 @@ angular.module('neo4jApp.controllers')
   'viewService'
   ($location, $route, $scope, Collection, viewService) ->
 
+    # Handlers for drag n drop
     scopeApply = (fn)->
       return ->
         fn.apply($scope, arguments)
@@ -16,16 +17,26 @@ angular.module('neo4jApp.controllers')
 
     $scope.sortableOptions =
       stop: scopeApply (e, ui) ->
-        if ui.item.resort
-          true
+        view = ui.item.scope().view
+
+        folder = if ui.item.folder? then ui.item.folder else view.folder
+        offsetLeft = Math.abs(ui.position.left - ui.originalPosition.left)
+
         if ui.item.relocate
-          view = ui.item.scope().view
-          folder = ui.item.folder
           view.folder = folder
           view.starred = !!folder
-        else if not ui.item.resort
+        # XXX: FIXME
+        else if offsetLeft > 200
           view = ui.item.scope().view
           $scope.views.remove(view)
+
+        if ui.item.resort
+          idxOffset = ui.item.index()
+          # Get insertion index offset
+          first = $scope.views.where(folder: folder)[0]
+          idx = $scope.views.indexOf(first)
+          $scope.views.remove(view)
+          $scope.views.add(view, {at: idx + idxOffset})
 
         viewService.persist('views', $scope.views.where(starred: yes))
 
@@ -34,11 +45,14 @@ angular.module('neo4jApp.controllers')
 
       receive: (e, ui) ->
         ui.item.relocate = yes
-        ui.item.folder = angular.element(e.target).scope().folder?.id
+        folder = angular.element(e.target).scope().folder
+        ui.item.folder = if folder? then folder.id else false
 
+      cursor: "move"
+      dropOnEmpty: yes
       connectWith: '.droppable'
+      items: 'li'
 
-    $scope.currentView = null
 
     # Initialize from default content and persisted views/folders
     $scope.folders = new Collection(viewService.default('folders'))
@@ -46,6 +60,8 @@ angular.module('neo4jApp.controllers')
 
     $scope.folders.add(viewService.persisted('folders'))
     $scope.views.add(viewService.persisted('views'))
+
+    $scope.currentView = null
 
     $scope.createFolder = ->
       folder = new viewService.Folder()
