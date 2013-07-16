@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('neo4jApp')
+angular.module('neo4jApp.controllers')
   .controller 'LayoutCtrl', ($scope) ->
     currentView = null
 

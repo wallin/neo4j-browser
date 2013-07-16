@@ -1,10 +1,12 @@
 'use strict'
 
+angular.module('neo4jApp.controllers', [])
 angular.module('neo4jApp.directives', [])
 angular.module('neo4jApp.filters', [])
 angular.module('neo4jApp.services', ['LocalStorageModule'])
 
 app = angular.module('neo4jApp', [
+  'neo4jApp.controllers'
   'neo4jApp.directives'
   'neo4jApp.filters'
   'neo4jApp.services'
@@ -42,10 +44,4 @@ app.run(['$rootScope', '$http', '$timeout', ($scope, $http, $timeout) ->
     .then(-> timer = $timeout(check, 5000))
 
   check()
-])
-
-
-app.run(['$rootScope', ($rootScope) ->
-  $rootScope.viewUrl = (id) -> "##{$rootScope.viewPath(id)}"
-  $rootScope.viewPath = (id = '') -> "/views/#{id}"
 ])

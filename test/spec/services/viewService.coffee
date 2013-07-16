@@ -17,35 +17,3 @@ describe 'Service: viewService', () ->
   beforeEach inject (_viewService_) ->
     viewService = _viewService_
 
-  describe 'create: ', ->
-    it 'should return the created view', ->
-      view = viewService.create('//Query')
-      expect(view.input).toBe '//Query'
-
-    it 'should add a the created view to history', ->
-      len = viewService.history.all().length
-      view = viewService.create('//Query')
-      expect(viewService.history.all().length).toBe len+1
-      expect(viewService.history.get(view.id)).toBe view
-
-    it 'should create a view without a folder', ->
-      view = viewService.create('//Query')
-      expect(view.folder).toBeFalsy()
-
-  describe 'createFolder', ->
-    it 'should add the created folder to folder collection', ->
-      len = viewService.folders.all().length
-      folder = viewService.createFolder('My folder')
-      expect(viewService.folders.all().length).toBe len+1
-
-    it 'should create a folder that is expanded by default', ->
-      folder = viewService.createFolder('My folder')
-      expect(folder.expanded).toBeTruthy()
-
-  describe 'View', ->
-    beforeEach -> view = viewService.create('start n=node(*) return n')
-
-    it 'should send a Cypher request when executed', ->
-      backend.expectPOST(/db\/data\/cypher/).respond()
-      view.exec()
-      backend.flush()

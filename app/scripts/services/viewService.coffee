@@ -102,73 +102,40 @@ angular.module('neo4jApp.services')
             graph: !@response?.isTextOnly()
           }
 
-        toggleStar: ->
-          @starred = !@starred
-          viewStore.persist()
-
         revertCode: ->
           @input = @savedInput
 
       # TODO: Make better API for views
       class ViewStore
         constructor: ->
-          @history = new Collection()
-          @folders = new Collection()
-          @current = null
 
-          for f in defaultFolders
-            @addFolder new Folder(id: f[0], name: f[1])
+        # Return default content
+        default: (type = 'views') ->
+          switch type
+            when 'views'
+              for example in defaultQueries
+                view = new View(input: example[1].trim(), id: example[0])
+                view.starred = yes
+                view.folder = 'tutorials'
+                view
+            when 'folders'
+              new Folder(id: f[0], name: f[1]) for f in defaultFolders
 
-          for example in defaultQueries
-            view = @create(example[1].trim(), example[0])
-            view.starred = yes
-            view.folder = 'tutorials'
-
-          savedViews = @persisted('views')
-          if angular.isArray(savedViews)
-            @add(new View(v)) for v in savedViews
-
-          savedFolders = @persisted('folders')
-          if angular.isArray(savedFolders)
-            @addFolder new Folder(f) for f in savedFolders
-
-        add: (view) ->
-          @history.add view unless @history.get(view.id)
-
-        addFolder: (folder) ->
-          @folders.add folder unless @folders.get(folder.id)
-
-        create: (input, id)->
-          @add new View(input: input, id: id)
-
-        createFolder: (name) ->
-          folder = new Folder(name: name)
-          @addFolder folder
-          @persist('folders')
-          folder
-
-        removeFolder: (folder) ->
-          return unless @folders.get folder
-          @folders.remove(folder)
-          @persist('folders')
-
-        move: (view, toFolder) ->
-
-
-        persist: (type = 'views') ->
-          data = switch type
-            when 'views'   then @history.where(starred: true)
-            when 'folders' then @folders.all()
-
+        # Persist content
+        persist: (type = 'views', data) ->
           localStorageService.add(type, JSON.stringify(data))
 
-        persisted: (type = 'scripts') ->
-          JSON.parse(localStorageService.get(type))
+        # Return persisted content
+        persisted: (type = 'views') ->
+          persisted = JSON.parse(localStorageService.get(type))
+          return [] unless angular.isArray(persisted)
+          for p in persisted
+            switch type
+              when 'views' then new View(p)
+              when 'folder'  then new Folder(p)
 
-        select: (id) ->
-          @current = @history.get id
-          $rootScope.$broadcast 'viewService:changed', @current
-
+        View: View
+        Folder: Folder
 
       viewStore = new ViewStore
 

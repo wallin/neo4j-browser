@@ -1,6 +1,6 @@
 a.background(href="{{viewUrl(view.id)}}")
 a.refresh(ng-click='view.exec()', ng-class='{"running spin": view.isLoading}')
-a.star('ng-click'="view.toggleStar()")
+a.star('ng-click'="toggleStar(view)")
 .contents
   a(href="{{viewUrl(view.id)}}")
     {{view.input | autotitle}}

@@ -65,7 +65,7 @@ nav.top-bar
           .icon.menu-plus
           | New View
       li
-        a(ng-click='copyView(views.current)')
+        a(ng-click='copyView(currentView)')
           .icon.menu-fork
           | Duplicate
 
@@ -89,31 +89,31 @@ nav.top-bar
   a.icon.history-close('ng-click'="toggleHistory()")
   h4
     | Saved
-    .icon.folder-add(ng-click='views.createFolder()')
-  div(ng-repeat='folder in views.folders.all()')
+    .icon.folder-add(ng-click='createFolder()')
+  div(ng-repeat='folder in folders.all()')
     h5.folder.open(ng-click='folder.toggle()')
       | {{folder.name}}
-      .icon.folder-trash(ng-click='views.removeFolder(folder.id)')
+      .icon.folder-trash(ng-click='removeFolder(folder)')
     ul.starred.indented(ng-show='folder.expanded')
-      li(ng-repeat="view in views.history.where({starred:true, folder: folder.id})",
-         ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
+      li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
          ng-include=" 'views/list-item.html' ")
   ul.starred
-    li(ng-repeat="view in views.history.where({starred:true, folder: false})",
-       ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
+    li(ng-repeat="view in views.where({starred: true, folder: false})",
+       ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
        ng-include=" 'views/list-item.html' ")
   h4 Recent
   ul
-    li(ng-repeat='view in views.history.where({starred:false})',
-       ng-class='{error: view.hasErrors, active: view.id == views.current.id}',
+    li(ng-repeat='view in views.where({starred: false})',
+       ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
        ng-include=" 'views/list-item.html' ")
 
 #views
   #view-background
-  .view('ng-repeat' = 'view in views.history.all()', 'ng-show' = 'view.id == views.current.id')
+  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id')
     .view-editor
       //- a.handle('ng-click'="toggleEditor()")
-      textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true}", 'ng-model'='view.input', 'ui-refresh'='views.current.id', 'focus-on' = 'view.id == views.current.id')
+      textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true}", 'ng-model'='view.input', 'ui-refresh'='currentView.id', 'focus-on' = 'view.id == currentView.id')
       .icon.editor-refresh('ng-click' = 'view.exec()')
       //-.update-button.button.right('ng-click' = 'view.exec()') Execute
     visualization.view-result(result='view.response', ng-class='{error: view.hasErrors}')
