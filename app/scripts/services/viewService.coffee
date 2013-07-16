@@ -48,6 +48,9 @@ angular.module('neo4jApp.services')
           super data
           @name ?= 'Unnamed folder'
 
+        toJSON: ->
+          {@id, @name, @expanded}
+
       class View extends IdAble
         constructor: (data = {})->
           @starred = no
@@ -56,6 +59,10 @@ angular.module('neo4jApp.services')
 
           if angular.isString(data)
             @input = data
+
+        toJSON: ->
+          {@id, @starred, @folder, @input}
+
 
         exec: ->
           query = stripComments(@input.trim())
