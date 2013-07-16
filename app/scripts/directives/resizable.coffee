@@ -27,6 +27,22 @@ angular.module('neo4jApp')
         initialValue = +element[0].style[property][0..-3]
   )
 
+  # Used for resizing stuff that appears by magic
+  .directive('resizeChild', () ->
+    require: '^resizable'
+    link: (scope, element, attrs, resizableCtrl) ->
+      attrs = scope.$eval(attrs.resizeChild)
+      child = Object.keys(attrs)[0]
+      property = attrs[child]
+      initialValue = null
+
+      resizableCtrl.onStart (amount) ->
+        initialValue = +$(child, element).css(property)[0..-3] unless initialValue
+        $(child, element).css(property, "#{initialValue + amount}px")
+      resizableCtrl.onStop () ->
+        initialValue = +element[0].style[property][0..-3]
+  )
+
   .directive('handle', () ->
     require: '^resizable'
     link: (scope, element, attrs, resizableCtrl) ->
