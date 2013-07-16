@@ -5,6 +5,8 @@ describe 'Service: Collection', () ->
   # load the service's module
   beforeEach module 'neo4jApp.services'
 
+  items = null
+
   # instantiate service
   Collection = {}
   beforeEach inject (_Collection_) ->
@@ -19,9 +21,9 @@ describe 'Service: Collection', () ->
       Collection.add([1, 2, 3])
       expect(Collection.all().length).toBe 3
 
-    it "should return the item being added", ->
+    it "should return the collection", ->
       item = {id: 1}
-      expect(Collection.add(item)).toBe item
+      expect(Collection.add(item)).toBe Collection
 
   describe 'first:', ->
     beforeEach ->
@@ -56,6 +58,12 @@ describe 'Service: Collection', () ->
       Collection.add({id: 'identifier'})
       expect(Collection.get('identifier').id).toBe 'identifier'
 
+  describe 'indexOf:', ->
+    it 'should tell index of an element', ->
+      item = {id: 3}
+      Collection.add [{id: 1}, {id: 2}, item]
+      expect(Collection.indexOf(item)).toBe 2
+
   describe 'last:', ->
     beforeEach ->
       Collection.add([{id: 2}, {id: 3}, {id: 1}])
@@ -65,13 +73,17 @@ describe 'Service: Collection', () ->
 
   describe 'remove:', ->
     beforeEach ->
-      Collection.add([{id: 2}, {id: 3}, {id: 1}])
+      items = Collection.add([{id: 2}, {id: 3}, {id: 1}])
     it 'should be able to remove and item by reference', ->
       len = Collection.all().length
       item = Collection.get 1
       Collection.remove item
       expect(Collection.all().length).toBe len-1
 
+    it 'should return the element being removed', ->
+      item = Collection.get(1)
+      removed = Collection.remove(item)
+      expect(removed).toBe item
 
   describe 'pluck:', ->
     beforeEach ->

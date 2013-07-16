@@ -15,15 +15,22 @@ angular.module('neo4jApp.services')
         #
         # Instance methods
         #
-        add: (items) ->
+        add: (items, opts = {}) ->
           return unless items?
-          itemsToAdd = if angular.isArray(items) then items else [items]
-          for i in itemsToAdd
+          items = if angular.isArray(items) then items else [items]
+          itemsToAdd = []
+          for i in items
             continue if not i? or @get(i)
             @_byId[if i.id? then i.id else i] = i
-            @items.push i
-            @length++
-          return items
+            itemsToAdd.push(i)
+
+          if itemsToAdd.length
+            if angular.isNumber(opts.at)
+              [].splice.apply(@items, [opts.at, 0].concat(itemsToAdd));
+            else
+              [].push.apply(@items, itemsToAdd)
+            @length += itemsToAdd.length
+          @
 
         all: ->
           @items
@@ -37,6 +44,9 @@ angular.module('neo4jApp.services')
 
           @_byId[id]
 
+        indexOf: (item) ->
+          @items.indexOf item
+
         last: ->
           @items.sort((a, b) -> b.id-a.id)[0]
 
@@ -49,7 +59,7 @@ angular.module('neo4jApp.services')
             index = @items.indexOf(item);
             @items.splice(index, 1);
             @length--
-          @
+          items
 
         reset: (items) ->
           @_reset()
