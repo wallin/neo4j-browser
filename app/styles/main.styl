@@ -104,6 +104,12 @@ table
 .CodeMirror-linenumber
   padding: 0 !important
   color: #ccc !important
+.CodeMirror
+  height: auto !important
+.CodeMirror-scroll
+  overflow-y: hidden !important
+  overflow-x: auto !important
+  //max-height: 140px
 
 .top-bar
   transist: margin
@@ -359,6 +365,7 @@ table
     left: 0
     transist left
     background: #F5F6F6 url('/images/background-pending.png') 50% 50% no-repeat
+    z-index: 10
     &.error
       background-image: url('/images/background-error.png')
     .status-bar
