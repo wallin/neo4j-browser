@@ -48,10 +48,6 @@ angular.module('neo4jApp.services')
           super data
           @name ?= 'Unnamed folder'
 
-        toggle: ->
-          @expanded = !@expanded
-          viewStore.persist('folders')
-
       class View extends IdAble
         constructor: (data = {})->
           @starred = no

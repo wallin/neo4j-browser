@@ -18,7 +18,10 @@
     "local-storage-js": "latest",
     "angular-moment": "https://raw.github.com/wallin/angular-moment/master/angular-moment.js",
     "moment": "~2.1.0",
-    "UUID.js": "git@github.com:LiosK/UUID.js.git"
+    "UUID.js": "git@github.com:LiosK/UUID.js.git",
+    "jquery": "~2.0.3",
+    "jquery-ui": "~1.10.3",
+    "angular-ui-sortable": "~0.0.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.5",

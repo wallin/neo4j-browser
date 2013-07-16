@@ -9,6 +9,35 @@ angular.module('neo4jApp.controllers')
   'viewService'
   ($location, $route, $scope, Collection, viewService) ->
 
+    scopeApply = (fn)->
+      return ->
+        fn.apply($scope, arguments)
+        $scope.$apply()
+
+    $scope.sortableOptions =
+      stop: scopeApply (e, ui) ->
+        if ui.item.resort
+          true
+        if ui.item.relocate
+          view = ui.item.scope().view
+          folder = ui.item.folder
+          view.folder = folder
+          view.starred = !!folder
+        else if not ui.item.resort
+          view = ui.item.scope().view
+          $scope.views.remove(view)
+
+        viewService.persist('views', $scope.views.where(starred: yes))
+
+      update: (e, ui) ->
+        ui.item.resort = yes
+
+      receive: (e, ui) ->
+        ui.item.relocate = yes
+        ui.item.folder = angular.element(e.target).scope().folder?.id
+
+      connectWith: '.droppable'
+
     $scope.currentView = null
 
     # Initialize from default content and persisted views/folders
@@ -46,6 +75,10 @@ angular.module('neo4jApp.controllers')
 
     $scope.removeFolder = (folder) ->
       $scope.folders.remove(folder)
+      viewService.persist('folders', $scope.folders.all())
+
+    $scope.toggleFolder = (folder) ->
+      folder.expanded = !folder.expanded
       viewService.persist('folders', $scope.folders.all())
 
     $scope.toggleStar = (view) ->
