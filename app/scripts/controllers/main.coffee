@@ -68,6 +68,8 @@ angular.module('neo4jApp.controllers')
     $scope.views.add(viewService.persisted('views'))
 
     $scope.currentView = null
+    $scope.$watch 'currentView', (val) -> $scope.$emit('currentView:changed', val)
+    $scope.$watch 'currentView.response', -> $scope.$emit('currentView:changed', $scope.currentView)
 
     $scope.createFolder = ->
       folder = new viewService.Folder()

@@ -50,7 +50,7 @@ angular.module('neo4jApp.controllers')
         else if e.keyCode is 68 # d
           alert "duplicate current view"
 
-    $scope.$on 'viewService:changed', (evt, view) ->
+    $scope.$on 'currentView:changed', (evt, view) ->
       currentView = view
       return unless view?
       layout = view.suggestedLayout()
