@@ -58,6 +58,12 @@ describe 'Controller: MainCtrl', () ->
       len2 = scope.folders.length
       expect(len2).toEqual(len)
 
+    it 'should remove all view in the folder being deleted', ->
+      folder = scope.createFolder()
+      scope.createView(folder: folder.id)
+      scope.removeFolder(folder)
+      expect(scope.views.where(folder: folder.id).length).toBe 0
+
   describe 'toggleStar', ->
     it 'should clear the folder for a view when unstarred', ->
       view = scope.createView(starred: yes, folder: 'folder')

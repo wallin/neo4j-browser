@@ -9,12 +9,18 @@ angular.module('neo4jApp.controllers')
   'viewService'
   ($location, $route, $scope, Collection, viewService) ->
 
-    # Handlers for drag n drop
+    persistViews = ->
+      viewService.persist('views', $scope.views.where(starred: yes))
+
+    persistFolders = ->
+      viewService.persist('folders', $scope.folders.all())
+
     scopeApply = (fn)->
       return ->
         fn.apply($scope, arguments)
         $scope.$apply()
 
+    # Handlers for drag n drop
     $scope.sortableOptions =
       stop: scopeApply (e, ui) ->
         view = ui.item.scope().view
@@ -38,7 +44,7 @@ angular.module('neo4jApp.controllers')
           $scope.views.remove(view)
           $scope.views.add(view, {at: idx + idxOffset})
 
-        viewService.persist('views', $scope.views.where(starred: yes))
+        persistViews()
 
       update: (e, ui) ->
         ui.item.resort = yes
@@ -66,7 +72,7 @@ angular.module('neo4jApp.controllers')
     $scope.createFolder = ->
       folder = new viewService.Folder()
       $scope.folders.add(folder)
-      viewService.persist('folders', $scope.folders.all())
+      persistFolders()
       folder
 
     # Create an unsaved view
@@ -91,16 +97,19 @@ angular.module('neo4jApp.controllers')
 
     $scope.removeFolder = (folder) ->
       $scope.folders.remove(folder)
-      viewService.persist('folders', $scope.folders.all())
+      viewsToRemove = $scope.views.where(folder: folder.id)
+      $scope.views.remove(viewsToRemove)
+      persistFolders()
+      persistViews() if viewsToRemove.length
 
     $scope.toggleFolder = (folder) ->
       folder.expanded = !folder.expanded
-      viewService.persist('folders', $scope.folders.all())
+      persistFolders()
 
     $scope.toggleStar = (view) ->
       view.starred = !view.starred
       view.folder = false unless view.starred
-      viewService.persist('views', $scope.views.where(starred: yes))
+      persistViews()
 
     $scope.viewUrl = (id) -> "##{$scope.viewPath(id)}"
     $scope.viewPath = (id = '') -> "/views/#{id}"
