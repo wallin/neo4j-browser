@@ -152,5 +152,5 @@ nav.top-bar
           //-.icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
           .view-result-table-scroll
             neo-table(ng-model='view.response')
-          .icon.table-download('ng-click'='export()', ng-class='{alone: isTableExpanded}')
+          .icon.table-download('ng-click'='export(view.response)', ng-class='{alone: isTableExpanded}', ng-controller='CSVCtrl')
           .icon.table-hide('ng-click' = 'toggleGraph()', ng-hide="isTableExpanded")
