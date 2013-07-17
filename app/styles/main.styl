@@ -625,6 +625,8 @@ icon(type, do-no-hover=false)
   background-repeat: no-repeat;
   &.folder-add
     icon: folder-add
+  &.folder-edit
+    icon: folder-edit
   &.folder-trash
     icon: folder-trash
   &.table-show
@@ -661,3 +663,20 @@ icon(type, do-no-hover=false)
       background: url('/images/icon-restore.png')
       &:hover
         background: url('/images/icon-restore_hover.png')
+
+.edit-in-place
+  .edit-in-place-input
+    border: none;
+    text-transform: uppercase;
+    padding: 6px 8px;
+    font-family: Lato;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 3px;
+    width: 187px;
+  .edit-in-place-trigger
+    @extend .icon.folder-edit
+    cursor: pointer
+    position: absolute
+    right: 42px
+    top: 11px

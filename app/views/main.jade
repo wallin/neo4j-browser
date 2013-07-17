@@ -92,7 +92,7 @@ nav.top-bar
     .icon.folder-add(ng-click='createFolder()')
   .droppable(ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
     h5.folder.open(ng-click='toggleFolder(folder)')
-      | {{folder.name}}
+      div(edit-in-place='folder.name')
       .icon.folder-trash(ng-click='removeFolder(folder)')
     ul.starred.indented(ng-show='folder.expanded')
       li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
