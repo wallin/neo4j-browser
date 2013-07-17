@@ -123,7 +123,7 @@ nav.top-bar
   .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
     .view-editor(resize="height")
       span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
-        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id', 'focus-on' = 'view.id == currentView.id')
+        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id + isEditorHidden', 'focus-on' = 'view.id == currentView.id')
         .icon.editor-refresh('ng-click' = 'view.exec()')
     .view-result(ng-class='{error: view.hasErrors}', resize="top")
       .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
