@@ -37,7 +37,11 @@ angular.module('neo4jApp.controllers')
       else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down
         alert "TBD: goto next view"
       else if e.keyCode is 27 # Esc
-        $scope.toggleEditor()
+        if $scope.isShortcutsShown
+          $scope.toggleShortcuts()
+        else
+          $scope.toggleEditor()
+
       else if $scope.isEditorHidden
         if e.keyCode is 72 # h
           $scope.toggleHistory()

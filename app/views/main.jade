@@ -1,5 +1,5 @@
 .popup(ng-show="isShortcutsShown")
-  .background
+  .background(ng-click='toggleShortcuts()')
   .inner
     h2 Keyboard shortcuts
     h3 Global
@@ -70,9 +70,14 @@ nav.top-bar
           | Duplicate
 
     ul.right
-      li
-        a(href = "http://neo4j.org", target="_BLANK")
+      li.has-dropdown
+        a
           | Help
+        ul.dropdown
+          li
+            a(ng-click='toggleShortcuts()') Keyboard shortcuts
+          li
+            a(href = "http://neo4j.org", target="_BLANK") Docs
       //- ul.button-group(style='position:relative;top:5px;right:16px;z-index:10')
       //-     li
       //-       span
