@@ -111,6 +111,8 @@ nav.top-bar
          ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
          ng-include=" 'views/list-item.html' ")
 
+  file-upload
+
 #views
   #view-background
   .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)

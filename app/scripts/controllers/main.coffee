@@ -130,5 +130,7 @@ angular.module('neo4jApp.controllers')
       if not $scope.currentView
         return $location.path('/views')
 
+    $scope.$on 'fileUpload:success', (evt, data) ->
+      $scope.createView(input: data)
 
 ]
