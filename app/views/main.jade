@@ -120,7 +120,7 @@ nav.top-bar
       span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
         textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id', 'focus-on' = 'view.id == currentView.id')
         .icon.editor-refresh('ng-click' = 'view.exec()')
-    visualization.view-result(result='view.response', ng-class='{error: view.hasErrors}', resize="top")
+    .view-result(ng-class='{error: view.hasErrors}', resize="top")
       .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
         div(ng-hide='view.isLoading')
           span(ng-show='view.hasErrors')
@@ -141,16 +141,16 @@ nav.top-bar
         span(ng-show='view.isLoading')
           .icon.status-running.spin
           | Executing query...
-      .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !result')
+      .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response')
         .view-result-graph
           //- .icon.download('ng-click'='export()')
           //-.icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
-          neo-graph
+          neo-graph(ng-model='view.response', ng-controller='D3GraphCtrl')
           .icon.table-show('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded")
         .view-result-table
           //- .icon.download('ng-click'='export()')
           //-.icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
           .view-result-table-scroll
-            neo-table
+            neo-table(ng-model='view.response')
           .icon.table-download('ng-click'='export()', ng-class='{alone: isTableExpanded}')
           .icon.table-hide('ng-click' = 'toggleGraph()', ng-hide="isTableExpanded")
