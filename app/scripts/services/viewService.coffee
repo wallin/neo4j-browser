@@ -63,10 +63,8 @@ angular.module('neo4jApp.services')
         toJSON: ->
           {@id, @starred, @folder, @input}
 
-
         exec: ->
           query = stripComments(@input.trim())
-          return if query.length is 0
 
           query = query + ";" unless query.endsWith(';')
           @errorText = no
