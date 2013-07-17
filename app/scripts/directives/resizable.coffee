@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('neo4jApp')
-  .directive('resizable', () ->
+  .directive('resizable', [() ->
     controller: ($scope) ->
       startCallbacks = []
       stopCallbacks = []
@@ -13,12 +13,11 @@ angular.module('neo4jApp')
         callback.call(undefined, amount) for callback in startCallbacks
       @stop = () ->
         callback.call(undefined) for callback in stopCallbacks
-  )
+  ])
 
   .directive('resize', () ->
     require: '^resizable'
     link: (scope, element, attrs, resizableCtrl) ->
-      console.log element
       property = attrs.resize
       initialValue = +element.css(property)[0..-3] ## requires jQuery
       resizableCtrl.onStart (amount) ->
@@ -61,4 +60,3 @@ angular.module('neo4jApp')
           angular.element(document).unbind "mouseup"
           resizableCtrl.stop()
   )
-
