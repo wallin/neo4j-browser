@@ -98,6 +98,29 @@ angular.module('neo4jApp.controllers')
 
       $scope.createView(input: query)
 
+    $scope.skipViews = (count) ->
+      orderedViews = []
+      for folder in $scope.folders.all()
+        orderedViews = orderedViews.concat $scope.views.where({folder: folder.id})
+      orderedViews = orderedViews.concat $scope.views.where({starred: false})
+
+      for view, i in orderedViews
+        if $scope.currentView.id == view.id
+          newIndex = (i + count)
+          newIndex = orderedViews.length + newIndex if newIndex < 0
+          $scope.currentView = orderedViews[newIndex % 4]
+          $location.path($scope.viewPath($scope.currentView.id))
+          break
+
+    $scope.$on 'views:next', ->
+      $scope.skipViews(1)
+
+    $scope.$on 'views:previous', ->
+      $scope.skipViews(-1)
+
+    $scope.$on 'views:create', ->
+      $scope.createView()
+
     $scope.removeFolder = (folder) ->
       $scope.folders.remove(folder)
       viewsToRemove = $scope.views.where(folder: folder.id)

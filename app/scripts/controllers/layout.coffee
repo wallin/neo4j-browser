@@ -33,9 +33,9 @@ angular.module('neo4jApp.controllers')
       if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
         currentView?.exec()
       else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
-        alert "TBD: goto previous view"
+        $scope.$broadcast 'views:previous'
       else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down
-        alert "TBD: goto next view"
+        $scope.$broadcast 'views:next'
       else if e.keyCode is 27 # Esc
         if $scope.isShortcutsShown
           $scope.toggleShortcuts()
@@ -50,7 +50,7 @@ angular.module('neo4jApp.controllers')
         else if e.keyCode is 191 # ?
           $scope.toggleShortcuts()
         else if e.keyCode is 78 # n
-          alert "create a new view"
+          $scope.$broadcast 'views:create'
         else if e.keyCode is 68 # d
           alert "duplicate current view"
 
