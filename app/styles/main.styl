@@ -142,10 +142,49 @@ nav
       //text-transform: uppercase
       font-weight bold
       opacity: 0.7
-  .dropdown
+  .has-dropdown
+    position relative
+  .name .dropdown
     background-color: #fff
     padding 16px
-    box-shadow: rgba(0,0,0,0.5) 0 2px 8px
+    box-shadow: 0 7px 27px rgba(0,0,0,0.3)
+    border-radius 6px
+    position: absolute;
+    top: topbar-height + 10px
+    left: 16px
+    width: 280px
+    border: 1px solid rgba(0,0,0,0.27)
+    z-index 10000
+    h3
+      font-size: 21px
+      font-weight: bold
+      border-bottom: 1px solid #e2e6e7
+      padding-bottom 16px
+      margin-bottom 16px
+      .version
+        font-size: 13px
+        opacity 0.7
+    ul.stats
+      font-size 13px
+      margin-left 0
+      margin-bottom 16px
+      li
+        overflow hidden
+        .key
+          float left
+          width 100px
+          font-weight bold
+        .value
+          float left
+    .button
+      display: block
+      margin-bottom: 8px
+    .footer
+      margin-top 24px
+      padding-top: 8px
+      border-top: 1px solid #e2e6e7
+      .license
+        font-size 13px
 
 .top-bar-section li a:not(.button)
   background: linear-gradient(top, #333, #181818)
