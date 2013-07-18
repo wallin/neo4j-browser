@@ -31,18 +31,23 @@ app.config([
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 ])
 
-app.run(['$rootScope', '$http', '$timeout', ($scope, $http, $timeout) ->
-  timer = null
-  check = ->
-    $timeout.cancel(timer)
-    $http.get('http://localhost:7474/db/manage/server/monitor/fetch')
-    .success(->
-      $scope.offline = no
-    )
-    .error(->
-      $scope.offline = yes
-    )
-    .then(-> timer = $timeout(check, 5000))
-
-  check()
+app.run([
+  '$rootScope'
+  '$http'
+  '$timeout'
+  'ServerInfo'
+  ($scope, $http, $timeout, ServerInfo) ->
+    timer = null
+    check = ->
+      $timeout.cancel(timer)
+      ServerInfo.status().then(
+        ->
+          $scope.offline = no
+          timer = $timeout(check, 5000)
+      ,
+        ->
+          $scope.offline = yes
+          timer = $timeout(check, 5000)
+      )
+    check()
 ])
