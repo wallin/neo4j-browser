@@ -11,19 +11,18 @@
       .icon.folder-trash(ng-click='removeFolder(folder)')
     ul.starred.indented(ng-show='folder.expanded')
       li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
-         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-         ng-include=" 'views/list-item.html' ")
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}')
+        include list-item
   .droppable(ui-sortable="sortableOptions")
     ul.starred
       li(ng-repeat="view in views.where({starred: true, folder: false})",
-         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-         ng-include=" 'views/list-item.html' ")
-
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}')
+        include list-item
   .droppable(ui-sortable="sortableOptions")
     h4 Recent
     ul
       li(ng-repeat='view in views.where({starred: false})',
-         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-         ng-include=" 'views/list-item.html' ")
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}')
+        include list-item
 
   file-upload

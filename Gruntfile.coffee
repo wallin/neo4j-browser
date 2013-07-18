@@ -41,7 +41,7 @@ module.exports = (grunt) ->
         tasks: ["livereload"]
 
       jade:
-        files: 'app/views/*.jade'
+        files: 'app/views/**/*.jade'
         tasks: ['jade:html']
 
     connect:
