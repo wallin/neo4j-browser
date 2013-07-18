@@ -10,5 +10,7 @@ angular.module('neo4jApp.controllers')
         $scope.relationships = ServerInfo.relationships()
         $scope.server = ServerInfo.rest()
       refresh()
+
+      $scope.$on 'db:result:containsUpdates', refresh
   ]
 

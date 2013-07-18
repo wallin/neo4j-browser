@@ -4,8 +4,9 @@ angular.module('neo4jApp.services')
   .factory 'Cypher', [
     '$http',
     '$q'
+    '$rootScope'
     'Settings'
-    ($http, $q, Settings) ->
+    ($http, $q, $rootScope, Settings) ->
       [NODE, RELATIONSHIP, OTHER] = [1, 2, 3]
 
       resultType = (data) ->
@@ -21,7 +22,6 @@ angular.module('neo4jApp.services')
       parseId = (resource = "") ->
         id = resource.substr(resource.lastIndexOf("/")+1)
         return parseInt(id, 10)
-
 
       class CypherRelationship
         constructor: (@$raw = {}) ->
@@ -51,7 +51,7 @@ angular.module('neo4jApp.services')
 
           @size = @_response.data?.length or 0
 
-          @stats = @_response.stats
+          @_setStats @_response.stats
 
           # TODO: determine max result size
           @isTooLarge = !(@size? and @size < 1000)
@@ -89,6 +89,8 @@ angular.module('neo4jApp.services')
         isTextOnly: ->
           @nodes.length is 0 and @relationships.length is 0
 
+        _setStats: (@stats) ->
+          $rootScope.$broadcast 'db:result:containsUpdates', angular.copy(@stats)
 
       class CypherService
         constructor: ->
