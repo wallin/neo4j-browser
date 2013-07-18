@@ -128,16 +128,10 @@ nav.top-bar
           a(ng-click="toggleHistory()", ng-hide="isHistoryShown") Load View
         li
           select
-            option Nodes
-            option Person
-            option Movie
+            option(ng-repeat='label in labels') {{label}}
         li
           select
-            option Relationships
-            option Friend
-            option Acted in
-            option Directed
-            option Rated
+            option(ng-repeat='relation in relationships') {{ relation }}
     .view-editor(resize="height")
       span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
         textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id + isEditorHidden', 'focus-on' = 'view.id == currentView.id')
