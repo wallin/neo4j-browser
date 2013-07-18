@@ -8,7 +8,7 @@ angular.module('neo4jApp.controllers')
       refresh = ->
         $scope.labels = ServerInfo.labels()
         $scope.relationships = ServerInfo.relationships()
-
+        $scope.server = ServerInfo.rest()
       refresh()
   ]
 
