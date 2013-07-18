@@ -194,8 +194,8 @@ nav
   stretch()
   .background
     stretch()
-    background-color #000
-    opacity 0.5
+    background: rgba(0,0,0,0.45)
+    background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0,0,0,0.3) 1%, rgba(0,0,0,0.625) 100%);
   .inner
     fixed top 80px left 100px
     background-color #fff
@@ -204,7 +204,8 @@ nav
     relative left 50%
     margin-left: -240px
     border-radius 6px
-    box-shadow: rgba(0,0,0,0.5) 0 1px 6px
+    border: 1px solid #666
+    box-shadow: 0 7px 27px rgba(0,0,0,0.35)
     h2, h3
       font-weight bold
     h2
