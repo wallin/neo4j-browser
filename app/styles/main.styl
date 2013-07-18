@@ -320,7 +320,7 @@ table
   bottom: 0
   left: 0
   right: 0
-  box-shadow: rgba(0,0,0,0.25) -2px 0 11px;
+  //box-shadow: rgba(0,0,0,0.25) -2px 0 11px;
   z-index: 10
   transist all
   #view-background
@@ -353,6 +353,14 @@ table
     background-color: #FAFBFB
     border-bottom: 1px solid #E2E6E7
     padding: 0 horizontal-padding
+    ul.inline-list
+      margin-bottom 0
+      margin-top 9px
+      li
+        line-height: 29px
+        font-size: 13px
+        &.divider
+          border-left: 1px solid #DBE0E1
 
   .view-editor
     background-color: #fff
@@ -705,3 +713,19 @@ icon(type, do-no-hover=false)
     position: absolute
     right: 42px
     top: 11px
+
+select
+  width: 120px;
+  background-color: #ffffff;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  height: 28px;
+  line-height: 28px;
+  display: inline-block;
+  padding: 4px;
+  margin-bottom: 9px;
+  font-size: 13px;
+  color: #555555;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;

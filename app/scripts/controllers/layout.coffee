@@ -6,7 +6,6 @@ angular.module('neo4jApp.controllers')
 
     $scope._isEditorHidden = $scope.isEditorHidden = false
     $scope.toggleEditor = ->
-      #unless $scope.isHistoryShown
       $scope._isEditorHidden = $scope.isEditorHidden ^= true
 
     $scope.isGraphExpanded = false
@@ -17,7 +16,7 @@ angular.module('neo4jApp.controllers')
     $scope.toggleTable = ->
       $scope.isTableExpanded ^= true
 
-    $scope.isHistoryShown = true
+    $scope.isHistoryShown = false
     $scope.toggleHistory = ->
       $scope.isHistoryShown ^= true
 

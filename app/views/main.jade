@@ -124,8 +124,9 @@ nav.top-bar
   .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
     .view-toolbar
       ul.inline-list
-        li
-          a(ng-click="toggleHistory()", ng-hide="isHistoryShown") Load View
+        li(ng-hide="isHistoryShown")
+          a(ng-click="toggleHistory()") Open...
+        li.divider(ng-hide="isHistoryShown") &nbsp
         li
           select
             option(ng-repeat='label in labels') {{label}}
