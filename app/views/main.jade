@@ -55,9 +55,45 @@
 
 nav.top-bar
   ul.title-area
-    li.name
+    li.name.has-dropdown
       h1
-        a('ng-click'="toggleHistory()") Neo4j Browser
+        a.title('ng-click'="toggleHistory()")
+          .app-name Neo4j
+          .edition Enterprise
+      .dropdown
+        h3 Neo4j Community
+          .version 2.0.0-M03
+
+        .main
+          ul.stats
+            li
+              .key hostname:
+              .value localhost
+            li
+              .key database:
+              .value local.graphdb
+            li
+              .key store location:
+              .value /Users/batman/local.graphdb
+
+          ul.stats
+            li
+              .key hostname
+              .value localhost
+            li
+              .key database
+              .value local.graphdb
+
+          .button Configuration
+          .button System Report
+
+        .footer
+          .license
+            | License GPLv3
+            | Copyright 2013 Neo Technology
+          .button Details
+
+
   section.top-bar-section
     ul.left
       li
