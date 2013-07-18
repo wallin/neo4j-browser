@@ -4,7 +4,8 @@ angular.module('neo4jApp.services')
   .factory 'Cypher', [
     '$http',
     '$q'
-    ($http, $q) ->
+    'Settings'
+    ($http, $q, Settings) ->
       [NODE, RELATIONSHIP, OTHER] = [1, 2, 3]
 
       resultType = (data) ->
@@ -94,7 +95,7 @@ angular.module('neo4jApp.services')
 
         send: (query) ->
           q = $q.defer()
-          $http.post("http://localhost:7474/db/data/cypher?includeStats=true", { query : query })
+          $http.post("#{Settings.endpoint.cypher}?includeStats=true", { query : query })
             .success((result)-> q.resolve(new CypherResult(result)))
             .error((r) -> q.reject(r))
           q.promise
