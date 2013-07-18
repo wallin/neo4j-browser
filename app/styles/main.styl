@@ -169,27 +169,6 @@ nav
       background: none
       &:hover
         background-color: #ddd
-    ul.stats
-      font-size 13px
-      margin-left 0
-      margin-bottom 16px
-      li
-        overflow hidden
-        .key
-          float left
-          width 100px
-          font-weight bold
-        .value
-          float left
-    .button
-      display: block
-      margin-bottom: 8px
-    .footer
-      margin-top 24px
-      padding-top: 8px
-      border-top: 1px solid #e2e6e7
-      .license
-        font-size 13px
 
 .top-bar-section li a:not(.button)
   background: linear-gradient(top, #333, #181818)
@@ -228,7 +207,7 @@ nav
       .right-col
         float left
         width: 70%
-    .key
+    .key.code
       display: inline-block
       min-width: 24px
       padding: 5px 6px
@@ -243,6 +222,28 @@ nav
       box-shadow: inset 0 -2px 0 #111
       .single
         width: 80px
+
+    ul.stats
+      font-size 13px
+      margin-left 0
+      margin-bottom 16px
+      li
+        overflow hidden
+        .key
+          float left
+          width 100px
+          font-weight bold
+        .value
+          float left
+    .button
+      display: block
+      margin-bottom: 8px
+    .footer
+      margin-top 24px
+      padding-top: 8px
+      border-top: 1px solid #e2e6e7
+      .license
+        font-size 13px
 
 #history
   color: #fff
