@@ -1,0 +1,32 @@
+.inner
+  h3 Neo4j Community
+    .version {{server.neo4j_version}}
+
+  .main
+    ul.stats
+      li
+        .key hostname
+        .value {{host}}
+      li
+        .key database
+        .value local.graphdb
+      li
+        .key store location
+        .value /Users/batman/local.graphdb
+
+    ul.stats
+      li
+        .key disk
+        .value 500Gb
+      li
+        .key memory
+        .value 512Mb
+
+    .button.secondary Configuration
+    .button.secondary System Report
+
+  .footer
+    .license
+      | License GPLv3
+      | Copyright 2013 Neo Technology
+    .button.secondary Details

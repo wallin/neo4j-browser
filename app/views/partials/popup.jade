@@ -1,0 +1,6 @@
+.popup(ng-show="isPopupShown", ng-switch='popupContent')
+  .background(ng-click='togglePopup()')
+  div(ng-switch-when='keys')
+    include popup-keys
+  div(ng-switch-when='about')
+    include popup-about

@@ -20,14 +20,15 @@ angular.module('neo4jApp.controllers')
     $scope.toggleHistory = ->
       $scope.isHistoryShown ^= true
 
-    $scope.isShortcutsShown = false
-    $scope.toggleShortcuts = ->
-      $scope.isShortcutsShown ^= true
+    $scope.isPopupShown = false
+    $scope.togglePopup = (content) ->
+      $scope.popupContent = content
+      $scope.isPopupShown = !!content
 
     $scope.globalKey = (e) ->
 
       # Don't toggle anything when shortcut popup is open
-      return if $scope.isShortcutsShown and e.keyCode != 191
+      return if $scope.isPopupShown and e.keyCode != 191
 
       if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
         currentView?.exec()
@@ -36,8 +37,8 @@ angular.module('neo4jApp.controllers')
       else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down
         $scope.$broadcast 'views:next'
       else if e.keyCode is 27 # Esc
-        if $scope.isShortcutsShown
-          $scope.toggleShortcuts()
+        if $scope.isPopupShown
+          $scope.togglePopup()
         else
           $scope.toggleEditor()
 
@@ -47,7 +48,7 @@ angular.module('neo4jApp.controllers')
         else if e.keyCode is 84 # t
           $scope.toggleGraph()
         else if e.keyCode is 191 # ?
-          $scope.toggleShortcuts()
+          $scope.togglePopup('keys')
         else if e.keyCode is 78 # n
           $scope.$broadcast 'views:create'
         else if e.keyCode is 68 # d

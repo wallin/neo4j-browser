@@ -1,43 +1,10 @@
 nav.top-bar
   ul.title-area
-    li.name.has-dropdown(show-on='click')
+    li.name
       h1
-        a.title('ng-click'="toggleHistory()")
+        a.title(ng-click='togglePopup("about")')
           .app-name Neo4j
           .edition Enterprise
-      .dropdown
-        h3 Neo4j Community
-          .version 2.0.0-M03
-
-        .main
-          ul.stats
-            li
-              .key hostname
-              .value localhost
-            li
-              .key database
-              .value local.graphdb
-            li
-              .key store location
-              .value /Users/batman/local.graphdb
-
-          ul.stats
-            li
-              .key disk
-              .value 500Gb
-            li
-              .key memory
-              .value 512Mb
-
-          .button.secondary Configuration
-          .button.secondary System Report
-
-        .footer
-          .license
-            | License GPLv3
-            | Copyright 2013 Neo Technology
-          .button.secondary Details
-
 
   section.top-bar-section
     ul.left
@@ -56,6 +23,6 @@ nav.top-bar
           | Help
         ul.dropdown
           li
-            a(ng-click='toggleShortcuts()') Keyboard shortcuts
+            a(ng-click='togglePopup("keys")') Keyboard shortcuts
           li
             a(href = "http://docs.neo4j.org", target="_BLANK") Docs
