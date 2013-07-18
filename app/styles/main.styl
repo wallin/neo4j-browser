@@ -144,7 +144,7 @@ nav
       opacity: 0.7
   .has-dropdown
     position relative
-  .name .dropdown
+  .dropdown, .top-bar-section .dropdown
     background-color: #fff
     padding 16px
     box-shadow: 0 7px 27px rgba(0,0,0,0.3)
@@ -164,6 +164,11 @@ nav
       .version
         font-size: 13px
         opacity 0.7
+    li a
+      color: $body-font-color
+      background: none
+      &:hover
+        background-color: #ddd
     ul.stats
       font-size 13px
       margin-left 0
