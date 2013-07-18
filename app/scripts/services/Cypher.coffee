@@ -90,7 +90,7 @@ angular.module('neo4jApp.services')
           @nodes.length is 0 and @relationships.length is 0
 
         _setStats: (@stats) ->
-          $rootScope.$broadcast 'db:result:containsUpdates', angular.copy(@stats)
+          $rootScope.$broadcast 'db:result:containsUpdates', angular.copy(@stats) if @stats.containsUpdates
 
       class CypherService
         constructor: ->
