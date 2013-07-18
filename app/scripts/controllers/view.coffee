@@ -64,6 +64,7 @@ angular.module('neo4jApp.controllers')
           newIndex = (i + count)
           newIndex = orderedViews.length + newIndex if newIndex < 0
           $scope.currentView = orderedViews[newIndex % orderedViews.length]
+          $location.path($scope.viewPath($scope.currentView.id))
           break
 
     $scope.removeFolder = (folder) ->

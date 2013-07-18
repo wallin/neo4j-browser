@@ -13,6 +13,7 @@ angular.module('neo4jApp.directives')
     ]
     restrict: 'C'
     link: (scope, element, attrs, ctrl) ->
+      #ctrl.hide()
       element.bind 'mouseover', -> ctrl.show()
   )
 
