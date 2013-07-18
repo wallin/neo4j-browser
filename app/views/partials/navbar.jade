@@ -23,6 +23,8 @@ nav.top-bar
           | Help
         ul.dropdown
           li
+            a(ng-click='togglePopup("about")') About this server
+          li
             a(ng-click='togglePopup("keys")') Keyboard shortcuts
           li
             a(href = "http://docs.neo4j.org", target="_BLANK") Docs
