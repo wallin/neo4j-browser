@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('neo4jApp.controllers')
-  .controller 'ServerInfoCtrl', [
+  .controller 'MainCtrl', [
     '$scope',
     'ServerInfo'
     ($scope, ServerInfo) ->

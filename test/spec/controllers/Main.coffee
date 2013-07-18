@@ -1,17 +1,17 @@
 'use strict'
 
-describe 'Controller: ServerInfoCtrl', () ->
+describe 'Controller: MainCtrl', () ->
 
   # load the controller's module
   beforeEach module 'neo4jApp.controllers'
 
-  ServerInfoCtrl = {}
+  MainCtrl = {}
   scope = {}
 
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new()
-    ServerInfoCtrl = $controller 'ServerInfoCtrl', {
+    MainCtrl = $controller 'MainCtrl', {
       $scope: scope
     }
 
