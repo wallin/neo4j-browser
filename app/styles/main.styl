@@ -9,11 +9,11 @@ $primary-color = #1abc9c
 $alert-color = #E13329
 $topbar-bg = #222
 $body-font-color = #34495e
-$table-head-bg = #fff
+$table-head-bg = #F5F5F5
 $table-head-font-color = #2E383C
 $table-head-padding = 0 horizontal-padding
 $table-head-font-weight = bold
-$table-head-font-size = 15px
+$table-head-font-size = 13px
 $table-row-padding = 0 horizontal-padding
 $table-row-font-color = #748287
 $table-row-font-size = 13px
@@ -71,7 +71,7 @@ table
   th
     border-bottom: 1px solid #ECF0F1
   thead tr th, tfoot tr th
-    line-height: topbar-height
+    height: middlebar-height
     font-weight: bold
   tbody tr td, tr td, tfoot tr td
     vertical-align: top
@@ -246,6 +246,7 @@ nav
   width: history-width
   bottom: 0
   background-color: #3A4549
+  text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px
   h3, h4, h5
     position: relative
     color: #fff
@@ -256,10 +257,11 @@ nav
     position: relative
     font-size: 17px
     line-height: toolbar-height
+    padding-left 41px
     a
       color: #fff
-    .icon.history-close
-      absolute: top 32% right 17px
+  .icon.history-close
+    absolute: top 16px left 17px
   h4
     background-color: #2E383C
     line-height: 39px;
@@ -531,11 +533,11 @@ nav
         height: 50%
         //transist height
         .icon.table-download
-          absolute: top 17px right horizontal-padding*2+20
+          absolute: top 8px right horizontal-padding*2+20
           &.alone
             right: horizontal-padding
         .icon.table-hide
-          absolute: top 21px right horizontal-padding
+          absolute: top 12px right horizontal-padding
         .view-result-table-scroll
           position: absolute
           top: 0
@@ -758,11 +760,9 @@ icon(type, do-no-hover=false)
 .edit-in-place
   .edit-in-place-input
     border: none;
-    text-transform: uppercase;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     padding: 6px 8px;
-    font-family: Lato;
-    font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     border-radius: 3px;
     width: 187px;
   .edit-in-place-trigger
