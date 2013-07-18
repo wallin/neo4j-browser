@@ -132,7 +132,7 @@ nav.top-bar
             .icon.status-error
             {{view.errorText}}
           div(ng-hide='view.hasErrors')
-            div(ng-show='result')
+            div(ng-show='view.response')
               .icon.status-success
               span(ng-include=" 'views/result-status.html' ")
               span  in <b>{{view.runTime}} ms</b>
@@ -140,7 +140,7 @@ nav.top-bar
                 .icon.status-info
                 | Code has changed since last execution.&nbsp;
                 a(ng-click='view.revertCode()') Revert
-            div(ng-hide='result')
+            div(ng-hide='view.response')
               .icon.status-info
               | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.
         span(ng-show='view.isLoading')
