@@ -1,0 +1,29 @@
+#history
+  h3
+    a(ng-click="toggleHistory()") Views
+    a.icon.history-close(ng-click="toggleHistory()")
+  h4
+    | Saved
+    .icon.folder-add(ng-click='createFolder()')
+  .droppable(ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
+    h5.folder(ng-click='toggleFolder(folder)', ng-class="{open: folder.expanded}")
+      div(edit-in-place='folder.name')
+      .icon.folder-trash(ng-click='removeFolder(folder)')
+    ul.starred.indented(ng-show='folder.expanded')
+      li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
+         ng-include=" 'views/list-item.html' ")
+  .droppable(ui-sortable="sortableOptions")
+    ul.starred
+      li(ng-repeat="view in views.where({starred: true, folder: false})",
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
+         ng-include=" 'views/list-item.html' ")
+
+  .droppable(ui-sortable="sortableOptions")
+    h4 Recent
+    ul
+      li(ng-repeat='view in views.where({starred: false})',
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
+         ng-include=" 'views/list-item.html' ")
+
+  file-upload
