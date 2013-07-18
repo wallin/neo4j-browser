@@ -165,7 +165,6 @@ angular.module('neo4jApp.controllers')
     $scope.folders.add(viewService.persisted('folders'))
     $scope.views.add(viewService.persisted('views'))
 
-    $scope.currentView = null
     $scope.$watch 'currentView', (val) ->
       $scope.$emit('currentView:changed', val)
     $scope.$watch 'currentView.response', ->
@@ -173,4 +172,6 @@ angular.module('neo4jApp.controllers')
 
     if $scope.views.where(starred: no).length is 0
       $scope.createView(undefined, no) # Create new view with default name
+
+    $scope.currentView = $scope.views.last()
   ]

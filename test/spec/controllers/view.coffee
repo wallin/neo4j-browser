@@ -13,8 +13,17 @@ describe 'Controller: ViewCtrl', () ->
   beforeEach inject ($controller, $rootScope, _viewService_) ->
     scope = $rootScope.$new()
     viewService = _viewService_
+    viewService.clear()
     ViewCtrl = $controller 'ViewCtrl', { $scope: scope }
     scope.$digest()
+
+  it 'should change location to the next view on "views:next" event', inject ($location)->
+    scope.createView()
+    previousLocation = $location.path()
+    previousView = scope.currentView
+    scope.$broadcast 'views:next'
+    expect(scope.currentView).not.toBe previousView
+    expect($location.path()).not.toBe previousLocation
 
   describe 'createFolder:', ->
     it 'should return the created folder', ->
@@ -69,4 +78,3 @@ describe 'Controller: ViewCtrl', () ->
       view = scope.createView(starred: yes, folder: 'folder')
       scope.toggleStar(view)
       expect(view.folder).toBeFalsy()
-

@@ -110,6 +110,12 @@ angular.module('neo4jApp.services')
       class ViewStore
         constructor: ->
 
+        # Clear stored content
+        clear: (types = ['views', 'folders']) ->
+          types = [types] if angular.isString types
+          for t in types
+            localStorageService.remove t
+
         # Return default content
         default: (type = 'views') ->
           switch type
