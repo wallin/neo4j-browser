@@ -37,7 +37,7 @@ angular.module('neo4jApp.controllers')
     # Create an unsaved view
     $scope.createView = (data = {}, navigate = yes) ->
       len = $scope.views.length + 1
-      data.input ?= "// Query no. #{len}"
+      data.input ?= "// New view ##{len}"
       data.starred ?= no
       view = new viewService.View(data)
       $scope.views.add(view)
