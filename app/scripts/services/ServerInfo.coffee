@@ -6,6 +6,14 @@ angular.module('neo4jApp.services')
     '$q'
     'Settings'
     ($http, $q, Settings) ->
+
+      returnAndUpdate = (promise) ->
+        rv = []
+        promise.then(
+          (r) -> rv.push.apply(rv, r)
+        )
+        rv
+
       class ServerInfo
         constructor: ->
 
@@ -18,10 +26,10 @@ angular.module('neo4jApp.services')
           q.promise
 
         labels: ->
-          @get Settings.endpoint.rest + '/labels'
+          returnAndUpdate @get Settings.endpoint.rest + '/labels'
 
         relationships: ->
-          @get Settings.endpoint.rest + '/relationship/types'
+          returnAndUpdate @get Settings.endpoint.rest + '/relationship/types'
 
         status: ->
           @get '/db/manage/server/monitor/fetch'
