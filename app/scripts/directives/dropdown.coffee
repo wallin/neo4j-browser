@@ -14,7 +14,8 @@ angular.module('neo4jApp.directives')
     restrict: 'C'
     link: (scope, element, attrs, ctrl) ->
       ctrl.hide()
-      element.bind 'mouseover', -> ctrl.show()
+      evt = attrs?.showOn or 'mouseover'
+      element.bind evt, -> ctrl.show()
   )
 
 angular.module('neo4jApp.directives')
@@ -24,4 +25,5 @@ angular.module('neo4jApp.directives')
     link: (scope, element, attrs, ctrl) ->
       ctrl.dropdown = element
       element.bind 'mouseout', -> ctrl.hide()
+      element.bind 'mouseover', -> ctrl.show()
   )

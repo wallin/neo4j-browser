@@ -1,6 +1,6 @@
 nav.top-bar
   ul.title-area
-    li.name.has-dropdown
+    li.name.has-dropdown(show-on='click')
       h1
         a.title('ng-click'="toggleHistory()")
           .app-name Neo4j
@@ -23,11 +23,11 @@ nav.top-bar
 
           ul.stats
             li
-              .key hostname
-              .value localhost
+              .key disk
+              .value 500Gb
             li
-              .key database
-              .value local.graphdb
+              .key memory
+              .value 512Mb
 
           .button.secondary Configuration
           .button.secondary System Report
