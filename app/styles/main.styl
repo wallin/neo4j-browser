@@ -1,8 +1,8 @@
 horizontal-padding = 16px
 history-width = 300px
-editor-width = 440px
-editor-height = 150px
+editor-height = 140px
 topbar-height = 57px
+toolbar-height = 49px
 middlebar-height = 39px
 
 $primary-color = #1abc9c
@@ -13,15 +13,15 @@ $table-head-bg = #fff
 $table-head-font-color = #2E383C
 $table-head-padding = 0 horizontal-padding
 $table-head-font-weight = bold
-$table-head-font-size = 16px
+$table-head-font-size = 15px
 $table-row-padding = 0 horizontal-padding
 $table-row-font-color = #748287
-$table-row-font-size = 14px
+$table-row-font-size = 13px
 $table-even-row-bg = #F7f8f8
 $topbar-title-font-size = 20px
 $topbar-title-weight = normal
 $topbar-height = topbar-height
-$topbar-link-font-size = 16px
+$topbar-link-font-size = 15px
 $topbar-link-hover-lightness = 0
 $topbar-dropdown-bg = $primary-color
 
@@ -52,7 +52,7 @@ html, body
   outline: none
 
 body
-  font: 16px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif
   background: #222
   color: #34495e
   stretch()
@@ -88,9 +88,9 @@ table
 
 .CodeMirror
   background-color: transparent !important
-  font-size: 14px !important
+  font-size: 13px !important
   font-family: Monaco, Menlo, 'Ubuntu Mono', 'Droid Sans Mono', Consolas, monospace !important
-  line-height: 22px !important
+  line-height: 20px !important
   margin: 18px horizontal-padding 18px 10px
   pre
     padding: 0 !important
@@ -186,40 +186,48 @@ table
   width: history-width
   bottom: 0
   background-color: #3A4549
-  .icon.history-close
-    absolute: top 21px right 17px
   h3, h4, h5
     position: relative
     color: #fff
-    text-transform: uppercase;
     font-weight: bold;
     padding: 0 horizontal-padding;
     margin: 0;
-    line-height: 57px
   h3
+    position: relative
     font-size: 17px
+    line-height: toolbar-height
+    a
+      color: #fff
+    .icon.history-close
+      absolute: top 32% right 17px
   h4
     background-color: #2E383C
     line-height: 39px;
-    font-size: 14px
+    font-size: 13px
+    text-transform: uppercase;
     .icon.folder-add
       absolute: top 11px right 15px
   h5
-    line-height: 35px;
     font-size: 12px
     line-height: 39px;
-    font-size: 14px
+    font-size: 13px
     padding-left: 42px
     border-bottom: 1px solid #465054
-    &.folder
-      cursor: pointer
+    color #9AA7AC
+    font-weight: normal
+    &:hover
+      color #fff
     &:after
       content: ' '
       position: absolute
       size 15px 14px
       top: 12px
       left: 15px
-      background-image: url('/images/icon-folder-open.png')
+      background-image: url('/images/icon-folder-closed.png')
+    &.folder
+      cursor: pointer
+      &.open:after
+        background-image: url('/images/icon-folder-open.png')
     .icon.folder-trash
       absolute: top 11px right 17px
 
@@ -229,7 +237,7 @@ table
   ul
     li
       background-color: #3a4549
-      padding: 12px horizontal-padding 16px
+      padding: 11px horizontal-padding 11px
       position: relative
       border-bottom: 1px solid #465054
       &:after
@@ -238,15 +246,16 @@ table
         background-color: #C9F9A1
         width 0
         opacity 0
-      &:last-child
-        border-bottom: none
       &.active
         &:after
           width 4px
           opacity 1
         background-color: #404C50
         .contents a
+          //font-weight bold
           color: #fff
+          .meta
+            font-weight normal
       &:hover
         .contents a
           color: #fff
@@ -254,7 +263,7 @@ table
         stretch()
       .star
         z-index 2
-        absolute: right 16px top 15px
+        absolute: right 16px top 11px
         width image-size('icon-star.png')[0]
         height image-size('icon-star.png')[1]
         background: url('/images/icon-star.png') 0 0 no-repeat
@@ -262,7 +271,7 @@ table
           background-image: url('/images/icon-star_hover.png')
       .refresh
         z-index 2
-        absolute: right 40px top 16px
+        absolute: right 40px top 12px
         width image-size('icon-query-refresh.png')[0]
         height image-size('icon-query-refresh.png')[1]
         background: url('/images/icon-query-refresh.png') 0 0 no-repeat
@@ -276,20 +285,22 @@ table
         line-height 1
         a
           color #9AA7AC
-          font-size 16px
+          font-size 13px
           width: 214px
           display: inline-block
           line-height: 1.4
         .meta
           color: #728187
           font-size: 12px
-          margin-top 3px
+          margin-top 2px
           .icon
             relative: top 1px
             margin-right: 4px
   ul.indented
     li
-      padding-left: 42px
+      padding-left: 66px
+      .refresh
+        left 42px
   ul.starred li .star
     background-image: url('/images/icon-starred.png')
     &:hover
@@ -328,17 +339,29 @@ table
   &.enter
     transform: translate(0, 0)
 
+  .view-toolbar
+    position: absolute;
+    top: 0
+    left: 0
+    right: 0
+    height: toolbar-height
+    line-height: toolbar-height
+    background: green
+    color: #9EA4A6
+    background-color: #FAFBFB
+    border-bottom: 1px solid #E2E6E7
+    padding: 0 horizontal-padding
+
   .view-editor
     background-color: #fff
     border-right: 1px solid #E2E6E7
     position: absolute;
-    top: 0
+    top: toolbar-height
     left: 0
     right: 0
     height: editor-height
     border-bottom: 1px solid #E2E6E7
     transist width
-    //width: editor-width
     .icon.editor-refresh
       absolute: top 16px right 16px
       z-index: 10000
@@ -360,11 +383,9 @@ table
         z-index: 1000
         transist all
 
-
-
   .view-result
     position: absolute;
-    top: editor-height
+    top: editor-height + toolbar-height
     bottom: 0
     right: 0
     left: 0
@@ -381,11 +402,11 @@ table
       line-height: 38px
       left: 0
       right: 0
-      color: #9EA4A6
-      background-color: #FAFBFB
+      color: rgb(120, 129, 133)
+      background-color: #FFF
       border-bottom: 1px solid #E2E6E7
       padding-left: horizontal-padding
-      font-size: 14px
+      font-size: 13px
       .updated-code
         float:right
         margin-right horizontal-padding

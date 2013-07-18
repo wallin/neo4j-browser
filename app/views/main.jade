@@ -90,13 +90,14 @@ nav.top-bar
       //-         a.small.button('ng-click'="toggleTable()", 'ng-class'='{secondary: !isTableExpanded}') Table
 
 #history
-  h3 Views
-  a.icon.history-close('ng-click'="toggleHistory()")
+  h3
+    a(ng-click="toggleHistory()") Views
+    a.icon.history-close(ng-click="toggleHistory()")
   h4
     | Saved
     .icon.folder-add(ng-click='createFolder()')
   .droppable(ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
-    h5.folder.open(ng-click='toggleFolder(folder)')
+    h5.folder(ng-click='toggleFolder(folder)', ng-class="{open: folder.expanded}")
       div(edit-in-place='folder.name')
       .icon.folder-trash(ng-click='removeFolder(folder)')
     ul.starred.indented(ng-show='folder.expanded')
@@ -121,6 +122,22 @@ nav.top-bar
 #views
   #view-background
   .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
+    .view-toolbar
+      ul.inline-list
+        li
+          a(ng-click="toggleHistory()", ng-hide="isHistoryShown") Load View
+        li
+          select
+            option Nodes
+            option Person
+            option Movie
+        li
+          select
+            option Relationships
+            option Friend
+            option Acted in
+            option Directed
+            option Rated
     .view-editor(resize="height")
       span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
         textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id + isEditorHidden', 'focus-on' = 'view.id == currentView.id')

@@ -6,7 +6,7 @@ a.star('ng-click'="toggleStar(view)")
     {{view.input | autotitle}}
     span(ng-hide='view.isLoading')
       .meta(ng-show='view.runTime')
-        .icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+        //-.icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
         //- span('am-time-ago' = 'view.startTime', ng-hide='view.stats')
         {{view.stats}}
         span(ng-include=" 'views/result-status.html' ")
