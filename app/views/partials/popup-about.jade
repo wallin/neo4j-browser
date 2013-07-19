@@ -2,20 +2,20 @@
   div(ng-switch-when='about')
     .header
       .logo
-        .version TBD {{server.neo4j_version}}
+        .version {{server.neo4j_version}}
 
     .body
       .stats
         ul
           li
             .key Hostname:
-            .value TBD {{host}}
+            .value {{host}}
           li
             .key Database:
             .value TBD
           li
             .key Store location:
-            .value TBD
+            .value {{kernel.store_dir}}
 
         ul
           li
@@ -23,7 +23,7 @@
             .value TBD
           li
             .key Memory:
-            .value TBD
+            .value {{kernel.all_stores_total_mapped_memory_size}}
 
       .text-center
         .button.secondary(ng-click='togglePopup("details")')

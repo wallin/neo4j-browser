@@ -12,5 +12,6 @@ angular.module('neo4jApp.controllers')
 
       Server.jmx(["org.neo4j:*"]).success((response) ->
         r.name = parseName(r.name) for r in response
+        console.log r
       )
   ]
