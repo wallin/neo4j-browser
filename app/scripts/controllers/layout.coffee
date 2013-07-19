@@ -2,7 +2,7 @@
 
 angular.module('neo4jApp.controllers')
   .controller 'LayoutCtrl', [
-    '$scope'
+    '$rootScope'
     '$dialog'
     ($scope, $dialog) ->
       currentView = null
@@ -15,9 +15,9 @@ angular.module('neo4jApp.controllers')
         dialogFade: yes
         keyboard: yes
 
-      $scope._isEditorHidden = $scope.isEditorHidden = false
+      $scope.isEditorHidden = false
       $scope.toggleEditor = ->
-        $scope._isEditorHidden = $scope.isEditorHidden ^= true
+        $scope.isEditorHidden ^= true
 
       $scope.isGraphExpanded = false
       $scope.toggleGraph = ->
@@ -33,11 +33,18 @@ angular.module('neo4jApp.controllers')
 
       $scope.isPopupShown = false
       $scope.togglePopup = (content) ->
-        dialogOptions.templateUrl = 'popup-' + content
         if content?
-          dialog = $dialog.dialog(dialogOptions).open()
+          if not dialog?.isOpen()
+            dialogOptions.templateUrl = 'popup-' + content
+            dialog = $dialog.dialog(dialogOptions)
+            dialog.open()
         else
           dialog.close()
+
+        # Add unique classes so that we can style popups individually
+        dialog.modalEl.removeClass('modal-' + $scope.popupContent) if $scope.popupContent
+        dialog.modalEl.addClass('modal-' + content) if content
+
         $scope.popupContent = content
         $scope.isPopupShown = !!content
 
