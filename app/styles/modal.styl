@@ -24,16 +24,17 @@
   opacity: 0.45;
 }
 .modal {
+  width = 400px
+  width: width
+  margin-left: -(width/2)
   position: fixed;
   top: 10%;
   left: 50%;
   z-index: 10050;
-  width: 560px;
-  margin-left: -280px;
   background-color: #ffffff;
 
   border-radius 6px
-  border: 1px solid #666
+  border: 1px solid #888
   box-shadow: 0 7px 27px rgba(0,0,0,0.35)
 
   background-clip: padding-box;
@@ -53,8 +54,32 @@
 }
 
 .modal
+  modal-padding = 32px
+  modal-top-padding = 16px
   .inner
-    padding: 32px 40px
+    .header
+      background-color: #F8F9FA
+      padding: modal-padding
+      border-radius 6px 6px 0 0
+      border-bottom: 1px solid #DBDFE7
+    .body
+      padding: modal-padding modal-padding
+    .footer
+      background-color: #F8F9FA
+      padding: 0 modal-padding
+      border-radius 0 0 6px 6px
+    .logo
+      relative left -8px
+      margin 0 auto
+      width 179px
+      height 73px
+      background: url('/images/about-logo.png')
+      margin-bottom: -6px
+      .version
+        absolute top 51px left 67px
+        color: #aaa;
+        font-weight: bold;
+        width: 170px;
     h2, h3
       font-weight bold
     h2
@@ -88,32 +113,42 @@
       .single
         width: 80px
 
-    ul.stats
-      font-size 13px
-      margin-left 0
-      margin-bottom 16px
-      li
-        overflow hidden
-        .key
-          float left
-          width 100px
-          font-weight bold
-        .value
-          float left
-    .button
-      display: block
-      margin-bottom: 8px
-    .footer
-      margin-top 24px
-      padding-top: 8px
-      border-top: 1px solid #e2e6e7
-      .license
+    .stats
+      margin-bottom modal-padding
+      ul
         font-size 13px
+        margin-left 0
+        margin-bottom 16px
+        li
+          overflow hidden
+          .key
+            float left
+            font-weight bold
+            text-align: right
+            width: 125px
+            margin-right: 12px
+          .value
+            float left
+    .button.secondary
+      border-radius 6px
+      font-size 13px
+      background-color: #F7F9FA
+      padding-left:42px
+      margin-bottom: 0
+      .icon
+        absolute top 10px left 18px
+    .footer
+      padding: modal-top-padding 10px;
+      border-top: 1px solid #DBDFE7;
+      line-height: 1.2em;
+      .license
+        font-size 11px
+        text-align center
 
 .modal-details.modal
-  width: 1024px;
-  margin-left: -512px;
-
+  width = 1024px
+  width: width
+  margin-left: -(width/2)
 
 .modal-shown #page-container {
   -webkit-filter: blur(3px);
@@ -121,4 +156,3 @@
   filter: blur(3px);
   transition: all 0.3s;
 }
-

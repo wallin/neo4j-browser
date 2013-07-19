@@ -1,35 +1,40 @@
 .inner(ng-switch='popupContent')
   div(ng-switch-when='about')
-    h3 Neo4j Community
-      .version {{server.neo4j_version}}
+    .header
+      .logo
+        .version TBD {{server.neo4j_version}}
 
-    .main
-      ul.stats
-        li
-          .key hostname
-          .value {{host}}
-        li
-          .key database
-          .value local.graphdb
-        li
-          .key store location
-          .value /Users/batman/local.graphdb
+    .body
+      .stats
+        ul
+          li
+            .key Hostname:
+            .value TBD {{host}}
+          li
+            .key Database:
+            .value TBD
+          li
+            .key Store location:
+            .value TBD
 
-      ul.stats
-        li
-          .key disk
-          .value 500Gb
-        li
-          .key memory
-          .value 512Mb
+        ul
+          li
+            .key Disk:
+            .value TBD
+          li
+            .key Memory:
+            .value TBD
 
-      .button.secondary Configuration
-      .button.secondary(ng-click='togglePopup("details")') System Report
+      .text-center
+        .button.secondary(ng-click='togglePopup("details")')
+          .icon.button-system
+          | System Report
 
     .footer
       .license
         | License GPLv3
+        a()  (Read more)
+        br
         | Copyright 2013 Neo Technology
-      .button.secondary Details
   div(ng-switch-when='details', ng-init='setPopupStyle("large")')
     h3 System details

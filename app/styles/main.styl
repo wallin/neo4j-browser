@@ -54,7 +54,7 @@ html, body
   outline: none
 
 body
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font: 13px 'Helvetica Neue', Helvetica, Arial, sans-serif
   background: #222
   color: #34495e
   stretch()
@@ -655,6 +655,8 @@ icon(type, do-no-hover=false)
   display: inline-block
   cursor: pointer
   background-repeat: no-repeat;
+  &.button-system
+    icon: button-system no-hover
   &.folder-add
     icon: folder-add
   &.folder-edit
