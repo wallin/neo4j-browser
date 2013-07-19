@@ -13,10 +13,10 @@ describe 'Service: GraphModel', () ->
 
   # instantiate service
   GraphModel = {}
-  Cypher = {}
-  beforeEach inject (_GraphModel_, _Cypher_) ->
+  Node = {}
+  beforeEach inject (_GraphModel_, _Node_) ->
     GraphModel = _GraphModel_
-    Cypher     = _Cypher_
+    Node     = _Node_
 
   createNode = (id) ->
     data = {
@@ -35,7 +35,7 @@ describe 'Service: GraphModel', () ->
       "self": "http://localhost:7474/db/data/node/#{id}",
       "traverse": "http://localhost:7474/db/data/node/#{id}/traverse/{returnType}"
     }
-    new Cypher.Node(data)
+    new Node(data)
 
   describe 'addNode:', ->
     beforeEach ->
