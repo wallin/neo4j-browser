@@ -2,13 +2,12 @@
 
 angular.module('neo4jApp.services')
   .factory 'Cypher', [
-    '$http',
     '$q'
     '$rootScope'
     'Node'
     'Relationship'
-    'Settings'
-    ($http, $q, $rootScope, Node, Relationship, Settings) ->
+    'Server'
+    ($q, $rootScope, Node, Relationship, Server) ->
       [NODE, RELATIONSHIP, OTHER] = [1, 2, 3]
 
       resultType = (data) ->
@@ -20,10 +19,6 @@ angular.module('neo4jApp.services')
         else
           type = OTHER
         type
-
-      parseId = (resource = "") ->
-        id = resource.substr(resource.lastIndexOf("/")+1)
-        return parseInt(id, 10)
 
       class CypherResult
         constructor: (@_response = {}) ->
@@ -80,7 +75,7 @@ angular.module('neo4jApp.services')
 
         send: (query) ->
           q = $q.defer()
-          $http.post("#{Settings.endpoint.cypher}?includeStats=true", { query : query })
+          Server.cypher('?includeStats=true', {query: query})
             .success((result)-> q.resolve(new CypherResult(result)))
             .error((r) -> q.reject(r))
           q.promise

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('neo4jApp.services')
-  .factory 'ServerInfo', [
+  .factory 'Server', [
     '$http'
     '$q'
     'Settings'
@@ -9,7 +9,7 @@ angular.module('neo4jApp.services')
 
       returnAndUpdate = (Type, promise) ->
         rv = new Type()
-        promise.then(
+        promise.success(
           (r) ->
             if angular.isArray(rv)
               rv.push.apply(rv, r)
@@ -22,17 +22,26 @@ angular.module('neo4jApp.services')
 
       returnAndUpdateObject = (promise) -> returnAndUpdate(Object, promise)
 
-      class ServerInfo
+      class Server
         constructor: ->
 
+        #
+        # Basic HTTP methods
+        #
         get: (path) ->
-          q = $q.defer()
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
           $http.get(path)
-          .success(q.resolve)
-          .error(q.reject)
-          q.promise
 
+        post: (path, data) ->
+          path = Settings.host + path unless path.indexOf(Settings.host) is 0
+          $http.post(path, data)
+
+        cypher: (path, data) ->
+          @post("#{Settings.endpoint.cypher}" + path, data)
+
+        #
+        # Convenience methods
+        #
         labels: ->
           returnAndUpdateArray @get Settings.endpoint.rest + '/labels'
 
@@ -48,5 +57,5 @@ angular.module('neo4jApp.services')
         log: (path) ->
           @get(path).then((r)-> console.log (r))
 
-      window.server = new ServerInfo
+      window.server = new Server
   ]

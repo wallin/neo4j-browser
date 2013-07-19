@@ -3,13 +3,13 @@
 angular.module('neo4jApp.controllers')
   .controller 'MainCtrl', [
     '$scope',
-    'ServerInfo'
+    'Server'
     'Settings'
-    ($scope, ServerInfo, Settings) ->
+    ($scope, Server, Settings) ->
       refresh = ->
-        $scope.labels = ServerInfo.labels()
-        $scope.relationships = ServerInfo.relationships()
-        $scope.server = ServerInfo.rest()
+        $scope.labels = Server.labels()
+        $scope.relationships = Server.relationships()
+        $scope.server = Server.rest()
         $scope.host = Settings.host
       refresh()
 

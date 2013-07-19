@@ -35,12 +35,12 @@ app.run([
   '$rootScope'
   '$http'
   '$timeout'
-  'ServerInfo'
-  ($scope, $http, $timeout, ServerInfo) ->
+  'Server'
+  ($scope, $http, $timeout, Server) ->
     timer = null
     check = ->
       $timeout.cancel(timer)
-      ServerInfo.status().then(
+      Server.status().then(
         ->
           $scope.offline = no
           timer = $timeout(check, 5000)
