@@ -20,6 +20,10 @@ angular.module('neo4jApp.services')
           type = OTHER
         type
 
+      parseId = (resource = "") ->
+        id = resource.split('/').slice(-2, -1)
+        return parseInt(id, 10)
+
       class CypherResult
         constructor: (@_response = {}) ->
           @nodes = []
@@ -70,6 +74,73 @@ angular.module('neo4jApp.services')
         _setStats: (@stats) ->
           $rootScope.$broadcast 'db:result:containsUpdates', angular.copy(@stats) if @stats?.containsUpdates
 
+      class CypherTransaction
+        constructor: (query) ->
+          @_reset()
+
+        _onSuccess: (r) ->
+
+        _onError: (r) ->
+
+        _reset: ->
+          @statements = []
+          @id = null
+
+        begin: (query) ->
+          q = $q.defer()
+          # Begin and commit a transaction if query provided
+          if query?
+            return Server.transaction(
+              path: '/commit'
+              statements: [
+                statement: query
+              ]
+            )
+
+          Server.transaction(
+            statements: @statements
+          ).then(
+            (r) =>
+              @id = parseId(r.data.commit)
+              q.resolve(@)
+          )
+          q.promise
+
+        execute: (statements) ->
+          return unless @id
+          statements = [statements] if angular.isString statements
+          for s in statements
+            @statements.push
+              statement: s
+
+          Server.transaction(
+            path: '/' + @id
+            statements: @statements
+          )
+          @statements = []
+
+        commit: ->
+          return unless @id
+          Server.transaction(
+            path: "/#{@id}/commit"
+          )
+
+        reset: ->
+          return unless @id
+          Server.transaction(
+            path: '/' + @id
+            statements: []
+          )
+
+        # FIXME: What is wrong?
+        # DELETE http://localhost:7474/db/data/transaction/14 415 (Unsupported Media Type)
+        rollback: ->
+          return unless @id
+          Server.transaction(
+            method: 'DELETE'
+            path: '/' + @id
+          ).success(=> @_reset())
+
       class CypherService
         constructor: ->
 
@@ -80,5 +151,8 @@ angular.module('neo4jApp.services')
             .error((r) -> q.reject(r))
           q.promise
 
-      Cypher = new CypherService()
+        transaction: ->
+          new CypherTransaction()
+
+      window.Cypher = new CypherService()
 ]

@@ -28,16 +28,32 @@ angular.module('neo4jApp.services')
         #
         # Basic HTTP methods
         #
-        get: (path) ->
+        delete: (path = '') ->
+          path = Settings.host + path unless path.indexOf(Settings.host) is 0
+          $http.delete(path)
+
+        get: (path = '') ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
           $http.get(path)
 
-        post: (path, data) ->
+        post: (path = '', data) ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
           $http.post(path, data)
 
-        cypher: (path, data) ->
+        cypher: (path = '', data) ->
           @post("#{Settings.endpoint.cypher}" + path, data)
+
+        transaction: (opts) ->
+          opts = angular.extend(
+            path: '',
+            statements: [],
+            method: 'post'
+          , opts)
+          {path, statements, method} = opts
+          path = Settings.endpoint.transaction + path
+          method = method.toLowerCase()
+
+          @[method]?(path, {statements: statements})
 
         #
         # Convenience methods

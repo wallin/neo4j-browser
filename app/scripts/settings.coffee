@@ -7,4 +7,5 @@ angular.module('neo4jApp.settings', [])
     endpoint:
       rest: restAPI
       cypher: "#{restAPI}/cypher"
+      transaction: "#{restAPI}/transaction"
   })
