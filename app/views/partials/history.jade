@@ -2,9 +2,7 @@
   h3
     a(ng-click="toggleHistory()") Views
     a.icon.history-close(ng-click="toggleHistory()")
-  h4
-    span(tooltip) Hej
-    | Saved
+  h4 Saved
     .icon.folder-add(ng-click='createFolder()')
   .droppable(ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
     h5.folder(ng-click='toggleFolder(folder)', ng-class="{open: folder.expanded}")
