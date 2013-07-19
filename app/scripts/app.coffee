@@ -10,6 +10,7 @@ app = angular.module('neo4jApp', [
   'neo4jApp.directives'
   'neo4jApp.filters'
   'neo4jApp.services'
+  'ui.bootstrap.dialog'
   'ui.codemirror'
   'ui.sortable'
   'angularMoment'
