@@ -58,6 +58,9 @@ angular.module('neo4jApp.services')
         #
         # Convenience methods
         #
+        jmx: (query) ->
+          @post Settings.endpoint.jmx, query
+
         labels: ->
           returnAndUpdateArray @get Settings.endpoint.rest + '/labels'
 
