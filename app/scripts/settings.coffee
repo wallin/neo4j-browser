@@ -1,4 +1,5 @@
-baseURL = 'http://localhost:7474'
+#baseURL = 'http://localhost:7474'
+baseURL = ''
 restAPI = "#{baseURL}/db/data"
 
 angular.module('neo4jApp.settings', [])

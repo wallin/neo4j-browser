@@ -2,6 +2,7 @@
 lrSnippet = require("grunt-contrib-livereload/lib/utils").livereloadSnippet
 mountFolder = (connect, dir) ->
   connect.static require("path").resolve(dir)
+proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = (grunt) ->
 
@@ -54,13 +55,23 @@ module.exports = (grunt) ->
       livereload:
         options:
           middleware: (connect) ->
-            [lrSnippet, mountFolder(connect, ".tmp"), mountFolder(connect, yeomanConfig.app)]
+            [proxySnippet, lrSnippet, mountFolder(connect, ".tmp"), mountFolder(connect, yeomanConfig.app)]
 
       test:
         options:
           port: 9100
           middleware: (connect) ->
             [mountFolder(connect, ".tmp"), mountFolder(connect, "test")]
+      proxies: [
+          {
+              context: '/db',
+              host: 'localhost',
+              port: 7474,
+              https: false,
+              changeOrigin: false
+          }
+      ]
+
 
     open:
       server:
@@ -220,7 +231,7 @@ module.exports = (grunt) ->
         ]
 
   grunt.renameTask "regarde", "watch"
-  grunt.registerTask "server", ["clean:server", "coffee:dist", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
+  grunt.registerTask "server", ["clean:server", "coffee:dist", "configureProxies", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "connect:test", "karma"]
   grunt.registerTask "build", ["clean:dist", "jshint", "test", "coffee", "jade", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "cdnify", "ngmin", "uglify", "rev", "usemin"]
   grunt.registerTask "default", ["build"]
