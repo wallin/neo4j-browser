@@ -1,12 +1,14 @@
 #sidebar
   h3
     a(ng-click="toggleHistory()") Views
-    a.icon-collapse.icon-rotate-90(ng-click="toggleHistory()")
+    a.close.icon-remove(ng-click="toggleHistory()")
   h4 Saved
-    a.icon-plus(ng-click='createFolder()')
+    a.add(ng-click='createFolder()')
+      .icon-plus
+      |  Add folder
   .droppable(ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
     h5.folder(ng-click='toggleFolder(folder)')
-      i(ng-class="{'icon-folder-open': folder.expanded, 'icon-folder-close': !folder.expanded}")
+      i.icon-caret-right(ng-class="{'icon-rotate-90': folder.expanded}")
       div(edit-in-place='folder.name')
       a.icon-trash(ng-click='removeFolder(folder)')
     ul.starred.indented(ng-show='folder.expanded')

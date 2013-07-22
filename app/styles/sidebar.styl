@@ -19,24 +19,28 @@
     position: relative
     font-size: 17px
     line-height: toolbar-height
-    padding-left 46px
+    padding-left 42px
+    cursor: pointer
     a
       color: #fff
-  .icon-collapse
-    absolute: top 8px left 14px
-    font-size: 24px
+  a.close
+    absolute: top 10px left 14px
+    font-size: 20px
+    color: #fff
   h4
     background-color: sidebar-color-section-bg
     line-height: 39px;
     font-size: 13px
     text-transform: uppercase;
-    a.icon-plus
+    a.add
       cursor: pointer
-      absolute: top 11px right 15px
-      font-size: 16px
+      absolute: top 0 right 15px
+      font-size: 13px
+      text-transform: none;
       color: sidebar-color-section-icon
       &:hover
         color: sidebar-color-section-icon-hover
+
   h5
     font-size: 12px
     line-height: 39px;
@@ -49,8 +53,8 @@
       color #fff
     &.folder
       cursor: pointer
-      .icon-folder-open, .icon-folder-close
-        absolute: top 13px left 17px
+      .icon-caret-right
+        absolute: top 13px left 20px
     .icon-trash
       absolute: top 11px right 17px
       font-size: 16px

@@ -11,12 +11,13 @@ include partials/history
   #view-background
   .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
     .view-toolbar
-      ul.inline-list
+      ul.inline
         li(ng-hide="isHistoryShown")
-          a(ng-click="toggleHistory()") Open...
-        li.divider(ng-hide="isHistoryShown") &nbsp
+          a.btn(ng-click="toggleHistory()")
+            i.icon-expand
+            |  Views
         li
-          select
+          select.span2
             option(ng-repeat='label in labels') {{label}}
         li
           select
@@ -48,13 +49,9 @@ include partials/history
           | Executing query...
       .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response')
         .view-result-graph
-          //- .icon.download('ng-click'='export()')
-          //-.icon.expand('ng-click'="toggleGraph()", 'ng-class'='{restore: isGraphExpanded}')
           neo-graph(ng-model='view.response', ng-controller='D3GraphCtrl')
           a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded")
         .view-result-table
-          //- .icon.download('ng-click'='export()')
-          //-.icon.expand('ng-click'="toggleTable()", 'ng-class'='{restore: isTableExpanded}')
           .view-result-table-scroll
             neo-table(ng-model='view.response')
           a.icon-download-alt('ng-click'='export(view.response)', ng-class='{alone: isTableExpanded}', ng-controller='CSVCtrl')
