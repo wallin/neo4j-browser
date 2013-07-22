@@ -154,8 +154,20 @@
   width = 772px
   width: width
   margin-left: -(width/2)
-  max-height: 640px
-  overflow: scroll
+  height: 600px
+  position: relative
+  .stretch
+    position: absolute
+    top: 0
+    bottom: 0
+    overflow-y: scroll
+  .left-fixed
+    left: 0
+    width: 246px
+  .right-fixed
+    right: 0
+    left: 246px
+
 
 .modal-shown #page-container {
   -webkit-filter: blur(3px);

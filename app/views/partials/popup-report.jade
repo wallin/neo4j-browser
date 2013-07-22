@@ -1,13 +1,12 @@
+.left-fixed.stretch
+  .sidebar-nav
+    ul.nav.nav-list('ng-repeat' = '(section, items) in sections')
+      li.nav-header {{section}}
+      li('ng-repeat' = '(name, item) in items', 'ng-class' = '{active: currentItem.name == name}')
+        a('ng-click' = 'selectItem(section, name)') {{name}}
 
-.row-fluid('ng-controller' = 'JMXCtrl')
-  .span4
-    .sidebar-nav
-      ul.nav.nav-list('ng-repeat' = '(section, items) in sections')
-        li.nav-header {{section}}
-        li('ng-repeat' = '(name, item) in items', 'ng-class' = '{active: currentItem.name == name}')
-          a('ng-click' = 'selectItem(section, name)') {{name}}
-
-  .span8
+.right-fixed.stretch
+  .container-fluid
     h2 {{currentItem.name}}
     p {{currentItem.description}}
     ul
