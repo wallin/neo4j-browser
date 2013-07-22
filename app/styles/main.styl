@@ -115,18 +115,9 @@ table
   transist: margin
   z-index: 20
   background: linear-gradient(top, #333, #181818)
-  .icon
+  [class^="icon-"]
     margin-right: 8px
     position: relative
-    &.menu-fork
-      top: 1px
-    &.menu-fork
-      top: 3px
-  ul.right
-    background-color: $topbar-bg
-    .icon.history
-      margin-right: 16px;
-      margin-top: 19px;
 
 nav
   .title
@@ -192,21 +183,20 @@ nav
     position: relative
     font-size: 17px
     line-height: toolbar-height
-    padding-left 41px
+    padding-left 46px
     a
       color: #fff
-  .icon.history-close
-    absolute: top 9px left 7px
-    size 32px 32px
-    background-repeat: no-repeat
-    background-position: 50% 50%
+  .icon-collapse
+    absolute: top 12px left 14px
+    font-size: 24px
   h4
     background-color: #2E383C
     line-height: 39px;
     font-size: 13px
     text-transform: uppercase;
-    .icon.folder-add
+    .icon-plus
       absolute: top 11px right 15px
+      font-size: 16px
   h5
     font-size: 12px
     line-height: 39px;
@@ -217,23 +207,15 @@ nav
     font-weight: bold
     &:hover
       color #fff
-    &:after
-      content: ' '
-      position: absolute
-      size 15px 14px
-      top: 12px
-      left: 15px
-      background-image: url('/images/icon-folder-closed.png')
     &.folder
       cursor: pointer
-      &.open:after
-        background-image: url('/images/icon-folder-open.png')
-    .icon.folder-trash
+      .icon-folder-open, .icon-folder-close
+        absolute: top 13px left 17px
+    .icon-trash
       absolute: top 11px right 17px
+      font-size: 16px
 
 
-  .icon.close-history
-    absolute: top 20px right 16px
   ul
     li
       background-color: #3a4549
@@ -261,24 +243,14 @@ nav
           color: #fff
       .background
         stretch()
-      .star
+      [class^="icon-"]
+        font-size: 16px
+      .icon-star, .icon-star-empty
         z-index 2
-        absolute: right 16px top 11px
-        width image-size('icon-star.png')[0]
-        height image-size('icon-star.png')[1]
-        background: url('/images/icon-star.png') 0 0 no-repeat
-        &:hover
-          background-image: url('/images/icon-star_hover.png')
-      .refresh
+        absolute: right 16px top 12px
+      .icon-play-sign, .icon-spinner
         z-index 2
         absolute: left 15px top 12px
-        width image-size('icon-query-refresh.png')[0]
-        height image-size('icon-query-refresh.png')[1]
-        background: url('/images/icon-query-refresh.png') 0 0 no-repeat
-        &:hover
-          background-image: url('/images/icon-query-refresh_hover.png')
-        &.running
-          background: url('/images/icon-query-running.png') 0 0 no-repeat
       .contents
         position relative
         z-index 1
@@ -370,7 +342,8 @@ nav
     height: editor-height
     border-bottom: 1px solid #E2E6E7
     transist width
-    .icon.editor-refresh
+    .icon-play-sign
+      font-size: 42px
       absolute: top 16px right 16px
       z-index: 10000
     .handle
@@ -420,17 +393,8 @@ nav
         margin-right horizontal-padding
       &.error
         color: #E74C3C
-      .icon
-        position: relative
+      [class^="icon-"]
         margin-right: 6px
-        &.status-info
-          top: 2px
-        &.status-success
-          top: 1px
-        &.status-error
-          top: 2px
-        &.status-running
-          top: 2px
 
       /*
       .icon
@@ -459,7 +423,8 @@ nav
         right: 0
         height: 50%
         //transist height
-        .icon.table-show
+        .icon-table
+          font-size: 24px
           absolute: bottom 57px right horizontal-padding
       .view-result-table
         border-top: 1px solid #E2E6E7
@@ -470,12 +435,14 @@ nav
         right: 0
         height: 50%
         //transist height
-        .icon.table-download
+        a.icon-download-alt
           absolute: top 8px right horizontal-padding*2+20
+          font-size: 24px
           &.alone
             right: horizontal-padding
-        .icon.table-hide
-          absolute: top 12px right horizontal-padding
+        a.icon-collapse
+          absolute: top 7px right horizontal-padding
+          font-size: 24px
         .view-result-table-scroll
           position: absolute
           top: 0
@@ -638,75 +605,34 @@ line.link
     stroke: #ECF0F1
     stroke-dasharray: 0,2 1
 
-icon(type, do-no-hover=false)
-  width image-size('icon-' + type + '.png')[0]
-  height image-size('icon-' + type + '.png')[1]
-  background: url('/images/icon-' + type + '.png')
-  transform: scale(1.0, 1.0)
-  transist all
-  unless do-no-hover
-    &:hover
-      background: url('/images/icon-' + type + '_hover.png')
-      unless do-no-scale
-        transform: scale(1.2, 1.2)
-
-.icon
-  display: inline-block
-  cursor: pointer
-  background-repeat: no-repeat;
-  &.button-system
-    icon: button-system no-hover
-  &.folder-add
-    icon: folder-add
-  &.folder-edit
-    icon: folder-edit
-  &.folder-trash
-    icon: folder-trash
-  &.table-show
-    icon: table-show
-  &.table-hide
-    icon: table-hide
-  &.status-info
-    icon: status-info no-hover
-  &.status-success
-    icon: status-success no-hover
-  &.status-error
-    icon: status-error no-hover
-  &.status-running
-    icon: status-running no-hover
-  &.editor-refresh
-    icon: editor-refresh
-  &.query-success
-    icon: query-success no-hover
-  &.query-error
-    icon: query-error no-hover
-  &.menu-plus
-    icon: menu-plus no-hover
-  &.menu-fork
-    icon: menu-fork no-hover
-  &.history-close
-    icon: history-close
-  &.table-download
-    icon: table-download
-  &.close-history
-    icon: close-history no-hover
-  &.expand
-    icon expand
-    &.restore
-      background: url('/images/icon-restore.png')
-      &:hover
-        background: url('/images/icon-restore_hover.png')
-
 .edit-in-place
   .edit-in-place-input
-    border: none;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding: 6px 8px;
-    font-size: 13px;
-    border-radius: 3px;
-    width: 187px;
+    border: none
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+    padding: 6px 8px
+    font-size: 13px
+    border-radius: 3px
+    width: 187px
   .edit-in-place-trigger
-    @extend .icon.folder-edit
+    &:before
+      content: "\f040"
+    [class^="icon-"]:before, [class*=" icon-"]:before
+      text-decoration: inherit
+      display: inline-block
+      speak: none
+    display: inline
+    width: auto
+    height: auto
+    line-height: normal
+    vertical-align: baseline
+    margin-top: 0
+    font-family: FontAwesome
+    font-weight: normal
+    font-style: normal
+    text-decoration: inherit
+    -webkit-font-smoothing: antialiased
+    font-size: 16px
+
     cursor: pointer
     position: absolute
     right: 42px

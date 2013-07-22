@@ -1,13 +1,14 @@
 #history
   h3
     a(ng-click="toggleHistory()") Views
-    a.icon.history-close(ng-click="toggleHistory()")
+    a.icon-collapse.icon-rotate-90(ng-click="toggleHistory()")
   h4 Saved
-    .icon.folder-add(ng-click='createFolder()')
+    a.icon-plus(ng-click='createFolder()')
   .droppable(ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
-    h5.folder(ng-click='toggleFolder(folder)', ng-class="{open: folder.expanded}")
+    h5.folder(ng-click='toggleFolder(folder)')
+      i(ng-class="{'icon-folder-open': folder.expanded, 'icon-folder-close': !folder.expanded}")
       div(edit-in-place='folder.name')
-      .icon.folder-trash(ng-click='removeFolder(folder)')
+      a.icon-trash(ng-click='removeFolder(folder)')
     ul.starred.indented(ng-show='folder.expanded')
       li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
          ng-class='{error: view.hasErrors, active: view.id == currentView.id}')
