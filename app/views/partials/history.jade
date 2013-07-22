@@ -10,7 +10,7 @@
     h5.folder(ng-click='toggleFolder(folder)')
       i.icon-caret-right(ng-class="{'icon-rotate-90': folder.expanded}")
       div(edit-in-place='folder.name')
-      a.icon-trash(ng-click='removeFolder(folder)')
+      a.icon-trash(ng-click='removeFolder(folder)', tooltip-placement='left', tooltip='Remove folder')
     ul.starred.indented(ng-show='folder.expanded')
       li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
          ng-class='{error: view.hasErrors, active: view.id == currentView.id}')

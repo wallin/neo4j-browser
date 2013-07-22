@@ -12,6 +12,8 @@ app = angular.module('neo4jApp', [
   'neo4jApp.services'
   'ui.bootstrap.dialog'
   'ui.bootstrap.dropdownToggle'
+  'ui.bootstrap.position'
+  'ui.bootstrap.tooltip'
   'ui.codemirror'
   'ui.sortable'
   'angularMoment'
@@ -28,9 +30,12 @@ app
 
 app.config([
   '$httpProvider'
-  ($httpProvider) ->
+  '$tooltipProvider'
+  ($httpProvider, $tooltipProvider) ->
     $httpProvider.defaults.headers.common['X-stream'] = true
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
+
+    $tooltipProvider.options popupDelay: 1000
 ])
 
 app.run([
