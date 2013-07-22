@@ -7,11 +7,27 @@ angular.module('neo4jApp.controllers')
     ($scope, Server) ->
 
       parseName = (str) ->
-        str.substr(str.lastIndexOf("name=")+5)
+        str.split('=').pop()
 
+      parseSection = (str) ->
+        str.split('/')[0]
 
-      Server.jmx(["org.neo4j:*"]).success((response) ->
-        r.name = parseName(r.name) for r in response
-        console.log r
+      Server.jmx(["*:*"]).success((response) ->
+        sections = {}
+        for r in response
+          r.name = parseName(r.name)
+          section = parseSection(r.url)
+          sections[section] ?= {}
+          sections[section][r.name] = r
+        $scope.sections = sections
+        $scope.currentItem = sections[section][r.name]
       )
+
+      $scope.selectItem = (section, name) ->
+        $scope.currentItem = $scope.sections[section][name]
+
+      # Filters
+      $scope.simpleValues = (item) -> !$scope.objectValues(item)
+
+      $scope.objectValues = (item) -> angular.isObject(item.value)
   ]
