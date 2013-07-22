@@ -1,0 +1,43 @@
+@import 'variables'
+
+nav
+  .title
+    height: 57px;
+    .app-name
+      padding-top: 7px
+      font-size: 23px
+      font-weight bold
+      line-height: 27px
+    .edition
+      font-size: 11px
+      line-height: 12px
+      //text-transform: uppercase
+      font-weight bold
+      opacity: 0.7
+  .has-dropdown
+    position relative
+  .dropdown, .top-bar-section .dropdown
+    background-color: #fff
+    padding 16px
+    box-shadow: 0 7px 27px rgba(0,0,0,0.3)
+    border-radius 6px
+    position: absolute;
+    top: topbar-height + 10px
+    left: 16px
+    width: 280px
+    border: 1px solid rgba(0,0,0,0.27)
+    z-index 10000
+    h3
+      font-size: 21px
+      font-weight: bold
+      border-bottom: 1px solid #e2e6e7
+      padding-bottom 16px
+      margin-bottom 16px
+      .version
+        font-size: 13px
+        opacity 0.7
+    li a
+      color: $body-font-color
+      background: none
+      &:hover
+        background-color: #ddd

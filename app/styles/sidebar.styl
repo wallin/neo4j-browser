@@ -1,0 +1,126 @@
+@import 'variables'
+@import 'nib'
+
+#sidebar
+  position: absolute
+  top: $topbar-height
+  right: left
+  width: history-width
+  bottom: 0
+  background-color: sidebar-color-bg
+  text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px
+  h3, h4, h5
+    position: relative
+    color: #fff
+    font-weight: bold;
+    padding: 0 horizontal-padding;
+    margin: 0;
+  h3
+    position: relative
+    font-size: 17px
+    line-height: toolbar-height
+    padding-left 46px
+    a
+      color: #fff
+  .icon-collapse
+    absolute: top 8px left 14px
+    font-size: 24px
+  h4
+    background-color: sidebar-color-section-bg
+    line-height: 39px;
+    font-size: 13px
+    text-transform: uppercase;
+    a.icon-plus
+      cursor: pointer
+      absolute: top 11px right 15px
+      font-size: 16px
+      color: sidebar-color-section-icon
+      &:hover
+        color: sidebar-color-section-icon-hover
+  h5
+    font-size: 12px
+    line-height: 39px;
+    font-size: 13px
+    padding-left: 42px
+    border-bottom: 1px solid sidebar-color-border
+    color: sidebar-color-fg
+    font-weight: bold
+    &:hover
+      color #fff
+    &.folder
+      cursor: pointer
+      .icon-folder-open, .icon-folder-close
+        absolute: top 13px left 17px
+    .icon-trash
+      absolute: top 11px right 17px
+      font-size: 16px
+      color: sidebar-color-fg-icon
+      &:hover
+        color: sidebar-color-fg-icon-hover
+  ul
+    li
+      background-color: sidebar-color-bg
+      padding: 11px horizontal-padding 11px 42px
+      position: relative
+      border-bottom: 1px solid sidebar-color-border
+      cursor: pointer
+      &:after
+        content: ' '
+        stretch()
+        background-color: #C9F9A1
+        width 0
+        opacity 0
+      &.active
+        &:after
+          width 4px
+          opacity 1
+        background-color: sidebar-color-bg-active
+        .contents a
+          //font-weight bold
+          color: sidebar-color-fg-active
+          .meta
+            font-weight normal
+      &:hover
+        .contents a
+          color: sidebar-color-fg-active
+      .background
+        stretch()
+      [class^="icon-"]
+        font-size: 16px
+        color: sidebar-color-fg-icon
+        &:hover
+          color: sidebar-color-fg-icon-hover
+      .icon-star, .icon-star-empty
+        z-index 2
+        absolute: right 16px top 12px
+      .icon-play-sign, .icon-spinner
+        z-index 2
+        absolute: left 15px top 12px
+      .contents
+        position relative
+        z-index: 1
+        line-height: 1
+        a
+          color: sidebar-color-fg
+          font-size: 13px
+          width: 214px
+          display: inline-block
+          line-height: 1.4
+        .meta
+          color: sidebar-color-fg-muted
+          font-size: 12px
+          margin-top 2px
+          .icon
+            relative: top 1px
+            margin-right: 4px
+  ul.indented
+    li
+      padding-left: 68px
+      .icon-play-sign, .icon-spinner
+        left 42px
+
+  .file-drop-area
+    background-color: #555
+    min-height: 50px
+    &.active
+      background-color: #fff
