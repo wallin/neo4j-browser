@@ -1,8 +1,8 @@
 horizontal-padding = 16px
 history-width = 300px
 editor-height = 140px
-topbar-height = 57px
-toolbar-height = 49px
+topbar-height = 41px
+toolbar-height = 41px
 middlebar-height = 39px
 
 $primary-color = #1abc9c
@@ -111,13 +111,32 @@ table
   overflow-x: auto !important
   max-height: 140px
 
-.top-bar
-  transist: margin
-  z-index: 20
+// Bootstrap overrides
+
+.navbar-inverse .navbar-inner
   background: linear-gradient(top, #333, #181818)
-  [class^="icon-"]
-    margin-right: 8px
-    position: relative
+
+.navbar-inner
+  padding-left: horizontal-padding
+  padding-right: horizontal-padding
+
+.navbar .brand
+  color: #fff
+  font-weight: bold
+  line-height: 18px
+  padding-top: 8px
+  padding-left: horizontal-padding
+
+.navbar .nav > li:last-child > a
+  padding-right: 0
+
+.icon-margin-right
+  margin-right: 0.5em
+
+.icon-margin-left
+  margin-left: 0.5em
+
+/////
 
 nav
   .title
@@ -187,7 +206,7 @@ nav
     a
       color: #fff
   .icon-collapse
-    absolute: top 12px left 14px
+    absolute: top 8px left 14px
     font-size: 24px
   h4
     background-color: #2E383C
