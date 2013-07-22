@@ -27,9 +27,9 @@ angular.module('neo4jApp.controllers')
       $scope.toggleTable = ->
         $scope.isTableExpanded ^= true
 
-      $scope.isHistoryShown = false
-      $scope.toggleHistory = ->
-        $scope.isHistoryShown ^= true
+      $scope.isSidebarShown = false
+      $scope.toggleSidebar = ->
+        $scope.isSidebarShown ^= true
 
       $scope.isPopupShown = false
       $scope.togglePopup = (content) ->
@@ -70,7 +70,7 @@ angular.module('neo4jApp.controllers')
 
         else if $scope.isEditorHidden
           if e.keyCode is 72 # h
-            $scope.toggleHistory()
+            $scope.toggleSidebar()
           else if e.keyCode is 84 # t
             $scope.toggleGraph()
           else if e.keyCode is 191 # ?

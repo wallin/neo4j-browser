@@ -10,15 +10,15 @@ script(id='template/tooltip/tooltip-popup.html', type="text/ng-template")
     .tooltip-inner(ng-bind='content')
 
 include partials/navbar
-include partials/history
+include partials/sidebar
 
 #views
   #view-background
   .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
     .view-toolbar
       ul.inline
-        li(ng-hide="isHistoryShown")
-          a.btn(ng-click="toggleHistory()")
+        li(ng-hide="isSidebarShown")
+          a.btn(ng-click="toggleSidebar()")
             i.icon-expand
             |  Views
         li
