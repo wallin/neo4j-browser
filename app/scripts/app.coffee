@@ -11,6 +11,7 @@ app = angular.module('neo4jApp', [
   'neo4jApp.filters'
   'neo4jApp.services'
   'ui.bootstrap.dialog'
+  'ui.bootstrap.dropdownToggle'
   'ui.codemirror'
   'ui.sortable'
   'angularMoment'
