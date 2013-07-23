@@ -2,7 +2,8 @@
 angular.module('neo4jApp.controllers')
   .controller('D3GraphCtrl', [
     '$element'
-    ($element) ->
+    'GraphExplorer'
+    ($element, GraphExplorer) ->
       #
       # Local variables
       #
@@ -18,7 +19,11 @@ angular.module('neo4jApp.controllers')
       #
       click = (d) =>
         d.fixed = yes
-        graph.expand(d.id).then(@update) unless d.expanded
+        return if d.expanded
+        GraphExplorer.exploreNeighbours(d.id).then (result) =>
+          graph.merge(result)
+          @update()
+#        graph.expand(d.id).then(@update) unless d.expanded
 
       tick = ->
         d3link.attr("x1", (d) ->
@@ -139,6 +144,9 @@ angular.module('neo4jApp.controllers')
       @render = (result) ->
         return unless result
         graph = result
-        @update()
+        GraphExplorer.internalRelationships(graph.nodes.pluck('id'))
+        .then (result) =>
+          graph.merge(result)
+          @update()
 
   ])

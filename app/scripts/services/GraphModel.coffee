@@ -34,25 +34,11 @@ angular.module('neo4jApp.services')
           ids = @nodes.pluck('id')
           @expand(ids)
 
-        expand: (ids) ->
-          q = $q.defer()
-          ids = [ids] unless angular.isArray(ids)
-          if ids.length is 0
-            q.resolve(@)
-            return q.promise
+        merge: (result) ->
+          # Add result to current graph
+          @addNode(n) for n in result.nodes
+          @addRelationship(r) for r in result.relationships
 
-          Cypher.send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b;").then((result) =>
-            # Mark requested nodes as expanded
-            for id in ids
-              n = @nodes.get(id)
-              n.expanded = yes if n
-
-            # Add result to current graph
-            @addNode(n) for n in result.nodes
-            @addRelationship(r) for r in result.relationships
-            q.resolve(@)
-          )
-          q.promise
 
       GraphModel
 ]
