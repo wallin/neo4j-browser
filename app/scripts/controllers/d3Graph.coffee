@@ -23,11 +23,10 @@ angular.module('neo4jApp.controllers')
 
       tick = ->
         relationshipGroups = el.selectAll("g.relationship")
-        .attr("transform", (relationship) ->
-          "translate(" + relationship.source.x +","+relationship.source.y+")"
-        )
 
-        nodeGroups = el.selectAll("g.nodes")
+        # Only translate nodeGroups, because this simplifies node renderers;
+        # relationship renderers always take account of both node positions
+        nodeGroups = el.selectAll("g.node")
         .attr("transform", (node) -> "translate(" + node.x + "," + node.y + ")")
 
         for renderer in GraphRenderer.nodeRenderers
@@ -84,7 +83,7 @@ angular.module('neo4jApp.controllers')
         layers = el.selectAll("g.layer").data(["relationships", "nodes"])
 
         layers.enter().append("g")
-        .attr("class", (d) -> d )
+        .attr("class", (d) -> "layer " + d )
 
         relationshipGroups = el.select("g.layer.relationships")
         .selectAll("g.relationship").data(relationships, (d) -> d.id)
