@@ -63,62 +63,63 @@
         color: sidebar-color-fg-icon-hover
   ul
     li
-      background-color: sidebar-color-bg
-      padding: 11px horizontal-padding 11px 42px
-      position: relative
-      border-bottom: 1px solid sidebar-color-border
-      cursor: pointer
-      &:after
-        content: ' '
-        stretch()
-        background-color: #C9F9A1
-        width 0
-        opacity 0
-      &.active
+      .list-item
+        background-color: sidebar-color-bg
+        padding: 11px horizontal-padding 11px 42px
+        position: relative
+        border-bottom: 1px solid sidebar-color-border
+        cursor: pointer
         &:after
-          width 4px
-          opacity 1
-        background-color: sidebar-color-bg-active
-        .contents a
-          //font-weight bold
-          color: sidebar-color-fg-active
-          .meta
-            font-weight normal
-      &:hover
-        .contents a
-          color: sidebar-color-fg-active
-      .background
-        stretch()
-      a[class*="icon-"]
-        font-size: 16px
-        color: sidebar-color-fg-icon
+          content: ' '
+          stretch()
+          background-color: #C9F9A1
+          width 0
+          opacity 0
+        &.active
+          &:after
+            width 4px
+            opacity 1
+          background-color: sidebar-color-bg-active
+          .contents a
+            //font-weight bold
+            color: sidebar-color-fg-active
+            .meta
+              font-weight normal
         &:hover
-          color: sidebar-color-fg-icon-hover
-      .icon-star, .icon-star-empty
-        z-index 2
-        absolute: right 16px top 12px
-      .icon-play-sign, .icon-spinner
-        z-index 2
-        absolute: left 15px top 12px
-      .contents
-        position relative
-        z-index: 1
-        line-height: 1
-        a
-          color: sidebar-color-fg
-          font-size: 13px
-          width: 214px
-          display: inline-block
-          line-height: 1.4
-        .meta
-          color: sidebar-color-fg-muted
-          font-size: 12px
-          margin-top 2px
-          .icon
-            relative: top 1px
-            margin-right: 4px
+          .contents a
+            color: sidebar-color-fg-active
+        .background
+          stretch()
+        a[class*="icon-"]
+          font-size: 16px
+          color: sidebar-color-fg-icon
+          &:hover
+            color: sidebar-color-fg-icon-hover
+        .icon-star, .icon-star-empty
+          z-index 2
+          absolute: right 16px top 12px
+        .icon-play-sign, .icon-spinner
+          z-index 2
+          absolute: left 15px top 12px
+        .contents
+          position relative
+          z-index: 1
+          line-height: 1
+          a
+            color: sidebar-color-fg
+            font-size: 13px
+            width: 214px
+            display: inline-block
+            line-height: 1.4
+          .meta
+            color: sidebar-color-fg-muted
+            font-size: 12px
+            margin-top 2px
+            .icon
+              relative: top 1px
+              margin-right: 4px
   ul.indented
-    li
+    li .list-item
       padding-left: 68px
       .icon-play-sign, .icon-spinner
         left 42px

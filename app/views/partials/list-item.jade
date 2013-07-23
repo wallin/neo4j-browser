@@ -1,12 +1,13 @@
-a.background(href="{{viewUrl(view.id)}}")
-a(ng-click='view.exec()', ng-class='{"icon-spinner icon-spin": view.isLoading, "icon-play-sign": !view.isLoading}', tooltip-placement='right', tooltip='Execute script')
-a('ng-click'="toggleStar(view)", ng-class='{"icon-star": view.starred, "icon-star-empty": !view.starred}', tooltip-placement='left', tooltip='Save/Unsave')
-.contents
-  a(href="{{viewUrl(view.id)}}")
-    {{view.input | autotitle}}
-    span(ng-hide='view.isLoading')
-      .meta(ng-show='view.runTime')
-        //-.icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
-        //- span('am-time-ago' = 'view.startTime', ng-hide='view.stats')
-        {{view.stats}}
-        include result-status
+.list-item
+  a.background(href="{{viewUrl(view.id)}}")
+  a(ng-click='view.exec()', ng-class='{"icon-spinner icon-spin": view.isLoading, "icon-play-sign": !view.isLoading}', tooltip-placement='right', tooltip='Execute script')
+  a('ng-click'="toggleStar(view)", ng-class='{"icon-star": view.starred, "icon-star-empty": !view.starred}', tooltip-placement='left', tooltip='Save/Unsave')
+  .contents
+    a(href="{{viewUrl(view.id)}}")
+      {{view.input | autotitle}}
+      span(ng-hide='view.isLoading')
+        .meta(ng-show='view.runTime')
+          //-.icon(ng-class='{"query-error": view.hasErrors, "query-success": !view.hasErrors}')
+          //- span('am-time-ago' = 'view.startTime', ng-hide='view.stats')
+          {{view.stats}}
+          include result-status
