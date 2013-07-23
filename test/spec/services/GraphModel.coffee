@@ -60,7 +60,7 @@ describe 'Service: GraphModel', () ->
   describe 'expandAll', ->
     beforeEach ->
       graph = new GraphModel
-    it 'should return promise even if there are no nodes', inject ($rootScope) ->
+    xit 'should return promise even if there are no nodes', inject ($rootScope) ->
       expect(graph.nodes.all().length).toBe 0
 
       promise = graph.expandAll()
@@ -71,7 +71,7 @@ describe 'Service: GraphModel', () ->
       $rootScope.$apply();
       expect(callback).toHaveBeenCalled()
 
-    it 'should expand existing nodes', ->
+    xit 'should expand existing nodes', ->
       graph.addNode(createNode(0))
       backend.expectPOST(/db\/data\/cypher/).respond()
 

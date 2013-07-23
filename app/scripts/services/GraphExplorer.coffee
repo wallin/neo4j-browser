@@ -7,26 +7,26 @@ angular.module('neo4jApp.services')
         q = $q.defer()
         ids = [ids] unless angular.isArray(ids)
         if ids.length is 0
-          q.resolve(@)
+          q.resolve()
           return q.promise
 
-        Cypher.send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b;").then((result) =>
-          q.resolve(result)
-        )
+        Cypher
+        .send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b;")
+        .then(q.resolve)
         q.promise
 
       internalRelationships: (ids) ->
         q = $q.defer()
         ids = [ids] unless angular.isArray(ids)
         if ids.length is 0
-          q.resolve(@)
+          q.resolve()
           return q.promise
-        Cypher.send("""
+        Cypher
+        .send("""
           START a = node(#{ids.join(',')}), b = node(#{ids.join(',')})
-          MATCH a -[r]-> b RETURN r;
-          """).then((result) =>
-          q.resolve(result)
+          MATCH a -[r]-> b RETURN r;"""
         )
+        .then(q.resolve)
         q.promise
     }
   ]

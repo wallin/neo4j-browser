@@ -21,5 +21,4 @@ angular.module('neo4jApp.directives')
           return if result.isTooLarge
           graph = new GraphModel(result)
           ngCtrl.render(graph)
-          #graph.expandAll().then(->ngCtrl.render(graph))
   ])

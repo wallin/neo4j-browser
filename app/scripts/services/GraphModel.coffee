@@ -9,7 +9,7 @@ angular.module('neo4jApp.services')
       class GraphModel
         constructor: (cypher = {}) ->
           @nodes = new Collection(cypher.nodes)
-          @links = new Collection(cypher.relationships)
+          @relationships = new Collection(cypher.relationships)
 
         addNode: (node) ->
           return false unless node?.id?
@@ -19,7 +19,7 @@ angular.module('neo4jApp.services')
 
         addRelationship: (rel) ->
           return false unless rel?.id?
-          @links.add(rel) unless @links.get(rel.id)
+          @relationships.add(rel) unless @relationships.get(rel.id)
           node = @nodes.get(rel.start) or @nodes.get(rel.end)
 
           # Connect children if they are missing
@@ -29,10 +29,6 @@ angular.module('neo4jApp.services')
             rel.incoming = rel.end is node.id
 
           rel
-
-        expandAll: ->
-          ids = @nodes.pluck('id')
-          @expand(ids)
 
         merge: (result) ->
           # Add result to current graph
