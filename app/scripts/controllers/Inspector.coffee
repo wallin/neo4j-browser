@@ -5,5 +5,5 @@ angular.module('neo4jApp.controllers')
     '$scope',
     'GraphStyle'
     ($scope, GraphStyle) ->
-      console.log 'hej'
+
   ]

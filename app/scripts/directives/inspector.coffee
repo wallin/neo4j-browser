@@ -19,7 +19,6 @@ angular.module('neo4jApp.directives')
 
         shownExpr = attrs.inspector or attrs.show
         scope.$watch shownExpr, (val) ->
-          console.log val
           if val
             dialog.open()
           else
