@@ -1,0 +1,47 @@
+inspector#inspector(show='isInspectorShown')
+  .header Producer&nbsp;
+    span.muted [192]
+    a.close.icon-remove
+  ul.nav.nav-tabs
+    li
+      a
+        i.icon-info-sign
+        span.name Properties
+    li
+      a
+        i.icon-sitemap
+        span.name Connections
+    li.active
+      a
+        i.icon-eye-open
+        span.name Style
+  .body
+    ul.sections.unstyled
+      li
+        i.icon-tag
+        .dropdown
+          a.dropdown-toggle(data-toggle='dropdown') First name
+          ul.dropdown-menu.pull-left(role='menu')
+            li
+              a ID
+            li
+              a
+                b First name
+            li
+              a Title
+            li.divider
+            li
+              a Custom...
+      li.colors
+        ul.inline
+          li
+            a(style='background-color: #BDC3C7')
+          li
+            a(style='background-color: #1ABC9C')
+          li
+            a(style='background-color: #3498DB')
+          li
+            a(style='background-color: #E67E22')
+      li
+        i.icon-code
+        a Advanced editor...

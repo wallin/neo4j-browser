@@ -1,0 +1,104 @@
+inspector-bg-color = #0F1419
+inspector-font-color = #eee
+inspector-tab-bg-color = #33373C
+inspector-tab-font-color = #66696D
+inspector-tab-font-active-color = #b1b2b4
+inspector-divider-color = #242E3B
+
+#inspector
+  -webkit-font-smoothing: initial
+  position: fixed
+  z-index: 100000
+  color: inspector-font-color
+  background-color: inspector-bg-color
+  border-radius: 6px
+  top: 288px
+  right: 24px
+
+  // Bootstrap overrides
+  ul.inline li:first-child
+    padding-left: 0
+  ul.inline li:last-child
+    padding-right: 0
+  ul.inline > li
+    padding-left: 3px
+    padding-right: 3px
+  .nav
+    margin-bottom: 0
+  .nav-tabs
+    border-bottom: 0
+    > li
+      margin-bottom: 0
+  .nav-tabs > .active > a
+    color: inspector-tab-font-active-color
+    background-color: inspector-bg-color
+    border: none
+  .nav-tabs > li > a
+    border: none
+    color: inspector-tab-font-color
+    background-color: inspector-tab-bg-color
+  li
+    line-height: 1px
+  .dropdown
+    display: inline
+
+  .header
+    -webkit-font-smoothing: antialiased
+    font-size: 11px
+    font-weight: bold
+    line-height: 28px
+    padding: 0 10px
+    overflow: hidden
+    a.close
+      margin-top: 7px
+      font-size: 13px
+      color: white
+      float: right
+
+  .nav
+    font-weight: bold
+    padding: 0 8px
+    background-color: inspector-tab-bg-color
+    padding-top: 6px
+    .name
+      display: none
+      margin-left: 8px
+    .active
+      .name
+        display: inline-block
+    i
+      font-size: 18px
+
+  .body
+    .sections > li
+      padding: 20px 16px
+      border-bottom: 1px solid inspector-divider-color
+      a
+        color: inspector-font-color
+      .dropdown-menu > li > a
+        color: inspector-bg-color
+        &:hover
+          color: #fff
+      &:last-child
+        border-bottom: none
+      i
+        margin-top: -2px
+        vertical-align: middle
+        font-size: 18px
+        display: inline-block
+        width: 26px
+      &.colors
+        padding-top: 10px
+        padding-bottom: 11px
+        a
+          border-radius: 50%
+          display: inline-block
+          width: 30px
+          height: 30px
+          background-color: #FFF
+          line-height: 0
+          border: 3px solid inspector-bg-color
+          &:hover
+            border: 3px solid inspector-font-color
+
+
