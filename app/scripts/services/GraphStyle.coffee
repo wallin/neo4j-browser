@@ -10,6 +10,11 @@ angular.module('neo4jApp.services')
         else
           [selector, undefined]
 
+      toString: ->
+        str = @tag
+        str += ".#{@klass}" if @klass?
+        str
+
     class StyleRule
       constructor: (selector, @props) ->
         @selector = new Selector(selector)
@@ -98,6 +103,15 @@ angular.module('neo4jApp.services')
             r = data[b]
             return typeof r is 'string' or if typeof r is 'number' then r else a
         )
+
+      toString: ->
+        str = ""
+        for r in @rules
+          str += "\n" + r.selector.toString() + "{\n"
+          for k, v of r.props
+            str += "  #{k}: #{v}\n"
+          str += "}"
+        str
 
     new GraphStyle().loadSheet(styledata)
   ]

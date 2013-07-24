@@ -4,7 +4,8 @@ angular.module('neo4jApp.controllers')
   .controller 'LayoutCtrl', [
     '$rootScope'
     '$dialog'
-    ($scope, $dialog) ->
+    'GraphStyle'
+    ($scope, $dialog, GraphStyle) ->
       currentView = null
 
       dialog = null
@@ -58,7 +59,7 @@ angular.module('neo4jApp.controllers')
         $scope.popupContent = content
         $scope.isPopupShown = !!content
 
-      $scope.grassCode = "node.author {\n  background-color: #ff0\n}"
+      $scope.grassCode = GraphStyle.toString()
 
       $scope.globalKey = (e) ->
 
