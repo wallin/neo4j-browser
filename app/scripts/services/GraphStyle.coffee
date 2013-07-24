@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('neo4jApp.services')
-  .factory 'GraphStyle', [() ->
+  .factory 'GraphStyle', ['$rootScope', ($rootScope) ->
 
     class Selector
       constructor: (selector) ->
@@ -14,11 +14,14 @@ angular.module('neo4jApp.services')
       constructor: (selector, @props) ->
         @selector = new Selector(selector)
 
-      matches: (element) ->
-        if @selector.tag is element.selector.tag
-          if @selector.klass is element.selector.klass or not @selector.klass
+      matches: (selector) ->
+        if @selector.tag is selector.tag
+          if @selector.klass is selector.klass or not @selector.klass
             return yes
         return no
+
+      matchesExact: (selector) ->
+        @selector.tag is selector.tag and @selector.klass is selector.klass
 
     class StyleElement
       constructor: (selector, @data) ->
@@ -27,7 +30,7 @@ angular.module('neo4jApp.services')
 
       applyRules: (rules) ->
         for rule in rules
-          angular.extend(@props, rule.props) if rule.matches(@)
+          angular.extend(@props, rule.props) if rule.matches(@selector)
 
         @
 
@@ -56,15 +59,32 @@ angular.module('neo4jApp.services')
 
     class GraphStyle
       constructor: -> @rules = []
+      select: (selector, data) -> new StyleElement(selector, data).applyRules(@rules)
+
+      changeForNode: (node, data) ->
+        sel = new Selector(@nodeSelector(node))
+        rule = r for r in @rules when r.matchesExact(sel)
+        if not rule?
+          rule = new StyleRule(sel, {})
+          @rules.push(rule)
+
+        angular.extend(rule, data)
+        $rootScope.$broadcast 'GraphStyle:changed'
+        rule
+
       forNode: (node = {}) ->
-        selector = 'node'
-        selector += ".#{node.type}" if node.type?
-        @select(selector, node)
+        @select(@nodeSelector(node), node)
+
       forRelationship: (rel) ->
         selector = 'relationship'
         selector += ".#{rel.type}" if rel.type?
         @select(selector, rel)
-      select: (selector, data) -> new StyleElement(selector, data).applyRules(@rules)
+
+      nodeSelector: (node) ->
+        selector = 'node'
+        selector += ".#{node.type}" if node.type?
+        selector
+
       loadSheet: (data) ->
         @rules = for rule, props of data
           new StyleRule(rule, props)

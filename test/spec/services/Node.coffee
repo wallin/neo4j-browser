@@ -22,4 +22,4 @@ describe 'Service: Node', () ->
     expect(node.id).toBe 123
 
   it 'should inherit attributes from response data-attribute', ->
-    expect(node.name).toBe 'John Doe'
+    expect(node.attrs.name).toBe 'John Doe'

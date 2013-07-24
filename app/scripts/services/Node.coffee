@@ -9,7 +9,8 @@ angular.module('neo4jApp.services')
 
     class Node
       constructor: (@$raw = {}) ->
-        angular.extend @, @$raw.data
+        @attrs = @$raw.data or {}
+        angular.extend(@, @attrs)
         @id = parseId(@$raw.self)
 
       toJSON: ->

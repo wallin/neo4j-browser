@@ -1,6 +1,6 @@
 inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl')
-  .header Producer&nbsp;
-    span.muted [192]
+  .header {{item.type}}&nbsp;
+    span.muted [{{item.id}}]
     a.close.icon-remove(ng-click='toggleInspector()')
   ul.nav.nav-tabs
     li
@@ -21,26 +21,19 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl')
       li
         i.icon-font
         .dropdown
-          a.dropdown-toggle(data-toggle='dropdown') First name &nbsp;
+          a.dropdown-toggle(data-toggle='dropdown') {{selected.caption || 'Caption...'}} &nbsp;
           i.icon-caret-down
           ul.dropdown-menu.pull-left(role='menu')
             li
-              a ID
-            li
-              a
-                b First name
-            li
-              a Title
+              a(ng-click='selectCaption("id")') ID
+            li(ng-repeat='(name, val) in item.attrs')
+              a(ng-click='selectCaption("{"+name+"}")') {{name}}
       li.colors
         ul.inline
-          li
-            a(style='background-color: #BDC3C7')
-          li
-            a(style='background-color: #1ABC9C')
-          li
-            a.active(style='background-color: #3498DB')
-          li
-            a(style='background-color: #E74C3C')
+          li(ng-repeat='color in colors')
+            a(style='background-color: {{color}}'
+              ng-class='{active: color == selected.fill}'
+              ng-click="selectFill(color)")
       li
         i.icon-code
         a(ng-click='togglePopup("styling")') View stylesheet...

@@ -8,7 +8,7 @@ angular.module('neo4jApp.services')
 
     class Relationship
       constructor: (@$raw = {}) ->
-        angular.extend @, @$raw.data
+        @attrs = @$raw.data or {}
         @id = parseId(@$raw.self)
         @start = parseId(@$raw.start)
         @end = parseId(@$raw.end)

@@ -75,7 +75,7 @@ angular.module('neo4jApp.controllers')
       #
       # Public methods
       #
-      @update = =>
+      @update = ->
         nodes         = graph.nodes.all()
         relationships = graph.relationships.all()
 
@@ -128,5 +128,8 @@ angular.module('neo4jApp.controllers')
         .then (result) =>
           graph.merge(result)
           @update()
+
+      # FIXME: How to re-apply styling?
+      $rootScope.$on 'GraphStyle:changed', => @update() if graph
 
   ])
