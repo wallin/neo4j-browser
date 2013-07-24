@@ -18,15 +18,9 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl', ng-i
 
   .body('ng-show' = 'selectedTab == "props"')
     ul.sections.unstyled
-      li.pair
-        .key name
-        .value Sangria
-      li.pair
-        .key login
-        .value sangria81
-      li.pair
-        .key password
-        .value "67c0726fee300663a7142ab05872d63c"
+      li.pair(ng-repeat='(name, val) in item.attrs')
+        .key {{name}}
+        .value {{val}}
 
   .body('ng-show' = 'selectedTab == "styling"')
     ul.sections.unstyled
