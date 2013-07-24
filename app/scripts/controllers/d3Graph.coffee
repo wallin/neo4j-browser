@@ -20,6 +20,7 @@ angular.module('neo4jApp.controllers')
         return if d.expanded
         GraphExplorer.exploreNeighbours(d.id).then (result) =>
           graph.merge(result)
+          d.expanded = yes
           @update()
         # New in Angular 1.1.5
         # https://github.com/angular/angular.js/issues/2371
