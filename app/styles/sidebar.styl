@@ -62,6 +62,16 @@
       &:hover
         color: sidebar-color-fg-icon-hover
   ul
+    li.active .list-item
+      &:after
+        width 4px
+        opacity 1
+      background-color: sidebar-color-bg-active
+      .contents a
+        //font-weight bold
+        color: sidebar-color-fg-active
+        .meta
+          font-weight normal
     li
       .list-item
         background-color: sidebar-color-bg
@@ -75,16 +85,6 @@
           background-color: #C9F9A1
           width 0
           opacity 0
-        &.active
-          &:after
-            width 4px
-            opacity 1
-          background-color: sidebar-color-bg-active
-          .contents a
-            //font-weight bold
-            color: sidebar-color-fg-active
-            .meta
-              font-weight normal
         &:hover
           .contents a
             color: sidebar-color-fg-active
