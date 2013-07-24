@@ -60,13 +60,6 @@ include partials/inspector
         .view-result-graph
           neo-graph(ng-model='view.response', ng-controller='D3GraphCtrl')
           a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
-          .graph-actions
-            .btn
-              i.icon-random
-              |  Re-layout
-            .btn
-              i.icon-table
-              |  Show table
           a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded()", tooltip-placement='left', tooltip='Show table')
         .view-result-table
           .view-result-table-scroll
