@@ -57,7 +57,6 @@ angular.module('neo4jApp.services')
         selector += ".#{node.type}" if node.type?
         @select(selector, node)
       forRelationship: (rel) ->
-        console.log rel
         selector = 'relationship'
         selector += ".#{rel.type}" if rel.type?
         @select(selector, rel)
