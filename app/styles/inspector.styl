@@ -1,3 +1,5 @@
+@import 'mixins'
+
 inspector-bg-color = #0F1419
 inspector-font-color = #eee
 inspector-tab-bg-color = #33373C
@@ -14,6 +16,7 @@ inspector-divider-color = #242E3B
   border-radius: 6px
   top: 288px
   right: 24px
+  //width: 340px
 
   // Bootstrap overrides
   ul.inline li:first-child
@@ -71,7 +74,8 @@ inspector-divider-color = #242E3B
 
   .body
     .sections > li
-      padding: 20px 16px
+      line-height: 1.3em
+      padding: 18px 14px
       border-bottom: 1px solid inspector-divider-color
       a
         color: inspector-font-color
@@ -79,6 +83,8 @@ inspector-divider-color = #242E3B
         color: inspector-bg-color
         &:hover
           color: #fff
+      .dropdown-toggle
+        font-weight: bold
       &:last-child
         border-bottom: none
       i
@@ -91,6 +97,7 @@ inspector-divider-color = #242E3B
         padding-top: 10px
         padding-bottom: 11px
         a
+          position: relative
           border-radius: 50%
           display: inline-block
           width: 30px
@@ -98,7 +105,29 @@ inspector-divider-color = #242E3B
           background-color: #FFF
           line-height: 0
           border: 3px solid inspector-bg-color
-          &:hover
-            border: 3px solid inspector-font-color
+          overflow: hidden
+          opacity: 0.3
+          &:after
+            content: ' '
+            stretch()
+            background-color: #fff
+            width 50%
+            opacity: 0.25
+          &:hover, &.active
+            width: 36px
+            height: 36px
+            border: none
+            opacity: 1
 
-
+      &.pair
+        overflow: hidden
+        .key
+          font-weight: bold
+          text-align: right
+          margin-right: 1em
+          width: 100px
+          float: left
+        .value
+          width: 186px
+          float: left
+          color: darken(inspector-font-color, 15%)

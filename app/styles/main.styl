@@ -1,22 +1,8 @@
 @import 'variables'
 @import 'nib'
 @import 'modal'
+@import 'mixins'
 global-reset()
-
-size(w, h)
-  width: w
-  height: h
-
-stretch()
-  position absolute
-  top 0
-  left 0
-  right 0
-  bottom 0
-
-transist(property)
-  transition: property 0.4s
-  transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
 
 html, body
   margin 0
@@ -24,6 +10,7 @@ html, body
   -webkit-font-smoothing: antialiased
 
 *
+  word-wrap: break-word
   outline: none
 
 body

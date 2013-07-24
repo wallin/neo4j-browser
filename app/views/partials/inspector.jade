@@ -15,12 +15,14 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl')
       a
         i.icon-eye-open
         span.name Style
+
   .body
     ul.sections.unstyled
       li
-        i.icon-tag
+        i.icon-font
         .dropdown
-          a.dropdown-toggle(data-toggle='dropdown') First name
+          a.dropdown-toggle(data-toggle='dropdown') First name &nbsp;
+          i.icon-caret-down
           ul.dropdown-menu.pull-left(role='menu')
             li
               a ID
@@ -29,9 +31,6 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl')
                 b First name
             li
               a Title
-            li.divider
-            li
-              a Custom...
       li.colors
         ul.inline
           li
@@ -39,9 +38,22 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl')
           li
             a(style='background-color: #1ABC9C')
           li
-            a(style='background-color: #3498DB')
+            a.active(style='background-color: #3498DB')
           li
-            a(style='background-color: #E67E22')
+            a(style='background-color: #E74C3C')
       li
         i.icon-code
-        a Advanced editor...
+        a View stylesheet...
+
+span(style: 'display: none;')
+  .body
+    ul.sections.unstyled
+      li.pair
+        .key name
+        .value Sangria
+      li.pair
+        .key login
+        .value sangria81
+      li.pair
+        .key password
+        .value "67c0726fee300663a7142ab05872d63c"
