@@ -14,17 +14,20 @@ angular.module('neo4jApp.services')
       constructor: (selector, @props) ->
         @selector = new Selector(selector)
 
+      matches: (element) ->
+        if @selector.tag is element.selector.tag
+          if @selector.klass is element.selector.klass or not @selector.klass
+            return yes
+        return no
+
     class StyleElement
       constructor: (selector, @data) ->
         @selector = new Selector(selector)
         @props = {}
 
       applyRules: (rules) ->
-        for r in rules
-          if r.selector.tag is @selector.tag
-            # Match class aswell, if any
-            if r.selector.klass is @selector.klass or not r.selector.klass
-              angular.extend(@props, r.props)
+        for rule in rules
+          angular.extend(@props, rule.props) if rule.matches(@)
 
         @
 
@@ -36,7 +39,8 @@ angular.module('neo4jApp.services')
         'fill': '#1ABC9C'
         'stroke': '#fff'
         'stroke-width': '2px'
-        'caption': 'Node'
+        'color': '#000'
+        'caption': 'Node {id}'
       'node.Actor':
         'fill': '#000'
         'caption': 'Actor'
@@ -65,6 +69,17 @@ angular.module('neo4jApp.services')
         @rules = for rule, props of data
           new StyleRule(rule, props)
         @
+      interpolate: (str, data) ->
+        # Supplant
+        # http://javascript.crockford.com/remedial.html
+        str.replace(
+          /\{([^{}]*)\}/g,
+          (a, b) ->
+            r = data[b]
+            return typeof r is 'string' or if typeof r is 'number' then r else a
+        )
 
     new GraphStyle().loadSheet(styledata)
   ]
+
+

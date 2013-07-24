@@ -36,7 +36,8 @@ angular.module('neo4jApp.services')
       if d.expanded then 'node' else 'node faded'
 
     formatCaption = (node) ->
-      GraphStyle.forNode(node).get("caption")
+      tmpl = GraphStyle.forNode(node).get("caption")
+      GraphStyle.interpolate(tmpl, node)
 
     nodeOutline = new GraphRenderer.Renderer(
       requiredSize: (node) -> 15
@@ -67,6 +68,7 @@ angular.module('neo4jApp.services')
         .attr
           "alignment-baseline": "middle"
           "text-anchor": "middle"
+          "fill": (node) -> GraphStyle.forNode(node).get('color')
 
         text.exit().remove()
 
