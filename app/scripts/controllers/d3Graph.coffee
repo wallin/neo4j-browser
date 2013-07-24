@@ -2,9 +2,10 @@
 angular.module('neo4jApp.controllers')
   .controller('D3GraphCtrl', [
     '$element'
+    '$scope'
     'GraphExplorer'
     'GraphRenderer'
-    ($element, GraphExplorer, GraphRenderer) ->
+    ($element, $scope, GraphExplorer, GraphRenderer) ->
       #
       # Local variables
       #
@@ -20,6 +21,9 @@ angular.module('neo4jApp.controllers')
         GraphExplorer.exploreNeighbours(d.id).then (result) =>
           graph.merge(result)
           @update()
+        # New in Angular 1.1.5
+        # https://github.com/angular/angular.js/issues/2371
+        $scope.$apply() unless $scope.$$phase
 
       tick = ->
         relationshipGroups = el.selectAll("g.relationship")
