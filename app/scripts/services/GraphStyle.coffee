@@ -44,23 +44,23 @@ angular.module('neo4jApp.services')
 
     styledata =
       'node':
-        'fill': '#1ABC9C'
-        'stroke': '#fff'
+        'fill': '#BDC3C7'
+        'stroke': '#7F8C8D'
         'stroke-width': '2px'
-        'color': '#000'
+        'color': '#2C3E50'
         'caption': 'Node {id}'
       'node.Actor':
         'fill': '#000'
         'caption': 'Actor'
       'node.Movie':
-        'fill': '#00f'
+        'fill': '#2980B9'
         'caption': 'Movie'
       'relationship':
         'fill': 'none'
         'stroke': '#BDC3C7'
         'stroke-width': '1.5px'
       'relationship.FRIEND':
-        'stroke': '#00f'
+        'stroke': '#2980B9'
 
     class GraphStyle
       constructor: -> @rules = []
