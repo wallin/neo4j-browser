@@ -58,6 +58,8 @@ angular.module('neo4jApp.controllers')
         $scope.popupContent = content
         $scope.isPopupShown = !!content
 
+      $scope.grassCode = "node.author {\n  background-color: #ff0\n}"
+
       $scope.globalKey = (e) ->
 
         # Don't toggle anything when shortcut popup is open

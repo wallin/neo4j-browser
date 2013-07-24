@@ -1,49 +1,7 @@
 .modal-header
-    h3 Node 121
+    h3 GraSS Code
 .modal-body
-  ul.nav.nav-tabs
-    li
-      a
-        i.icon-info
-        |  Properties
-    li
-      a
-        i.icon-sitemap
-        |  Neighbourhood
-    li.active
-      a
-        i.icon-puzzle-piece
-        |  Style
-
-  form.form-horizontal
-    .control-group
-      label.control-label(for='inputEmail') Caption
-      .controls
-        .btn-group
-          a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-            | Node ID&nbsp;
-            span.caret
-          ul.dropdown-menu
-            li
-              a Name
-            li
-              a Email
-            li
-              a Birthdate
-      br
-      label.control-label(for='inputEmail') Color
-      .controls
-        .btn-group
-          a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-            | Neutral&nbsp;
-            span.caret
-          ul.dropdown-menu
-            li
-              a Blue
-            li
-              a Red
-            li
-              a Green
-      hr
-      .text-center
-        a.btn Advanced editor
+  textarea(ui-codemirror="{theme: 'css', lineNumbers: true}", ng-model="grassCode")
+//- .modal-footer
+//-   a.btn(href='#') Close
+//-   a.btn.btn-primary(href='#') Copy to clipboard

@@ -43,7 +43,7 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl')
             a(style='background-color: #E74C3C')
       li
         i.icon-code
-        a View stylesheet...
+        a(ng-click='togglePopup("styling")') View stylesheet...
 
 span(style: 'display: none;')
   .body
