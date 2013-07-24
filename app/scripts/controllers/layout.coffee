@@ -31,6 +31,13 @@ angular.module('neo4jApp.controllers')
       $scope.toggleSidebar = ->
         $scope.isSidebarShown ^= true
 
+      $scope.isInspectorShown = no
+      $scope.toggleInspector = ->
+        $scope.isInspectorShown ^= true
+
+      $scope.$watch 'selectedGraphItem', (val) ->
+        $scope.isInspectorShown = !!val
+
       $scope.isPopupShown = false
       $scope.togglePopup = (content) ->
         if content?

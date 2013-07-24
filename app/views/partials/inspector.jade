@@ -1,7 +1,7 @@
-inspector#inspector(show='isInspectorShown')
+inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl')
   .header Producer&nbsp;
     span.muted [192]
-    a.close.icon-remove
+    a.close.icon-remove(ng-click='toggleInspector()')
   ul.nav.nav-tabs
     li
       a
