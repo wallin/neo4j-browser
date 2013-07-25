@@ -10,7 +10,6 @@ script#popup-styling(type="text/ng-template")
 include partials/navbar
 include partials/sidebar
 include partials/inspector
-include partials/legend
 
 #views
   #view-background
@@ -57,6 +56,7 @@ include partials/legend
           neo-graph(ng-model='view.response', ng-controller='D3GraphCtrl')
           a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
           a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
+          include partials/legend
         .view-result-table
           .view-result-table-scroll
             neo-table(ng-model='view.response')
