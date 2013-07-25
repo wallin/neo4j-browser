@@ -5,8 +5,6 @@ angular.module('neo4jApp')
 
     $scope.rules = graphStyle.rules
 
-    console.log graphStyle.rules
-
     $scope.isNode = (rule) ->
       rule.selector.tag == 'node'
 

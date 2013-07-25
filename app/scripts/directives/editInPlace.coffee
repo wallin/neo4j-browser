@@ -22,7 +22,6 @@ angular.module('neo4jApp')
 
       scope.save  = ->
         scope.editing = false
-        console.log "saved"
 
       inputElement.bind "blur", (e) ->
         scope.save()
