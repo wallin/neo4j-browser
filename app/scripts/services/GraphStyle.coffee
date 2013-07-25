@@ -104,6 +104,12 @@ angular.module('neo4jApp.services')
             return if (typeof r is 'string' or typeof r is 'number') then r else a
         )
 
+      destroyRule: (rule) ->
+        for r in @rules
+          if r == rule
+            @rules.splice(@rules.indexOf(rule), 1)
+            break
+
       toString: ->
         str = ""
         for r in @rules

@@ -1,13 +1,16 @@
 @import 'nib'
 
-#legend
+.legend
   absolute: top 16px left 16px
   user-select: none
   cursor: default
+  padding-right: 32px
 
   li
     overflow: hidden
     margin-bottom: 8px
+    &.faded
+      opacity: 0.3
     .preview
       float: left
       border-radius: 50%
@@ -16,7 +19,8 @@
       height: 30px
       margin-right: 8px
     .contents
-      overflow: hidden
+      //overflow: hidden
+      float: left
       line-height: 1em
       position: relative
       top: 3px
@@ -25,11 +29,12 @@
         line-height: 30px
       .class-name
         font-size: 13px
-        .remove
-          display: none
-          margin-left: 12px
       .condition
         font-size: 10px
         color: #888
-    &:hover .contents .class-name .remove
+    .remove
+      display: none
+      padding: 2px 8px
+      margin-left: 12px
+    &:hover .remove
         display: inline-block
