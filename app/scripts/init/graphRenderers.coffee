@@ -64,13 +64,13 @@ angular.module('neo4jApp.services')
         )
 
         circles.enter()
-        .append("circle")
+        .insert("circle", ".outline")
         .classed('overlay', true)
         .attr
           cx: (d, i) -> 0
           cy: (d, i) -> 0
-          r: (node) -> node.radius
-          fill: 'rgba(0,0,0,0.3)'
+          r: (node) -> node.radius + 6
+          fill: 'rgba(0,0,0,0.1)'
           stroke: 'none'
 
         circles.exit().remove()
