@@ -48,7 +48,7 @@ angular.module('neo4jApp.services')
         'stroke': '#7F8C8D'
         'stroke-width': '2px'
         'color': '#2C3E50'
-        'caption': 'Node {id}'
+        'caption': '{id}'
       'node.Actor':
         'fill': '#000'
         'caption': 'Actor'

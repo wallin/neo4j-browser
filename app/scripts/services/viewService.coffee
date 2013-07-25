@@ -98,9 +98,9 @@ angular.module('neo4jApp.services')
           )
 
         suggestedLayout: ->
-          return {
+          {
             table: @response?.other.length > 0
-            graph: !@response?.isTextOnly()
+            graph: @response?.nodes.length > 0
           }
 
         revertCode: ->

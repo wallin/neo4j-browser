@@ -51,7 +51,7 @@ include partials/inspector
         span(ng-show='view.isLoading')
           .icon-spinner.icon-spin
           | Executing query...
-      .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response')
+      .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response.size')
         .view-result-graph
           neo-graph(ng-model='view.response', ng-controller='D3GraphCtrl')
           a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
