@@ -18,8 +18,9 @@ angular.module('neo4jApp.directives')
         dialog.backdropEl.remove()
         # Inherit position
         dialog.modalEl.css
+          position: 'absolute'
           top: element.css('top')
-          left: element.css('left')
+          right: element.css('right')
 
         element.remove()
 
