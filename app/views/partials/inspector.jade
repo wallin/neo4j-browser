@@ -32,7 +32,7 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 25
           ul.inline
             li(ng-repeat='color in colors')
               a(style='background-color: {{color}}'
-                ng-class='{active: color == selected.fill}'
+                ng-class='{active: color == style.fill}'
                 ng-click="selectFill(color)")
         li
           i.icon-code

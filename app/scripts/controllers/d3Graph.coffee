@@ -12,10 +12,13 @@ angular.module('neo4jApp.controllers')
       el = d3.select($element[0])
       graph = null
 
+      selectedNode = null
+
       #
       # Local methods
       #
       onDblClick = (d) =>
+        $rootScope.selectedGraphItem = d
         return if d.expanded
         GraphExplorer.exploreNeighbours(d.id).then (result) =>
           graph.merge(result)
@@ -23,12 +26,20 @@ angular.module('neo4jApp.controllers')
           @update()
         # New in Angular 1.1.5
         # https://github.com/angular/angular.js/issues/2371
-        $rootScope.selectedGraphItem = d
         $rootScope.$apply() unless $rootScope.$$phase
 
       onClick = (d) =>
         d.fixed = yes
-        $rootScope.selectedGraphItem = d
+        if d is selectedNode
+          d.selected = no
+          selectedNode = null
+        else
+          selectedNode?.selected = no
+          d.selected = yes
+          selectedNode = d
+
+        @update()
+        $rootScope.selectedGraphItem = selectedNode
         $rootScope.$apply() unless $rootScope.$$phase
 
       tick = ->
@@ -130,6 +141,7 @@ angular.module('neo4jApp.controllers')
       @render = (result) ->
         return unless result
         graph = result
+        return if graph.nodes.length is 0
         GraphExplorer.internalRelationships(graph.nodes.pluck('id'))
         .then (result) =>
           graph.merge(result)
