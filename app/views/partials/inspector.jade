@@ -9,6 +9,7 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 25
         i.icon-info-sign
         span.name Properties
       ul.sections.unstyled.tight.scrollable
+        li.empty(ng-show='hasNoProps()') No properties
         li.pair(ng-repeat='(name, val) in item.attrs')
           .key {{name}}
           .value {{val}}
