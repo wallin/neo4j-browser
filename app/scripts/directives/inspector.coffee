@@ -9,6 +9,7 @@ angular.module('neo4jApp.directives')
         opts =
           backdrop: no
           dialogClass: 'inspector'
+          dialogFade: yes
           keyboard: no
           template: element.html()
           resolve: { $scope: -> scope }
