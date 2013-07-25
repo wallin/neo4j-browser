@@ -1,0 +1,31 @@
+@import 'nib'
+
+#legend
+  z-index: 1000
+  fixed: top 300px left 24px
+  user-select: none
+  cursor: default
+
+  li
+    overflow: hidden
+    margin-bottom: 8px
+    .preview
+      float: left
+      border-radius: 50%
+      display: inline-block
+      width: 30px
+      height: 30px
+      margin-right: 8px
+    .contents
+      overflow: hidden
+      line-height: 1em
+      position: relative
+      top: 3px
+      &.no-condition
+        top: -1px
+        line-height: 30px
+      .class-name
+        font-size: 13px
+      .condition
+        font-size: 10px
+        color: #888
