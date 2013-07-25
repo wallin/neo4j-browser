@@ -16,8 +16,7 @@ angular.module('neo4jApp.services')
         str
 
     class StyleRule
-      constructor: (selector, @props) ->
-        @selector = new Selector(selector)
+      constructor: (@selector, @props) ->
 
       matches: (selector) ->
         if @selector.tag is selector.tag
@@ -30,7 +29,7 @@ angular.module('neo4jApp.services')
 
     class StyleElement
       constructor: (selector, @data) ->
-        @selector = new Selector(selector)
+        @selector = selector
         @props = {}
 
       applyRules: (rules) ->
@@ -64,15 +63,19 @@ angular.module('neo4jApp.services')
 
     class GraphStyle
       constructor: -> @rules = []
-      select: (selector, data) -> new StyleElement(selector, data).applyRules(@rules)
+      select: (selector, data) ->
+        new StyleElement(selector, data).applyRules(@rules)
+
+      findNodeRule: (node) ->
+        selector = @nodeSelector(node)
+        rule = r for r in @rules when r.matchesExact(selector)
+        rule
 
       changeForNode: (node, props) ->
-        sel = new Selector(@nodeSelector(node))
-        rule = r for r in @rules when r.matchesExact(sel)
+        rule = @findNodeRule(node)
         if not rule?
-          rule = new StyleRule(sel, {})
+          rule = new StyleRule(@nodeSelector(node), {})
           @rules.push(rule)
-
         angular.extend(rule.props, props)
         rule
 
@@ -84,15 +87,15 @@ angular.module('neo4jApp.services')
         selector += ".#{rel.type}" if rel.type?
         @select(selector, rel)
 
-      nodeSelector: (node) ->
+      nodeSelector: (node = {}) ->
         selector = 'node'
-        if node.labels.length > 0
+        if node.labels?.length > 0
           selector += ".#{node.labels[0]}"
-        selector
+        new Selector(selector)
 
       loadSheet: (data) ->
         @rules = for rule, props of data
-          new StyleRule(rule, props)
+          new StyleRule(new Selector(rule), props)
         @
       interpolate: (str, data) ->
         # Supplant

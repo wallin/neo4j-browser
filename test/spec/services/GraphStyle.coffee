@@ -27,10 +27,10 @@ describe 'Service: GraphStyle', () ->
       expect(GraphStyle.forNode().get('fill')).toBe('#1ABC9C')
 
     it 'should inherit rules from base node rule', ->
-      expect(GraphStyle.forNode(type: 'Movie').get('stroke')).toBe('#aaa')
+      expect(GraphStyle.forNode(labels: ['Movie']).get('stroke')).toBe('#aaa')
 
     it 'should not match "node with type1" rule when no type2 is specified', ->
-      expect(GraphStyle.forNode(type: 'Movie').get('stroke')).not.toBe('#fff')
+      expect(GraphStyle.forNode(labels: ['Movie']).get('stroke')).not.toBe('#fff')
 
     it 'should be able to get parameters for "node with type" rules', ->
-      expect(GraphStyle.forNode(type: 'Actor').get('stroke')).toBe('#fff')
+      expect(GraphStyle.forNode(labels: ['Actor']).get('stroke')).toBe('#fff')
