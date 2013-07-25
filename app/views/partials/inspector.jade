@@ -27,13 +27,13 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl', ng-i
       li
         i.icon-font
         .dropdown
-          a.dropdown-toggle(data-toggle='dropdown') {{selected.caption || 'Caption...'}} &nbsp;
+          a.dropdown-toggle(data-toggle='dropdown') {{selectedCaption || 'Caption...'}} &nbsp;
           i.icon-caret-down
           ul.dropdown-menu.pull-left(role='menu')
             li
               a(ng-click='selectCaption("id")') ID
             li(ng-repeat='(name, val) in item.attrs')
-              a(ng-click='selectCaption(name}")') {{name}}
+              a(ng-click='selectCaption(name)') {{name}}
       li.colors
         ul.inline
           li(ng-repeat='color in colors')
