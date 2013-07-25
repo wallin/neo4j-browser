@@ -7,17 +7,13 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl', ng-i
       a
         i.icon-info-sign
         span.name Properties
-    li(ng-class='{active: selectedTab == "rels"}', ng-click='selectedTab = "rels"')
-      a
-        i.icon-sitemap
-        span.name Relations
     li(ng-class='{active: selectedTab == "styling"}', ng-click='selectedTab = "styling"')
       a
         i.icon-eye-open
         span.name Style
 
   .body('ng-show' = 'selectedTab == "props"')
-    ul.sections.unstyled
+    ul.sections.unstyled.tight
       li.pair(ng-repeat='(name, val) in item.attrs')
         .key {{name}}
         .value {{val}}
@@ -43,7 +39,3 @@ inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl', ng-i
       li
         i.icon-code
         a(ng-click='togglePopup("styling")') View stylesheet...
-
-  .body('ng-show' = 'selectedTab == "rels"')
-    ul.sections.unstyled
-      li Nothing here yet...

@@ -17,7 +17,7 @@ inspector-divider-color = #242E3B
   border-radius: 6px
   top: 288px
   right: 24px
-  //width: 340px
+  width: 358px
 
   // Bootstrap overrides
   ul.inline li:first-child
@@ -72,6 +72,8 @@ inspector-divider-color = #242E3B
         display: inline-block
     i
       font-size: 18px
+      position: relative;
+      top: 1px
 
   .body
     .sections > li
@@ -132,3 +134,12 @@ inspector-divider-color = #242E3B
           width: 186px
           float: left
           color: darken(inspector-font-color, 15%)
+
+  ul.tight
+    li.pair
+      padding-top: 10px
+      padding-bottom: 10px
+      &:first-child
+        padding-top: 14px
+      &:last-child
+        padding-bottom: 14px

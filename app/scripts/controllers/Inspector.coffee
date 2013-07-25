@@ -5,7 +5,7 @@ angular.module('neo4jApp.controllers')
     '$scope',
     'GraphStyle'
     ($scope, GraphStyle) ->
-      $scope.colors = ['#BDC3C7', '#1ABC9C', '#3498DB', '#E74C3C']
+      $scope.colors = ['#BDC3C7', '#1ABC9C', '#3498DB', '#E74C3C', '#9B59B6', '#E67E22', '#2ECC71', '#34495E']
       $scope.style = {fill: $scope.colors[0]}
       $scope.$watch 'selectedGraphItem', (item) ->
         $scope.item = angular.copy(item)
