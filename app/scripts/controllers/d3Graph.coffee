@@ -15,8 +15,7 @@ angular.module('neo4jApp.controllers')
       #
       # Local methods
       #
-      click = (d) =>
-        d.fixed = yes
+      onDblClick = (d) =>
         return if d.expanded
         GraphExplorer.exploreNeighbours(d.id).then (result) =>
           graph.merge(result)
@@ -24,6 +23,11 @@ angular.module('neo4jApp.controllers')
           @update()
         # New in Angular 1.1.5
         # https://github.com/angular/angular.js/issues/2371
+        $rootScope.selectedGraphItem = d
+        $rootScope.$apply() unless $rootScope.$$phase
+
+      onClick = (d) =>
+        d.fixed = yes
         $rootScope.selectedGraphItem = d
         $rootScope.$apply() unless $rootScope.$$phase
 
@@ -113,7 +117,8 @@ angular.module('neo4jApp.controllers')
 
         nodeGroups.enter().append("g")
         .attr("class", "node")
-        .on("click", click)
+        .on("dblclick", onDblClick)
+        .on("click", onClick)
         .call(force.drag)
 
         for renderer in GraphRenderer.nodeRenderers
