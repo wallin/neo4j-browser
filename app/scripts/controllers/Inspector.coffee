@@ -12,7 +12,7 @@ angular.module('neo4jApp.controllers')
         ['#FF6C7C', '#EB5D6C']
         ['#F25A29', '#DC4717']
         ['#FCC940', '#F3BA25']
-        ['#2A3A91', '#1F295B']
+        ['#4356C0', '#3445A2']
       ]
       $scope.style = {fill: $scope.colors[0][0]}
       $scope.$watch 'selectedGraphItem', (item) ->

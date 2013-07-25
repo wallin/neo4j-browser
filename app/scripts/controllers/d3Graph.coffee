@@ -83,7 +83,7 @@ angular.module('neo4jApp.controllers')
           if m == 'arrow-start'
             -20
           else
-            18 + 12
+            28
         )
         .attr("refY", 0)
         .attr("markerWidth", 6)

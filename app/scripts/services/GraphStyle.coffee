@@ -50,7 +50,7 @@ angular.module('neo4jApp.services')
         'caption': '{id}'
       'relationship':
         'fill': 'none'
-        'stroke': '#979797'
+        'stroke': '#e3e3e3'
         'stroke-width': '1.5px'
 
     class GraphStyle
