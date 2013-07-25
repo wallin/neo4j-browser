@@ -1,41 +1,39 @@
-inspector(show='isInspectorShown', ng-controller='InspectorCtrl', ng-init='selectedTab = "props"', style="top: 250px; left: 300px")
+inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 250px; left: 300px")
   .header {{item.type}}&nbsp;
     span.muted [{{item.id}}]
     a.close.icon-remove(ng-click='toggleInspector()')
-  ul.nav.nav-tabs
-    li(ng-class='{active: selectedTab == "props"}', ng-click='selectedTab = "props"')
-      a
+
+  tabset
+    tab
+      tab-heading
         i.icon-info-sign
         span.name Properties
-    li(ng-class='{active: selectedTab == "styling"}', ng-click='selectedTab = "styling"')
-      a
+      ul.sections.unstyled.tight
+        li.pair(ng-repeat='(name, val) in item.attrs')
+          .key {{name}}
+          .value {{val}}
+
+    tab
+      tab-heading
         i.icon-eye-open
         span.name Style
-
-  .body('ng-show' = 'selectedTab == "props"')
-    ul.sections.unstyled.tight
-      li.pair(ng-repeat='(name, val) in item.attrs')
-        .key {{name}}
-        .value {{val}}
-
-  .body('ng-show' = 'selectedTab == "styling"')
-    ul.sections.unstyled
-      li
-        i.icon-font
-        .dropdown
-          a.dropdown-toggle(data-toggle='dropdown') {{selectedCaption || 'Caption...'}} &nbsp;
-          i.icon-caret-down
-          ul.dropdown-menu.pull-left(role='menu')
-            li
-              a(ng-click='selectCaption("id")') ID
-            li(ng-repeat='(name, val) in item.attrs')
-              a(ng-click='selectCaption(name)') {{name}}
-      li.colors
-        ul.inline
-          li(ng-repeat='color in colors')
-            a(style='background-color: {{color}}'
-              ng-class='{active: color == selected.fill}'
-              ng-click="selectFill(color)")
-      li
-        i.icon-code
-        a(ng-click='togglePopup("styling")') View stylesheet...
+      ul.sections.unstyled
+        li
+          i.icon-font
+          .dropdown
+            a.dropdown-toggle(data-toggle='dropdown') {{selectedCaption || 'Caption...'}} &nbsp;
+            i.icon-caret-down
+            ul.dropdown-menu.pull-left(role='menu')
+              li
+                a(ng-click='selectCaption("id")') ID
+              li(ng-repeat='(name, val) in item.attrs')
+                a(ng-click='selectCaption(name)') {{name}}
+        li.colors
+          ul.inline
+            li(ng-repeat='color in colors')
+              a(style='background-color: {{color}}'
+                ng-class='{active: color == selected.fill}'
+                ng-click="selectFill(color)")
+        li
+          i.icon-code
+          a(ng-click='togglePopup("styling")') View stylesheet...
