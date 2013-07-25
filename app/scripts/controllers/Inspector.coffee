@@ -11,7 +11,11 @@ angular.module('neo4jApp.controllers')
         return unless item
         $scope.item = angular.copy(item)
         rule = GraphStyle.findNodeRule(item)
-        $scope.style = angular.extend({}, rule.props) if rule
+        $scope.style = {}
+        if rule
+          angular.extend($scope.style, rule.props)
+        if $scope.style.caption
+          $scope.selectedCaption = $scope.style.caption.replace(/\{([^{}]*)\}/, "$1")
 
       $scope.hasNoProps = ->
         Object.keys($scope.item.attrs).length == 0
