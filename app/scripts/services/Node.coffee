@@ -12,6 +12,7 @@ angular.module('neo4jApp.services')
         @attrs = @$raw.data or {}
         angular.extend(@, @attrs)
         @id = parseId(@$raw.self)
+        @labels = []
 
       toJSON: ->
         @$raw.data

@@ -86,7 +86,8 @@ angular.module('neo4jApp.services')
 
       nodeSelector: (node) ->
         selector = 'node'
-        selector += ".#{node.type}" if node.type?
+        if node.labels.length > 0
+          selector += ".#{node.labels[0]}"
         selector
 
       loadSheet: (data) ->
