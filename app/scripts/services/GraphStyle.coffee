@@ -83,15 +83,19 @@ angular.module('neo4jApp.services')
         @select(@nodeSelector(node), node)
 
       forRelationship: (rel) ->
-        selector = 'relationship'
-        selector += ".#{rel.type}" if rel.type?
-        @select(selector, rel)
+        @select(@relationshipSelector(rel), rel)
 
       nodeSelector: (node = {}) ->
         selector = 'node'
         if node.labels?.length > 0
           selector += ".#{node.labels[0]}"
         new Selector(selector)
+
+      relationshipSelector: (rel) ->
+        selector = 'relationship'
+        selector += ".#{rel.type}" if rel.type?
+        new Selector(selector)
+
 
       loadSheet: (data) ->
         @rules = for rule, props of data
