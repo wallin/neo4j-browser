@@ -1,7 +1,7 @@
 .modal-header
     h3 GraSS Code
 .modal-body
-  textarea(ui-codemirror="{theme: 'css', lineNumbers: true}", ng-model="grassCode")
+  textarea(ui-codemirror="{theme: 'css', readOnly: true}", ng-model="grassCode")
 //- .modal-footer
 //-   a.btn(href='#') Close
 //-   a.btn.btn-primary(href='#') Copy to clipboard
