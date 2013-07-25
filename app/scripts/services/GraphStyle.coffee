@@ -112,10 +112,11 @@ angular.module('neo4jApp.services')
       toString: ->
         str = ""
         for r in @rules
-          str += "\n" + r.selector.toString() + "{\n"
+          str += r.selector.toString() + " {\n"
           for k, v of r.props
-            str += "  #{k}: #{v}\n"
-          str += "}"
+            v = "'#{v}'" if k == "caption"
+            str += "  #{k}: #{v};\n"
+          str += "}\n\n"
         str
 
     new GraphStyle().loadSheet(styledata)
