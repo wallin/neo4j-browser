@@ -1,4 +1,4 @@
-inspector#inspector(show='isInspectorShown', ng-controller='InspectorCtrl', ng-init='selectedTab = "props"')
+inspector(show='isInspectorShown', ng-controller='InspectorCtrl', ng-init='selectedTab = "props"', style="top: 250px; left: 300px")
   .header {{item.type}}&nbsp;
     span.muted [{{item.id}}]
     a.close.icon-remove(ng-click='toggleInspector()')

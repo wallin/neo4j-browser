@@ -4,6 +4,7 @@ dist
 .sass-cache
 app/components
 app/styles/main.css
+app/*.html
 app/views/*.html
 
 # neo4j

@@ -16,12 +16,18 @@ angular.module('neo4jApp.directives')
 
         dialog = $dialog.dialog(opts)
         dialog.backdropEl.remove()
+        # Inherit position
+        dialog.modalEl.css
+          top: element.css('top')
+          left: element.css('left')
+
         element.remove()
 
         shownExpr = attrs.inspector or attrs.show
         scope.$watch shownExpr, (val) ->
           if val
             dialog.open()
+            dialog.modalEl.draggable?()
           else
             dialog.close() if dialog.isOpen()
   ])
