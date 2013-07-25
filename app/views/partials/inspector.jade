@@ -8,7 +8,7 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 25
       tab-heading
         i.icon-info-sign
         span.name Properties
-      ul.sections.unstyled.tight
+      ul.sections.unstyled.tight.scrollable
         li.pair(ng-repeat='(name, val) in item.attrs')
           .key {{name}}
           .value {{val}}
