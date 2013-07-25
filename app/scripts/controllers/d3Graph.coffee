@@ -3,9 +3,11 @@ angular.module('neo4jApp.controllers')
   .controller('D3GraphCtrl', [
     '$element'
     '$rootScope'
+    '$scope'
     'GraphExplorer'
     'GraphRenderer'
-    ($element, $rootScope, GraphExplorer, GraphRenderer) ->
+    'GraphStyle'
+    ($element, $rootScope, $scope, GraphExplorer, GraphRenderer, GraphStyle) ->
       #
       # Local variables
       #
@@ -13,6 +15,12 @@ angular.module('neo4jApp.controllers')
       graph = null
 
       selectedNode = null
+
+      $scope.style = GraphStyle.rules
+      $scope.$watch 'style', (val) =>
+        return unless val
+        @update()
+      , true
 
       #
       # Local methods
@@ -92,6 +100,7 @@ angular.module('neo4jApp.controllers')
       # Public methods
       #
       @update = ->
+        return unless graph
         nodes         = graph.nodes.all()
         relationships = graph.relationships.all()
 
@@ -146,8 +155,4 @@ angular.module('neo4jApp.controllers')
         .then (result) =>
           graph.merge(result)
           @update()
-
-      # FIXME: How to re-apply styling?
-      $rootScope.$on 'GraphStyle:changed', => @update() if graph
-
   ])

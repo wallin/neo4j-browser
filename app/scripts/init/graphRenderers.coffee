@@ -41,12 +41,12 @@ angular.module('neo4jApp.services')
         text = selection.selectAll("text").data((node) -> [node])
 
         text.enter().append("text")
-        .text((node) -> formatCaption(node))
         .attr
           "alignment-baseline": "middle"
           "text-anchor": "middle"
 
         text
+        .text((node) -> formatCaption(node))
         .attr
           "fill": (node) ->
             GraphStyle.forNode(node).get('color')

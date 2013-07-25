@@ -66,15 +66,14 @@ angular.module('neo4jApp.services')
       constructor: -> @rules = []
       select: (selector, data) -> new StyleElement(selector, data).applyRules(@rules)
 
-      changeForNode: (node, data) ->
+      changeForNode: (node, props) ->
         sel = new Selector(@nodeSelector(node))
         rule = r for r in @rules when r.matchesExact(sel)
         if not rule?
           rule = new StyleRule(sel, {})
           @rules.push(rule)
 
-        angular.extend(rule, data)
-        $rootScope.$broadcast 'GraphStyle:changed'
+        angular.extend(rule.props, props)
         rule
 
       forNode: (node = {}) ->
@@ -100,8 +99,8 @@ angular.module('neo4jApp.services')
         str.replace(
           /\{([^{}]*)\}/g,
           (a, b) ->
-            r = data[b]
-            return typeof r is 'string' or if typeof r is 'number' then r else a
+            r = data[b] or data.id
+            return if (typeof r is 'string' or typeof r is 'number') then r else a
         )
 
       toString: ->
