@@ -81,3 +81,14 @@ describe 'Service: GraphModel', () ->
       )
       backend.flush()
       expect(node.expanded).toBeTruthy()
+
+  describe 'merge', ->
+    beforeEach ->
+      graph = new GraphModel
+
+    it 'should handle empty input', ->
+      merge = ->
+        graph.merge(null)
+
+      expect(merge).not.toThrow()
+

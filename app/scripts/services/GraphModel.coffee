@@ -30,10 +30,12 @@ angular.module('neo4jApp.services')
 
           rel
 
-        merge: (result) ->
+        merge: (result = {}) ->
           # Add result to current graph
-          @addNode(n) for n in result.nodes
-          @addRelationship(r) for r in result.relationships
+          if result.nodes?
+            @addNode(n) for n in result.nodes
+          if result.relationships?
+            @addRelationship(r) for r in result.relationships
 
 
       GraphModel
