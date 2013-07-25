@@ -66,6 +66,10 @@ angular.module('neo4jApp.controllers')
         # Don't toggle anything when shortcut popup is open
         return if $scope.isPopupShown and e.keyCode != 191
 
+        # Toggle inspector on space
+        if e.keyCode is 32 and $scope.selectedGraphItem
+          $scope.toggleInspector()
+
         if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
           currentView?.exec()
         else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
