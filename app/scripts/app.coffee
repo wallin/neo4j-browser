@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('neo4jApp.controllers', [])
+angular.module('neo4jApp.controllers', ['neo4jApp.utils'])
 angular.module('neo4jApp.directives', ['ui.bootstrap.dialog'])
 angular.module('neo4jApp.filters', [])
 angular.module('neo4jApp.services', ['LocalStorageModule', 'neo4jApp.settings'])

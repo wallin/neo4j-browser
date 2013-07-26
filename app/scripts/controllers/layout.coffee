@@ -5,7 +5,8 @@ angular.module('neo4jApp.controllers')
     '$rootScope'
     '$dialog'
     'GraphStyle'
-    ($scope, $dialog, GraphStyle) ->
+    'Utils'
+    ($scope, $dialog, GraphStyle, Utils) ->
       currentView = null
 
       dialog = null
@@ -36,9 +37,9 @@ angular.module('neo4jApp.controllers')
       $scope.toggleInspector = ->
         $scope.isInspectorShown ^= true
 
-      $scope.$watch 'selectedGraphItem', (val) ->
+      $scope.$watch 'selectedGraphItem', Utils.debounce((val) ->
         $scope.isInspectorShown = !!val
-
+      ,200)
       $scope.isPopupShown = false
       $scope.togglePopup = (content) ->
         if content?

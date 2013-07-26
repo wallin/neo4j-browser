@@ -1,4 +1,37 @@
 'use strict'
+
+clickcancel = ->
+  cc = (selection) ->
+
+    # euclidean distance
+    dist = (a, b) ->
+      Math.sqrt Math.pow(a[0] - b[0], 2), Math.pow(a[1] - b[1], 2)
+    down = undefined
+    tolerance = 5
+    last = undefined
+    wait = null
+    selection.on "mousedown", ->
+      down = d3.mouse(document.body)
+      last = +new Date()
+
+    selection.on "mouseup", ->
+      if dist(down, d3.mouse(document.body)) > tolerance
+        return
+      else
+        if wait
+          window.clearTimeout wait
+          wait = null
+          event.dblclick d3.event.target.__data__
+        else
+          wait = window.setTimeout(((e) ->
+            ->
+              event.click e.target.__data__
+              wait = null
+          )(d3.event), 50)
+
+  event = d3.dispatch("click", "dblclick")
+  d3.rebind cc, event, "on"
+
 angular.module('neo4jApp.controllers')
   .controller('D3GraphCtrl', [
     '$element'
@@ -49,6 +82,9 @@ angular.module('neo4jApp.controllers')
         @update()
         $rootScope.selectedGraphItem = selectedNode
         $rootScope.$apply() unless $rootScope.$$phase
+
+      clickHandler = clickcancel()
+      clickHandler.on 'click', onClick
 
       tick = ->
         relationshipGroups = el.selectAll("g.relationship")
@@ -137,9 +173,8 @@ angular.module('neo4jApp.controllers')
 
         nodeGroups.enter().append("g")
         .attr("class", "node")
-        .on("dblclick", onDblClick)
-        .on("click", onClick)
         .call(force.drag)
+        .call(clickHandler)
 
         for renderer in GraphRenderer.nodeRenderers
           nodeGroups.call(renderer.onGraphChange);
