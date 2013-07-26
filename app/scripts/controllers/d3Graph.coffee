@@ -11,6 +11,7 @@ clickcancel = ->
     last = undefined
     wait = null
     selection.on "mousedown", ->
+      d3.event.target.__data__.fixed = yes
       down = d3.mouse(document.body)
       last = +new Date()
 
