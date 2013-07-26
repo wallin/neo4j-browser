@@ -20,7 +20,7 @@ describe 'Service: GraphStyle', () ->
   GraphStyle = {}
   beforeEach inject (_GraphStyle_) ->
     GraphStyle = _GraphStyle_
-    GraphStyle.loadSheet(styledata)
+    GraphStyle.loadRules(styledata)
 
   describe 'forNode: ', ->
     it 'should be able to get parameters for "node" rules', ->
