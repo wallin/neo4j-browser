@@ -48,16 +48,23 @@ inspector-divider-color = #242E3B
 
   .header
     -webkit-font-smoothing: antialiased
-    font-size: 11px
+    font-size: 15px
     font-weight: bold
-    line-height: 28px
+    line-height: 34px
     padding: 0 10px
     overflow: hidden
+    .preview
+      width: 10px
+      height: 10px
+      border-radius: 50%
+      display: inline-block
+      margin-right: 6px
     a.close
       margin-top: 7px
       font-size: 13px
       color: white
       float: right
+      padding: 3px 0
 
   .nav
     font-weight: bold
@@ -131,16 +138,15 @@ inspector-divider-color = #242E3B
       &.pair
         overflow: hidden
         .key
-          font-weight: bold
           text-align: right
           margin-right: 1em
           width: 90px
           float: left
+          color: darken(inspector-font-color, 20%)
         .value
           overflow: hidden
-          color: darken(inspector-font-color, 15%)
       &.empty
-        color: #999
+        color: darken(inspector-font-color, 20%)
         text-align: center
         font-style: italic
 

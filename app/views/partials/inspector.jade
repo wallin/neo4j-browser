@@ -1,5 +1,7 @@
 inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 295px; right: 16px")
-  .header {{item.labels.join(', ')}}&nbsp;
+  .header
+    span.preview(style='background-color: {{ style.fill }};')
+    {{item.labels.join(', ')}}&nbsp;
     span.muted [{{item.id}}]
     a.close.icon-remove(ng-click='toggleInspector()')
 
