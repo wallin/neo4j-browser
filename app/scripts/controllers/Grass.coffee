@@ -11,4 +11,8 @@ angular.module('neo4jApp')
       $scope.export = ->
         blob = new Blob([$scope.code], {type: "text/css;charset=utf-8"});
         $window.saveAs(blob, "graphstyle.grass");
+
+      $scope.import = (content) ->
+        # TODO: import
+
   ]

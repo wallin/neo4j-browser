@@ -1,10 +1,17 @@
 'use strict';
 angular.module('neo4jApp.directives')
   .controller('fileUpload', [
+    '$attrs'
+    '$parse'
     '$rootScope'
     '$scope'
     '$window'
-    ($rootScope, $scope, $window) ->
+    ($attrs, $parse, $rootScope, $scope, $window) ->
+
+      onUploadSuccess = (content)->
+        if $attrs.upload
+          exp = $parse($attrs.upload)
+          $scope.$apply(->exp($scope, {'$content': content}))
 
       getFirstFileFromEvent = (evt) ->
         files = evt.originalEvent.dataTransfer.files
@@ -27,8 +34,12 @@ angular.module('neo4jApp.directives')
         $scope.active = no
         file = getFirstFileFromEvent(evt)
         return unless file
-        # Only allow text files
-        return if file.type.indexOf('text') < 0
+
+        if $attrs.type
+          return if file.type.indexOf($attrs.type) < 0
+        if $attrs.extension
+          return unless file.name.endsWith($attrs.extension)
+
         $scope.status = "Uploading..."
         @readFile file
 
@@ -51,7 +62,7 @@ angular.module('neo4jApp.directives')
         reader.onloadend = scopeApply (evt) ->
           data = evt.target.result
           data = data.split(';base64,')[1]
-          $rootScope.$broadcast 'fileUpload:success', $window.atob(data)
+          onUploadSuccess($window.atob(data))
           $scope.status = undefined
 
         reader.readAsDataURL(file)
@@ -63,10 +74,10 @@ angular.module('neo4jApp.directives')
     '$window'
     ($window) ->
       controller: 'fileUpload'
-      replace: yes
       restrict: 'E'
-      scope: {}
-      template: '<div class="file-drop-area" ng-class="{active: active}">{{status}}</div>'
+      scope: '@'
+      transclude: yes
+      template: '<div class="file-drop-area" ng-class="{active: active}" ng-transclude>{{status}}</div>'
       link: (scope, element, attrs, ctrl) ->
         return unless $window.FileReader and $window.atob
         element.bind 'dragenter', ctrl.onDragEnter

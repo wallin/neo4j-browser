@@ -54,6 +54,9 @@ angular.module('neo4jApp.controllers')
 
       $scope.createView(input: query)
 
+    $scope.importView = (content) ->
+      $scope.createView(input: content)
+
     $scope.skipViews = (count) ->
       orderedViews = []
       for folder in $scope.folders.all()
@@ -100,9 +103,6 @@ angular.module('neo4jApp.controllers')
       $scope.currentView = $scope.views.get(viewId)
       if not $scope.currentView
         return $location.path('/views')
-
-    $scope.$on 'fileUpload:success', (evt, data) ->
-      $scope.createView(input: data)
 
     $scope.$on 'views:next', ->
       $scope.skipViews(1)
