@@ -1,0 +1,22 @@
+#nav
+  ul.nav.nav-list
+    li.nav-header
+      a(ng-click='togglePopup("about")') Neo4j
+        .logo(ng-class='{loading: currentView.isLoading}')
+          .ball.one
+          .ball.two
+          .ball.three
+    li.active
+      a.icon-home
+    li.dropdown
+      a.icon-book.dropdown-toggle(href='#', data-toggle='dropdown')
+      ul.dropdown-menu
+        li
+          a(ng-click='togglePopup("about")') About this server
+        li
+          a(ng-click='togglePopup("keys")') Keyboard shortcuts
+        li.divider
+        li
+          a(href = "http://docs.neo4j.org", target="_BLANK")
+            | Docs
+            i.icon-external-link.icon-margin-left

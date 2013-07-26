@@ -1,0 +1,103 @@
+@import 'variables'
+@import 'mixins'
+@import 'nib'
+
+@keyframes move-ball-one
+    0%
+      opacity: 1
+      transform:translate(-5px,-14px), scale(1)
+    20%
+      opacity: 0
+      transform:translate(-2.5px,-7px), scale(0.5)
+    100%
+      opacity: 1
+      transform:translate(-5px,-14px), scale(1)
+
+@keyframes move-ball-two
+    0%
+      opacity: 1
+      transform:translate(10px,-7px), scale(1)
+    40%
+      opacity: 0
+      transform:translate(5px,-3.5px), scale(0.5)
+    100%
+      opacity: 1
+      transform:translate(10px,-7px), scale(1)
+
+@keyframes move-ball-three
+    0%
+      opacity: 1
+      transform:translate(-1px,11px), scale(1)
+    60%
+      opacity: 0
+      transform:translate(-0.5px,5.5px), scale(0.5)
+    100%
+      opacity: 1
+      transform:translate(-1px,11px), scale(1)
+
+#nav
+  .nav-list
+    padding: 0
+    > li
+      padding: 0
+      margin: 0
+      border-bottom: 1px solid rgba(255,255,255,0.1)
+      &.nav-header
+        > a
+          line-height: 72px
+          text-indent: -9999px
+      > a
+        text-align: center
+        width: 80px
+        padding: 0
+        margin: 0
+        text-shadow: none
+        color: #676C75
+        line-height: 60px
+        font-size: 28px
+        &:hover
+          color: #fff
+        &:hover
+          background: none
+      &.active
+        border-bottom: none
+        > a
+          color: #fff
+          background: #2E383C;
+
+  fixed: top left
+  width: 80px
+  bottom: 0
+  z-index: 1000000
+  background: #040b1a
+
+  .nav-header:hover .ball
+    background-color: #fff
+
+  .logo
+    absolute: top 35px left 35px
+    .ball
+      background-color: #ddd
+      &.one
+        absolute: top -4px left -4px
+        transform: translate(-5px,-14px)
+        circle(9px)
+      &.two
+        absolute: top -8px left -8px
+        transform: translate(10px,-7px)
+        circle(17px)
+
+      &.three
+        absolute: top -6px left -6px
+        transform: translate(-1px,11px)
+        circle(13px)
+
+    &.loading
+      .ball
+        &.one
+          animation: move-ball-one 1200ms cubic-bezier(0.694, 0.0482, 0.335, 1) infinite
+        &.two
+          animation: move-ball-two 1200ms cubic-bezier(0.694, 0.0482, 0.335, 1) infinite
+        &.three
+          animation: move-ball-three 1200ms cubic-bezier(0.694, 0.0482, 0.335, 1) infinite
+

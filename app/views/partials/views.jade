@@ -1,0 +1,59 @@
+#views
+  #view-background
+  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
+    .view-toolbar
+      ul.inline
+        li(ng-hide="isSidebarShown")
+          a.btn(ng-click="toggleSidebar()")
+            i.icon-expand
+            |  Views
+        li
+          a.btn(ng-click='createView()')
+            i.icon-plus
+            |  New view
+        li
+          a.btn(ng-click='copyView(currentView)')
+            i.icon-copy
+            |  Duplicate
+        li
+          select.span2
+            option(ng-repeat='label in labels') {{label}}
+        li
+          select
+            option(ng-repeat='relation in relationships') {{ relation }}
+    .view-editor(resize="height")
+      span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
+        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id + isEditorHidden', 'focus-on' = 'view.id == currentView.id')
+        a.icon-play-sign('ng-click' = 'view.exec()')
+    .view-result(ng-class='{error: view.hasErrors}', resize="top")
+      .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
+        div(ng-hide='view.isLoading')
+          span(ng-show='view.hasErrors')
+            .icon-warning-sign
+            {{view.errorText}}
+          div(ng-hide='view.hasErrors')
+            div(ng-show='view.response')
+              .icon-ok
+              include result-status
+              span  in <b>{{view.runTime}} ms</b>
+              .updated-code(ng-show='view.savedInput != view.input')
+                .icon-info-sign
+                | Code has changed since last execution.&nbsp;
+                a(ng-click='view.revertCode()') Revert
+            div(ng-hide='view.response')
+              .icon-info-sign
+              | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.
+        span(ng-show='view.isLoading')
+          .icon-spinner.icon-spin
+          | Executing query...
+      .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response.size')
+        .view-result-graph
+          neo-graph(ng-model='view.response', ng-controller='D3GraphCtrl')
+          a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
+          a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
+          include legend
+        .view-result-table
+          .view-result-table-scroll
+            neo-table(ng-model='view.response')
+          a.icon-download-alt('ng-click'='export(view.response)', ng-class='{alone: isTableExpanded}', ng-controller='CSVCtrl', tooltip-placement='left', tooltip='Download CSV')
+          a.icon-collapse('ng-click' = 'toggleGraph()', ng-hide="isTableExpanded", tooltip-placement='left', tooltip='Hide table')

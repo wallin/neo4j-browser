@@ -90,9 +90,9 @@ select
 #views
   position: absolute
   overflow: hidden
-  top: topbar-height
+  top: 0
   bottom: 0
-  left: 0
+  left: 80px
   right: 0
   z-index: 10
   transist all
@@ -263,7 +263,7 @@ select
 .show-sidebar
   .top-bar
   #views, #view-background
-    left: (history-width);
+    left: (sidebar-width + nav-width);
     .view-editor
       .handle
         opacity: 0
