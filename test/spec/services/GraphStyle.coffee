@@ -16,6 +16,25 @@ describe 'Service: GraphStyle', () ->
     'relationship':
       'fill': '#BDC3C7'
 
+  grass = """
+relationship {
+  fill: none;
+  stroke: #e3e3e3;
+  stroke-width: 1.5px;
+}
+
+node.User {
+  fill: #FF6C7C;
+  stroke: #EB5D6C;
+  caption: '{name}';
+}
+
+node {
+  fill: #FCC940;
+  stroke: #F3BA25;
+}
+"""
+
   # instantiate service
   GraphStyle = {}
   beforeEach inject (_GraphStyle_) ->
@@ -34,3 +53,7 @@ describe 'Service: GraphStyle', () ->
 
     it 'should be able to get parameters for "node with type" rules', ->
       expect(GraphStyle.forNode(labels: ['Actor']).get('stroke')).toBe('#fff')
+
+  describe 'parse:', ->
+    it 'should parse rules from grass text', ->
+      expect(GraphStyle.parse(grass).node).toEqual(jasmine.any(Object))

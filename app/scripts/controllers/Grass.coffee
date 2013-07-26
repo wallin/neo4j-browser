@@ -5,14 +5,20 @@ angular.module('neo4jApp')
     '$scope'
     '$window'
     'GraphStyle'
-    ($scope, $window, graphStyle) ->
-      $scope.code = graphStyle.toString()
+    ($scope, $window, GraphStyle) ->
+      serialize = (rules) ->
+        $scope.code = GraphStyle.toString()
+
+      $scope.rules = GraphStyle.rules
+
+      $scope.$watch 'rules', serialize, true
 
       $scope.export = ->
         blob = new Blob([$scope.code], {type: "text/css;charset=utf-8"});
         $window.saveAs(blob, "graphstyle.grass");
 
       $scope.import = (content) ->
-        # TODO: import
+        GraphStyle.import(content)
 
+      serialize(true)
   ]

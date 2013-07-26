@@ -141,18 +141,61 @@ angular.module('neo4jApp.services')
         try
           rules = @parse(string)
           @loadRules(rules)
+          @persist()
         catch
           return
 
       loadRules: (data) ->
         return @ unless angular.isObject(data)
-        @rules = for rule, props of data
-          new StyleRule(new Selector(rule), angular.copy(props))
+        @rules.length = 0
+        for rule, props of data
+          @rules.push(new StyleRule(new Selector(rule), angular.copy(props)))
         @
 
-      parse: ->
+      parse: (string)->
         # TODO
-        return []
+        chars = string.split('')
+        insideString = no
+        insideProps = no
+        keyword = ""
+        props = ""
+
+        rules = {}
+
+        for c in chars
+          skipThis = yes
+          switch c
+            when "{"
+              if not insideString
+                insideProps = yes
+              else
+                skipThis = no
+            when "}"
+              if not insideString
+                insideProps = no
+                rules[keyword] = props
+                keyword = ""
+                props = ""
+              else
+                skipThis = no
+            when "'", "\"" then insideString ^= true
+            else skipThis = no
+
+          continue if skipThis
+
+          if insideProps
+            props += c
+          else
+            keyword += c unless c.match(/[\s\n]/)
+
+        for k, v of rules
+          rules[k] = {}
+          for prop in v.split(';')
+            [key, val] = prop.split(':')
+            continue unless key and val
+            rules[k][key?.trim()] = val?.trim()
+
+        rules
 
       persist: ->
         @storage?.add('grass', JSON.stringify(@toSheet()))
