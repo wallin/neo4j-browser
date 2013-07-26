@@ -1,4 +1,5 @@
 @import 'nib'
+@import 'mixins'
 
 .legend
   absolute: top 16px left 16px
@@ -12,13 +13,19 @@
     &.faded
       opacity: 0.3
     .preview
+      preview-size = 29px
       float: left
       border-radius: 50%
       display: inline-block
-      width: 25px
-      height: 25px
+      width: preview-size
+      height: preview-size
       margin-right: 8px
-      border: 3px solid
+      .shade
+        stretch()
+        background-color: #fff
+        width: (preview-size / 2px)
+        opacity: 0.10
+
     .contents
       //overflow: hidden
       float: left

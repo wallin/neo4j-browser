@@ -2,6 +2,7 @@
   ul.unstyled
     li(ng-repeat='rule in rules | filter:isNode')
       a.preview(style='background-color: {{rule.props.fill}}; border-color: {{rule.props.stroke}}')
+        .shade
       .contents.no-condition
         .class-name {{rule.selector.klass || 'Default'}}
         .condition
