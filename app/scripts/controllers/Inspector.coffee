@@ -12,10 +12,7 @@ angular.module('neo4jApp.controllers')
         $scope.item = angular.copy(item)
         # Need to transfor attrs into array due to some angular repeater problem
         $scope.item.attrs = ({key: k, value: v} for own k, v of item.attrs)
-        rule = GraphStyle.findNodeRule(item)
-        $scope.style = {}
-        if rule
-          angular.extend($scope.style, rule.props)
+        $scope.style = GraphStyle.forNode(item).props
         if $scope.style.caption
           $scope.selectedCaption = $scope.style.caption.replace(/\{([^{}]*)\}/, "$1")
 
