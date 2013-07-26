@@ -58,6 +58,10 @@ angular.module('neo4jApp.controllers')
       #
       # Local methods
       #
+      selectItem = (item) ->
+        $rootScope.selectedGraphItem = item
+        $rootScope.$apply() unless $rootScope.$$phase
+
       onDblClick = (d) =>
         $rootScope.selectedGraphItem = d
         return if d.expanded
@@ -80,8 +84,7 @@ angular.module('neo4jApp.controllers')
           selectedNode = d
 
         @update()
-        $rootScope.selectedGraphItem = selectedNode
-        $rootScope.$apply() unless $rootScope.$$phase
+        selectItem(selectedNode)
 
       clickHandler = clickcancel()
       clickHandler.on 'click', onClick
@@ -175,6 +178,10 @@ angular.module('neo4jApp.controllers')
         .attr("class", "node")
         .call(force.drag)
         .call(clickHandler)
+        .on "mouseover", (d) ->
+          selectItem(d)
+        .on "mouseout", (d) ->
+          selectItem(selectedNode)
 
         for renderer in GraphRenderer.nodeRenderers
           nodeGroups.call(renderer.onGraphChange);
