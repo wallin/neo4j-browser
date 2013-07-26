@@ -24,8 +24,8 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 29
         li
           i.icon-font
           .dropdown
-            a.dropdown-toggle(data-toggle='dropdown') {{selectedCaption || 'Caption...'}} &nbsp;
-            i.icon-caret-down
+            a.dropdown-toggle(data-toggle='dropdown') {{selectedCaption}} &nbsp;
+              i.icon-caret-down
             ul.dropdown-menu.pull-left(role='menu')
               li
                 a(ng-click='selectCaption("id")') ID
