@@ -18,6 +18,8 @@ angular.module('neo4jApp.controllers')
       $scope.$watch 'selectedGraphItem', (item) ->
         return unless item
         $scope.item = angular.copy(item)
+        # Need to transfor attrs into array due to some angular repeater problem
+        $scope.item.attrs = ({key: k, value: v} for own k, v of item.attrs)
         rule = GraphStyle.findNodeRule(item)
         $scope.style = {}
         if rule

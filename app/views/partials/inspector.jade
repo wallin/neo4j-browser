@@ -10,9 +10,9 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 29
         span.name Properties
       ul.sections.unstyled.tight.scrollable
         li.empty(ng-show='hasNoProps()') No properties
-        li.pair(ng-repeat='(name, val) in item.attrs')
-          .key {{name}}
-          .value {{val}}
+        li.pair(ng-repeat='attr in item.attrs')
+          .key {{attr.key}}
+          .value {{attr.value}}
 
     tab
       tab-heading
@@ -27,8 +27,8 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 29
             ul.dropdown-menu.pull-left(role='menu')
               li
                 a(ng-click='selectCaption("id")') ID
-              li(ng-repeat='(name, val) in item.attrs')
-                a(ng-click='selectCaption(name)') {{name}}
+              li(ng-repeat='attr in item.attrs')
+                a(ng-click='selectCaption(attr.key)') {{attr.key}}
         li.colors
           ul.inline
             li(ng-repeat='color in colors')
