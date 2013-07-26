@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('neo4jApp.services')
-  .factory 'GraphStyle', ['$rootScope', ($rootScope) ->
-
+  .provider 'GraphStyle', [->
+    provider = @
     class Selector
       constructor: (selector) ->
         [@tag, @klass] = if selector.indexOf('.') > 0
@@ -41,17 +41,6 @@ angular.module('neo4jApp.services')
       get: (attr) ->
         @props[attr] or ''
 
-    styledata =
-      'node':
-        'fill': '#C3C6C6'
-        'stroke': '#B7B7B7'
-        'stroke-width': '2px'
-        'color': '#fff'
-        'caption': '{id}'
-      'relationship':
-        'fill': 'none'
-        'stroke': '#e3e3e3'
-        'stroke-width': '1.5px'
 
     class GraphStyle
       constructor: -> @rules = []
@@ -104,10 +93,16 @@ angular.module('neo4jApp.services')
         )
 
       destroyRule: (rule) ->
+        idx = @rules.indexOf(rule)
+        @rules.splice(idx, 1) if idx?
+        return
         for r in @rules
           if r == rule
             @rules.splice(@rules.indexOf(rule), 1)
             break
+
+      defaultColors: -> provider.defaultColors
+
 
       toString: ->
         str = ""
@@ -119,7 +114,32 @@ angular.module('neo4jApp.services')
           str += "}\n\n"
         str
 
-    new GraphStyle().loadSheet(styledata)
+    @defaultStyle =
+      'node':
+        'fill': '#C3C6C6'
+        'stroke': '#B7B7B7'
+        'stroke-width': '2px'
+        'color': '#fff'
+        'caption': '{id}'
+      'relationship':
+        'fill': 'none'
+        'stroke': '#e3e3e3'
+        'stroke-width': '1.5px'
+
+    @defaultColors = [
+      { fill: '#C3C6C6', stroke: '#B7B7B7' }
+      { fill: '#30B6AF', stroke: '#46A39E' }
+      { fill: '#AD62CE', stroke: '#9453B1' }
+      { fill: '#FF6C7C', stroke: '#EB5D6C' }
+      { fill: '#F25A29', stroke: '#DC4717' }
+      { fill: '#FCC940', stroke: '#F3BA25' }
+      { fill: '#4356C0', stroke: '#3445A2' }
+    ]
+
+    @$get = ->
+      new GraphStyle().loadSheet(@defaultStyle)
+
+    @
   ]
 
 

@@ -31,10 +31,10 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 29
                 a(ng-click='selectCaption(attr.key)') {{attr.key}}
         li.colors
           ul.inline
-            li(ng-repeat='color in colors')
-              a(style='background-color: {{color[0]}}'
-                ng-class='{active: color[0] == style.fill}'
-                ng-click="selectFill(color)")
+            li(ng-repeat='scheme in colors')
+              a(style='background-color: {{scheme.fill}}'
+                ng-class='{active: scheme.fill == style.fill}'
+                ng-click="selectScheme(scheme)")
         li
           i.icon-code
           a(ng-click='togglePopup("styling")') View stylesheet...

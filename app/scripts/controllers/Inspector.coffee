@@ -5,16 +5,8 @@ angular.module('neo4jApp.controllers')
     '$scope',
     'GraphStyle'
     ($scope, GraphStyle) ->
-      $scope.colors = [
-        ['#C3C6C6', '#B7B7B7']
-        ['#30B6AF', '#46A39E']
-        ['#AD62CE', '#9453B1']
-        ['#FF6C7C', '#EB5D6C']
-        ['#F25A29', '#DC4717']
-        ['#FCC940', '#F3BA25']
-        ['#4356C0', '#3445A2']
-      ]
-      $scope.style = {fill: $scope.colors[0][0]}
+      $scope.colors = GraphStyle.defaultColors()
+      $scope.style = $scope.colors[0]
       $scope.$watch 'selectedGraphItem', (item) ->
         return unless item
         $scope.item = angular.copy(item)
@@ -30,9 +22,8 @@ angular.module('neo4jApp.controllers')
       $scope.hasNoProps = ->
         Object.keys($scope.item.attrs).length == 0
 
-      $scope.selectFill = (color) ->
-        $scope.style.fill = color[0]
-        $scope.style.stroke = color[1]
+      $scope.selectScheme = (color) ->
+        $scope.style = color
         $scope.saveStyle()
 
       $scope.selectCaption  = (caption) ->
