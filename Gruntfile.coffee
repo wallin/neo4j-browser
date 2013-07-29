@@ -14,7 +14,7 @@ module.exports = (grunt) ->
   # configurable paths
   yeomanConfig =
     app: "app"
-    dist: "dist/webui"
+    dist: "dist/browser"
 
   try
     yeomanConfig.app = require("./component.json").appPath or yeomanConfig.app
@@ -42,7 +42,7 @@ module.exports = (grunt) ->
         tasks: ["livereload"]
 
       jade:
-        files: ['app/index.jade', 'app/views/**/*.jade']
+        files: ['app/index.jade', 'app/views/**/*.jade', 'app/content/**/*.jade']
         tasks: ['jade']
 
     connect:
@@ -151,6 +151,12 @@ module.exports = (grunt) ->
         dest: "app/views"
         options:
           client: false
+      content:
+        src: ["app/content/**/*.jade"]
+        dest: "app/content"
+        options:
+          client: false
+          basePath: "app/content/"
 
     concat:
       dist:
@@ -198,7 +204,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: "<%= yeoman.app %>"
-          src: ["*.html", "views/*.html"]
+          src: ["*.html", "views/*.html", "content/**/*.html"]
           dest: "<%= yeoman.dist %>"
         ]
 

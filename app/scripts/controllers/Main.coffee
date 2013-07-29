@@ -16,7 +16,6 @@ angular.module('neo4jApp.controllers')
       parseName = (str) ->
         str.substr(str.lastIndexOf("name=")+5)
 
-
       Server.jmx(["org.neo4j:instance=kernel#0,name=Configuration"]).success((response) ->
         $scope.kernel = {}
         for r in response

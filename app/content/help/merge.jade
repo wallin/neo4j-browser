@@ -1,0 +1,37 @@
+article.help
+  section.summary
+    h1 Cypher - 
+      code MERGE
+    p 
+      | The 
+      code MERGE
+      |  clause ensures that an expected pattern exists in the graph, reconciling
+      | the need to create or update data with sub-clauses 
+      code ON CREATE
+      |  and 
+      code ON MATCH
+      | .
+  section.example
+    h1 Example
+    figure
+      pre.code(mode='cypher').
+        MERGE (charlie:Person { name:'Charlie Sheen', age:10 })
+        RETURN charlie
+    figcaption Look for a person named Charlie Sheen, age 10. If not found, create such a person.
+  section.reference
+    h1 Reference
+    dl
+      dt Details
+      dd
+        a(href='http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-merge.html') 
+          code MERGE
+        |  manual page
+      dt Related
+      dd
+        a(href='/content/help/cypher.html') Cypher overview
+        | , 
+        a(href='http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-merge.html#merge-merge-with-on-create.html') 
+          code ON CREATE
+        | , 
+        a(href='http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-merge.html#merge-merge-with-on-match.html') 
+          code ON MATCH

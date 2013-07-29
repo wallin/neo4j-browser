@@ -1,0 +1,35 @@
+article.help
+  section.summary
+    h1 Cypher - 
+      code DELETE
+    p 
+      | The 
+      code DELETE
+      |  clause is used to delete nodes and relationships
+      | identified within a 
+      code MATCH
+      |  clause, possibly qualified by a 
+      code WHERE
+      | .
+  section.example
+    h1 Example
+    figure
+      pre.code(mode='cypher').
+        MATCH (n)-[r]-() WHERE n.name = 'Soren' DELETE r
+    figcaption Remove all of Soren's friends.
+  section.reference
+    h1 Reference
+    dl
+      dt Details
+      dd
+        a(href='http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-delete.html') DELETE
+        |  manual page
+      dt Related
+      dd
+        a(href='/content/help/cypher.html') Cypher overview
+        | , 
+        a(href='/content/help/match.html') 
+          code MATCH
+        | , 
+        a(href='/content/help/where.html') 
+          code WHERE

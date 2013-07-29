@@ -1,0 +1,5 @@
+<article class="help"><section class="summary"><h1>Cypher - <code>SET</code></h1><p> 
+The <code>SET</code> clause describes a pattern of graph data. Neo4j will collect
+all paths within the graph which match this pattern. Often used
+with <code>WHERE</code> to filter the collection of matching paths.</p></section><section class="example"><h1>Example</h1><figure><pre mode="cypher" class="code">MATCH (director:Person)-[:DIRECTED]-&gt;(movie)
+RETURN director, collect(movie.title)</pre></figure><figcaption>Find all patterns of people who have directed a movie, then list them.</figcaption></section><section class="reference"><h1>Reference</h1><dl><dt>Details</dt><dd><a href="http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-set.html"> <code>SET</code></a> manual page</dd><dt>Related</dt><dd><a href="/content/help/cypher.html">Cypher overview</a>, <a href="/content/help/where.html"> <code>WHERE</code></a></dd></dl></section></article>

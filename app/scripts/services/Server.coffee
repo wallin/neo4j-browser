@@ -24,7 +24,7 @@ angular.module('neo4jApp.services')
 
       class Server
         constructor: ->
-
+                
         #
         # Basic HTTP methods
         #

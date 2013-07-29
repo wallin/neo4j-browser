@@ -1,0 +1,43 @@
+article.help
+  section.summary
+    h1 Cypher - 
+      code CREATE UNIQUE
+    p 
+      | The 
+      code CREATE UNIQUE 
+      | clause is a mix of 
+      code MATCH
+      |  and 
+      code CREATE
+      |  &mdash; it will match what it can, and create what is missing.
+  section.example
+    h1 Example
+    figure
+      pre.code(mode='cypher').
+        MATCH (us:Country)
+        WHERE us.name = 'United States'
+        CREATE UNIQUE (us)-[:STATE]->(ca {name:'California'})
+        RETURN ca
+    figcaption Creates a new state named California, only if it
+      | doesn't already exist.
+  section.reference
+    h1 Reference
+    dl
+      dt Details
+      dd
+        a(href='http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-create-unique.html')
+          code CREATE UNIQUE
+        |  manual page
+      dt Related
+      dd
+        a(href='/content/help/match.html') 
+          code MATCH
+        | , 
+        a(href='/content/help/create.html') 
+          code CREATE
+        | , 
+        a(href='/content/help/merge.html') 
+          code MERGE
+        | , 
+        a(href='/content/help/cypher.html')
+          | Cypher overview

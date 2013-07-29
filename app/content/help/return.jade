@@ -1,0 +1,33 @@
+article.help
+  section.summary
+    h1 Cypher - 
+      code RETURN
+    p 
+      | The 
+      code RETURN
+      |  clause describes a pattern of graph data. Neo4j will collect
+      | all paths within the graph which match this pattern. Often used
+      | with 
+      code WHERE
+      |  to filter the collection of matching paths.
+  section.example
+    h1 Example
+    figure
+      pre.code(mode='cypher').
+        MATCH (director:Person)-[:DIRECTED]->(movie)
+        RETURN director, collect(movie.title)
+    figcaption Find all patterns of people who have directed a movie, then list them.
+  section.reference
+    h1 Reference
+    dl
+      dt Details
+      dd
+        a(href='http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-return.html') 
+          code RETURN
+        |  manual page
+      dt Related
+      dd
+        a(href='/content/help/cypher.html') Cypher overview
+        | , 
+        a(href='/content/help/where.html') 
+          code WHERE

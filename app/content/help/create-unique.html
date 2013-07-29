@@ -1,0 +1,6 @@
+<article class="help"><section class="summary"><h1>Cypher - <code>CREATE UNIQUE</code></h1><p> 
+The <code>CREATE UNIQUE </code>clause is a mix of <code>MATCH</code> and <code>CREATE</code> &mdash; it will match what it can, and create what is missing.</p></section><section class="example"><h1>Example</h1><figure><pre mode="cypher" class="code">MATCH (us:Country)
+WHERE us.name = 'United States'
+CREATE UNIQUE (us)-[:STATE]-&gt;(ca {name:'California'})
+RETURN ca</pre></figure><figcaption>Creates a new state named California, only if it
+doesn't already exist.</figcaption></section><section class="reference"><h1>Reference</h1><dl><dt>Details</dt><dd><a href="http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-create-unique.html"><code>CREATE UNIQUE</code></a> manual page</dd><dt>Related</dt><dd><a href="/content/help/match.html"> <code>MATCH</code></a>, <a href="/content/help/create.html"> <code>CREATE</code></a>, <a href="/content/help/merge.html"> <code>MERGE</code></a>, <a href="/content/help/cypher.html">Cypher overview</a></dd></dl></section></article>
