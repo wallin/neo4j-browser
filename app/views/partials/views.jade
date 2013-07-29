@@ -36,6 +36,7 @@
               .icon-ok
               include result-status
               span  in <b>{{view.runTime}} ms</b>
+              .details.btn.btn-small(popover-animation='true', popover="{{resultDetails()}}", popover-title="Detailed results", popover-placement='bottom', ng-show="view.response.stats.contains_updates") Details
               .updated-code(ng-show='view.savedInput != view.input')
                 .icon-info-sign
                 | Code has changed since last execution.&nbsp;
