@@ -86,20 +86,17 @@ angular.module('neo4jApp.controllers')
         $scope.isPopupShown = !!content
 
       $scope.globalKey = (e) ->
-
         # Don't toggle anything when shortcut popup is open
         return if $scope.isPopupShown and e.keyCode != 191
-
-        # Toggle inspector on space
-        if e.keyCode is 32 and $scope.selectedGraphItem
-          $scope.toggleInspector()
 
         if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
           $scope.$broadcast 'views:exec'
           $scope.editorChanged()
         else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
+          e.preventDefault()
           $scope.$broadcast 'views:previous'
         else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down
+          e.preventDefault()
           $scope.$broadcast 'views:next'
         else if e.keyCode is 27 # Esc
           if $scope.isPopupShown
@@ -108,16 +105,16 @@ angular.module('neo4jApp.controllers')
             $scope.toggleEditor()
 
         else if $scope.isEditorHidden
+          e.preventDefault()
+          # Toggle inspector on space
+          if e.keyCode is 32 and $scope.selectedGraphItem
+            $scope.toggleInspector()
           if e.keyCode is 72 # h
             $scope.toggleSidebar()
           else if e.keyCode is 84 # t
             $scope.toggleGraph()
           else if e.keyCode is 191 # ?
             $scope.togglePopup('keys')
-          else if e.keyCode is 78 # n
-            $scope.$broadcast 'views:create'
-          else if e.keyCode is 68 # d
-            alert "duplicate current view"
 
       $scope.$on 'currentView:changed', (evt, view) ->
         currentView = view
