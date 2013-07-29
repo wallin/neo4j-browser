@@ -16,7 +16,8 @@ angular.module('neo4jApp.controllers')
     persistViews = ->
       viewService.persist('views', $scope.views.where(starred: yes))
 
-    persistFolders = ->
+    persistFolders = $scope.persistFolders = ->
+      console.log 'hej'
       viewService.persist('folders', $scope.folders.all())
 
     scopeApply = (fn)->
