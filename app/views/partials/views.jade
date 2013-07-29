@@ -50,8 +50,14 @@
           | Executing query...
       .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response.size')
         .view-result-graph
-          neo-graph(ng-model='view.response', ng-controller='D3GraphCtrl')
-          a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
+          svg(
+            neo-graph,
+            ng-model='view.response',
+            ng-controller='D3GraphCtrl'
+            style="pointer-events:fill;",
+            viewbox="0 0 1280 768",
+            preserveAspectRatio="xMidyMid")
+
           a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
           include legend
         .view-result-table

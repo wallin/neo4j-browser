@@ -46,6 +46,7 @@ angular.module('neo4jApp.controllers')
       # Local variables
       #
       el = d3.select($element[0])
+      el.append('defs')
       graph = null
 
       selectedNode = null
