@@ -60,8 +60,15 @@
       absolute: top 11px right 17px
       font-size: 16px
       color: sidebar-color-fg-icon
+      display: none
       &:hover
         color: sidebar-color-fg-icon-hover
+    &:hover
+      .icon-trash
+        display: block
+      .edit-in-place-trigger
+        display: inline
+
   ul
     li.active .list-item
       &:after
@@ -87,6 +94,8 @@
           width 0
           opacity 0
         &:hover
+          .icon-star, .icon-star-empty
+            display: block
           .contents a
             color: sidebar-color-fg-active
         .background
@@ -99,6 +108,7 @@
         .icon-star, .icon-star-empty
           z-index 2
           absolute: right 16px top 12px
+          display: none
         .icon-play-sign, .icon-spinner
           z-index 2
           absolute: left 15px top 12px
