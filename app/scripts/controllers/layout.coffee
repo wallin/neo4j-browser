@@ -54,7 +54,7 @@ angular.module('neo4jApp.controllers')
               $scope.isPopupShown = no
             )
         else
-          dialog.close()
+          dialog.close() if dialog?
 
         # Add unique classes so that we can style popups individually
         dialog.modalEl.removeClass('modal-' + $scope.popupContent) if $scope.popupContent
@@ -105,7 +105,8 @@ angular.module('neo4jApp.controllers')
 
       # First level page routes
       $scope.$on '$routeChangeSuccess', ->
-        dialog.close() if dialog?.isOpen()
+        $scope.togglePopup()
+        $scope.isInspectorShown = no
         $scope.currentPage = $route.current.page
 
   ]
