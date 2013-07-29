@@ -37,6 +37,11 @@ angular.module('neo4jApp.controllers')
             Relationships created: #{stats.relationships_created}<br>
             "
 
+      $scope.editorHeight = 0
+      $scope.editorChanged = (e) ->
+        $scope.editorHeight = $('.view-editor').height() + 41 # toolbar
+        $scope.$apply() if !$scope.$$phase
+
       $scope.isEditorHidden = false
       $scope.toggleEditor = ->
         $scope.isEditorHidden ^= true
@@ -91,6 +96,7 @@ angular.module('neo4jApp.controllers')
 
         if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
           $scope.$broadcast 'views:exec'
+          $scope.editorChanged()
         else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
           $scope.$broadcast 'views:previous'
         else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down

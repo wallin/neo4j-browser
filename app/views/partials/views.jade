@@ -23,9 +23,9 @@
             option(ng-repeat='relation in relationships') {{ relation }}
     .view-editor(resize="height")
       span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
-        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='editor.content', 'ui-refresh'='editor.content + isEditorHidden')
+        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}", 'ng-model'='editor.content', 'ui-refresh'='editor.content + isEditorHidden')
         a.icon-play-sign('ng-click' = 'execScript(editor.content)')
-  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id')
+  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', style="top: {{editorHeight}}px")
     .view-result(ng-class='{error: view.hasErrors}', resize="top")
       .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
         div(ng-hide='view.isLoading')
