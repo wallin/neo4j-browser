@@ -5,12 +5,16 @@
       ul.inline
         li
           a.btn(ng-click="toggleSidebar()")
-            i.icon-expand
-            |  Views
+            i.icon-file-text
+            |  History
+        li
+          a.btn(ng-click="execScript(editor.content)")
+            i.icon-play-sign
+            |  Run
         li
           a.btn(ng-click='setEditorContent("")')
-            i.icon-plus
-            |  Clear view
+            i.icon-file-alt
+            |  Clear
         li
           select.span2
             option(ng-repeat='label in labels') {{label}}
