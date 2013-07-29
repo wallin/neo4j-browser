@@ -105,6 +105,7 @@ angular.module('neo4jApp.controllers')
 
       # First level page routes
       $scope.$on '$routeChangeSuccess', ->
+        dialog.close() if dialog?.isOpen()
         $scope.currentPage = $route.current.page
 
   ]
