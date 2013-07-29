@@ -13,6 +13,7 @@ app = angular.module('neo4jApp', [
   'ui.bootstrap.dropdownToggle'
   'ui.bootstrap.position'
   'ui.bootstrap.tooltip'
+  'ui.bootstrap.popover'
   'ui.bootstrap.tabs'
   'ui.codemirror'
   'ui.sortable'

@@ -1,10 +1,7 @@
 span(ng-show='view.hasErrors')
   | Execution error
 span(ng-hide='view.hasErrors')
-  span(ng-show='view.response.stats.nodes_created')
-    | Created
-    <b>{{view.response.stats.nodes_created}} nodes</b>
-  span(ng-hide='view.response.stats.nodes_created')
+  span
     | Returned
     <b ng-show='!view.response.isTextOnly()'>{{view.response.nodes.length}} nodes</b>
     <b ng-show='view.response.isTextOnly()'>{{view.response.other.length}} rows</b>

@@ -174,7 +174,6 @@ select
     &.error
       background-image: url('/images/background-error.png')
     .status-bar
-      overflow: hidden
       position: absolute;
       cursor: move
       top: 0
@@ -188,6 +187,14 @@ select
       border-bottom: 1px solid table-color-border-color
       padding-left: horizontal-padding
       font-size: 13px
+      .popover.bottom
+        line-height: 22px
+        .arrow:after
+          border-bottom-color: #f7f7f7
+          border-top-width: 0
+      .details
+        margin-top: -4px
+        margin-left: 12px
       .updated-code
         float:right
         margin-right horizontal-padding
