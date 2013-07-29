@@ -5,18 +5,17 @@ article.help
     p 
       | The 
       code WITH
-      |  clause describes a pattern of graph data. Neo4j will collect
-      | all paths within the graph which match this pattern. Often used
-      | with 
-      code WHERE
-      |  to filter the collection of matching paths.
+      |  clause allows queries to be chained together, piping the results from one
+      | to be used as starting points or criteria in the next.
   section.example
     h1 Example
     figure
       pre.code(mode='cypher').
         MATCH (director:Person)-[:DIRECTED]->(movie)
-        RETURN director, collect(movie.title)
-    figcaption Find all patterns of people who have directed a movie, then list them.
+        WITH director, ORDER BY count(movie.title) LIMIT 1
+          MATCH (director)<-[:KNOWS*..6]-(hopeful)
+          WHERE hopeful.name = "Starlet Ohuru"
+    figcaption Find a path from a hopeful actor to Hollywood's most prolific director.
   section.reference
     h1 Reference
     dl
@@ -29,5 +28,5 @@ article.help
       dd
         a(href='/content/help/cypher.html') Cypher overview
         | , 
-        a(href='/content/help/where.html') 
-          code WHERE
+        a(href='/content/help/MATCH.html') 
+          code MATCH

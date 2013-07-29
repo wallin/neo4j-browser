@@ -1,5 +1,6 @@
 <article class="help"><section class="summary"><h1>Cypher - <code>WITH</code></h1><p> 
-The <code>WITH</code> clause describes a pattern of graph data. Neo4j will collect
-all paths within the graph which match this pattern. Often used
-with <code>WHERE</code> to filter the collection of matching paths.</p></section><section class="example"><h1>Example</h1><figure><pre mode="cypher" class="code">MATCH (director:Person)-[:DIRECTED]-&gt;(movie)
-RETURN director, collect(movie.title)</pre></figure><figcaption>Find all patterns of people who have directed a movie, then list them.</figcaption></section><section class="reference"><h1>Reference</h1><dl><dt>Details</dt><dd><a href="http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-with.html"> <code>WITH</code></a> manual page</dd><dt>Related</dt><dd><a href="/content/help/cypher.html">Cypher overview</a>, <a href="/content/help/where.html"> <code>WHERE</code></a></dd></dl></section></article>
+The <code>WITH</code> clause allows queries to be chained together, piping the results from one
+to be used as starting points or criteria in the next.</p></section><section class="example"><h1>Example</h1><figure><pre mode="cypher" class="code">MATCH (director:Person)-[:DIRECTED]-&gt;(movie)
+WITH director, ORDER BY count(movie.title) LIMIT 1
+  MATCH (director)&lt;-[:KNOWS*..6]-(hopeful)
+  WHERE hopeful.name = &quot;Starlet Ohuru&quot;</pre></figure><figcaption>Find a path from a hopeful actor to Hollywood's most prolific director.</figcaption></section><section class="reference"><h1>Reference</h1><dl><dt>Details</dt><dd><a href="http://docs.neo4j.org/chunked/{{neo4jVersion}}/query-with.html"> <code>WITH</code></a> manual page</dd><dt>Related</dt><dd><a href="/content/help/cypher.html">Cypher overview</a>, <a href="/content/help/MATCH.html"> <code>MATCH</code></a></dd></dl></section></article>

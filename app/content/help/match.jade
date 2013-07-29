@@ -6,17 +6,23 @@ article.help
       | The 
       code MATCH
       |  clause describes a pattern of graph data. Neo4j will collect
-      | all paths within the graph which match this pattern. Often used
-      | with 
+      | all paths within the graph which match this pattern. 
+      | This is often used with   
       code WHERE
-      |  to filter the collection of matching paths.
+      |  to filter the collection. 
+    p
+      code MATCH
+      |  descibes the structure, and 
+      code WHERE 
+      | specfies the content of a query.
   section.example
     h1 Example
     figure
       pre.code(mode='cypher').
         MATCH (director:Person)-[:DIRECTED]->(movie)
-        RETURN director, collect(movie.title)
-    figcaption Find all patterns of people who have directed a movie, then list them.
+        WHERE director.name = "Steven Spielberg"
+        RETURN movie.title
+    figcaption Find all the many fine films directed by Steven Spielberg.
   section.reference
     h1 Reference
     dl

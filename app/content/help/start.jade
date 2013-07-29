@@ -5,18 +5,15 @@ article.help
     p 
       | The 
       code START
-      |  clause describes a pattern of graph data. Neo4j will collect
-      | all paths within the graph which match this pattern. Often used
-      | with 
-      code WHERE
-      |  to filter the collection of matching paths.
+      |  clause binds starting points within the graph, by directly looking up 
+      | a node ID, or using a special (non-schema) index.
   section.example
     h1 Example
     figure
       pre.code(mode='cypher').
-        MATCH (director:Person)-[:DIRECTED]->(movie)
-        RETURN director, collect(movie.title)
-    figcaption Find all patterns of people who have directed a movie, then list them.
+        START n=node(0)
+        RETURN n
+    figcaption Bind n to node with ID 0, then return that node.
   section.reference
     h1 Reference
     dl
@@ -30,4 +27,7 @@ article.help
         a(href='/content/help/cypher.html') Cypher overview
         | , 
         a(href='/content/help/where.html') 
-          code WHERE
+          code MATCH
+        | , 
+        a(href='/content/help/return.html') 
+          code RETURN

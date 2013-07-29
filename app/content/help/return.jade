@@ -5,18 +5,14 @@ article.help
     p 
       | The 
       code RETURN
-      |  clause describes a pattern of graph data. Neo4j will collect
-      | all paths within the graph which match this pattern. Often used
-      | with 
-      code WHERE
-      |  to filter the collection of matching paths.
+      |  clause defines what to include in a query result set, specified as a comma separated list of expressions.
   section.example
     h1 Example
     figure
       pre.code(mode='cypher').
         MATCH (director:Person)-[:DIRECTED]->(movie)
-        RETURN director, collect(movie.title)
-    figcaption Find all patterns of people who have directed a movie, then list them.
+        RETURN director.name AS Director, collect(movie.title) AS Movies
+    figcaption Return all directors, each paired with a collection of the movies they've directed.
   section.reference
     h1 Reference
     dl
@@ -29,5 +25,5 @@ article.help
       dd
         a(href='/content/help/cypher.html') Cypher overview
         | , 
-        a(href='/content/help/where.html') 
-          code WHERE
+        a(href='/content/help/match.html') 
+          code MATCH

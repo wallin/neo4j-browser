@@ -5,18 +5,15 @@ article.help
     p 
       | The 
       code SET
-      |  clause describes a pattern of graph data. Neo4j will collect
-      | all paths within the graph which match this pattern. Often used
-      | with 
-      code WHERE
-      |  to filter the collection of matching paths.
+      |  clause updates properties on nodes and relationships.
   section.example
     h1 Example
     figure
       pre.code(mode='cypher').
-        MATCH (director:Person)-[:DIRECTED]->(movie)
-        RETURN director, collect(movie.title)
-    figcaption Find all patterns of people who have directed a movie, then list them.
+        MATCH (fan:Person)-[w:WATCHED]->(movie)
+        WHERE fan.name = "Mikey"
+        SET w.rating = 5
+    figcaption Mikey likes everything, so give any movie he has watched 5 stars.
   section.reference
     h1 Reference
     dl
@@ -28,6 +25,9 @@ article.help
       dt Related
       dd
         a(href='/content/help/cypher.html') Cypher overview
+        | , 
+        a(href='/content/help/match.html') 
+          code MATCH
         | , 
         a(href='/content/help/where.html') 
           code WHERE
