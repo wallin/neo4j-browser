@@ -3,20 +3,26 @@
 angular.module('neo4jApp.controllers')
   .controller 'MainCtrl', [
     '$rootScope',
+    '$window'
     'Server'
     'Settings'
-    ($scope, Server, Settings) ->
+    ($scope, $window, Server, Settings) ->
       refresh = ->
         $scope.labels = Server.labels()
         $scope.relationships = Server.relationships()
         $scope.server = Server.rest()
-        $scope.host = Settings.host
+        $scope.host = $window.location.host
       $scope.$on 'db:result:containsUpdates', refresh
 
       parseName = (str) ->
         str.substr(str.lastIndexOf("name=")+5)
 
-      Server.jmx(["org.neo4j:instance=kernel#0,name=Configuration"]).success((response) ->
+      Server.jmx(
+        [
+          "org.neo4j:instance=kernel#0,name=Configuration"
+          "org.neo4j:instance=kernel#0,name=Kernel"
+        ]
+      ).success((response) ->
         $scope.kernel = {}
         for r in response
           for a in r.attributes

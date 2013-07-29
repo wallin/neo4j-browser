@@ -11,15 +11,15 @@
           .value {{host}}
         li
           .key Database:
-          .value TBD
+          .value {{kernel.store_dir}}
         li
           .key Store location:
-          .value {{kernel.store_dir}}
+          .value {{kernel.StoreDirectory}}
 
       ul
         li
           .key Disk:
-          .value TBD
+          .value &mdash;
         li
           .key Memory:
           .value {{kernel.all_stores_total_mapped_memory_size}}
