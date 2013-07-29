@@ -1,3 +1,5 @@
+@import 'nib'
+
 .graph-viz {
   float: left;
   width: 500px;
@@ -21,10 +23,14 @@ text
   .faded
     fill: #333
 
-.node.faded
+.node
+  .outline
+    transform: scale(1)
+    transition: all 0.15s
+    transition-timing-function: cubic-bezier(0.694, 0.0482, 0.335, 1)
   &:hover
-    circle
-      transform: scale(1.2, 1.2)
+    .outline
+      transform: scale(1.4)
 
 .outline, .overlay
   cursor: pointer
