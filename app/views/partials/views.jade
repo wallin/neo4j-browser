@@ -3,7 +3,7 @@
   .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
     .view-toolbar
       ul.inline
-        li(ng-hide="isSidebarShown")
+        li
           a.btn(ng-click="toggleSidebar()")
             i.icon-expand
             |  Views
