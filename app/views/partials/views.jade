@@ -24,7 +24,7 @@
     .view-editor(resize="height")
       span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
         textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id + isEditorHidden', 'focus-on' = 'view.id == currentView.id')
-        a.icon-play-sign('ng-click' = 'view.exec()')
+        a.icon-play-sign('ng-click' = 'execScript(view.input)')
     .view-result(ng-class='{error: view.hasErrors}', resize="top")
       .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
         div(ng-hide='view.isLoading')

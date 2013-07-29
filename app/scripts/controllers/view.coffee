@@ -54,8 +54,12 @@ angular.module('neo4jApp.controllers')
 
       $scope.createView(input: query)
 
+    # Executes a script and pushes it to history
+    $scope.execScript = (input) ->
+      $scope.createView(input: input).exec()
+
     $scope.importView = (content) ->
-      $scope.createView(input: content)
+      $scope.createView(input: content, starred: yes)
 
     $scope.skipViews = (count) ->
       orderedViews = []
@@ -170,9 +174,6 @@ angular.module('neo4jApp.controllers')
       $scope.$emit('currentView:changed', val)
     $scope.$watch 'currentView.response', ->
       $scope.$emit('currentView:changed', $scope.currentView)
-
-    if $scope.views.where(starred: no).length is 0
-      $scope.createView(undefined, no) # Create new view with default name
 
     $scope.currentView = $scope.views.last()
   ]

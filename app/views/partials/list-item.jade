@@ -1,6 +1,6 @@
 .list-item
   a.background(href="{{viewUrl(view.id)}}")
-  a(ng-click='view.exec()', ng-class='{"icon-spinner icon-spin": view.isLoading, "icon-play-sign": !view.isLoading}', tooltip-placement='right', tooltip='Execute script')
+  a(ng-click='execScript(view.input)', ng-class='{"icon-spinner icon-spin": view.isLoading, "icon-play-sign": !view.isLoading}', tooltip-placement='right', tooltip='Execute script')
   a('ng-click'="toggleStar(view)", ng-class='{"icon-star": view.starred, "icon-star-empty": !view.starred}', tooltip-placement='left', tooltip='Save/Unsave')
   .contents
     a(href="{{viewUrl(view.id)}}")

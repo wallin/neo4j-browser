@@ -2,10 +2,10 @@
   h3
     a(ng-click="toggleSidebar()") Views
     a.close.icon-remove(ng-click="toggleSidebar()")
-  h4 Saved
+  h4 Saved scripts
     a.add(ng-click='createFolder()')
       .icon-plus
-      |  Add folder
+      | Add folder
   .droppable(
     ng-repeat='folder in folders.all()', ui-sortable="sortableOptions",
     ng-animate="'animate-scale'")
@@ -24,13 +24,13 @@
          ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
          ng-animate="'animate-scale'")
         include list-item
+  file-upload(upload="importView($content)", type='text')
+    | Drop Cypher script file to import
   .droppable(ui-sortable="sortableOptions")
-    h4 Recent
+    h4 History
     ul
       li(ng-repeat='view in views.where({starred: false})',
          ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
          ng-animate="'animate-scale'")
         include list-item
 
-  file-upload(upload="importView($content)", type='text')
-    | Drop Cypher script here
