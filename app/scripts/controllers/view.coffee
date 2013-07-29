@@ -55,7 +55,7 @@ angular.module('neo4jApp.controllers')
       $scope.createView(input: query)
 
     $scope.setEditorContent = (content) ->
-      $scope.editorContent = content
+      $scope.editor.content = content
 
     # Executes a script and pushes it to history
     $scope.execScript = (input) ->
@@ -66,7 +66,8 @@ angular.module('neo4jApp.controllers')
 
     $scope.loadView = (view) ->
       $scope.currentView = view
-      $scope.editorContent = view.input
+      $scope.editor =
+        content: view.input
 
     $scope.skipViews = (count) ->
       orderedViews = []
@@ -77,8 +78,8 @@ angular.module('neo4jApp.controllers')
         if $scope.currentView.id == view.id
           newIndex = (i + count)
           newIndex = orderedViews.length + newIndex if newIndex < 0
-          $scope.currentView = orderedViews[newIndex % orderedViews.length]
-          $location.path($scope.viewPath($scope.currentView.id))
+          newView = orderedViews[newIndex % orderedViews.length]
+          $location.path($scope.viewPath(newView.id))
           break
 
     $scope.removeFolder = (folder) ->
@@ -128,7 +129,7 @@ angular.module('neo4jApp.controllers')
       $scope.createView()
 
     $scope.$on 'views:exec', ->
-      $scope.execScript($scope.editorContent)
+      $scope.execScript($scope.editor.content)
 
     ###*
      * Initialization
