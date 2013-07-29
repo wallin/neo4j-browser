@@ -109,19 +109,7 @@ select
   z-index: 10
   transist all
 
-.view
-  position: absolute
-  top: 0
-  bottom: 0
-  left: 0
-  right: 0
-  &.anim
-    transform: scale(0.9, 0.9)
-  &.outside
-    transform: translate(0, -1000px)
-  &.enter
-    transform: translate(0, 0)
-
+.view-input
   .view-toolbar
     position: absolute;
     top: 0
@@ -162,9 +150,23 @@ select
       &:hover
         color: color-success
 
+.view
+  position: absolute
+  top: editor-height + toolbar-height
+  bottom: 0
+  left: 0
+  right: 0
+  &.anim
+    transform: scale(0.9, 0.9)
+  &.outside
+    transform: translate(0, -1000px)
+  &.enter
+    transform: translate(0, 0)
+
+
   .view-result
     position: absolute;
-    top: editor-height + toolbar-height
+    top: 0
     bottom: 0
     right: 0
     left: 0

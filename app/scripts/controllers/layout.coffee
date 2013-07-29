@@ -90,7 +90,7 @@ angular.module('neo4jApp.controllers')
           $scope.toggleInspector()
 
         if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
-          currentView?.exec()
+          $scope.$broadcast 'views:exec'
         else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
           $scope.$broadcast 'views:previous'
         else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down

@@ -54,12 +54,19 @@ angular.module('neo4jApp.controllers')
 
       $scope.createView(input: query)
 
+    $scope.setEditorContent = (content) ->
+      $scope.editorContent = content
+
     # Executes a script and pushes it to history
     $scope.execScript = (input) ->
       $scope.createView(input: input).exec()
 
     $scope.importView = (content) ->
       $scope.createView(input: content, starred: yes)
+
+    $scope.loadView = (view) ->
+      $scope.currentView = view
+      $scope.editorContent = view.input
 
     $scope.skipViews = (count) ->
       orderedViews = []
@@ -105,9 +112,11 @@ angular.module('neo4jApp.controllers')
         viewId = $scope.views.last().id
         $location.path($scope.viewPath(viewId))
 
-      $scope.currentView = $scope.views.get(viewId)
-      if not $scope.currentView
+      view = $scope.views.get(viewId)
+      if not view
         return $location.path('/views')
+      else
+        $scope.loadView(view)
 
     $scope.$on 'views:next', ->
       $scope.skipViews(1)
@@ -118,6 +127,8 @@ angular.module('neo4jApp.controllers')
     $scope.$on 'views:create', ->
       $scope.createView()
 
+    $scope.$on 'views:exec', ->
+      $scope.execScript($scope.editorContent)
 
     ###*
      * Initialization
@@ -175,5 +186,5 @@ angular.module('neo4jApp.controllers')
     $scope.$watch 'currentView.response', ->
       $scope.$emit('currentView:changed', $scope.currentView)
 
-    $scope.currentView = $scope.views.last()
+    $scope.loadView($scope.views.last())
   ]

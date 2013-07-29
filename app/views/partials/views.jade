@@ -1,6 +1,6 @@
-#views
+#views(resizable)
   #view-background
-  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', resizable)
+  .view-input
     .view-toolbar
       ul.inline
         li
@@ -8,13 +8,9 @@
             i.icon-expand
             |  Views
         li
-          a.btn(ng-click='createView()')
+          a.btn(ng-click='setEditorContent("")')
             i.icon-plus
-            |  New view
-        li
-          a.btn(ng-click='copyView(currentView)')
-            i.icon-copy
-            |  Duplicate
+            |  Clear view
         li
           select.span2
             option(ng-repeat='label in labels') {{label}}
@@ -23,8 +19,9 @@
             option(ng-repeat='relation in relationships') {{ relation }}
     .view-editor(resize="height")
       span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
-        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='view.input', 'ui-refresh'='currentView.id + isEditorHidden', 'focus-on' = 'view.id == currentView.id')
-        a.icon-play-sign('ng-click' = 'execScript(view.input)')
+        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onFocus: blurred}", 'ng-model'='editorContent', 'ui-refresh'='editorContent + isEditorHidden')
+        a.icon-play-sign('ng-click' = 'execScript(editorContent)')
+  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id')
     .view-result(ng-class='{error: view.hasErrors}', resize="top")
       .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
         div(ng-hide='view.isLoading')
