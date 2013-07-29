@@ -13,6 +13,19 @@ angular.module('neo4jApp.controllers')
      * Local methods
     ###
 
+    handleRoute = ->
+      return unless $route.current.page is 'views'
+      viewId = $route.current.params.viewId
+      if not viewId?
+        viewId = $scope.views.last().id
+        $location.path($scope.viewPath(viewId))
+
+      view = $scope.views.get(viewId)
+      if not view
+        return $location.path('/views')
+      else
+        $scope.loadView(view)
+
     persistViews = ->
       viewService.persist('views', $scope.views.where(starred: yes))
 
@@ -109,18 +122,7 @@ angular.module('neo4jApp.controllers')
      * Event listeners
     ###
 
-    $scope.$on '$routeChangeSuccess', ->
-      return unless $route.current.page is 'views'
-      viewId = $route.current.params.viewId
-      if not viewId?
-        viewId = $scope.views.last().id
-        $location.path($scope.viewPath(viewId))
-
-      view = $scope.views.get(viewId)
-      if not view
-        return $location.path('/views')
-      else
-        $scope.loadView(view)
+    $scope.$on '$routeChangeSuccess', handleRoute
 
     $scope.$on 'views:next', ->
       $scope.skipViews(1)
@@ -190,5 +192,5 @@ angular.module('neo4jApp.controllers')
     $scope.$watch 'currentView.response', ->
       $scope.$emit('currentView:changed', $scope.currentView)
 
-    $scope.loadView($scope.views.last())
+    handleRoute()
   ]
