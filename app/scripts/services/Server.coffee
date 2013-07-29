@@ -24,7 +24,7 @@ angular.module('neo4jApp.services')
 
       class Server
         constructor: ->
-                
+
         #
         # Basic HTTP methods
         #
@@ -76,5 +76,5 @@ angular.module('neo4jApp.services')
         log: (path) ->
           @get(path).then((r)-> console.log (r))
 
-      window.server = new Server
+      new Server
   ]
