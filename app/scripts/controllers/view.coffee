@@ -83,6 +83,8 @@ angular.module('neo4jApp.controllers')
           break
 
     $scope.removeFolder = (folder) ->
+      okToRemove = confirm("Are you sure you want to delete the folder?")
+      return unless okToRemove
       $scope.folders.remove(folder)
       viewsToRemove = $scope.views.where(folder: folder.id)
       $scope.views.remove(viewsToRemove)
