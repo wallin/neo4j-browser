@@ -6,8 +6,10 @@
           .ball.one
           .ball.two
           .ball.three
-    li.active
-      a.icon-home
+    li(ng-class='{active: currentPage == "views"}')
+      a.icon-home(href='#/views')
+    li(ng-class='{active: currentPage == "system"}')
+      a.icon-gears(href='#/system')
     li.dropdown
       a.icon-book.dropdown-toggle(href='#', data-toggle='dropdown')
       ul.dropdown-menu

@@ -1,12 +1,15 @@
 'use strict'
-
+#
+# Handles UI state and current page
+#
 angular.module('neo4jApp.controllers')
   .controller 'LayoutCtrl', [
     '$rootScope'
     '$dialog'
+    '$route'
     'GraphStyle'
     'Utils'
-    ($scope, $dialog, GraphStyle, Utils) ->
+    ($scope, $dialog, $route, GraphStyle, Utils) ->
       currentView = null
 
       dialog = null
@@ -99,4 +102,9 @@ angular.module('neo4jApp.controllers')
         layout = view.suggestedLayout()
         $scope.isGraphExpanded = layout.graph
         $scope.isTableExpanded = layout.table
+
+      # First level page routes
+      $scope.$on '$routeChangeSuccess', ->
+        $scope.currentPage = $route.current.page
+
   ]

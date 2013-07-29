@@ -95,6 +95,7 @@ angular.module('neo4jApp.controllers')
     ###
 
     $scope.$on '$routeChangeSuccess', ->
+      return unless $route.current.page is 'views'
       viewId = $route.current.params.viewId
       if not viewId?
         viewId = $scope.views.last().id

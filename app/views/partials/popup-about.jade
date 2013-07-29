@@ -1,40 +1,37 @@
-.inner(ng-switch='popupContent')
-  div(ng-switch-when='about')
-    .header
-      .logo
-        .version {{server.neo4j_version}}
+.inner
+  .header
+    .logo
+      .version {{server.neo4j_version}}
 
-    .body
-      .stats
-        ul
-          li
-            .key Hostname:
-            .value {{host}}
-          li
-            .key Database:
-            .value TBD
-          li
-            .key Store location:
-            .value {{kernel.store_dir}}
+  .body
+    .stats
+      ul
+        li
+          .key Hostname:
+          .value {{host}}
+        li
+          .key Database:
+          .value TBD
+        li
+          .key Store location:
+          .value {{kernel.store_dir}}
 
-        ul
-          li
-            .key Disk:
-            .value TBD
-          li
-            .key Memory:
-            .value {{kernel.all_stores_total_mapped_memory_size}}
+      ul
+        li
+          .key Disk:
+          .value TBD
+        li
+          .key Memory:
+          .value {{kernel.all_stores_total_mapped_memory_size}}
 
-      .text-center
-        a.btn.btn-secondary(ng-click='togglePopup("details")')
-          i.icon-wrench
-          |  System Report
+    .text-center
+      a.btn.btn-secondary(ng-click='togglePopup("details")')
+        i.icon-wrench
+        |  System Report
 
-    .footer
-      .license
-        | License GPLv3
-        a()  (Read more)
-        br
-        | Copyright 2013 Neo Technology
-  div(ng-switch-when='details', ng-init='setPopupStyle("large")', 'ng-controller' = 'JMXCtrl')
-    include popup-report
+  .footer
+    .license
+      | License GPLv3
+      a()  (Read more)
+      br
+      | Copyright 2013 Neo Technology

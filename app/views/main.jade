@@ -8,7 +8,11 @@ script#popup-styling(type="text/ng-template")
   include partials/popup-styling
 
 include partials/inspector
-
 include partials/nav
-include partials/sidebar
-include partials/views
+
+div(ng-switch="currentPage", ng-controller='ViewCtrl')
+  .page(ng-switch-when='views')
+    include partials/sidebar
+    include partials/views
+  .page.system(ng-switch-when='system', ng-controller='JMXCtrl')
+    include partials/system

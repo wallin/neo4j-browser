@@ -1,8 +1,6 @@
 @import 'variables'
 @import 'nib'
-@import 'modal'
 @import 'mixins'
-global-reset()
 
 html, body
   margin 0
@@ -15,7 +13,7 @@ html, body
 
 body
   font: 13px 'Helvetica Neue', Helvetica, Arial, sans-serif
-  background: #222
+  background: #EEE
   color: #333
   stretch()
   overflow: hidden
@@ -47,6 +45,20 @@ table
     vertical-align: top
     line-height: middlebar-height
     padding: 0 horizontal-padding
+
+ul
+  list-style-type none
+  margin: 0
+
+form
+  margin: 0
+
+#page-container .page
+  position: absolute
+  left: nav-width
+  top: 0
+  bottom: 0
+  right: 0
 
 // Bootstrap overrides
 
@@ -92,7 +104,7 @@ select
   overflow: hidden
   top: 0
   bottom: 0
-  left: 80px
+  left: 0
   right: 0
   z-index: 10
   transist all
@@ -263,7 +275,7 @@ select
 .show-sidebar
   .top-bar
   #views, #view-background
-    left: (sidebar-width + nav-width);
+    left: (sidebar-width);
     .view-editor
       .handle
         opacity: 0
