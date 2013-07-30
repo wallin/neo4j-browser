@@ -17,4 +17,9 @@ angular.module('neo4jApp.utils', [])
         timeout = $timeout(later, wait)
         result = func.apply(context, args) if callNow
         result
+    stripComments: (input) ->
+      rows = input.split("\n")
+      rv = []
+      rv.push row for row in rows when row.indexOf('//') isnt 0
+      rv.join("\n")
   ])

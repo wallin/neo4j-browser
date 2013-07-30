@@ -116,13 +116,6 @@ angular.module('neo4jApp.controllers')
           else if e.keyCode is 191 # ?
             $scope.togglePopup('keys')
 
-      $scope.$on 'currentView:changed', (evt, view) ->
-        currentView = view
-        return unless view?
-        layout = view.suggestedLayout()
-        $scope.isGraphExpanded = layout.graph
-        $scope.isTableExpanded = layout.table
-
       # First level page routes
       $scope.$on '$routeChangeSuccess', ->
         $scope.togglePopup()
