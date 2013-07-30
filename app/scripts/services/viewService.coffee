@@ -31,12 +31,10 @@ angular.module('neo4jApp.services')
       '$injector',
       '$q',
       '$rootScope'
-      'Collection'
-      'Cypher'
       'localStorageService'
       'Timer'
       'Utils'
-      ($injector, $q, $rootScope, Collection, Cypher, localStorageService, Timer, Utils) ->
+      ($injector, $q, $rootScope, localStorageService, Timer, Utils) ->
         class View extends IdAble
           constructor: (data = {})->
             @starred = no
@@ -74,7 +72,6 @@ angular.module('neo4jApp.services')
 
             $q.when(intrFn(query, $q.defer())).then(
               (result) =>
-                console.log result
                 @isLoading = no
                 if result.isTooLarge
                   @hasErrors = yes
@@ -88,7 +85,6 @@ angular.module('neo4jApp.services')
               (result = {}) =>
                 @isLoading = no
                 @hasErrors = yes
-                console.log result
                 if result.exception and result.message
                   @errorText = result.exception + ": " + result.message.split("\n")[0]
                 else
