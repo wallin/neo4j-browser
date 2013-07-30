@@ -26,11 +26,11 @@
         include list-item
   file-upload(upload="importView($content)", type='text')
     | Drop Cypher script file to import
-  .droppable(ui-sortable="sortableOptions")
-    h4 History
-    ul
-      li(ng-repeat='view in views.where({starred: false}) | orderBy:"startTime":true',
-         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-         ng-animate="'animate-scale'")
-        include list-item
+  //- .droppable(ui-sortable="sortableOptions")
+  //-   h4 History
+  //-   ul
+  //-     li(ng-repeat='view in views.where({starred: false}) | orderBy:"startTime":true',
+  //-        ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
+  //-        ng-animate="'animate-scale'")
+  //-       include list-item
 
