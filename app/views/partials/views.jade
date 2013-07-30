@@ -77,6 +77,13 @@
             div(ng-hide='view.response')
               .icon-info-sign
               | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.
+          .btn-group
+            a.btn.btn-small.active
+              i.icon-code-fork
+            a.btn.btn-small
+              i.icon-table
+            a.btn.btn-small
+              i.icon-code
         span(ng-show='view.isLoading')
           .icon-spinner.icon-spin
           | Executing query...

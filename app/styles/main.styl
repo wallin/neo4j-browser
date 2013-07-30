@@ -39,7 +39,6 @@ table
     padding: 0 horizontal-padding
     line-height: middlebar-height
     border-bottom: 1px solid table-color-border-color
-    text-align: left
   tbody tr td, tr td, tfoot tr td
     background-color: #fff
     border-bottom: 1px solid table-color-border-color
@@ -201,6 +200,10 @@ select
     border-bottom: 1px solid table-color-border-color
     padding-left: horizontal-padding
     font-size: 13px
+    position: relative
+    .btn-group
+      absolute: top 3px right 12px
+
     .popover.bottom
       line-height: 22px
       .arrow:after
@@ -216,6 +219,8 @@ select
       color: color-error
     [class^="icon-"]
       margin-right: 6px
+    i[class^="icon-"]
+      margin: 0
     .icon-ok
       color: color-success
 
