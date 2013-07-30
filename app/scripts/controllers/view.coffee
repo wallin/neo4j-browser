@@ -7,7 +7,8 @@ angular.module('neo4jApp.controllers')
   '$scope'
   'Collection'
   'viewService'
-  ($location, $route, $scope, Collection, viewService) ->
+  'motdService'
+  ($location, $route, $scope, Collection, viewService, motdService) ->
 
     ###*
      * Local methods
@@ -193,6 +194,8 @@ angular.module('neo4jApp.controllers')
       $scope.$emit('currentView:changed', val)
     $scope.$watch 'currentView.response', ->
       $scope.$emit('currentView:changed', $scope.currentView)
+
+    $scope.motd = motdService # '"When you label me, you negate me" -- Soren Kierkegaard III'
 
     handleRoute()
   ]

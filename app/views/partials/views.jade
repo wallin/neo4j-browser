@@ -24,7 +24,11 @@
       .view-editor
         a.open-sidebar(ng-click="toggleSidebar()", ng-class="{'icon-circle-arrow-left': isSidebarShown, 'icon-circle-arrow-right': !isSidebarShown}")
         span
-          textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}", 'ng-model'='editor.content', 'ui-refresh'='editor.content + isEditorHidden')
+          textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}", 
+            'ng-model'='editor.content', 
+            'ui-refresh'='editor.content + isEditorHidden',
+            placeholder='{{motd.editor}}'
+            )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')
         .name Neo4j Enterprise
 
