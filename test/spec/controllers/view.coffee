@@ -53,12 +53,6 @@ describe 'Controller: ViewCtrl', () ->
       view = scope.createView()
       expect(view.folder).toBeFalsy()
 
-  describe 'copyView:', ->
-    it 'should duplicate a view with a new id', ->
-      view = scope.createView()
-      view2 = scope.copyView(view)
-      expect(view2.id).not.toBe view.id
-
   describe 'removeFolder:', ->
     it 'should remove a folder from folders', ->
       len = scope.folders.length

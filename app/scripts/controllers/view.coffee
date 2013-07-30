@@ -58,16 +58,6 @@ angular.module('neo4jApp.controllers')
       $location.path($scope.viewPath(view.id)) if navigate
       view
 
-    # Create an unsaved copy of a view
-    $scope.copyView = (view) ->
-      return unless view?.id?
-      query = view.input
-      # Modify comment if any
-      if query.beginsWith('//')
-        query = query.replace(/\/\/\s?(.)/, "// Copy of $1")
-
-      $scope.createView(input: query)
-
     $scope.setEditorContent = (content) ->
       $scope.editor.content = content
 
