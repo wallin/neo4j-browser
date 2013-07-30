@@ -7,5 +7,5 @@
     a.btn.btn-small(ng-click='destroyView(view)')
       i.icon-remove
 
-.view-result.boxed(ng-hide='view.hasErrors')
+.view-result.boxed(ng-hide='view.hasErrors', ng-controller='CypherResultCtrl')
   div(ng-include = 'view.response.page')

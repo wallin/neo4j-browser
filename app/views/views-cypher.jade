@@ -1,19 +1,21 @@
-.code-bar
-  .label.label-info Cypher
-  span.code {{view.input | uncomment}}
-  .actions
-    a.btn.btn-small
-      i.icon-star
-    a.btn.btn-small
-      i.icon-edit
-    a.btn.btn-small
-      i.icon-collapse-alt
-    a.btn.btn-small(ng-click='destroyView(view)')
-      i.icon-remove
+div(ng-controller="CypherResultCtrl")
+  .code-bar
+    .label.label-info Cypher
+    span.code {{view.input | uncomment}}
+    .actions
+      a.btn.btn-small
+        i.icon-star
+      a.btn.btn-small
+        i.icon-edit
+      a.btn.btn-small
+        i.icon-collapse-alt
+      a.btn.btn-small(ng-click='destroyView(view)')
+        i.icon-remove
 
-.view-result(ng-class='{error: view.hasErrors}', ng-hide='view.hasErrors')
-  .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response.size')
-    .view-result-graph
+  .view-result.boxed(
+    ng-class='{error: view.hasErrors}'
+    ng-hide='view.hasErrors')
+    .view-result-graph(ng-show='isActive("graph")')
       svg(
         neo-graph,
         ng-model='view.response',
@@ -22,38 +24,36 @@
         viewbox="0 0 960 300",
         preserveAspectRatio="xMidyMid")
 
-      //- a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
       include partials/legend
-    //- .view-result-table
-    //-   .view-result-table-scroll
-    //-     neo-table(ng-model='view.response')
-    //-   a.icon-download-alt('ng-click'='export(view.response)', ng-class='{alone: isTableExpanded}', ng-controller='CSVCtrl', tooltip-placement='left', tooltip='Download CSV')
-    //-   a.icon-collapse('ng-click' = 'toggleGraph()', ng-hide="isTableExpanded", tooltip-placement='left', tooltip='Hide table')
-.status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}')
-  div(ng-hide='view.isLoading')
-    span(ng-show='view.hasErrors')
-      .icon-warning-sign
-      {{view.errorText}}
-    div(ng-hide='view.hasErrors')
-      div(ng-show='view.response')
-        .icon-ok
-        include partials/result-status
-        span  in <b>{{view.runTime}} ms</b>
-        .details.btn.btn-small(popover-animation='true', popover="{{resultDetails()}}", popover-title="Detailed results", popover-placement='bottom', ng-show="view.response.stats.contains_updates") Details
-        .updated-code(ng-show='view.savedInput != view.input')
+    .view-result-table(ng-show='isActive("table")')
+      .view-result-table-scroll
+        neo-table(ng-model='view.response')
+      a.icon-download-alt('ng-click'='export(view.response)', ng-controller='CSVCtrl', tooltip-placement='left', tooltip='Download CSV')
+  .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}')
+    div(ng-hide='view.isLoading')
+      span(ng-show='view.hasErrors')
+        .icon-warning-sign
+        {{view.errorText}}
+      div(ng-hide='view.hasErrors')
+        div(ng-show='view.response')
+          .icon-ok
+          include partials/result-status
+          span  in <b>{{view.runTime}} ms</b>
+          .details.btn.btn-small(popover-animation='true', popover="{{resultDetails()}}", popover-title="Detailed results", popover-placement='bottom', ng-show="view.response.stats.contains_updates") Details
+          .updated-code(ng-show='view.savedInput != view.input')
+            .icon-info-sign
+            | Code has changed since last execution.&nbsp;
+            a(ng-click='view.revertCode()') Revert
+        div(ng-hide='view.response')
           .icon-info-sign
-          | Code has changed since last execution.&nbsp;
-          a(ng-click='view.revertCode()') Revert
-      div(ng-hide='view.response')
-        .icon-info-sign
-        | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.
-  .btn-group
-    a.btn.btn-small.active
-      i.icon-code-fork
-    a.btn.btn-small
-      i.icon-table
-    a.btn.btn-small
-      i.icon-code
-  span(ng-show='view.isLoading')
-    .icon-spinner.icon-spin
-    | Executing query...
+          | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.
+    .btn-group
+      a.btn.btn-small(ng-click='setActive("graph")', ng-class='{active: isActive("graph")}')
+        i.icon-code-fork
+      a.btn.btn-small(ng-click='setActive("table")', ng-class='{active: isActive("table")}')
+        i.icon-table
+      a.btn.btn-small(ng-class='{active: isActive("code")}')
+        i.icon-code
+    span(ng-show='view.isLoading')
+      .icon-spinner.icon-spin
+      | Executing query...

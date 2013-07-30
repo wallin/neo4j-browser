@@ -225,6 +225,7 @@ select
       color: color-success
 
   .view-result
+    position: relative
     height: 300px
     transist left
     background: #F5F6F6 url('/images/background-pending.png') 50% 50% no-repeat
@@ -240,56 +241,35 @@ select
         margin: 0
         border: 0
 
-    .split-pane
-      position: absolute
-      top: 39px
+    a[class^="icon-"]
+      color: color-default-text
+      cursor: pointer
+      &:hover
+        color: color-link
+    .view-result-graph
+      background-color: #F5F6F6
+      //position: absolute
+      //top: 0
+      //left: 0
+      //right: 0
+      //height: 50%
+      height: 300px !important
+      a.icon-table
+        font-size: 24px
+        absolute: bottom 57px right horizontal-padding
+    .view-result-table
+      border-top: 1px solid #E2E6E7
+      background-color: #f7f7f7
+      position: relative
       left: 0
       right: 0
-      bottom: 0
-      height: 100%
-      transist: all
-      &.hidden
-        height: 0
-      a[class^="icon-"]
-        color: color-default-text
-        cursor: pointer
-        &:hover
-          color: color-link
-      .view-result-graph
-        background-color: #F5F6F6
-        position: absolute
-        top: 0
-        left: 0
-        right: 0
-        //height: 50%
-        height: 300px !important
-        a.icon-table
-          font-size: 24px
-          absolute: bottom 57px right horizontal-padding
-      .view-result-table
-        border-top: 1px solid #E2E6E7
-        background-color: #f7f7f7
-        position: absolute
-        bottom: 0
-        left: 0
-        right: 0
-        height: 50%
-        a.icon-download-alt
-          absolute: top 8px right horizontal-padding*2+20
-          font-size: 24px
-          &.alone
-            right: horizontal-padding
-        a.icon-collapse
-          absolute: top 7px right horizontal-padding
-          font-size: 24px
-        .view-result-table-scroll
-          position: absolute
-          top: 0
-          left: 0
-          right: 0
-          bottom: 0
-          display: block;
-          overflow: scroll
+      a.icon-download-alt
+        absolute: top 8px right horizontal-padding*2+20
+        font-size: 24px
+        right: horizontal-padding
+      .view-result-table-scroll
+        display: block;
+        overflow: scroll
 
 .update-button
   position:absolute
