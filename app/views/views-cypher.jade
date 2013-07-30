@@ -11,7 +11,7 @@
     a.btn.btn-small(ng-click='destroyView(view)')
       i.icon-remove
 
-.view-result(ng-class='{error: view.hasErrors}')
+.view-result(ng-class='{error: view.hasErrors}', ng-hide='view.hasErrors')
   .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response.size')
     .view-result-graph
       svg(

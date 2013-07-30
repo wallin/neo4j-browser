@@ -10,7 +10,7 @@
       i.icon-collapse-alt
     a.btn.btn-small(ng-click='destroyView(view)')
       i.icon-remove
-.view-result.cypher(ng-class='{error: view.hasErrors}', ng-hide='view.hasErrors')
+.view-result.boxed(ng-hide='view.hasErrors')
   pre
     {{view.response}}
 .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}')

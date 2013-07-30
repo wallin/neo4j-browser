@@ -52,6 +52,7 @@ angular.module('neo4jApp.services')
 
           exec: ->
             query = Utils.stripComments(@input.trim())
+            return unless query
             # Find first matching input interpretator
             intr = null
             for i in self.interpretors

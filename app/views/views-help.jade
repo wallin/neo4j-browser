@@ -1,0 +1,11 @@
+.code-bar
+  .label.label-info Help
+  span.code {{view.input | uncomment}}
+  .actions
+    a.btn.btn-small
+      i.icon-collapse-alt
+    a.btn.btn-small(ng-click='destroyView(view)')
+      i.icon-remove
+
+.view-result.boxed(ng-hide='view.hasErrors')
+  div(ng-include = 'view.response.page')

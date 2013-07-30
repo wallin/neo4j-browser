@@ -2,6 +2,24 @@ angular.module('neo4jApp')
 .config([
   'viewServiceProvider'
   (viewServiceProvider) ->
+    # Help/man handler
+    viewServiceProvider.interpretors.push
+      type: 'help'
+      templateUrl: 'views/views-help.html'
+      matches: (input) ->
+        [cmd] = input.split(' ')
+        cmd = cmd.toLowerCase()
+        return cmd is 'help' or cmd is 'man'
+
+      exec: [->
+        (input, q) ->
+          q.resolve(
+            page: 'content/help/create.html'
+          )
+          q.promise
+      ]
+
+
     # HTTP Handler
     viewServiceProvider.interpretors.push
       type: 'http'
