@@ -14,7 +14,7 @@ angular.module('neo4jApp.controllers')
     ###
 
     handleRoute = ->
-      return unless $route.current.page is 'views'
+      return unless $route.current?.page is 'views'
       viewId = $route.current.params.viewId
       if not viewId?
         viewId = $scope.views.last().id
@@ -91,7 +91,7 @@ angular.module('neo4jApp.controllers')
         orderedViews = orderedViews.concat $scope.views.where({folder: folder.id})
       orderedViews = orderedViews.concat $scope.views.where({starred: false})
       for view, i in orderedViews
-        if $scope.currentView.id == view.id
+        if $scope.currentView.id is view.id
           newIndex = (i + count)
           newIndex = orderedViews.length + newIndex if newIndex < 0
           newView = orderedViews[newIndex % orderedViews.length]
