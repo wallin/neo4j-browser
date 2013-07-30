@@ -28,11 +28,11 @@ angular.module('neo4jApp.services')
         #
         # Basic HTTP methods
         #
-        delete: (path = '') ->
+        delete: (path = '', data = null) ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
           $http.delete(path)
 
-        get: (path = '') ->
+        get: (path = '', data = null) ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
           $http.get(path)
 
@@ -40,8 +40,9 @@ angular.module('neo4jApp.services')
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
           $http.post(path, data)
 
-        cypher: (path = '', data) ->
-          @post("#{Settings.endpoint.cypher}" + path, data)
+        put: (path = '', data) ->
+          path = Settings.host + path unless path.indexOf(Settings.host) is 0
+          $http.put(path, data)
 
         transaction: (opts) ->
           opts = angular.extend(
@@ -58,6 +59,10 @@ angular.module('neo4jApp.services')
         #
         # Convenience methods
         #
+
+        cypher: (path = '', data) ->
+          @post("#{Settings.endpoint.cypher}" + path, data)
+
         jmx: (query) ->
           @post Settings.endpoint.jmx, query
 
@@ -67,7 +72,7 @@ angular.module('neo4jApp.services')
         relationships: ->
           returnAndUpdateArray @get Settings.endpoint.rest + '/relationship/types'
 
-        rest: ->
+        info: ->
           returnAndUpdateObject @get Settings.endpoint.rest + '/'
 
         status: ->

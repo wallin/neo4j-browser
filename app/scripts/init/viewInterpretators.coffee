@@ -2,41 +2,68 @@ angular.module('neo4jApp')
 .config([
   'viewServiceProvider'
   (viewServiceProvider) ->
-    # Cypher handler
-    viewServiceProvider.interpretors.push
-      type: 'cypher'
-      exec: ['Cypher', (Cypher) ->
-        # Return the function that handles the input
-        (input) ->
-          Cypher.send(input)
-      ]
-
     # HTTP Handler
     viewServiceProvider.interpretors.push
       type: 'http'
+      templateUrl: 'views/views-rest.html'
+      matches: (input) ->
+        [verb] = input.split(' ')
+        return false unless verb
+        verbs = ['get', 'post', 'delete', 'put']
+        verbs.indexOf(verb.toLowerCase()) >= 0
+
       exec: ['Server', (Server) ->
         verbs = ['get', 'post', 'delete', 'put']
         error = (msg) ->
           message: msg
-          exception: 'HTTP Syntax error'
+          exception: 'HTTP Error'
 
         (input, q) ->
-          [verb, url] = input.split(' ')
+          regex = /^((GET)|(PUT)|(POST)|(DELETE)) ([^ ]+)( (.+))?$/i
+          result = regex.exec(input)
+          [verb, url, data] = [result[1], result[6], result[8]]
 
-          if not verb?
-            q.reject(error('Missing verb'))
-            return q.promise
-
-          verb = verb.toLowerCase()
-          if verbs.indexOf(verb) < 0
-            q.reject(error("Invalid verb, expected '#{verbs.join(', ')}"))
+          verb = verb?.toLowerCase()
+          if not verb
+            q.reject(error("Invalid verb, expected 'GET, PUT, POST or DELETE'"))
             return q.promise
 
           if not url?.length > 0
             q.reject(error("Missing path"))
             return q.promise
 
+          if (verb is 'post' or verb is 'put') and not data
+            q.reject(error("Method needs data"))
+            return q.promise
 
-          Server[verb]?(url)
+          # Try to parse JSON
+          data = try
+            JSON.parse(data)
+          catch e
+            "\"#{data}\""
+
+          Server[verb]?(url, data)
+          .then(
+            (r) ->
+              q.resolve(r.data)
+            ,
+            (r) ->
+              q.reject(error("Server responded #{r.status}"))
+          )
+
+          q.promise
       ]
+
+    # Fallback interpretor
+    # Cypher handler
+    viewServiceProvider.interpretors.push
+      type: 'cypher'
+      matches: -> true
+      templateUrl: 'views/views-cypher.html'
+      exec: ['Cypher', (Cypher) ->
+        # Return the function that handles the input
+        (input) ->
+          Cypher.send(input)
+      ]
+
 ])

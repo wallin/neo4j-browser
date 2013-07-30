@@ -41,6 +41,7 @@ angular.module('neo4jApp.services')
           constructor: (data = {})->
             @starred = no
             @folder = no
+            @templateUrl = null
             super data
 
             if angular.isString(data)
@@ -50,26 +51,29 @@ angular.module('neo4jApp.services')
             {@id, @starred, @folder, @input}
 
           exec: ->
-            # Find correct interpretator
-            intr = i for i in self.interpretors when i.type is 'cypher'
-            # TODO: default interpretator
+            query = Utils.stripComments(@input.trim())
+            # Find first matching input interpretator
+            intr = null
+            for i in self.interpretors
+              if i.matches(query)
+                intr = i
+                break;
             return unless intr
+            @type = intr.type
             intrFn = $injector.invoke(intr.exec)
 
-            query = Utils.stripComments(@input.trim())
-
-            #query = query + ";" unless query.endsWith(';')
             @errorText = no
             @hasErrors = no
             @isLoading = yes
             @response  = null
+            @templateUrl = intr.templateUrl
             timer = Timer.start()
             @startTime = timer.started()
             viewStore.persist()
 
-
             $q.when(intrFn(query, $q.defer())).then(
               (result) =>
+                console.log result
                 @isLoading = no
                 if result.isTooLarge
                   @hasErrors = yes
@@ -83,10 +87,11 @@ angular.module('neo4jApp.services')
               (result = {}) =>
                 @isLoading = no
                 @hasErrors = yes
+                console.log result
                 if result.exception and result.message
                   @errorText = result.exception + ": " + result.message.split("\n")[0]
                 else
-                  @errorText = "Empty response"
+                  @errorText = "Unknown error"
                 @runTime = timer.stop().time()
             )
 

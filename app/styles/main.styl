@@ -112,7 +112,7 @@ select
 
 #views
   position: absolute
-  overflow: hidden
+  overflow: scroll
   top: 0
   bottom: 0
   left: 0
@@ -164,7 +164,7 @@ select
   z-index: -1
   position: relative
   margin: 24px
-  border: 1px solid #ddd
+  border: 1px solid #dddl
   &.anim
     transform: scale(0.9, 0.9)
   &.outside
@@ -231,6 +231,11 @@ select
     z-index: 10
     &.error
       background-image: url('/images/background-error.png')
+
+    &.cypher
+      overflow: hidden
+      height: auto
+      max-height: 300px
 
     .split-pane
       position: absolute
