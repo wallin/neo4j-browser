@@ -83,6 +83,9 @@ angular.module('neo4jApp.controllers')
       $scope.editor =
         content: view.input
 
+    $scope.destroyView = (view) ->
+      $scope.views.remove(view)
+
     $scope.skipViews = (count) ->
       orderedViews = []
       for folder in $scope.folders.all()
