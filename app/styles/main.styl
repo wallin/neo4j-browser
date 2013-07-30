@@ -107,7 +107,7 @@ select
   left: 0
   right: 0
   z-index: 10
-  background-color: #ddd;
+  background-color: #EEF0F2
   transist all
 
 #views
@@ -142,15 +142,28 @@ select
           border-left: 1px solid #DBE0E1
 
   .view-editor
+    min-height: 72px;
     background-color: #fff
     border-right: 1px solid #E2E6E7
     position: absolute;
-    top: toolbar-height + 1px
+    top: 0
     left: 0
     right: 0
-    //height: editor-height
-    border-bottom: 1px solid #E2E6E7
-    transist width
+    z-index: 100
+    border-bottom: 1px solid #D6D8DA
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07)
+    a.open-sidebar
+      color: #CACCD0
+      font-size: 23px;
+      top: 24px;
+      left: 25px;
+      position: absolute;
+      z-index: 1000
+    .name
+      color: #CACCD0
+      font-weight: bold
+      font-size: 17px
+      absolute: top 22px right 24px
     a.icon-play-sign
       font-size: 37px
       absolute: top 8px right 16px
@@ -164,7 +177,10 @@ select
   z-index: -1
   position: relative
   margin: 24px
-  border: 1px solid #dddl
+  border: 1px solid #D6D8DA
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07)
+  border-radius: 4px
+  background-color: #fff
   &.anim
     transform: scale(0.9, 0.9)
   &.outside
@@ -176,8 +192,7 @@ select
     height: middlebar-height
     line-height: middlebar-height
     color: rgb(120, 129, 133)
-    background-color: #FFF
-    border-top: 1px solid table-color-border-color
+    //background-color: #FFF
     border-bottom: 1px solid table-color-border-color
     padding-left: horizontal-padding
     font-size: 13px
@@ -195,9 +210,8 @@ select
     height: middlebar-height
     line-height: middlebar-height
     color: rgb(120, 129, 133)
-    background-color: #FFF
+    //background-color: #FFF
     border-top: 1px solid table-color-border-color
-    border-bottom: 1px solid table-color-border-color
     padding-left: horizontal-padding
     font-size: 13px
     position: relative

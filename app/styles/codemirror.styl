@@ -1,23 +1,27 @@
 @import 'variables'
+@import 'mixins'
 
 .CodeMirror
   -webkit-font-smoothing: initial
   background-color: transparent
   font-family: "Menlo","Courier New","Terminal", monospace
-  font-size: 14px
-  line-height: 20px
-  margin: 18px horizontal-padding 18px 10px
+  font-size: 16px
+  line-height: 23px
+  margin: 24px horizontal-padding 22px 50px
+  transist: all
   pre
     padding: 0
 .CodeMirror-lines
   padding: 0
 .CodeMirror-gutters
   border: none
-  border-right: 9px solid #fff
-  background-color: #fff
+  border-right: 9px solid transparent
+  background-color: transparent
+
 .CodeMirror-linenumber
   padding: 0
-  color: #ccc
+  color: #E0E2E5
+  opacity: 1
 .CodeMirror
   height: auto
 .CodeMirror-scroll
@@ -37,3 +41,9 @@
       color: #E67E22
     .cm-variable
       color: #1ABC9C
+
+.one-line
+  .CodeMirror
+    margin-left: 35px
+  .CodeMirror-linenumber
+    opacity: 0

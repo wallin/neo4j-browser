@@ -1,13 +1,11 @@
 #nav
   ul.nav.nav-list
-    li.nav-header
-      a(ng-click='togglePopup("about")') Neo4j
+    li.nav-header(ng-class='{active: currentPage == "views"}')
+      a(href='#/views') Neo4j
         .logo(ng-class='{loading: currentView.isLoading}')
           .ball.one
           .ball.two
           .ball.three
-    li(ng-class='{active: currentPage == "views"}')
-      a.icon-home(href='#/views')
     li(ng-class='{active: currentPage == "system"}')
       a.icon-gears(href='#/system')
     li.dropdown

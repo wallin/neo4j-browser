@@ -38,9 +38,13 @@ angular.module('neo4jApp.controllers')
             "
 
       $scope.editorHeight = 0
-      $scope.editorChanged = (e) ->
-        $scope.editorHeight = $('.view-editor').height() + 41 # toolbar
-        $scope.$apply() if !$scope.$$phase
+      $scope.editorOneLine = true
+      $scope.editorChanged = (codeMirror) ->
+        currentHeight = $('.view-editor').height()
+        if currentHeight != $scope.editorHeight
+          $scope.editorHeight = $('.view-editor').height()
+          $scope.editorOneLine = codeMirror.display.showingTo == 1
+          $scope.$apply() if !$scope.$$phase
 
       $scope.isEditorHidden = false
       $scope.toggleEditor = ->
