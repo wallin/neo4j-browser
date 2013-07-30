@@ -106,7 +106,7 @@ angular.module('neo4jApp.controllers')
           relationshipGroups.call(renderer.onTick)
 
       force = d3.layout.force()
-        .size([640, 480])
+        .size([960, 300])
         .linkDistance(80)
         .charge(-1000)
         .on('tick', tick)
