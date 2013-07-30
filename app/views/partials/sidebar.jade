@@ -7,22 +7,19 @@
       .icon-plus
       | Add folder
   .droppable(
-    ng-repeat='folder in folders.all()', ui-sortable="sortableOptions",
-    ng-animate="'animate-scale'")
+    ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
     h5.folder(ng-click='toggleFolder(folder)')
       i.icon-caret-right(ng-class="{'icon-rotate-90': folder.expanded}")
       div(edit-in-place='folder.name', on-blur='persistFolders()')
       a.icon-trash(ng-click='removeFolder(folder)', tooltip-placement='left', tooltip='Remove folder')
     ul.starred.indented(ng-show='folder.expanded')
       li(ng-repeat="view in views.where({starred: true, folder: folder.id})",
-         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-         ng-animate="'animate-scale'")
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}')
         include list-item
   .droppable(ui-sortable="sortableOptions")
     ul.starred
       li(ng-repeat="view in views.where({starred: true, folder: false})",
-         ng-class='{error: view.hasErrors, active: view.id == currentView.id}',
-         ng-animate="'animate-scale'")
+         ng-class='{error: view.hasErrors, active: view.id == currentView.id}')
         include list-item
   file-upload(upload="importView($content)", type='text')
     | Drop Cypher script file to import
