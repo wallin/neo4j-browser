@@ -1,33 +1,65 @@
-#views(resizable)
-  #view-background
-  .view-input
-    .view-toolbar
-      ul.inline
-        li
-          a.btn(ng-click="toggleSidebar()")
-            i.icon-file-text
-            |  History
-        li
-          a.btn(ng-click="execScript(editor.content)")
-            i.icon-play-sign
-            |  Run
-        li
-          a.btn(ng-click='setEditorContent("")')
-            i.icon-file-alt
-            |  Clear
-        li
-          select.span2
-            option(ng-repeat='label in labels') {{label}}
-        li
-          select
-            option(ng-repeat='relation in relationships') {{ relation }}
-    .view-editor(resize="height")
-      span(resize-child="{'.CodeMirror-scroll': 'max-height'}")
-        textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}", 'ng-model'='editor.content', 'ui-refresh'='editor.content + isEditorHidden')
-        a.icon-play-sign('ng-click' = 'execScript(editor.content)')
-  .view('ng-repeat' = 'view in views.all()', 'ng-show' = 'view.id == currentView.id', style="top: {{editorHeight}}px")
-    .view-result(ng-class='{error: view.hasErrors}', resize="top")
-      .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}', handle)
+#main
+  #editor
+    .view-input
+      .view-toolbar
+        ul.inline
+          li
+            a.btn(ng-click="toggleSidebar()")
+              i.icon-file-text
+              |  History
+          li
+            a.btn(ng-click="execScript(editor.content)")
+              i.icon-play-sign
+              |  Run
+          li
+            a.btn(ng-click='setEditorContent("")')
+              i.icon-file-alt
+              |  Clear
+          //- li
+          //-   select.span2
+          //-     option(ng-repeat='label in labels') {{label}}
+          //- li
+          //-   select
+          //-     option(ng-repeat='relation in relationships') {{ relation }}
+      .view-editor
+        span
+          textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}", 'ng-model'='editor.content', 'ui-refresh'='editor.content + isEditorHidden')
+          a.icon-play-sign('ng-click' = 'execScript(editor.content)')
+
+  #views(style="top: {{editorHeight}}px")
+    .view('ng-repeat' = 'view in views.where({starred: false}) | orderBy:"startTime":true')
+      .code-bar
+        .label.label-info Cypher
+        span.code {{view.input | uncomment}}
+        .actions
+          a.btn.btn-small
+            i.icon-star
+          a.btn.btn-small
+            i.icon-edit
+          a.btn.btn-small
+            i.icon-collapse-alt
+          a.btn.btn-small(ng-click='destroyView(view)')
+            i.icon-remove
+
+      .view-result(ng-class='{error: view.hasErrors}')
+        .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response.size')
+          .view-result-graph
+            svg(
+              neo-graph,
+              ng-model='view.response',
+              ng-controller='D3GraphCtrl'
+              style="pointer-events:fill;",
+              viewbox="0 0 960 300",
+              preserveAspectRatio="xMidyMid")
+
+            //- a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
+            include legend
+          //- .view-result-table
+          //-   .view-result-table-scroll
+          //-     neo-table(ng-model='view.response')
+          //-   a.icon-download-alt('ng-click'='export(view.response)', ng-class='{alone: isTableExpanded}', ng-controller='CSVCtrl', tooltip-placement='left', tooltip='Download CSV')
+          //-   a.icon-collapse('ng-click' = 'toggleGraph()', ng-hide="isTableExpanded", tooltip-placement='left', tooltip='Hide table')
+      .status-bar(ng-class='{error: view.hasErrors, loading: view.isLoading}')
         div(ng-hide='view.isLoading')
           span(ng-show='view.hasErrors')
             .icon-warning-sign
@@ -48,20 +80,3 @@
         span(ng-show='view.isLoading')
           .icon-spinner.icon-spin
           | Executing query...
-      .split-pane(ng-hide='(view.hasErrors && !view.isLoading) || !view.response.size')
-        .view-result-graph
-          svg(
-            neo-graph,
-            ng-model='view.response',
-            ng-controller='D3GraphCtrl'
-            style="pointer-events:fill;",
-            viewbox="0 0 1280 768",
-            preserveAspectRatio="xMidyMid")
-
-          a.icon-table('ng-click' = 'toggleGraph()', ng-show="isGraphExpanded", tooltip-placement='left', tooltip='Show table')
-          include legend
-        .view-result-table
-          .view-result-table-scroll
-            neo-table(ng-model='view.response')
-          a.icon-download-alt('ng-click'='export(view.response)', ng-class='{alone: isTableExpanded}', ng-controller='CSVCtrl', tooltip-placement='left', tooltip='Download CSV')
-          a.icon-collapse('ng-click' = 'toggleGraph()', ng-hide="isTableExpanded", tooltip-placement='left', tooltip='Hide table')

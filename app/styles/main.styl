@@ -100,6 +100,17 @@ select
 
 /////
 
+#main
+  position: absolute
+  overflow: hidden
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 10
+  background-color: #ddd;
+  transist all
+
 #views
   position: absolute
   overflow: hidden
@@ -116,7 +127,6 @@ select
     top: 0
     left: 0
     right: 0
-    height: toolbar-height
     line-height: toolbar-height
     background: green
     color: #9EA4A6
@@ -152,12 +162,10 @@ select
         color: color-success
 
 .view
-  position: absolute
-  top: toolbar-height
-  bottom: 0
-  left: 0
-  right: 0
   z-index: -1
+  position: relative
+  margin: 24px
+  border: 1px solid #ddd
   &.anim
     transform: scale(0.9, 0.9)
   &.outside
@@ -165,49 +173,59 @@ select
   &.enter
     transform: translate(0, 0)
 
+  .code-bar
+    height: middlebar-height
+    line-height: middlebar-height
+    color: rgb(120, 129, 133)
+    background-color: #FFF
+    border-top: 1px solid table-color-border-color
+    border-bottom: 1px solid table-color-border-color
+    padding-left: horizontal-padding
+    font-size: 13px
+    overflow: hidden
+    .code
+      font-family: "Menlo","Courier New","Terminal", monospace
+      font-size: 12px
+      margin-left: 8px
+    .actions
+      absolute: top -1px right 12px
+      .btn
+        margin-left: 4px
+
+  .status-bar
+    height: middlebar-height
+    line-height: middlebar-height
+    color: rgb(120, 129, 133)
+    background-color: #FFF
+    border-top: 1px solid table-color-border-color
+    border-bottom: 1px solid table-color-border-color
+    padding-left: horizontal-padding
+    font-size: 13px
+    .popover.bottom
+      line-height: 22px
+      .arrow:after
+        border-bottom-color: #f7f7f7
+        border-top-width: 0
+    .details
+      margin-top: -4px
+      margin-left: 12px
+    .updated-code
+      float:right
+      margin-right horizontal-padding
+    &.error
+      color: color-error
+    [class^="icon-"]
+      margin-right: 6px
+    .icon-ok
+      color: color-success
 
   .view-result
-    position: absolute;
-    top: 0
-    bottom: 0
-    right: 0
-    left: 0
+    height: 300px
     transist left
     background: #F5F6F6 url('/images/background-pending.png') 50% 50% no-repeat
     z-index: 10
     &.error
       background-image: url('/images/background-error.png')
-    .status-bar
-      position: absolute;
-      cursor: move
-      top: 0
-      height: middlebar-height
-      line-height: 38px
-      left: 0
-      right: 0
-      color: rgb(120, 129, 133)
-      background-color: #FFF
-      border-top: 1px solid table-color-border-color
-      border-bottom: 1px solid table-color-border-color
-      padding-left: horizontal-padding
-      font-size: 13px
-      .popover.bottom
-        line-height: 22px
-        .arrow:after
-          border-bottom-color: #f7f7f7
-          border-top-width: 0
-      .details
-        margin-top: -4px
-        margin-left: 12px
-      .updated-code
-        float:right
-        margin-right horizontal-padding
-      &.error
-        color: color-error
-      [class^="icon-"]
-        margin-right: 6px
-      .icon-ok
-        color: color-success
 
     .split-pane
       position: absolute
@@ -230,7 +248,8 @@ select
         top: 0
         left: 0
         right: 0
-        height: 50%
+        //height: 50%
+        height: 300px !important
         a.icon-table
           font-size: 24px
           absolute: bottom 57px right horizontal-padding
@@ -285,12 +304,8 @@ select
     height: 100%
 
 .show-sidebar
-  .top-bar
-  #views, #view-background
+  #main
     left: (sidebar-width);
-    .view-editor
-      .handle
-        opacity: 0
 
 .alert-box.global
   margin-bottom: 0
