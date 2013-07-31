@@ -29,7 +29,7 @@ div(ng-controller="CypherResultCtrl", fullscreen="fullscreen")
       .view-result-table(ng-show='isActive("table")', ng-animate = "'animate-box'")
         .view-result-table-scroll
           neo-table(table-data='frame.response')
-        a.icon-download-alt('ng-click'='export(frame.response)', ng-controller='CSVCtrl', tooltip-placement='left', tooltip='Download CSV')
+        a.icon-download-alt(exportable 'ng-click'='exportCSV(frame.response)', tooltip-placement='left', tooltip='Download CSV')
     .status-bar(ng-class='{error: frame.hasErrors, loading: frame.isLoading}')
       div(ng-hide='frame.isLoading')
         span(ng-show='frame.hasErrors')

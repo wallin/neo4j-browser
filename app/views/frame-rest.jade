@@ -6,12 +6,12 @@
       i.icon-star
     a.btn.btn-small
       i.icon-edit
-    a.btn.btn-small
-      i.icon-collapse-alt
+    a.btn.btn-small(exportable ng-click='exportJSON(frame.response)')
+      i.icon-download-alt
     a.btn.btn-small(ng-click='destroyFrame(frame)')
       i.icon-remove
 .inner
-  .view-result.boxed(ng-hide='frame.hasErrors')
+  .view-result.boxed(ng-show='frame.response')
     pre(output-raw = "frame.response")
   .status-bar(ng-class='{error: frame.hasErrors, loading: frame.isLoading}')
     div(ng-hide='frame.isLoading')
