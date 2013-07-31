@@ -81,7 +81,11 @@ module.exports = (grunt) ->
       dist:
         files: [
           dot: true
-          src: [".tmp", "<%= yeoman.dist %>/*", "!<%= yeoman.dist %>/.git*"]
+          src: [".tmp", "<%= yeoman.dist %>/*", 
+            "!<%= yeoman.dist %>/.git*", 
+            "<%= yeoman.app %>/views/*.html",
+            "<%= yeoman.app %>/content/**/*.html"
+          ]
         ]
 
       server: ".tmp"
@@ -147,16 +151,16 @@ module.exports = (grunt) ->
         options:
           client: false
       html:
-        src: ["app/views/*.jade"]
-        dest: "app/views"
+        src: ["<%= yeoman.app %>/views/*.jade"]
+        dest: "<%= yeoman.app %>/views"
         options:
           client: false
       content:
-        src: ["app/content/**/*.jade"]
-        dest: "app/content"
+        src: ["<%= yeoman.app %>/content/**/*.jade"]
+        dest: "<%= yeoman.app %>/content"
         options:
           client: false
-          basePath: "app/content/"
+          basePath: "<%= yeoman.app %>/content/"
 
     concat:
       dist:
