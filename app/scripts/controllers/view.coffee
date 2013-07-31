@@ -37,6 +37,9 @@ angular.module('neo4jApp.controllers')
       $scope.frames.add(frame)
       frame
 
+    $scope.createDocument = (data = {}) ->
+      $scope.documents.add(new Document(data)).save()
+
     $scope.destroyFrame = (frame) ->
       $scope.frames.remove(frame)
 
@@ -48,7 +51,7 @@ angular.module('neo4jApp.controllers')
       $scope.createFrame(input: input).exec()
 
     $scope.importDocument = (content) ->
-      $scope.documents.add(new Document(content: content))
+      $scope.createDocument(content: content)
 
     $scope.loadFrame = (frame) ->
       $scope.currentFrame = frame
