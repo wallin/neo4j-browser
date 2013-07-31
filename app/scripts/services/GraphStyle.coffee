@@ -7,19 +7,19 @@ angular.module('neo4jApp.services')
     # Build in style
     @defaultStyle =
       'node':
-        'fill': '#C3C6C6'
-        'stroke': '#B7B7B7'
+        'fill': '#DFE1E3'
+        'stroke': '#D4D6D7'
         'stroke-width': '2px'
         'color': '#fff'
         'caption': '{id}'
       'relationship':
         'fill': 'none'
-        'stroke': '#e3e3e3'
+        'stroke': '#D4D6D7'
         'stroke-width': '1.5px'
 
     # Default color scheme that user can choose from
     @defaultColors = [
-      { fill: '#C3C6C6', stroke: '#B7B7B7' }
+      { fill: '#DFE1E3', stroke: '#D4D6D7' }
       { fill: '#30B6AF', stroke: '#46A39E' }
       { fill: '#AD62CE', stroke: '#9453B1' }
       { fill: '#FF6C7C', stroke: '#EB5D6C' }

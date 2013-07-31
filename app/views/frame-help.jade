@@ -7,5 +7,6 @@
     a.btn.btn-small(ng-click='destroyFrame(frame)')
       i.icon-remove
 
-.view-result.boxed(ng-hide='frame.hasErrors')
-  div(ng-include = 'frame.response.page')
+.inner
+  .view-result.boxed(ng-hide='frame.hasErrors')
+    div(ng-include = 'frame.response.page')

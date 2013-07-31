@@ -10,15 +10,16 @@
       i.icon-collapse-alt
     a.btn.btn-small(ng-click='destroyFrame(frame)')
       i.icon-remove
-.view-result.boxed(ng-hide='frame.hasErrors')
-  pre(output-raw = "frame.response")
-.status-bar(ng-class='{error: frame.hasErrors, loading: frame.isLoading}')
-  div(ng-hide='frame.isLoading')
-    span(ng-show='frame.hasErrors')
-      .icon-warning-sign
-      {{frame.errorText}}
-    div(ng-hide='frame.hasErrors')
-      div(ng-show='frame.response')
-        .icon-ok
-        span(ng-show='frame.hasErrors')
-          | Execution error
+.inner
+  .view-result.boxed(ng-hide='frame.hasErrors')
+    pre(output-raw = "frame.response")
+  .status-bar(ng-class='{error: frame.hasErrors, loading: frame.isLoading}')
+    div(ng-hide='frame.isLoading')
+      span(ng-show='frame.hasErrors')
+        .icon-warning-sign
+        {{frame.errorText}}
+      div(ng-hide='frame.hasErrors')
+        div(ng-show='frame.response')
+          .icon-ok
+          span(ng-show='frame.hasErrors')
+            | Execution error

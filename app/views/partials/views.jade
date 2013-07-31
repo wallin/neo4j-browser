@@ -42,5 +42,5 @@
     .view(
       ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
       ng-animate="{leave:'frame-out', enter:'frame-in'}"
+      ng-include = "frame.templateUrl"
     )
-      .inner(ng-include = "frame.templateUrl")

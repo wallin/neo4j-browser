@@ -117,7 +117,7 @@ select
   left: 0
   right: 0
   z-index: 10
-  background-color: #EEF0F2
+  background-color: #E7E9EB
   transist all
 
 #views
@@ -129,6 +129,7 @@ select
   right: 0
   z-index: 10
   transist all
+  padding-top: 16px
 
 .view-input
   .view-toolbar
@@ -216,12 +217,37 @@ select
 
 .view
   overflow: hidden
+  &:hover
+    .code-bar .actions
+      opacity: 1
+  .code-bar
+    height: middlebar-height
+    line-height: middlebar-height
+    color: #A7A9AE
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7)
+    //background-color: #FFF
+    border-bottom: 1px solid table-color-border-color
+    padding-left: horizontal-padding
+    font-size: 13px
+    overflow: hidden
+    padding: 0 25px;
+    .code
+      font-family: "Menlo","Courier New","Terminal", monospace
+      font-size: 12px
+      margin-left: 8px
+    .actions
+      opacity: 0
+      transist: opacity
+      absolute: top -1px right 25px
+      .btn
+        margin-left: 4px
+
 .view .inner
   position: relative
-  margin: 24px 24px 0 24px
-  border: 1px solid #D6D8DA
+  margin: 0 24px 16px 24px
+  border: 1px solid #D2D7DD
   box-shadow: 0 1px 2px rgba(0,0,0,0.07)
-  border-radius: 4px
+  border-radius: 3px
   background-color: #fff
   overflow: hidden
   max-height: 420px
@@ -232,30 +258,12 @@ select
   &.enter
     transform: translate(0, 0)
 
-  .code-bar
-    height: middlebar-height
-    line-height: middlebar-height
-    color: rgb(120, 129, 133)
-    //background-color: #FFF
-    border-bottom: 1px solid table-color-border-color
-    padding-left: horizontal-padding
-    font-size: 13px
-    overflow: hidden
-    .code
-      font-family: "Menlo","Courier New","Terminal", monospace
-      font-size: 12px
-      margin-left: 8px
-    .actions
-      absolute: top -1px right 12px
-      .btn
-        margin-left: 4px
-
   .status-bar
     height: middlebar-height
     line-height: middlebar-height
     color: rgb(120, 129, 133)
     //background-color: #FFF
-    border-top: 1px solid table-color-border-color
+    border-top: 1px solid #E7E9EB
     padding-left: horizontal-padding
     font-size: 13px
     position: relative
@@ -282,6 +290,9 @@ select
     .icon-ok
       color: color-success
 
+  svg
+    box-shadow: inset 0 1px #fff;
+
   .view-result
     position: relative
     height: 300px
@@ -305,7 +316,7 @@ select
       &:hover
         color: color-link
     .view-result-graph
-      background-color: #F5F6F6
+      background-color: #F8F9FB
       //position: absolute
       //top: 0
       //left: 0
@@ -316,8 +327,8 @@ select
         font-size: 24px
         absolute: bottom 57px right horizontal-padding
     .view-result-table
-      border-top: 1px solid #E2E6E7
-      background-color: #f7f7f7
+      border-top: 1px solid #fff
+      background-color: #F8F9FB
       position: relative
       left: 0
       right: 0
