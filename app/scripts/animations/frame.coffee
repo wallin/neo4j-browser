@@ -15,14 +15,12 @@ angular.module("neo4jApp.animations", [])
         top: -100
         opacity: 0
         maxHeight: 0
-        scale: 0.95
 
     start: (element, done) ->
-      TweenMax.to element, 0.8,
+      TweenMax.to element, 0.4,
         ease: Power2.easeInOut
         top: 0
         opacity: 1
         maxHeight: 420
-        scale: 1
         onComplete: done
   ]
