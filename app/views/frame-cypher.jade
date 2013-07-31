@@ -1,4 +1,4 @@
-div(ng-controller="CypherResultCtrl")
+div(ng-controller="CypherResultCtrl", fullscreen="fullscreen")
   .code-bar
     .label.label-info Cypher
     span.code {{frame.input | uncomment}}
@@ -7,7 +7,7 @@ div(ng-controller="CypherResultCtrl")
         i.icon-star
       a.btn.btn-small
         i.icon-edit
-      a.btn.btn-small
+      a.btn.btn-small(ng-click="fullscreen = !fullscreen")
         i.icon-collapse-alt
       a.btn.btn-small(ng-click='destroyFrame(frame)')
         i.icon-remove
