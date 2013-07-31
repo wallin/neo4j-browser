@@ -90,18 +90,17 @@ angular.module('neo4jApp.controllers')
     # Handlers for drag n drop
     $scope.sortableOptions =
       stop: scopeApply (e, ui) ->
-        view = ui.item.scope().view
+        doc = ui.item.scope().document
 
-        folder = if ui.item.folder? then ui.item.folder else view.folder
+        folder = if ui.item.folder? then ui.item.folder else doc.folder
         offsetLeft = Math.abs(ui.position.left - ui.originalPosition.left)
 
         if ui.item.relocate
-          view.folder = folder
-          view.starred = !!folder
+          doc.folder = folder
+          doc.starred = !!folder
         # XXX: FIXME
         else if offsetLeft > 200
-          view = ui.item.scope().view
-          $scope.documents.remove(view)
+          $scope.documents.remove(doc)
 
         if ui.item.resort
           idxOffset = ui.item.index()
@@ -109,8 +108,8 @@ angular.module('neo4jApp.controllers')
           first = $scope.documents.where(folder: folder)[0]
           idx = $scope.documents.indexOf(first)
           idx = 0 if idx < 0
-          $scope.documents.remove(view)
-          $scope.documents.add(view, {at: idx + idxOffset})
+          $scope.documents.remove(doc)
+          $scope.documents.add(doc, {at: idx + idxOffset})
 
         $scope.documents.save()
 

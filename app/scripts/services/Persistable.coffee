@@ -17,7 +17,11 @@ angular.module('neo4jApp.services')
 
         # Retrieve all items
         @fetch: ->
-          persisted = JSON.parse(localStorageService.get(@storageKey))
+          persisted = try
+            (localStorageService.get(@storageKey))
+          catch
+            null
+
           return [] unless angular.isArray(persisted)
           new @(p) for p in persisted
 
