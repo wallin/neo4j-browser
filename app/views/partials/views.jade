@@ -35,8 +35,8 @@
           .name Neo4j Enterprise
           .divider &nbsp;
           .navigate
-            a.icon-circle-arrow-left
-            a.icon-circle-arrow-right.muted
+            a.icon-circle-arrow-left(ng-click='historyPrev()', ng-class="{muted: !editor.prev}")
+            a.icon-circle-arrow-right(ng-click='historyNext()', ng-class="{muted: !editor.next}")
 
   #views(style="top: {{editorHeight}}px")
     .view(

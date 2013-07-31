@@ -52,7 +52,7 @@ angular.module('neo4jApp.services')
         next: (item) ->
           idx = @indexOf(item)
           return unless idx?
-          @items[++idx] or @items[0]
+          @items[++idx]
 
         remove: (items) ->
           itemsToRemove = if angular.isArray(items) then items else [items]
@@ -76,7 +76,7 @@ angular.module('neo4jApp.services')
         prev: (item) ->
           idx = @indexOf(item)
           return unless idx?
-          @items[--idx] or @last()
+          @items[--idx]
 
         where: (attrs) ->
           rv = []

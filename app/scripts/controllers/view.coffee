@@ -34,7 +34,8 @@ angular.module('neo4jApp.controllers')
     # Create a new frame
     $scope.createFrame = (data = {}) ->
       return undefined unless data.input
-      $scope.editor.cursor = $scope.editorHistory.add(data.input)
+      $scope.editorHistory.add(data.input)
+      $scope.historySet(data.input)
       frame = new Frame(data)
       $scope.frames.add(frame)
       frame
@@ -52,6 +53,27 @@ angular.module('neo4jApp.controllers')
     $scope.execScript = (input) ->
       frame = $scope.createFrame(input: input)
       frame?.exec()
+
+    $scope.historyNext = ->
+      newItem =
+        $scope.editorHistory.next($scope.editor.cursor) or
+        $scope.editorHistory.last()
+      $scope.historySet(newItem)
+      if $scope.editor.cursor
+        $scope.setEditorContent($scope.editor.cursor)
+
+    $scope.historyPrev = ->
+      newItem =
+        $scope.editorHistory.prev($scope.editor.cursor) or
+        $scope.editorHistory.first()
+      $scope.historySet(newItem)
+      if $scope.editor.cursor
+        $scope.setEditorContent($scope.editor.cursor)
+
+    $scope.historySet = (item)->
+      $scope.editor.cursor = item
+      $scope.editor.prev = $scope.editorHistory.prev(item)
+      $scope.editor.next = $scope.editorHistory.next(item)
 
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
@@ -89,19 +111,9 @@ angular.module('neo4jApp.controllers')
     $scope.$on 'editor:exec', ->
       $scope.execScript($scope.editor.content)
 
-    $scope.$on 'editor:next', ->
-      $scope.editor.cursor =
-        $scope.editorHistory.next($scope.editor.cursor) or
-        $scope.editorHistory.last()
-      if $scope.editor.cursor
-        $scope.setEditorContent($scope.editor.cursor)
+    $scope.$on 'editor:next', $scope.historyNext
 
-    $scope.$on 'editor:prev', ->
-      $scope.editor.cursor =
-        $scope.editorHistory.prev($scope.editor.cursor) or
-        $scope.editorHistory.last()
-      if $scope.editor.cursor
-        $scope.setEditorContent($scope.editor.cursor)
+    $scope.$on 'editor:prev', $scope.historyPrev
 
     ###*
      * Initialization

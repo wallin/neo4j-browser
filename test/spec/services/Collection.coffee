@@ -87,7 +87,7 @@ describe 'Service: Collection', () ->
 
     it 'should wrap to first element if asking for next element from last', ->
       item = Collection.get(1)
-      expect(Collection.next(item).id).toBe 2
+      expect(Collection.next(item)).toBe undefined
 
   describe 'remove:', ->
     beforeEach ->
@@ -121,7 +121,7 @@ describe 'Service: Collection', () ->
 
     it 'should wrap to last element if asking for previous element from first', ->
       item = Collection.get(2)
-      expect(Collection.prev(item).id).toBe 1
+      expect(Collection.prev(item)).toBe undefined
 
   describe 'where:', ->
     beforeEach ->
