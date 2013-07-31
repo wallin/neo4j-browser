@@ -81,7 +81,7 @@ angular.module('neo4jApp.services')
       constructor: (@storage) ->
         @rules = []
         try
-          @loadRules(JSON.parse(@storage?.get('grass')))
+          @loadRules(@storage?.get('grass'))
         catch e
 
       #
