@@ -20,9 +20,9 @@ describe 'Controller: ViewCtrl', () ->
   it 'should change location to the next view on "views:next" event', inject ($location)->
     scope.createView()
     previousLocation = $location.path()
-    previousView = scope.currentView
+    previousView = scope.currentFrame
     scope.$broadcast 'views:next'
-    expect(scope.currentView).not.toBe previousView
+    expect(scope.currentFrame).not.toBe previousView
     expect($location.path()).not.toBe previousLocation
 
   describe 'createFolder:', ->

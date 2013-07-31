@@ -3,8 +3,8 @@
 angular.module('neo4jApp.controllers')
   .controller 'CypherResultCtrl', ['$scope', ($scope) ->
 
-    $scope.$watch 'view.response', ->
-      $scope.showGraph = $scope.view.response?.nodes.length
+    $scope.$watch 'frame.response', ->
+      $scope.showGraph = $scope.frame.response?.nodes.length
       $scope.tab = if $scope.showGraph then 'graph' else 'table'
 
     $scope.setActive = (tab) -> $scope.tab = tab

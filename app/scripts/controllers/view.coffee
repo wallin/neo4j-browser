@@ -6,32 +6,15 @@ angular.module('neo4jApp.controllers')
   '$route'
   '$scope'
   'Collection'
-  'viewService'
+  'Document'
+  'Folder'
+  'Frame'
   'motdService'
-  ($location, $route, $scope, Collection, viewService, motdService) ->
+  ($location, $route, $scope, Collection, Document, Folder, Frame, motdService) ->
 
     ###*
      * Local methods
     ###
-
-    handleRoute = ->
-      return unless $route.current?.page is 'views'
-      viewId = $route.current.params.viewId
-      if not viewId?
-        viewId = $scope.views.last().id
-        $location.path($scope.viewPath(viewId))
-
-      view = $scope.views.get(viewId)
-      if not view
-        return $location.path('/views')
-      else
-        $scope.loadView(view)
-
-    persistViews = ->
-      viewService.persist('views', $scope.views.where(starred: yes))
-
-    persistFolders = $scope.persistFolders = ->
-      viewService.persist('folders', $scope.folders.all())
 
     scopeApply = (fn)->
       return ->
@@ -43,88 +26,59 @@ angular.module('neo4jApp.controllers')
     ###
 
     $scope.createFolder = ->
-      folder = new viewService.Folder()
+      folder = new Folder()
       $scope.folders.add(folder)
-      persistFolders()
+      $scope.folders.save()
       folder
 
-    # Create an unsaved view
-    $scope.createView = (data = {}, navigate = yes) ->
-      len = $scope.views.length + 1
-      data.input ?= "// New view ##{len}"
-      data.starred ?= no
-      view = new viewService.View(data)
-      $scope.views.add(view)
-      $location.path($scope.viewPath(view.id)) if navigate
-      view
+    # Create a new frame
+    $scope.createFrame = (data = {}) ->
+      frame = new Frame(data)
+      $scope.frames.add(frame)
+      frame
+
+    $scope.destroyFrame = (frame) ->
+      $scope.frames.remove(frame)
 
     $scope.setEditorContent = (content) ->
       $scope.editor.content = content
 
     # Executes a script and pushes it to history
     $scope.execScript = (input) ->
-      $scope.createView(input: input).exec()
+      $scope.createFrame(input: input).exec()
 
-    $scope.importView = (content) ->
-      $scope.createView(input: content, starred: yes)
+    $scope.importDocument = (content) ->
+      $scope.documents.add(new Document(content: content))
 
-    $scope.loadView = (view) ->
-      $scope.currentView = view
+    $scope.loadFrame = (frame) ->
+      $scope.currentFrame = frame
       $scope.editor =
-        content: view.input
+        content: frame.input
 
-    $scope.destroyView = (view) ->
-      $scope.views.remove(view)
-
-    $scope.skipViews = (count) ->
-      orderedViews = []
-      for folder in $scope.folders.all()
-        orderedViews = orderedViews.concat $scope.views.where({folder: folder.id})
-      orderedViews = orderedViews.concat $scope.views.where({starred: false})
-      for view, i in orderedViews
-        if $scope.currentView.id is view.id
-          newIndex = (i + count)
-          newIndex = orderedViews.length + newIndex if newIndex < 0
-          newView = orderedViews[newIndex % orderedViews.length]
-          $location.path($scope.viewPath(newView.id))
-          break
+    $scope.persistFolders = ->
+      $scope.folders.save()
 
     $scope.removeFolder = (folder) ->
       okToRemove = confirm("Are you sure you want to delete the folder?")
       return unless okToRemove
       $scope.folders.remove(folder)
-      viewsToRemove = $scope.views.where(folder: folder.id)
-      $scope.views.remove(viewsToRemove)
-      persistFolders()
-      persistViews() if viewsToRemove.length
+      documentsToRemove = $scope.documents.where(folder: folder.id)
+      $scope.documents.remove(documentsToRemove)
+      $scope.folders.save()
+      $scope.documents.save()
 
     $scope.toggleFolder = (folder) ->
       folder.expanded = !folder.expanded
-      persistFolders()
+      $scope.documents.save()
 
-    $scope.toggleStar = (view) ->
-      view.starred = !view.starred
-      view.folder = false unless view.starred
-      persistViews()
-
-    $scope.viewUrl = (id) -> "##{$scope.viewPath(id)}"
-    $scope.viewPath = (id = '') -> "/views/#{id}"
+    $scope.toggleStar = (doc) ->
+      $scope.documents.remove(doc)
+      $scope.documents.save()
 
 
     ###*
      * Event listeners
     ###
-
-    $scope.$on '$routeChangeSuccess', handleRoute
-
-    $scope.$on 'views:next', ->
-      $scope.skipViews(1)
-
-    $scope.$on 'views:previous', ->
-      $scope.skipViews(-1)
-
-    $scope.$on 'views:create', ->
-      $scope.createView()
 
     $scope.$on 'views:exec', ->
       $scope.execScript($scope.editor.content)
@@ -147,18 +101,18 @@ angular.module('neo4jApp.controllers')
         # XXX: FIXME
         else if offsetLeft > 200
           view = ui.item.scope().view
-          $scope.views.remove(view)
+          $scope.documents.remove(view)
 
         if ui.item.resort
           idxOffset = ui.item.index()
           # Get insertion index offset
-          first = $scope.views.where(folder: folder)[0]
-          idx = $scope.views.indexOf(first)
+          first = $scope.documents.where(folder: folder)[0]
+          idx = $scope.documents.indexOf(first)
           idx = 0 if idx < 0
-          $scope.views.remove(view)
-          $scope.views.add(view, {at: idx + idxOffset})
+          $scope.documents.remove(view)
+          $scope.documents.add(view, {at: idx + idxOffset})
 
-        persistViews()
+        $scope.documents.save()
 
       update: (e, ui) ->
         ui.item.resort = yes
@@ -173,19 +127,18 @@ angular.module('neo4jApp.controllers')
       connectWith: '.droppable'
       items: 'li'
 
-    # Initialize from default content and persisted views/folders
-    $scope.folders = new Collection(viewService.default('folders'))
-    $scope.views   = new Collection(viewService.default('views'))
+    # Initialize from persisted documents/folders
+    $scope.folders = new Collection(null, Folder).fetch()
+    $scope.documents   = new Collection(null, Document).fetch()
 
-    $scope.folders.add(viewService.persisted('folders'))
-    $scope.views.add(viewService.persisted('views'))
+    $scope.frames = new Collection()
+    $scope.editor =
+      content: ''
 
-    $scope.$watch 'currentView', (val) ->
-      $scope.$emit('currentView:changed', val)
-    $scope.$watch 'currentView.response', ->
-      $scope.$emit('currentView:changed', $scope.currentView)
+    $scope.$watch 'currentFrame', (val) ->
+      $scope.$emit('currentFrame:changed', val)
+    $scope.$watch 'currentFrame.response', ->
+      $scope.$emit('currentFrame:changed', $scope.currentFrame)
 
     $scope.motd = motdService # '"When you label me, you negate me" -- Soren Kierkegaard III'
-
-    handleRoute()
   ]

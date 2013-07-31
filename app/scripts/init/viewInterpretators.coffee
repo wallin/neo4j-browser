@@ -1,9 +1,9 @@
 angular.module('neo4jApp')
 .config([
-  'viewServiceProvider'
-  (viewServiceProvider) ->
+  'FrameProvider'
+  (FrameProvider) ->
     # play handler
-    viewServiceProvider.interpretors.push
+    FrameProvider.interpretors.push
       type: 'play'
       templateUrl: 'views/views-help.html'
       matches: (input) ->
@@ -21,9 +21,9 @@ angular.module('neo4jApp')
       ]
 
     # Help/man handler
-    viewServiceProvider.interpretors.push
+    FrameProvider.interpretors.push
       type: 'help'
-      templateUrl: 'views/views-help.html'
+      templateUrl: 'views/frame-help.html'
       matches: (input) ->
         [cmd] = input.split(' ')
         cmd = cmd.toLowerCase()
@@ -39,9 +39,9 @@ angular.module('neo4jApp')
 
 
     # HTTP Handler
-    viewServiceProvider.interpretors.push
+    FrameProvider.interpretors.push
       type: 'http'
-      templateUrl: 'views/views-rest.html'
+      templateUrl: 'views/frame-rest.html'
       matches: (input) ->
         [verb] = input.split(' ')
         return false unless verb
@@ -92,10 +92,10 @@ angular.module('neo4jApp')
 
     # Fallback interpretor
     # Cypher handler
-    viewServiceProvider.interpretors.push
+    FrameProvider.interpretors.push
       type: 'cypher'
       matches: -> true
-      templateUrl: 'views/views-cypher.html'
+      templateUrl: 'views/frame-cypher.html'
       exec: ['Cypher', (Cypher) ->
         # Return the function that handles the input
         (input) ->

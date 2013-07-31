@@ -10,7 +10,6 @@ angular.module('neo4jApp.controllers')
     'GraphStyle'
     'Utils'
     ($scope, $dialog, $route, GraphStyle, Utils) ->
-      currentView = null
 
       dialog = null
       dialogOptions =
@@ -21,8 +20,8 @@ angular.module('neo4jApp.controllers')
         keyboard: yes
 
       $scope.resultDetails = ->
-        if currentView?.response
-          stats = currentView.response.stats
+        if currentFrame?.response
+          stats = currentFrame.response.stats
           "
             Constraints added: #{stats.constraints_added}<br>
             Constraints removed: #{stats.constraints_removed}<br>

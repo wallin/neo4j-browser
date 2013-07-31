@@ -24,8 +24,8 @@
       .view-editor
         a.open-sidebar(ng-click="toggleSidebar()", ng-class="{'icon-circle-arrow-left': isSidebarShown, 'icon-circle-arrow-right': !isSidebarShown}")
         span
-          textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}", 
-            'ng-model'='editor.content', 
+          textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}",
+            'ng-model'='editor.content',
             'ui-refresh'='editor.content + isEditorHidden',
             placeholder='{{motd.editor}}'
             )
@@ -34,7 +34,7 @@
 
   #views(style="top: {{editorHeight}}px")
     .view(
-      ng-repeat = 'view in views.where({starred: false}) | orderBy:"startTime":true'
-      ng-include = "view.templateUrl"
+      ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
+      ng-include = "frame.templateUrl"
     )
 

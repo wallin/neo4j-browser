@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Service: viewService', () ->
+describe 'Service: Frame', () ->
   [backend, view] = [null, null]
 
   # load the service's module
@@ -13,7 +13,7 @@ describe 'Service: viewService', () ->
     backend.verifyNoOutstandingRequest()
 
   # instantiate service
-  viewService = {}
-  beforeEach inject (_viewService_) ->
-    viewService = _viewService_
+  Frame = {}
+  beforeEach inject (_Frame_) ->
+    Frame = _Frame_
 

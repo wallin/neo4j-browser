@@ -1,11 +1,11 @@
 .code-bar
   .label.label-info Help
-  span.code {{view.input | uncomment}}
+  span.code {{frame.input | uncomment}}
   .actions
     a.btn.btn-small
       i.icon-collapse-alt
     a.btn.btn-small(ng-click='destroyView(view)')
       i.icon-remove
 
-.view-result.boxed(ng-hide='view.hasErrors', ng-controller='CypherResultCtrl')
-  div(ng-include = 'view.response.page')
+.view-result.boxed(ng-hide='frame.hasErrors')
+  div(ng-include = 'frame.response.page')

@@ -1,0 +1,25 @@
+.code-bar
+  .label.label-info REST
+  span.code {{frame.input | uncomment}}
+  .actions
+    a.btn.btn-small
+      i.icon-star
+    a.btn.btn-small
+      i.icon-edit
+    a.btn.btn-small
+      i.icon-collapse-alt
+    a.btn.btn-small(ng-click='destroyView(view)')
+      i.icon-remove
+.view-result.boxed(ng-hide='frame.hasErrors')
+  pre
+    {{frame.response}}
+.status-bar(ng-class='{error: frame.hasErrors, loading: frame.isLoading}')
+  div(ng-hide='frame.isLoading')
+    span(ng-show='frame.hasErrors')
+      .icon-warning-sign
+      {{frame.errorText}}
+    div(ng-hide='frame.hasErrors')
+      div(ng-show='frame.response')
+        .icon-ok
+        span(ng-show='frame.hasErrors')
+          | Execution error

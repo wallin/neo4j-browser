@@ -6,9 +6,10 @@
 
 angular.module('neo4jApp.services')
   .factory 'Collection', [
-    () ->
+    'Persistable'
+    (Persistable) ->
       class Collection
-        constructor: (items) ->
+        constructor: (items, @_model) ->
           @_reset()
           @add(items) if items?
 
@@ -41,7 +42,6 @@ angular.module('neo4jApp.services')
         get: (id) ->
           id = id.id if angular.isObject(id)
           return undefined unless id?
-
           @_byId[id]
 
         indexOf: (item) ->
@@ -83,6 +83,21 @@ angular.module('neo4jApp.services')
             rv.push item if numAttrs is matches
 
           rv
+
+        #
+        # Proxied model methods for persistance
+        # (from eg. Persistable class)
+        #
+
+        save: ->
+          return unless @_model or angular.isFunction(@_model.save)
+          @_model.save(@all())
+          @
+
+        fetch: ->
+          return unless @_model or angular.isFunction(@_model.fetch)
+          @reset(@_model.fetch())
+          @
 
         #
         # Internal methods
