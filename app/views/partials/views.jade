@@ -22,15 +22,21 @@
       //-     //-   select
       //-     //-     option(ng-repeat='relation in relationships') {{ relation }}
       .view-editor
-        a.open-sidebar(ng-click="toggleSidebar()", ng-class="{'icon-circle-arrow-left': isSidebarShown, 'icon-circle-arrow-right': !isSidebarShown}")
+        a.open-sidebar(ng-click="toggleSidebar()")
+          i(ng-class="{'icon-chevron-left': isSidebarShown, 'icon-bookmark': !isSidebarShown}")
         span
           textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}",
             'ng-model'='editor.content',
             'ui-refresh'='editor.content + isEditorHidden',
-            placeholder='{{motd.editor}}'
+            placeholder='Write some code...'
             )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')
-        .name Neo4j Enterprise
+        .controls
+          .name Neo4j Enterprise
+          .divider &nbsp;
+          .navigate
+            a.icon-circle-arrow-left
+            a.icon-circle-arrow-right.muted
 
   #views(style="top: {{editorHeight}}px")
     .view(
