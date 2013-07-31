@@ -32,7 +32,7 @@
             )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')
         .controls
-          .name Neo4j Enterprise
+          .name(ng-click="togglePopup('about')") Neo4j Enterprise
           .divider &nbsp;
           .navigate
             a.icon-circle-arrow-left(ng-click='historyPrev()', ng-class="{muted: !editor.prev}")
