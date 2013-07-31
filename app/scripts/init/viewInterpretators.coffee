@@ -5,7 +5,7 @@ angular.module('neo4jApp')
     # play handler
     FrameProvider.interpretors.push
       type: 'play'
-      templateUrl: 'views/views-help.html'
+      templateUrl: 'views/frame-help.html'
       matches: (input) ->
         [cmd] = input.split(' ')
         cmd = cmd.toLowerCase()
