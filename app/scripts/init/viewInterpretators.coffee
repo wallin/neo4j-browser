@@ -14,7 +14,7 @@ angular.module('neo4jApp')
       exec: [->
         (input, q) ->
           q.resolve(
-            page: 'content/help/create.html'
+            page: 'content/help/welcome.html'
           )
           q.promise
       ]
