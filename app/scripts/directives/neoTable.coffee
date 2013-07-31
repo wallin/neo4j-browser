@@ -32,7 +32,10 @@ angular.module('neo4jApp.directives')
           for row in result.rows()
             html += "<tr>"
             for cell in row
-              html += "<td>#{cell}</td>"
+              if angular.isString(cell)
+                html += "<td>#{cell}</td>"
+              else
+                html += "<td>#{JSON.stringify(cell)}</td>"
             html += "</tr>"
           html += "</tbody>"
           html += "</table>"
