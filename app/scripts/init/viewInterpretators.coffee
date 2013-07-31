@@ -2,6 +2,24 @@ angular.module('neo4jApp')
 .config([
   'viewServiceProvider'
   (viewServiceProvider) ->
+    # play handler
+    viewServiceProvider.interpretors.push
+      type: 'play'
+      templateUrl: 'views/views-help.html'
+      matches: (input) ->
+        [cmd] = input.split(' ')
+        cmd = cmd.toLowerCase()
+        return cmd is 'play'
+
+      exec: [->
+        step_number = 1
+        (input, q) ->
+          q.resolve(
+            page: "content/help/guides/learn_#{step_number}.html"
+          )
+          q.promise
+      ]
+
     # Help/man handler
     viewServiceProvider.interpretors.push
       type: 'help'
@@ -14,7 +32,7 @@ angular.module('neo4jApp')
       exec: [->
         (input, q) ->
           q.resolve(
-            page: 'content/help/welcome.html'
+            page: 'content/help/help.html'
           )
           q.promise
       ]

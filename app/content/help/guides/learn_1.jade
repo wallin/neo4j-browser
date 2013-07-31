@@ -1,0 +1,97 @@
+article.guide
+  section.step
+    h1
+      | Neo4j is a
+      em Graph
+      strong Database
+    p.hint Neo4j is a NOSQL hipster with serious business credentials.
+  section.step
+    h2
+      | A
+      em Graph
+      | Database
+    img(src='/content/help/guides/img/one_node.png')
+    p.summary
+      | Neo4j stores data in a Graph, with records called Nodes. The simplest
+      | graph has just a single node with some named values called Properties.
+    p
+      | Let's draw a social graph of our friends on the Neo4j team:
+    ol
+      li Draw a circle for the node
+      li Add the name Emil
+      li Note that he is from Sweden
+    ul
+      li Nodes are the name for data records in a graph
+      li Data is stored in nodes as Properties
+      li Properties are simple name/value pairs
+    p.hint Not yet friends with the team? Then we're future friends.
+  section.step
+    h2 More Nodes
+    img(src='/content/help/guides/img/more_nodes.png')
+    p.summary
+      | Like any database, storing data in Neo4j can be as simple
+      | as adding more records. Here, we'll add a few more nodes
+      | for Neo4j people:
+    ol
+      li Emil has a klout score of 99
+      li Johan, from Sweden, who is learning to surf
+      li Ian, from England, who is an author
+      li Rik, from Belgium, has a cat named Orval
+      li Allison, from California, who surfs
+    ul
+      li Similar nodes (like People) can have different properties
+      li Properties can be strings, numbers, or booleans
+      li Neo4j can store billions of nodes
+    p.hint Seriously, a Neo4j graph can hold multiples of the human population.
+  section.step
+    h2 Now consider Relationships
+    img(src='/content/help/guides/img/relationships.png')
+    p.summary
+      | The real power of Neo4j is in connected data. To connect any two nodes,
+      | add a Relationship which describes how the data is related.
+    p
+      | In our social graph, we simply say who KNOWS whom:
+    ol
+      li Emil KNOWS Johan and Ian
+      li Johan KNOWS Ian and Rik
+      li Rik and Ian KNOWS Allison
+    ul
+      li Relationships always have direction
+      li Relationships always have a type
+      li Relationships can have properties
+    p.hint Having real relationships just feels better, doesn't it?
+  section.step
+    h2 Relationships are data
+    img(src='/content/help/guides/img/rel-props.png')
+    p.summary
+      | In a property graph, relationships are data structures that can also
+      | store data.
+    p
+      | Looking more closely at Emil's relationships, note that:
+    ul
+      li Emil has known Johan since 2001
+      li Emil rates Ian 5 (out of 5)
+      li Everyone else can have similar relationship properties
+    p.hint Relationships are First Class Citizens in Neo4j.
+  section.step
+    h2 Summary
+    p
+      | Neo4j stores data in a property graph made up of nodes and relationships,
+      | with properties on both. Absolutely any domain can be stored in a graph.
+    p
+      | Having "whiteboarded" a graph, you are ready to create a graph in Neo4j.
+    p Next steps:
+    ul.big
+      li
+        a.deck-url(href='/content/help/guides/develop.html') Develop
+        | a mini graph application
+      li
+        a.deck-url(href='/content/help/guides/tour.html') Review
+        | using the Data browser and Console
+      li
+        a.deck-url(href='/content/help/guides/explore.html') Explore
+        | external content
+    p.hint
+      | Or, see
+      a.deck-url(href='/content/help/guides/guide.html') other guides
+      | .

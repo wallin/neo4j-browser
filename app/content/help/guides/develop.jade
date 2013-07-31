@@ -1,0 +1,179 @@
+article.guide
+  section.step
+    h1 Develop a Graph
+    p.hint From whiteboard to world stage, Neo4j works the way you think.
+  section.step
+    h2 There are Three APIs...
+    img(src='/content/help/guides/img/api-trio.png')
+    p.summary
+      | Neo4j has a trio of programming interfaces, focused on different kinds of interaction.
+    ul
+      li
+        em Work
+        | with the Cypher query language over HTTP
+      li
+        em Discover
+        | raw graph primitives over REST
+      li
+        em Customize
+        | the database with plugins (for special cases)
+    p.hint As always, pick the right tool for the job.
+  section.step
+    h2 Work with the Cypher language
+    p
+      | Neo4j's Cypher language is purpose built for working with graph data. Inspired
+      | by SQL syntax, embracing pattern matching for describing paths, Cypher is
+      | the primary tool for building graph applications.
+    p
+      | Let's use Cypher to generate the graph described in the
+      a.deck-url(href='/content/help/guides/learn.html') Learn Guide
+      | . Starting with Emil:
+    pre.
+      \nCREATE (ee { name: "Emil", from: "Sweden" }) RETURN ee.name;        
+    ul
+      li
+        code CREATE
+        | clause to create data
+      li
+        code ()
+        | parenthesis to indicate a node
+      li
+        code ee
+        | a variable for the new node
+      li
+        code {}
+        | brackets to add properties to the node
+      li
+        code RETURN
+        | clause indicates what data to return
+      li
+        code ee.name
+        | return the name property from the 'ee' node
+  section.step
+    h2 Cypher, finding nodes
+    p
+      | Now find the node representing Emil:
+    pre.
+      \nSTART ee=node(*) WHERE ee.name! = "Emil" RETURN ee;        
+    ul
+      li
+        code START
+        | clause to begin a query
+      li
+        code ee=node(*)
+        | to search through all nodes
+      li
+        code WHERE
+        | clause to constrain the results
+      li
+        code ee.name! 
+        | indicates the name property must exist
+      li
+        code \= "Emil"
+        | compares an existing name to the value Emil
+      li
+        code RETURN
+        | clause requests particular results
+  section.step
+    h2 Cypher, create nodes and relationships
+    p
+      code CREATE
+      | clauses can create many nodes and relationships at once.
+    pre.
+      \nCREATE (ee { name: "Emil", from: "Sweden", klout: 99 }),
+      (js { name: "Johan", from: "Sweden", learn: "surfing" }),
+      (ir { name: "Ian", from: "England", title: "author" }),
+      (rvb { name: "Rik", from: "Belgium", pet: "Orval" }),
+      (ally { name: "Allison", from: "California", hobby: "surfing" }),
+      (ee)-[:KNOWS {since: 2001}]-        (js),(ee)-[:KNOWS {rating: 5}]-        (ir),
+      (js)-[:KNOWS]-        (ir),(js)-[:KNOWS]-        (rvb),
+      (ir)-[:KNOWS]-        (js),(ir)-[:KNOWS]-        (ally),
+      (rvb)-[:KNOWS]-        (ally);        
+  section.step
+    h2 Cypher pattern matching
+    p.summary
+      | Cypher uses patterns to describe how to find things in the graph.
+      | For instance, to find Emil's friends:
+    pre.
+      \nSTART ee=node(*) MATCH (ee)-[:KNOWS]-        (friends) 
+      WHERE ee.name! = "Emil" RETURN friends;        
+    ul
+      li
+        code MATCH
+        | clause to describe the pattern from known Nodes to found Nodes
+      li
+        code (ee)
+        | starts the pattern with Emil
+      li
+        code -[:KNOWS]-
+        | matches outgoing "KNOWS" relationships
+      li
+        code (friends)
+        | will be bound to Emil's friends
+  section.step
+    h2 Cypher recommendations
+    p.summary
+      | Pattern matching can be used to make recommendations. Johan is learning to surf, so he may want to find
+      | a new friend who already does:
+    pre.
+      \nSTART js=node(*) 
+      MATCH (js)-[:KNOWS]-        ()-[:KNOWS]-        (surfer) 
+      WHERE js.name! = "Johan" AND surfer.hobby! = "surfing"
+      RETURN DISTINCT surfer;        
+    ul
+      li
+        code ()
+        | empty parenthesis to ignore these nodes
+      li
+        code DISTINCT
+        | because more than one path will match the pattern
+      li
+        code surfer
+        | will contain Allison, a friend of a friend who surfs
+  section.step
+    h2 Discover with REST
+    img(src='/content/help/guides/img/api-rest.png')
+    p.summary
+      | Once you've created a graph with Cypher, the REST interface can be useful for
+      | interactively walking the graph in a hypermedia way. This interface is also
+      | useful for checking system statistics and settings.
+    ul
+      li work with raw graph primitives
+      li basic monitoring
+      li not recommended for high-load access
+    p.hint The web is a graph. Why not navigate a graph like browsing the web.
+  section.step
+    h2 Customize with Plugins
+    img(src='/content/help/guides/img/console.png')
+    p
+      | Cypher is an expressive and powerful language, intended to cover the
+      | vast majority of operations. When you have specialized needs, plugins
+      | allow you to "get under the hood."
+    ul
+      li raw access to the database
+      li your choice of JVM language
+      li
+        em note
+        | : for advanced users with special needs
+    p.hint With great power comes great responsibility.
+  section.step
+    h2 Summary
+    p
+      | Start your application using Cypher to create and query graph data. Use the REST API
+      | to monitor the database. In special cases, consider a plugin.
+    p Now, go get started on your own application.
+    p Next steps:
+    ul
+      li
+        a.external(href='http://www.neo4j.org/develop/drivers', target='_blank') Download 
+        | a driver for your language of choice
+      li
+        a.external(href='http://www.neo4j.org/learn/cypher', target='_blank') Learn 
+        | more about Cypher
+      li
+        a.external(href='http://docs.neo4j.org/chunked/@@neo4j.version@@/', target='_blank') Read 
+        | the Neo4j manual for details
+    p.hint
+      | Or, see
+      a.deck-url(href='/content/help/guides/guide.html') other guides
+          | .
