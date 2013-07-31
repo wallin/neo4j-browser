@@ -12,6 +12,16 @@ angular.module('neo4jApp')
       exception: exception
       data: data
 
+    FrameProvider.interpretors.push
+      type: 'clear'
+      matches: (input) ->
+        argv(input)[0] is 'clear'
+      exec: ['$rootScope', ($rootScope) ->
+        (input) ->
+          $rootScope.$broadcast 'frames:clear'
+      ]
+
+
     # Generic shell commands
     FrameProvider.interpretors.push
       type: 'shell'

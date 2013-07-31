@@ -36,8 +36,8 @@ angular.module('neo4jApp.controllers')
       return undefined unless data.input
       $scope.editorHistory.add(data.input)
       $scope.historySet(data.input)
-      frame = new Frame(data)
-      $scope.frames.add(frame)
+      frame = Frame.create(data)
+      $scope.frames.add(frame) if frame
       frame
 
     $scope.createDocument = (data = {}) ->
@@ -115,6 +115,9 @@ angular.module('neo4jApp.controllers')
     $scope.$on 'editor:next', $scope.historyNext
 
     $scope.$on 'editor:prev', $scope.historyPrev
+
+    $scope.$on 'frames:clear', ->
+      $scope.frames.reset()
 
     ###*
      * Initialization

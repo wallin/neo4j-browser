@@ -29,11 +29,7 @@ angular.module('neo4jApp.services')
             query = Utils.stripComments(@input.trim())
             return unless query
             # Find first matching input interpretator
-            intr = null
-            for i in self.interpretors
-              if i.matches(query)
-                intr = i
-                break;
+            intr = Frame.interpreterFor(query)
             return unless intr
             @type = intr.type
             intrFn = $injector.invoke(intr.exec)
@@ -67,6 +63,25 @@ angular.module('neo4jApp.services')
                   @errorText = "Unknown error"
                 @runTime = timer.stop().time()
             )
+
+          @create: (data) ->
+            intr = @interpreterFor(data.input)
+            return undefined unless intr
+            if intr.templateUrl
+              new Frame(data)
+            else
+              $injector.invoke(intr.exec)()
+
+
+          @interpreterFor: (input) ->
+            intr = null
+            for i in self.interpretors
+              if i.matches(input)
+                intr = i
+                break;
+            intr
+
+
         Frame
     ]
     @

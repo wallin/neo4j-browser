@@ -43,12 +43,12 @@ describe 'Controller: ViewCtrl', () ->
       expect(scope.frames.length).toBe 0
 
     it 'should return the created frame', ->
-      frame = scope.createFrame(input: 'Hello')
+      frame = scope.createFrame(input: 'help')
       expect(frame instanceof Frame).toBeTruthy()
 
     it 'should create a new frame and add it to the frames', ->
       len = scope.frames.length
-      scope.createFrame(input: 'Hello')
+      scope.createFrame(input: 'help')
       expect(scope.frames.length).toBe len+1
 
   describe 'removeFolder:', ->
