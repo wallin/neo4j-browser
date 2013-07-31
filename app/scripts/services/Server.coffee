@@ -59,6 +59,8 @@ angular.module('neo4jApp.services')
         #
         # Convenience methods
         #
+        console: (command, engine = "shell") ->
+          @post(Settings.endpoint.console, {command: command, engine: engine})
 
         cypher: (path = '', data) ->
           @post("#{Settings.endpoint.cypher}" + path, data)

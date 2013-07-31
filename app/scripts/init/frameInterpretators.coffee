@@ -2,6 +2,40 @@ angular.module('neo4jApp')
 .config([
   'FrameProvider'
   (FrameProvider) ->
+
+    argv = (input) ->
+      rv = input.toLowerCase().split(' ')
+      rv or []
+
+    error = (msg, exception = "Error", data) ->
+      message: msg
+      exception: exception
+      data: data
+
+    # Generic shell commands
+    FrameProvider.interpretors.push
+      type: 'shell'
+      templateUrl: 'views/frame-rest.html'
+      matches: (input) ->
+        switch argv(input)[0]
+          when 'schema' then yes
+          else no
+
+      exec: ['Server', (Server) ->
+        (input, q) ->
+          Server.console(input)
+          .then(
+            (r) ->
+              response = r.data[0]
+              if response.match('Unknown')
+                q.reject(error("Unknown action", null, response))
+              else
+                q.resolve(response)
+          )
+          q.promise
+      ]
+
+
     # play handler
     FrameProvider.interpretors.push
       type: 'play'
@@ -11,32 +45,23 @@ angular.module('neo4jApp')
         cmd = cmd.toLowerCase()
         return cmd is 'play'
 
-      exec: [->
+      exec: ->
         step_number = 1
         (input, q) ->
-          q.resolve(
-            page: "content/help/guides/learn_#{step_number}.html"
-          )
-          q.promise
-      ]
+          page: "content/help/guides/learn_#{step_number}.html"
 
     # Help/man handler
     FrameProvider.interpretors.push
       type: 'help'
       templateUrl: 'views/frame-help.html'
       matches: (input) ->
-        [cmd] = input.split(' ')
-        cmd = cmd.toLowerCase()
-        return cmd is 'help' or cmd is 'man'
+        switch argv(input)[0]
+          when 'help', 'man' then yes
+          else no
 
-      exec: [->
+      exec: ->
         (input, q) ->
-          q.resolve(
-            page: 'content/help/help.html'
-          )
-          q.promise
-      ]
-
+          page: 'content/help/help.html'
 
     # HTTP Handler
     FrameProvider.interpretors.push
@@ -50,10 +75,6 @@ angular.module('neo4jApp')
 
       exec: ['Server', (Server) ->
         verbs = ['get', 'post', 'delete', 'put']
-        error = (msg) ->
-          message: msg
-          exception: 'HTTP Error'
-
         (input, q) ->
           regex = /^((GET)|(PUT)|(POST)|(DELETE)) ([^ ]+)( (.+))?$/i
           result = regex.exec(input)

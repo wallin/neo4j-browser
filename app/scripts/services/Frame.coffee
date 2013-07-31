@@ -60,6 +60,7 @@ angular.module('neo4jApp.services')
               (result = {}) =>
                 @isLoading = no
                 @hasErrors = yes
+                @response = result.data
                 if result.exception and result.message
                   @errorText = result.exception + ": " + result.message.split("\n")[0]
                 else

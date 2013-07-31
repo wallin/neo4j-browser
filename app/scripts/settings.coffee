@@ -6,6 +6,7 @@ angular.module('neo4jApp.settings', [])
   .constant('Settings', {
     host: baseURL
     endpoint:
+      console: "#{baseURL}/db/manage/server/console"
       jmx: "#{baseURL}/db/manage/server/jmx/query"
       rest: restAPI
       cypher: "#{restAPI}/cypher"
