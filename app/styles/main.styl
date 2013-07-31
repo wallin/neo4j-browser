@@ -61,7 +61,19 @@ form
   right: 0
   background-color: #fff
   z-index: 1000000
-
+  .inner
+    position: relative
+  .code-bar
+    padding: 0 16px
+    .actions
+      display: none
+    a.close-fullscreen
+      display: block
+      absolute: top 9px right 16px
+      color: #9B9DA2
+      font-size: 20px
+  .view-result-graph
+    background-color: #F8F9FB
 
 #page-container .page
   position: absolute
@@ -215,32 +227,35 @@ select
       &:hover
         color: color-success
 
+.code-bar
+  height: middlebar-height
+  line-height: middlebar-height
+  color: #A7A9AE
+  text-shadow: 0 1px 0 rgba(255,255,255,0.7)
+  //background-color: #FFF
+  border-bottom: 1px solid table-color-border-color
+  padding-left: horizontal-padding
+  font-size: 13px
+  overflow: hidden
+  padding: 0 25px;
+  .code
+    font-family: "Menlo","Courier New","Terminal", monospace
+    font-size: 12px
+    margin-left: 8px
+  a.close-fullscreen
+    display: none
+  .actions
+    opacity: 0
+    transist: opacity
+    absolute: top -1px right 25px
+    .btn
+      margin-left: 4px
+
 .view
   overflow: hidden
   &:hover
     .code-bar .actions
       opacity: 1
-  .code-bar
-    height: middlebar-height
-    line-height: middlebar-height
-    color: #A7A9AE
-    text-shadow: 0 1px 0 rgba(255,255,255,0.7)
-    //background-color: #FFF
-    border-bottom: 1px solid table-color-border-color
-    padding-left: horizontal-padding
-    font-size: 13px
-    overflow: hidden
-    padding: 0 25px;
-    .code
-      font-family: "Menlo","Courier New","Terminal", monospace
-      font-size: 12px
-      margin-left: 8px
-    .actions
-      opacity: 0
-      transist: opacity
-      absolute: top -1px right 25px
-      .btn
-        margin-left: 4px
 
 .view .inner
   position: relative

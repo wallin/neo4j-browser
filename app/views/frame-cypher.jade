@@ -11,6 +11,7 @@ div(ng-controller="CypherResultCtrl", fullscreen="fullscreen")
         i.icon-collapse-alt
       a.btn.btn-small(ng-click='destroyFrame(frame)')
         i.icon-remove
+    a.close-fullscreen.icon-chevron-down(ng-click="fullscreen = !fullscreen")
   .inner
     .view-result.boxed(
       ng-class='{error: frame.hasErrors}'
