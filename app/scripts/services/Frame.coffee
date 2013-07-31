@@ -4,7 +4,7 @@ angular.module('neo4jApp.services')
 .provider 'Frame', [
   ->
     self = @
-    @interpretors = []
+    @interpreters = []
 
     @$get = [
       '$injector',
@@ -75,7 +75,7 @@ angular.module('neo4jApp.services')
 
           @interpreterFor: (input) ->
             intr = null
-            for i in self.interpretors
+            for i in self.interpreters
               if i.matches(input)
                 intr = i
                 break;

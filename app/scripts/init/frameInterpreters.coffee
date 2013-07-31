@@ -12,7 +12,7 @@ angular.module('neo4jApp')
       exception: exception
       data: data
 
-    FrameProvider.interpretors.push
+    FrameProvider.interpreters.push
       type: 'clear'
       matches: (input) ->
         argv(input)[0] is 'clear'
@@ -23,7 +23,7 @@ angular.module('neo4jApp')
 
 
     # Generic shell commands
-    FrameProvider.interpretors.push
+    FrameProvider.interpreters.push
       type: 'shell'
       templateUrl: 'views/frame-rest.html'
       matches: (input) ->
@@ -47,7 +47,7 @@ angular.module('neo4jApp')
 
 
     # play handler
-    FrameProvider.interpretors.push
+    FrameProvider.interpreters.push
       type: 'play'
       templateUrl: 'views/frame-help.html'
       matches: (input) ->
@@ -61,7 +61,7 @@ angular.module('neo4jApp')
           page: "content/help/guides/learn_#{step_number}.html"
 
     # Help/man handler
-    FrameProvider.interpretors.push
+    FrameProvider.interpreters.push
       type: 'help'
       templateUrl: 'views/frame-help.html'
       matches: (input) ->
@@ -81,7 +81,7 @@ angular.module('neo4jApp')
 
 
     # HTTP Handler
-    FrameProvider.interpretors.push
+    FrameProvider.interpreters.push
       type: 'http'
       templateUrl: 'views/frame-rest.html'
       matches: (input) ->
@@ -130,7 +130,7 @@ angular.module('neo4jApp')
 
     # Fallback interpretor
     # Cypher handler
-    FrameProvider.interpretors.push
+    FrameProvider.interpreters.push
       type: 'cypher'
       matches: -> true
       templateUrl: 'views/frame-cypher.html'
