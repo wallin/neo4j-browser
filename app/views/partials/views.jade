@@ -35,6 +35,7 @@
   #views(style="top: {{editorHeight}}px")
     .view(
       ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
-      ng-include = "frame.templateUrl"
+      ng-animate="{leave:'frame-out', enter:'frame-in'}"
     )
-
+      .inner
+        div(ng-include = "frame.templateUrl")
