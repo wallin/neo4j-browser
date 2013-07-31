@@ -13,7 +13,7 @@ article.help
       pre.code(mode='cypher').
         MATCH p = (ups)<-[DEPENDS_ON]-(device) WHERE ups.id='EPS-7001'
         FOREACH (n IN nodes(p): SET n.available = FALSE )
-    figcaption Mark all devices plugged into a failed UPS as unavailable.
+      figcaption Mark all devices plugged into a failed UPS as unavailable.
   section.reference
     h1 Reference
     dl

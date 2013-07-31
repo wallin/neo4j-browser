@@ -12,7 +12,7 @@ article.help
       pre.code(mode='cypher').
         MATCH (director:Person)-[:DIRECTED]->(movie)
         RETURN director.name AS Director, collect(movie.title) AS Movies
-    figcaption Return all directors, each paired with a collection of the movies they've directed.
+      figcaption Return all directors, each paired with a collection of the movies they've directed.
   section.reference
     h1 Reference
     dl

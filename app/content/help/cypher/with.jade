@@ -15,7 +15,7 @@ article.help
         WITH director, ORDER BY count(movie.title) LIMIT 1
           MATCH (director)<-[:KNOWS*..6]-(hopeful)
           WHERE hopeful.name = "Starlet Ohuru"
-    figcaption Find a path from a hopeful actor to Hollywood's most prolific director.
+      figcaption Find a path from a hopeful actor to Hollywood's most prolific director.
   section.reference
     h1 Reference
     dl
