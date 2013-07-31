@@ -175,6 +175,49 @@ select
     z-index: 100
     border-bottom: 1px solid #D6D8DA
     box-shadow: 0 1px 2px rgba(0,0,0,0.07)
+    ul.controls
+      z-index: 1000
+      absolute: top 20px right 24px
+      .divider
+        margin: 0 11px
+        width: 1px
+        padding: 0
+        background-color: #EDEFF2
+      a.balled
+        background-color: #93969b
+        transform: scale(1)
+        &:hover
+          transform: scale(1.2)
+        &.success
+          background-color: color-success
+        &.muted
+          background-color: #E5E5E7
+          cursor: default
+          &:hover
+            transform: scale(1)
+        display: inline-block
+        width: 30px
+        height: 30px
+        text-align: center
+        color: #fff
+        border-radius: 50%
+        vertical-align: middle
+        [class^="icon-"]
+          font-size: 18px
+          line-height: 32px
+          position: relative
+          &.icon-arrow-left
+            font-size: 21px
+            top: -1px
+          &.icon-arrow-right
+            font-size: 21px
+            top: -1px
+          &.icon-remove
+            top: -1px
+          &.icon-play
+            font-size: 16px
+            left: 1px
+
     a.open-sidebar
       top: 21px
       left: 18px
@@ -194,38 +237,6 @@ select
         relative: left -1px
       &:hover
         background-color: lighten(#93969B, 30%)
-    .controls
-      z-index: 1000
-      absolute: top 20px right 24px
-      line-height: 34px
-      .navigate
-        font-size: 34px
-        float: right
-        a
-          margin-left: 8px
-          color #93969B
-          &:hover
-            color: lighten(#93969B, 30%)
-          &.muted
-            color: #E5E5E7
-            cursor: default
-      .divider
-        margin: 0 16px
-        float: right
-        width: 1px
-        background-color: #EDEFF2
-      .name
-        color: #93969B
-        font-size: 17px
-        float: right
-    a.icon-play-sign
-      font-size: 37px
-      absolute: top 8px right 16px
-      z-index: 10000
-      cursor: pointer
-      color: color-default-text
-      &:hover
-        color: color-success
 
 .code-bar
   height: middlebar-height
@@ -312,7 +323,7 @@ select
     position: relative
     height: 300px
     transist left
-    background: #F5F6F6 url('/images/background-pending.png') 50% 50% no-repeat
+    background: #F8F9FB url('/images/background-pending.png') 50% 50% no-repeat
     z-index: 10
     &.error
       background-image: url('/images/background-error.png')

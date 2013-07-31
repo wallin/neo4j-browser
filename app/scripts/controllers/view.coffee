@@ -53,6 +53,7 @@ angular.module('neo4jApp.controllers')
     $scope.execScript = (input) ->
       frame = $scope.createFrame(input: input)
       frame?.exec()
+      $scope.editor.content = ""
 
     $scope.historyNext = ->
       newItem =
@@ -110,7 +111,6 @@ angular.module('neo4jApp.controllers')
 
     $scope.$on 'editor:exec', ->
       $scope.execScript($scope.editor.content)
-      $scope.editor.content = ""
 
     $scope.$on 'editor:next', $scope.historyNext
 

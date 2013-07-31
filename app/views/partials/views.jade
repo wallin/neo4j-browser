@@ -31,12 +31,20 @@
             placeholder='Write some code...'
             )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')
-        .controls
-          .name(ng-click="togglePopup('about')") Neo4j Enterprise
-          .divider &nbsp;
-          .navigate
-            a.icon-circle-arrow-left(ng-click='historyPrev()', ng-class="{muted: !editor.prev}")
-            a.icon-circle-arrow-right(ng-click='historyNext()', ng-class="{muted: !editor.next}")
+        ul.controls.inline
+          li
+            a.balled.success('ng-click' = 'execScript(editor.content)', ng-class="{muted: editor.content == ''}")
+              i.icon-play
+          li
+            a.balled(ng-click='setEditorContent("")', ng-class="{muted: !editor.content}")
+              i.icon-remove
+          li.divider &nbsp;
+          li
+            a.balled(ng-click='historyPrev()', ng-class="{muted: !editor.prev}")
+              i.icon-arrow-left
+          li
+            a.balled(ng-click='historyNext()', ng-class="{muted: !editor.next}")
+              i.icon-arrow-right
 
   #views(style="top: {{editorHeight}}px")
     .view(
