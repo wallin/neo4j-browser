@@ -33,6 +33,8 @@ angular.module('neo4jApp.controllers')
 
     # Create a new frame
     $scope.createFrame = (data = {}) ->
+      return undefined unless data.input
+      $scope.editor.cursor = $scope.editorHistory.add(data.input)
       frame = new Frame(data)
       $scope.frames.add(frame)
       frame
@@ -48,7 +50,8 @@ angular.module('neo4jApp.controllers')
 
     # Executes a script and pushes it to history
     $scope.execScript = (input) ->
-      $scope.createFrame(input: input).exec()
+      frame = $scope.createFrame(input: input)
+      frame?.exec()
 
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
@@ -83,8 +86,22 @@ angular.module('neo4jApp.controllers')
      * Event listeners
     ###
 
-    $scope.$on 'views:exec', ->
+    $scope.$on 'editor:exec', ->
       $scope.execScript($scope.editor.content)
+
+    $scope.$on 'editor:next', ->
+      $scope.editor.cursor =
+        $scope.editorHistory.next($scope.editor.cursor) or
+        $scope.editorHistory.last()
+      if $scope.editor.cursor
+        $scope.setEditorContent($scope.editor.cursor)
+
+    $scope.$on 'editor:prev', ->
+      $scope.editor.cursor =
+        $scope.editorHistory.prev($scope.editor.cursor) or
+        $scope.editorHistory.last()
+      if $scope.editor.cursor
+        $scope.setEditorContent($scope.editor.cursor)
 
     ###*
      * Initialization
@@ -134,7 +151,9 @@ angular.module('neo4jApp.controllers')
     $scope.documents   = new Collection(null, Document).fetch()
 
     $scope.frames = new Collection()
+    $scope.editorHistory = new Collection()
     $scope.editor =
+      cursor: null
       content: ''
 
     $scope.$watch 'currentFrame', (val) ->

@@ -29,8 +29,8 @@ describe 'Service: Collection', () ->
     beforeEach ->
       Collection.add([{id: 2}, {id: 3}, {id: 1}])
 
-    it 'should retrieve item with lowest id', ->
-      expect(Collection.first().id).toBe 1
+    it 'should retrieve first item', ->
+      expect(Collection.first().id).toBe 2
 
   describe 'get:', ->
     beforeEach ->
@@ -42,6 +42,12 @@ describe 'Service: Collection', () ->
 
     it 'should be able to retrieve item by reference', ->
       item = Collection.get(1)
+      item_copy = Collection.get(item)
+      expect(item_copy).toBe item
+
+    it 'should be able to retrieve and item without an id', ->
+      item = "Hello"
+      Collection.add(item)
       item_copy = Collection.get(item)
       expect(item_copy).toBe item
 
@@ -68,8 +74,20 @@ describe 'Service: Collection', () ->
     beforeEach ->
       Collection.add([{id: 2}, {id: 3}, {id: 1}])
 
-    it 'should retrieve item with highest id', ->
-      expect(Collection.last().id).toBe 3
+    it 'should retrieve last item', ->
+      expect(Collection.last().id).toBe 1
+
+  describe 'next:', ->
+    beforeEach ->
+      Collection.add([{id: 2}, {id: 3}, {id: 1}])
+
+    it 'should retrieve the next item', ->
+      item = Collection.get(2)
+      expect(Collection.next(item).id).toBe 3
+
+    it 'should wrap to first element if asking for next element from last', ->
+      item = Collection.get(1)
+      expect(Collection.next(item).id).toBe 2
 
   describe 'remove:', ->
     beforeEach ->
@@ -92,6 +110,18 @@ describe 'Service: Collection', () ->
       attrs = Collection.pluck('id')
       expect(attrs.length).toBe 3
       expect(attrs).toContain attr for attr in [1...3]
+
+  describe 'prev:', ->
+    beforeEach ->
+      Collection.add([{id: 2}, {id: 3}, {id: 1}])
+
+    it 'should retrieve the previous item', ->
+      item = Collection.get(3)
+      expect(Collection.prev(item).id).toBe 2
+
+    it 'should wrap to last element if asking for previous element from first', ->
+      item = Collection.get(2)
+      expect(Collection.prev(item).id).toBe 1
 
   describe 'where:', ->
     beforeEach ->

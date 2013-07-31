@@ -6,8 +6,7 @@
 
 angular.module('neo4jApp.services')
   .factory 'Collection', [
-    'Persistable'
-    (Persistable) ->
+    () ->
       class Collection
         constructor: (items, @_model) ->
           @_reset()
@@ -37,18 +36,23 @@ angular.module('neo4jApp.services')
           @items
 
         first: ->
-          @items.sort((a, b) -> a.id-b.id)[0]
+          @items[0]
 
         get: (id) ->
-          id = id.id if angular.isObject(id)
           return undefined unless id?
+          id = if id.id? then id.id else id
           @_byId[id]
 
         indexOf: (item) ->
           @items.indexOf item
 
         last: ->
-          @items.sort((a, b) -> b.id-a.id)[0]
+          @items[@length-1]
+
+        next: (item) ->
+          idx = @indexOf(item)
+          return unless idx?
+          @items[++idx] or @items[0]
 
         remove: (items) ->
           itemsToRemove = if angular.isArray(items) then items else [items]
@@ -68,6 +72,11 @@ angular.module('neo4jApp.services')
         pluck: (attr) ->
           return undefined unless angular.isString(attr)
           i[attr] for i in @items
+
+        prev: (item) ->
+          idx = @indexOf(item)
+          return unless idx?
+          @items[--idx] or @last()
 
         where: (attrs) ->
           rv = []

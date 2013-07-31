@@ -93,14 +93,14 @@ angular.module('neo4jApp.controllers')
         return if $scope.isPopupShown and e.keyCode != 191
 
         if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
-          $scope.$broadcast 'views:exec'
+          $scope.$broadcast 'editor:exec'
           $scope.editorChanged()
         else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
           e.preventDefault()
-          $scope.$broadcast 'views:previous'
+          $scope.$broadcast 'editor:prev'
         else if e.ctrlKey and e.keyCode is 40 # Ctrl-Down
           e.preventDefault()
-          $scope.$broadcast 'views:next'
+          $scope.$broadcast 'editor:next'
         else if e.keyCode is 27 # Esc
           if $scope.isPopupShown
             $scope.togglePopup()

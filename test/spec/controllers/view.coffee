@@ -37,17 +37,23 @@ describe 'Controller: ViewCtrl', () ->
       expect(folder.expanded).toBeTruthy()
 
   describe 'createFrame:', ->
-    it 'should return the created frame', ->
+    it 'should not create a frame without input', ->
       frame = scope.createFrame()
+      expect(frame).toBe undefined
+      expect(scope.frames.length).toBe 0
+
+    it 'should return the created frame', ->
+      frame = scope.createFrame(input: 'Hello')
       expect(frame instanceof Frame).toBeTruthy()
 
     it 'should create a new frame and add it to the frames', ->
       len = scope.frames.length
-      scope.createFrame()
+      scope.createFrame(input: 'Hello')
       expect(scope.frames.length).toBe len+1
 
   describe 'removeFolder:', ->
     xit 'should remove a folder from folders', ->
+      # TODO: Solve confirm...
       len = scope.folders.length
       folder = scope.createFolder()
       scope.removeFolder(folder)
