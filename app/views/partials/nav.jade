@@ -2,7 +2,7 @@
   ul.nav.nav-list
     li.nav-header(ng-class='{active: currentPage == "views"}')
       a(href='#/views') Neo4j
-        .logo(ng-class='{loading: currentView.isLoading}')
+        .logo(fancy-logo ng-class='{loading: currentView.isLoading}')
           .ball.one
           .ball.two
           .ball.three
