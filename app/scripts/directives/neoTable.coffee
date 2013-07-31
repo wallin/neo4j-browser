@@ -4,18 +4,40 @@ angular.module('neo4jApp.directives')
     ->
       replace: yes
       restrict: 'E'
-      require: 'ngModel'
-      templateUrl: 'views/neo-table.html'
-      link: (scope, elm, attr, ngModel) ->
+      #require: 'ngModel'
+      #templateUrl: 'views/neo-table.html'
+      link: (scope, elm, attr) ->
         predicate = null
         scope.reverse = no
-        ngModel.$render = (result) ->
-          result = ngModel.$modelValue
+        unbind = scope.$watch attr.tableData, (result) ->
           return unless result
           # TODO: show something if result is too large
           return if result.isTooLarge
-          scope.rows = result.rows()
-          scope.columns = result.columns()
+          #scope.rows = result.rows()
+          #scope.columns = result.columns()
+          elm.html(render(result))
+          unbind()
+
+        # Manual rendering function due to performance reasons
+        # (repeat watchers are expensive)
+        render = (result) ->
+          rows = result.rows()
+          return "" unless rows.length
+          html  = "<table class='table-striped'>"
+          html += "<thead><tr>"
+          for col in result.columns()
+            html += "<th>#{col}</th>"
+          html += "</tr></thead>"
+          html += "<tbody>"
+          for row in result.rows()
+            html += "<tr>"
+            for cell in row
+              html += "<td>#{cell}</td>"
+            html += "</tr>"
+          html += "</tbody>"
+          html += "</table>"
+          html
+
 
         scope.orderBy = (col) ->
           if col is predicate
