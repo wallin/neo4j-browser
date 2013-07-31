@@ -71,10 +71,9 @@ angular.module('neo4jApp')
 
       exec: ->
         (input, q) ->
-          console.log(input)
           topic = input[4..]
           if (topic.length > 1)
-            topic = topic.toLowerCase().trim()
+            topic = topic.toLowerCase().trim().replace(' ', '-')
             page: "content/help/cypher/#{topic}.html"
           else
             page: "content/help/help.html"
