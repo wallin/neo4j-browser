@@ -45,6 +45,15 @@ angular.module('neo4jApp.controllers')
           $scope.editorOneLine = codeMirror.display.showingTo == 1
           $scope.$apply() if !$scope.$$phase
 
+      CodeMirror.commands.handleEnter = (cm) ->
+        if cm.display.showingTo == 1
+          $scope.$broadcast 'editor:exec'
+        else
+          CodeMirror.commands.newlineAndIndent(cm)
+
+      CodeMirror.keyMap["default"]["Enter"] = "handleEnter"
+      CodeMirror.keyMap["default"]["Shift-Enter"] = "newlineAndIndent"
+
       $scope.isEditorHidden = false
       $scope.toggleEditor = ->
         $scope.isEditorHidden ^= true

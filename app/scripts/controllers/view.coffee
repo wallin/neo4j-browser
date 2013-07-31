@@ -110,6 +110,7 @@ angular.module('neo4jApp.controllers')
 
     $scope.$on 'editor:exec', ->
       $scope.execScript($scope.editor.content)
+      $scope.editor.content = ""
 
     $scope.$on 'editor:next', $scope.historyNext
 
