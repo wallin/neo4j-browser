@@ -14,8 +14,10 @@ describe 'Service: Cypher', () ->
 
   # instantiate service
   Cypher = {}
-  beforeEach inject (_Cypher_) ->
+  scope = {}
+  beforeEach inject (_Cypher_, $rootScope) ->
     Cypher = _Cypher_
+    scope = $rootScope.$new()
 
 
   cypherData = (type = "node", id = 0, attrs = {}) ->
@@ -34,5 +36,6 @@ describe 'Service: Cypher', () ->
     it 'should send POST request when invoked', ->
       backend.expectPOST(/db\/data\/cypher/).respond()
       Cypher.send('START n=node(*) RETURN n;')
+      scope.$apply()
       backend.flush()
 
