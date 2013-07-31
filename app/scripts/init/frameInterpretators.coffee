@@ -71,7 +71,13 @@ angular.module('neo4jApp')
 
       exec: ->
         (input, q) ->
-          page: 'content/help/help.html'
+          console.log(input)
+          topic = input[4..]
+          if (topic.length > 1)
+            topic = topic.toLowerCase().trim()
+            page: "content/help/cypher/#{topic}.html"
+          else
+            page: "content/help/help.html"
 
     # HTTP Handler
     FrameProvider.interpretors.push
