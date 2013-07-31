@@ -10,3 +10,9 @@
 .inner
   .view-result.boxed(ng-hide='frame.hasErrors')
     div(ng-include = 'frame.response.page')
+
+  .status-bar.error(ng-show='frame.hasErrors')
+    div
+      span
+        .icon-warning-sign
+        {{frame.errorText}}

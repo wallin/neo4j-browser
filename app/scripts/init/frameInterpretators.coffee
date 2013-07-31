@@ -69,9 +69,16 @@ angular.module('neo4jApp')
           when 'help', 'man' then yes
           else no
 
-      exec: ->
+      exec: ['$http', ($http) ->
         (input, q) ->
-          page: 'content/help/help.html'
+          section = argv(input)[1] or 'help'
+          url = "content/help/#{section}.html"
+          $http.get(url)
+          .success(->q.resolve(page: url))
+          .error(->q.reject(error("No such help section")))
+          q.promise
+      ]
+
 
     # HTTP Handler
     FrameProvider.interpretors.push
