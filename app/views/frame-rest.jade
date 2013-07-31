@@ -1,6 +1,6 @@
 .code-bar
   .label.label-info REST
-  span.code {{frame.input | uncomment}}
+  span.code {{frame.input}}
   .actions
     a.btn.btn-small(ng-click='importDocument(frame.input)')
       i.icon-star
@@ -11,8 +11,7 @@
     a.btn.btn-small(ng-click='destroyFrame(frame)')
       i.icon-remove
 .view-result.boxed(ng-hide='frame.hasErrors')
-  pre
-    {{frame.response}}
+  pre(output-raw = "frame.response")
 .status-bar(ng-class='{error: frame.hasErrors, loading: frame.isLoading}')
   div(ng-hide='frame.isLoading')
     span(ng-show='frame.hasErrors')
