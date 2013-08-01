@@ -168,7 +168,7 @@ angular.module('neo4jApp.controllers')
 
     # Find and restore orphan folders
     for doc in $scope.documents.all()
-      continue unless doc.folder?
+      continue unless doc.folder
       if not $scope.folders.get(doc.folder)
         $scope.createFolder(doc.folder)
 
