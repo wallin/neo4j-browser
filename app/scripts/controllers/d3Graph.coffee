@@ -28,7 +28,7 @@ clickcancel = ->
             ->
               event.click e.target.__data__
               wait = null
-          )(d3.event), 50)
+          )(d3.event), 250)
 
   event = d3.dispatch("click", "dblclick")
   d3.rebind cc, event, "on"
@@ -65,7 +65,7 @@ angular.module('neo4jApp.controllers')
         $rootScope.$apply() unless $rootScope.$$phase
 
       onDblClick = (d) =>
-        $rootScope.selectedGraphItem = d
+        #$rootScope.selectedGraphItem = d
         return if d.expanded
         GraphExplorer.exploreNeighbours(d.id).then (result) =>
           graph.merge(result)
@@ -90,6 +90,7 @@ angular.module('neo4jApp.controllers')
 
       clickHandler = clickcancel()
       clickHandler.on 'click', onClick
+      clickHandler.on 'dblclick', onDblClick
 
       tick = ->
         relationshipGroups = el.selectAll("g.relationship")
