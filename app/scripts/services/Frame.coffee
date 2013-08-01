@@ -64,9 +64,12 @@ angular.module('neo4jApp.services')
             )
             @
 
-          @create: (data) ->
-            intr = @interpreterFor(data.input)
+          @create: (data = {})  ->
+            input = Utils.stripComments(data.input?.trim())
+            return unless input
+            intr = @interpreterFor(input)
             return undefined unless intr
+            data.input = input
             if intr.templateUrl
               frame = new Frame(data)
             else
