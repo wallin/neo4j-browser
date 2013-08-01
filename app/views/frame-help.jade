@@ -2,10 +2,8 @@
   .label.label-info Help
   span.code {{frame.input | uncomment}}
   .actions
-    a.btn.btn-small
-      i.icon-collapse-alt
-    a.btn.btn-small(ng-click='destroyFrame(frame)')
-      i.icon-remove
+    a.icon-fullscreen(ng-click="fullscreen = !fullscreen", tooltip-placement='bottom', tooltip='Fullscreen')
+    a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
 
 .inner
   .view-result.help(ng-hide='frame.hasErrors', ng-include = 'frame.response.page')

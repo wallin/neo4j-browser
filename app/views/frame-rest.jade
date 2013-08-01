@@ -2,14 +2,12 @@
   .label.label-info HTTP
   span.code {{frame.input}}
   .actions
-    a.btn.btn-small(ng-click='importDocument(frame.input)')
-      i.icon-star
-    a.btn.btn-small
-      i.icon-edit
-    a.btn.btn-small(exportable ng-click='exportJSON(frame.response)')
-      i.icon-download-alt
-    a.btn.btn-small(ng-click='destroyFrame(frame)')
-      i.icon-remove
+    a.icon-star(ng-click='importDocument(frame.input)', tooltip-placement='bottom', tooltip='Save script')
+    a.icon-edit(tooltip-placement='bottom', tooltip='Modify script')
+    a.icon-download-alt(tooltip-placement='bottom', tooltip='Export JSON')
+    span.divider &nbsp;
+    a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
+
 .inner
   .view-result.boxed(ng-show='frame.response')
     pre(output-raw = "frame.response")

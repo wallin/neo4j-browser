@@ -135,8 +135,8 @@ footer
   left: 0
   right: 0
   line-height: footer-height - 2px
-  background-color: #F2F6F8
-  color: #666A7D
+  background-color: #F2F4F7
+  color: #979EAA
   font-size: 11px
   text-align: center
   border-top: 1px solid #DDE3E7
@@ -212,6 +212,8 @@ footer
           transform: scale(1.2)
         &.success
           background-color: color-success
+        &.golden
+          background-color: #FDCC59
         &.muted
           background-color: #E5E5E7
           cursor: default
@@ -239,6 +241,8 @@ footer
           &.icon-play
             font-size: 16px
             left: 1px
+          &.icon-star
+            font-size: 19px
 
     a.open-sidebar
       top: 21px
@@ -264,7 +268,6 @@ footer
   height: middlebar-height
   line-height: middlebar-height
   color: #A7A9AE
-  text-shadow: 0 1px 0 rgba(255,255,255,0.7)
   //background-color: #FFF
   border-bottom: 1px solid table-color-border-color
   padding-left: horizontal-padding
@@ -272,6 +275,7 @@ footer
   overflow: hidden
   padding: 0 25px;
   .code
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7)
     font-family: "Menlo","Courier New","Terminal", monospace
     font-size: 12px
     margin-left: 8px
@@ -280,7 +284,35 @@ footer
   .actions
     opacity: 0
     transist: opacity
-    absolute: top -1px right 25px
+    absolute: top 3px right 25px
+    background-color: #e7e9eb
+    .divider
+      margin-left: 11px
+      width: 0
+      padding: 0
+      display: inline-block
+      height: 22px
+      border-right: 1px solid rgba(0,0,0,0.15)
+      position: relative
+      top: 4px
+    a
+      font-size: 20px
+      margin-left: 13px
+      vertical-align: center
+      position: relative
+      color: #9B9DA2
+      &:hover
+        color: #3F434B
+      &.icon-edit
+        top: 1px
+      &.icon-fullscreen
+        font-size: 19px
+        margin-left: 16px
+      &.icon-trash
+        font-size: 21px
+      &.icon-remove
+        top: 1px
+        font-size: 26px
     .btn
       margin-left: 4px
 
