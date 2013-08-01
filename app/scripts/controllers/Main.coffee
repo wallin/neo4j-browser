@@ -28,6 +28,11 @@ angular.module('neo4jApp.controllers')
           for a in r.attributes
             $scope.kernel[a.name] = a.value
       )
+
+      # XXX: Temporary for now having to change all help files
+      $scope.$watch 'server', (val) ->
+        $scope.neo4jVersion = val.neo4j_version
+      , true
       refresh()
   ]
 

@@ -8,8 +8,7 @@
       i.icon-remove
 
 .inner
-  .view-result.boxed(ng-hide='frame.hasErrors')
-    div(ng-include = 'frame.response.page')
+  .view-result.help(ng-hide='frame.hasErrors', ng-include = 'frame.response.page')
 
   .status-bar.error(ng-show='frame.hasErrors')
     div

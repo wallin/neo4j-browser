@@ -18,5 +18,10 @@ angular.module('neo4jApp.directives')
         $rootScope.$broadcast 'frames:create', "help #{parts[3]}"
         $rootScope.$apply() unless $rootScope.$$phase
 
+      element.on 'click', '.code', (e) ->
+        code = e.currentTarget.textContent or e.currentTarget.innerText
+        return unless code?.length > 0
+        $rootScope.$broadcast 'editor:content', code.trim()
+        $rootScope.$apply() unless $rootScope.$$phase
 
   ])

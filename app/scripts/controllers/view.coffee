@@ -102,6 +102,8 @@ angular.module('neo4jApp.controllers')
     ###*
      * Event listeners
     ###
+    $scope.$on 'editor:content', (ev, content) ->
+      $scope.editor.content = content
 
     $scope.$on 'editor:exec', ->
       $scope.execScript($scope.editor.content)
@@ -164,6 +166,7 @@ angular.module('neo4jApp.controllers')
     $scope.documents   = new Collection(null, Document).fetch()
 
     $scope.frames = new Collection()
+    $scope.createFrame(input: 'help welcome')
     $scope.editorHistory = new Collection()
     $scope.editor =
       cursor: null
@@ -175,4 +178,5 @@ angular.module('neo4jApp.controllers')
       $scope.$emit('currentFrame:changed', $scope.currentFrame)
 
     $scope.motd = motdService # '"When you label me, you negate me" -- Soren Kierkegaard III'
+
   ]

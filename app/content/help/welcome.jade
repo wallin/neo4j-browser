@@ -1,18 +1,24 @@
 article.help.full
-  .container
-    .row
-      .span4 woo
-      .span4 hoo
-      .span4 boo
   section.summary
-    h1 Help - Overview
-    p Cypher is a graph query language.
+    h2 Welcome to Neo4j Browser
+    p Start by writing some commands in the bar above
   section.example
-    h1 Example
+    p The command bar understands a couple of different things:
+    h1 Cypher
+    p Example
     figure
       pre.code(mode='cypher').
         MATCH &lt;pattern&gt; WHERE &lt;conditions&gt; RETURN &lt;expressions&gt;
       figcaption Basic form of a Cypher statement.
+    h1 Rest / HTTP
+    p You can use GET, POST, PUT or DELETE followed by a path and optionally a JSON payload, ex:
+    figure
+      pre.code.
+        GET /db/data
+    figure
+      pre.code.
+        GET /db/data/node/0
+
   section.reference
     h1 Reference
     dl

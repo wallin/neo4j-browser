@@ -1,8 +1,9 @@
 angular.module('neo4jApp')
 .run([
+  '$rootScope'
   'Document'
   'Folder'
-  (Document, Folder) ->
+  ($rootScope, Document, Folder) ->
 
     documents = [
       {

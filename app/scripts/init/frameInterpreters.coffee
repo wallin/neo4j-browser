@@ -20,7 +20,6 @@ angular.module('neo4jApp')
           $rootScope.$broadcast 'frames:clear'
       ]
 
-
     # Generic shell commands
     FrameProvider.interpreters.push
       type: 'shell'
