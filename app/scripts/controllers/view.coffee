@@ -93,7 +93,7 @@ angular.module('neo4jApp.controllers')
 
     $scope.toggleFolder = (folder) ->
       folder.expanded = !folder.expanded
-      $scope.documents.save()
+      $scope.folders.save()
 
     $scope.toggleStar = (doc) ->
       $scope.documents.remove(doc)
