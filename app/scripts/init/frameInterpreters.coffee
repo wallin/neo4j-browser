@@ -57,7 +57,7 @@ angular.module('neo4jApp')
       matches: ["help", "man"]
       exec: ['$http', ($http) ->
         (input, q) ->
-          section = argv(input)[1] or 'help'
+          section = input['help'.length..] or 'help'
           section = section.toLowerCase().trim().replace(' ', '-')
           url = "content/help/#{section}.html"
           $http.get(url)

@@ -10,9 +10,9 @@ angular.module('neo4jApp.services')
 
         choices =
           editor: [
-            '"When you label me, you negate me" -- Soren Kierkegaard MOTD 1'
-            '"When you label me, you negate me" -- Soren Kierkegaard MOTD 2'
-            '"When you label me, you negate me" -- Soren Kierkegaard MOTD 3'
+            '"When you label me, you negate me" -- Soren Kierkegaard'
+            '"In the beginning was the command line" -- Neal Stephenson'
+            '"Remember, all I\'m offering is the truth – nothing more" -- Morpheus'
             '"When you label me, you negate me" -- Soren Kierkegaard MOTD 4'
             '"When you label me, you negate me" -- Soren Kierkegaard MOTD 5'
             '"When you label me, you negate me" -- Soren Kierkegaard MOTD 6'
@@ -27,7 +27,6 @@ angular.module('neo4jApp.services')
         pickRandomlyFrom: (fromThis) ->
           return fromThis[Math.floor(Math.random() * fromThis.length)]
 
-        # editor: choices.editor[4] # @pickRandomlyFrom(choices.editor)
         editor: "" 
         
 
