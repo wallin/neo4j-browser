@@ -21,7 +21,7 @@ angular.module("neo4jApp.animations", [])
         ease: Power2.easeInOut
         top: 0
         opacity: 1
-        maxHeight: 420
+        maxHeight: 1000
         onComplete: done
   ])
 
