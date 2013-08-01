@@ -9,10 +9,11 @@ script#popup-styling(type="text/ng-template")
 
 include partials/inspector
 
-div(ng-switch="currentPage", ng-controller='ViewCtrl')
-  include partials/nav
+include partials/nav
+.body(ng-switch="currentPage", ng-controller='ViewCtrl')
   .page(ng-switch-when='views')
     include partials/sidebar
     include partials/views
   .page.system(ng-switch-when='system', ng-controller='JMXCtrl')
     include partials/system
+footer(ng-hide="isSidebarShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}") Copyright &copy; 2002-2013 <strong>Neo Technology</strong>. License: GPLv3 or AGPL for Open Source, and NTCL for Commercial.
