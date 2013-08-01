@@ -31,13 +31,11 @@ angular.module('neo4jApp.controllers')
       $scope.folders.save()
       folder
 
-    # Create a new frame
+    # Creates and executes a new frame
     $scope.createFrame = (data = {}) ->
       return undefined unless data.input
-      $scope.editorHistory.add(data.input)
-      $scope.historySet(data.input)
       frame = Frame.create(data)
-      $scope.frames.add(frame) if frame
+      $scope.frames.add(frame.exec()) if frame
       frame
 
     $scope.createDocument = (data = {}) ->
@@ -49,10 +47,11 @@ angular.module('neo4jApp.controllers')
     $scope.setEditorContent = (content) ->
       $scope.editor.content = content
 
-    # Executes a script and pushes it to history
     $scope.execScript = (input) ->
       frame = $scope.createFrame(input: input)
-      frame?.exec()
+      return unless frame
+      $scope.editorHistory.add(input)
+      $scope.historySet(input)
       $scope.editor.content = ""
 
     $scope.historyNext = ->
@@ -78,11 +77,6 @@ angular.module('neo4jApp.controllers')
 
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
-
-    $scope.loadFrame = (frame) ->
-      $scope.currentFrame = frame
-      $scope.editor =
-        content: frame.input
 
     $scope.persistFolders = ->
       $scope.folders.save()
@@ -118,6 +112,9 @@ angular.module('neo4jApp.controllers')
 
     $scope.$on 'frames:clear', ->
       $scope.frames.reset()
+
+    $scope.$on 'frames:create', (evt, input) ->
+      $scope.createFrame(input: input)
 
     ###*
      * Initialization

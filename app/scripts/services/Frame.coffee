@@ -4,7 +4,7 @@ angular.module('neo4jApp.services')
 .provider 'Frame', [
   ->
     self = @
-    @interpretors = []
+    @interpreters = []
 
     @$get = [
       '$injector',
@@ -51,7 +51,6 @@ angular.module('neo4jApp.services')
                   @response = result
                   @savedInput = @input
                 @runTime = timer.stop().time()
-                $rootScope.$broadcast 'viewService:changed', @
               ,
               (result = {}) =>
                 @isLoading = no
@@ -63,6 +62,7 @@ angular.module('neo4jApp.services')
                   @errorText = "Unknown error"
                 @runTime = timer.stop().time()
             )
+            @
 
           @create: (data) ->
             intr = @interpreterFor(data.input)
@@ -75,7 +75,7 @@ angular.module('neo4jApp.services')
 
           @interpreterFor: (input) ->
             intr = null
-            for i in self.interpretors
+            for i in self.interpreters
               if i.matches(input)
                 intr = i
                 break;
