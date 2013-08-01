@@ -62,6 +62,7 @@ angular.module('neo4jApp.services')
                   @errorText = "Unknown error"
                 @runTime = timer.stop().time()
             )
+            @
 
           @create: (data) ->
             intr = @interpreterFor(data.input)
