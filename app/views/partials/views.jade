@@ -24,9 +24,9 @@
       .view-editor
         a.open-sidebar(ng-click="toggleSidebar()")
           i(ng-class="{'icon-chevron-left': isSidebarShown, 'icon-bookmark': !isSidebarShown}")
-        span
+        span.ng-cloak
           textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}",
-            'ng-model'='editor.content',
+            ng-model='editor.content',
             placeholder='Write some code...'
             )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')

@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('neo4jApp.controllers')
-.controller 'ViewCtrl', [
+.controller 'StreamCtrl', [
   '$location'
   '$route'
   '$scope'

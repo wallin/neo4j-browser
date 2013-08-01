@@ -9,8 +9,8 @@ script#popup-styling(type="text/ng-template")
 
 include partials/inspector
 
-// Need to put ViewCtrl on main container to not loose history when changing tab
-div(ng-switch="currentPage", ng-controller='ViewCtrl')
+// Need to put StreamCtrl on main container to not loose history when changing tab
+div(ng-switch="currentPage", ng-controller='StreamCtrl')
   include partials/nav
   .page(ng-switch-when='stream')
     include partials/sidebar

@@ -1,13 +1,13 @@
 'use strict'
 
-describe 'Controller: ViewCtrl', () ->
+describe 'Controller: StreamCtrl', () ->
 
   # load the controller's module
   beforeEach module 'neo4jApp.services', 'neo4jApp.controllers'
 
   Frame = {}
   Folder = {}
-  ViewCtrl = {}
+  StreamCtrl = {}
   scope = {}
 
   # Initialize the controller and a mock scope
@@ -19,7 +19,7 @@ describe 'Controller: ViewCtrl', () ->
     Folder.save([])
 
     # Instantiate
-    ViewCtrl = $controller 'ViewCtrl', { $scope: scope }
+    StreamCtrl = $controller 'StreamCtrl', { $scope: scope }
     scope.$digest()
 
   describe 'createFolder:', ->
