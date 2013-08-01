@@ -1,7 +1,7 @@
-span(ng-show='view.hasErrors')
+span(ng-show='frame.hasErrors')
   | Execution error
-span(ng-hide='view.hasErrors')
+span(ng-hide='frame.hasErrors')
   span
     | Returned
-    <b ng-show='!view.response.isTextOnly()'>{{view.response.nodes.length}} nodes</b>
-    <b ng-show='view.response.isTextOnly()'>{{view.response.other.length}} rows</b>
+    <b ng-show='!frame.response.isTextOnly()'>{{frame.response.nodes.length}} nodes</b>
+    <b ng-show='frame.response.isTextOnly()'>{{frame.response.other.length}} rows</b>

@@ -169,7 +169,7 @@ angular.module('neo4jApp.services')
               else
                 mainQ.resolve(result)
             )
-            .error((r) -> mainQ.reject(r))
+            .error(mainQ.reject)
           mainQ.promise
 
         transaction: ->
