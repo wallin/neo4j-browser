@@ -25,8 +25,8 @@ angular.module('neo4jApp.controllers')
      * Scope methods
     ###
 
-    $scope.createFolder = ->
-      folder = new Folder()
+    $scope.createFolder = (id)->
+      folder = new Folder(id: id)
       $scope.folders.add(folder)
       $scope.folders.save()
       folder
@@ -164,6 +164,12 @@ angular.module('neo4jApp.controllers')
     # Initialize from persisted documents/folders
     $scope.folders = new Collection(null, Folder).fetch()
     $scope.documents   = new Collection(null, Document).fetch()
+
+    # Find and restore orphan folders
+    for doc in $scope.documents.all()
+      continue unless doc.folder?
+      if not $scope.folders.get(doc.folder)
+        $scope.createFolder(doc.folder)
 
     $scope.frames = new Collection()
     $scope.createFrame(input: 'help welcome')
