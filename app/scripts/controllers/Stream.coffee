@@ -48,7 +48,7 @@ angular.module('neo4jApp.controllers')
 
     $scope.execScript = (input) ->
       frame = $scope.createFrame(input: input)
-      return unless frame
+      #return unless frame
       $scope.editorHistory.add(input)
       $scope.historySet(input)
       $scope.editor.content = ""
