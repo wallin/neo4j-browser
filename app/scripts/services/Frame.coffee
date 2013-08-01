@@ -51,7 +51,6 @@ angular.module('neo4jApp.services')
                   @response = result
                   @savedInput = @input
                 @runTime = timer.stop().time()
-                $rootScope.$broadcast 'viewService:changed', @
               ,
               (result = {}) =>
                 @isLoading = no

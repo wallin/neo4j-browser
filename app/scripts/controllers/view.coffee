@@ -79,11 +79,6 @@ angular.module('neo4jApp.controllers')
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
 
-    $scope.loadFrame = (frame) ->
-      $scope.currentFrame = frame
-      $scope.editor =
-        content: frame.input
-
     $scope.persistFolders = ->
       $scope.folders.save()
 
