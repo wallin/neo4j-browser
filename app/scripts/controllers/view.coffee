@@ -179,11 +179,6 @@ angular.module('neo4jApp.controllers')
       cursor: null
       content: ''
 
-    $scope.$watch 'currentFrame', (val) ->
-      $scope.$emit('currentFrame:changed', val)
-    $scope.$watch 'currentFrame.response', ->
-      $scope.$emit('currentFrame:changed', $scope.currentFrame)
-
     $scope.motd = motdService # '"When you label me, you negate me" -- Soren Kierkegaard III'
 
   ]
