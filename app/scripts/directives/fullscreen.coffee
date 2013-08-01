@@ -17,9 +17,14 @@ angular.module('neo4jApp.directives')
 .directive('fullscreen', ['fullscreenService',
   (fullscreenService) ->
     restrict: 'A'
+    controller: ['$scope', ($scope) ->
+      $scope.toggleFullscreen = (state = !$scope.fullscreen) ->
+        $scope.fullscreen = state
+    ]
     link: (scope, element, attrs) ->
       parent = element.parent()
-      scope.$watch attrs.fullscreen, (val) ->
+      scope.fullscreen = no
+      scope.$watch 'fullscreen', (val) ->
         if val
           fullscreenService.display(element)
         else if parent[0].innerHTML is ""

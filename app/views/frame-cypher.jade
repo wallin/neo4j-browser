@@ -1,4 +1,4 @@
-div(ng-controller="CypherResultCtrl", fullscreen="fullscreen")
+div(ng-controller="CypherResultCtrl", fullscreen)
   .code-bar
     .label.label-info Cypher
     span.code {{frame.input | uncomment}}
@@ -6,9 +6,9 @@ div(ng-controller="CypherResultCtrl", fullscreen="fullscreen")
       a.icon-star(ng-click='importDocument(frame.input)', tooltip-placement='bottom', tooltip='Save script')
       a.icon-edit(tooltip-placement='bottom', tooltip='Modify script')
       span.divider &nbsp;
-      a.icon-fullscreen(ng-click="fullscreen = !fullscreen", tooltip-placement='bottom', tooltip='Fullscreen')
+      a.icon-fullscreen(ng-click="toggleFullscreen(true)", tooltip-placement='bottom', tooltip='Fullscreen')
       a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
-    a.close-fullscreen.icon-chevron-down(ng-click="fullscreen = !fullscreen")
+    a.close-fullscreen.icon-chevron-down(ng-click="toggleFullscreen(false)")
   .inner
     .view-result.boxed(
       ng-class='{error: frame.hasErrors}'
