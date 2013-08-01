@@ -34,7 +34,7 @@ angular.module('neo4jApp.controllers')
     # Creates and executes a new frame
     $scope.createFrame = (data = {}) ->
       return undefined unless data.input
-      frame = Frame.create(data)
+      $scope.currentFrame = frame = Frame.create(data)
       $scope.frames.add(frame.exec()) if frame
       frame
 
