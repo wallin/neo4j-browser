@@ -15,7 +15,7 @@ html(class="no-js", lang="en", ng-app="neo4jApp", ng-controller="MainCtrl")
     //endbuild
 
 
-  body(ng-class="{'expand-graph': isGraphExpanded, 'expand-table': isTableExpanded, 'show-sidebar': isSidebarShown, 'modal-shown': isPopupShown}", ng-controller="LayoutCtrl", keydown="globalKey($event)")
+  body(ng-class="{'connection-error': offline, 'expand-graph': isGraphExpanded, 'expand-table': isTableExpanded, 'show-sidebar': isSidebarShown, 'modal-shown': isPopupShown}", ng-controller="LayoutCtrl", keydown="globalKey($event)")
 
     //- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
     //- chromium.org/developers/how-tos/chrome-frame-getting-started

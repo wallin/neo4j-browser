@@ -1,6 +1,7 @@
 include partials/inspector
 
 // Need to put StreamCtrl on main container to not loose history when changing tab
+#error Neo4j is down. Please check if the cord is unplugged.
 div(ng-switch="currentPage", ng-controller='StreamCtrl')
   include partials/nav
   .page(ng-switch-when='stream')
