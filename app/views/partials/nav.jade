@@ -6,15 +6,7 @@
           .ball.one
           .ball.two
           .ball.three
-    li(ng-class='{active: currentPage == "system"}')
+    //- li(ng-class='{active: currentPage == "views"}')
+    //-   a.icon-list-alt(href='#/views')
+    li.bottom(ng-class='{active: currentPage == "system"}')
       a.icon-gears(href='#/system')
-    li.dropdown
-      a.icon-book.dropdown-toggle(href='#', data-toggle='dropdown')
-      ul.dropdown-menu
-        li
-          a(ng-click='togglePopup("keys")') Keyboard shortcuts
-        li.divider
-        li
-          a(ng-href = "http://docs.neo4j.org/chunked/{{server.neo4j_version}}", target="_BLANK")
-            | Docs
-            i.icon-external-link.icon-margin-left
