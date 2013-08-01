@@ -31,17 +31,17 @@
             )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')
         ul.controls.inline
-          li
+          li(tooltip-placement='bottom', tooltip='Execute')
             a.balled.success('ng-click' = 'execScript(editor.content)', ng-class="{muted: editor.content == ''}")
               i.icon-play
-          li
+          li(tooltip-placement='bottom', tooltip='Clear')
             a.balled(ng-click='setEditorContent("")', ng-class="{muted: !editor.content}")
               i.icon-remove
           li.divider &nbsp;
-          li
+          li(tooltip-placement='bottom', tooltip='Previous')
             a.balled(ng-click='historyPrev()', ng-class="{muted: !editor.prev}")
               i.icon-arrow-left
-          li
+          li(tooltip-placement='bottom', tooltip='Next')
             a.balled(ng-click='historyNext()', ng-class="{muted: !editor.next}")
               i.icon-arrow-right
 

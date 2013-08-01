@@ -2,7 +2,7 @@
   //- h3
   //-   a(ng-click="toggleSidebar()") Views
   //-   a.close.icon-remove(ng-click="toggleSidebar()")
-  h4 Saved scrips
+  h4 Saved scripts
     a.add(ng-click='createFolder()')
       .icon-plus
       | Add folder
@@ -12,12 +12,12 @@
       i.icon-caret-right(ng-class="{'icon-rotate-90': folder.expanded}")
       div(edit-in-place='folder.name', on-blur='persistFolders()')
       a.icon-trash(ng-click='removeFolder(folder)', tooltip-placement='left', tooltip='Remove folder')
-    ul.starred.indented(ng-show='folder.expanded')
+    ul.starred.indented(ng-show='folder.expanded', ng-animate="{hide:'frame-out', show:'frame-in'}")
       li(ng-repeat="document in documents.where({folder: folder.id})")
         include list-item
   .droppable(ui-sortable="sortableOptions")
     ul.starred
-      li(ng-repeat="document in documents.where({folder: false})")
+      li(ng-repeat="document in documents.where({folder: false})", ng-animate="{leave:'pop-out', enter:'pop-in'}")
         include list-item
   file-upload(upload="importDocument($content)", type='text')
     | Drop Cypher script file to import
