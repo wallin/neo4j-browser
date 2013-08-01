@@ -27,7 +27,6 @@
         span
           textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}",
             'ng-model'='editor.content',
-            'ui-refresh'='editor.content + isEditorHidden',
             placeholder='Write some code...'
             )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')

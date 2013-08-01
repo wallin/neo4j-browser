@@ -54,10 +54,6 @@ angular.module('neo4jApp.controllers')
       CodeMirror.keyMap["default"]["Enter"] = "handleEnter"
       CodeMirror.keyMap["default"]["Shift-Enter"] = "newlineAndIndent"
 
-      $scope.isEditorHidden = false
-      $scope.toggleEditor = ->
-        $scope.isEditorHidden ^= true
-
       $scope.isGraphExpanded = false
       $scope.toggleGraph = ->
         $scope.isGraphExpanded ^= true
@@ -113,20 +109,6 @@ angular.module('neo4jApp.controllers')
         else if e.keyCode is 27 # Esc
           if $scope.isPopupShown
             $scope.togglePopup()
-          else
-            $scope.toggleEditor()
-
-        else if $scope.isEditorHidden
-          e.preventDefault()
-          # Toggle inspector on space
-          if e.keyCode is 32 and $scope.selectedGraphItem
-            $scope.toggleInspector()
-          if e.keyCode is 72 # h
-            $scope.toggleSidebar()
-          else if e.keyCode is 84 # t
-            $scope.toggleGraph()
-          else if e.keyCode is 191 # ?
-            $scope.togglePopup('keys')
 
       # First level page routes
       $scope.$on '$routeChangeSuccess', ->
