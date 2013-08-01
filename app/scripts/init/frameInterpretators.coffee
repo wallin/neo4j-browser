@@ -58,7 +58,7 @@ angular.module('neo4jApp')
       exec: ->
         step_number = 1
         (input, q) ->
-          page: "content/help/guides/learn_#{step_number}.html"
+          page: "content/guides/learn_#{step_number}.html"
 
     # Help/man handler
     FrameProvider.interpretors.push
@@ -74,7 +74,7 @@ angular.module('neo4jApp')
           topic = input[4..]
           if (topic.length > 1)
             topic = topic.toLowerCase().trim().replace(' ', '-')
-            page: "content/help/cypher/#{topic}.html"
+            page: "content/help/#{topic}.html"
           else
             page: "content/help/help.html"
 
