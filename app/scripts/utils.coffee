@@ -2,6 +2,9 @@
 
 angular.module('neo4jApp.utils', [])
   .service('Utils', ['$timeout', ($timeout)->
+    argv: (input) ->
+      rv = input.toLowerCase().split(' ')
+      rv or []
     debounce: (func, wait, immediate) ->
       result = undefined
       timeout = null

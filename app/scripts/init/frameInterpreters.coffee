@@ -14,8 +14,7 @@ angular.module('neo4jApp')
 
     FrameProvider.interpreters.push
       type: 'clear'
-      matches: (input) ->
-        argv(input)[0] is 'clear'
+      matches: "clear"
       exec: ['$rootScope', ($rootScope) ->
         (input) ->
           $rootScope.$broadcast 'frames:clear'
@@ -26,11 +25,7 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'shell'
       templateUrl: 'views/frame-rest.html'
-      matches: (input) ->
-        switch argv(input)[0]
-          when 'schema' then yes
-          else no
-
+      matches: "schema"
       exec: ['Server', (Server) ->
         (input, q) ->
           Server.console(input)
@@ -50,11 +45,7 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'play'
       templateUrl: 'views/frame-help.html'
-      matches: (input) ->
-        [cmd] = input.split(' ')
-        cmd = cmd.toLowerCase()
-        return cmd is 'play'
-
+      matches: "play"
       exec: ->
         step_number = 1
         (input, q) ->
@@ -64,11 +55,7 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'help'
       templateUrl: 'views/frame-help.html'
-      matches: (input) ->
-        switch argv(input)[0]
-          when 'help', 'man' then yes
-          else no
-
+      matches: ["help", "man"]
       exec: ['$http', ($http) ->
         (input, q) ->
           section = argv(input)[1] or 'help'
@@ -84,14 +71,8 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'http'
       templateUrl: 'views/frame-rest.html'
-      matches: (input) ->
-        [verb] = input.split(' ')
-        return false unless verb
-        verbs = ['get', 'post', 'delete', 'put']
-        verbs.indexOf(verb.toLowerCase()) >= 0
-
+      matches: ['get', 'post', 'delete', 'put']
       exec: ['Server', (Server) ->
-        verbs = ['get', 'post', 'delete', 'put']
         (input, q) ->
           regex = /^((GET)|(PUT)|(POST)|(DELETE)) ([^ ]+)( (.+))?$/i
           result = regex.exec(input)

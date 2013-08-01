@@ -68,17 +68,25 @@ angular.module('neo4jApp.services')
             intr = @interpreterFor(data.input)
             return undefined unless intr
             if intr.templateUrl
-              new Frame(data)
+              frame = new Frame(data)
             else
               $injector.invoke(intr.exec)()
+
+            frame
 
 
           @interpreterFor: (input) ->
             intr = null
+            args = Utils.argv(input)
             for i in self.interpreters
-              if i.matches(input)
-                intr = i
-                break;
+              if angular.isFunction(i.matches)
+                if i.matches(input)
+                  return i
+              else
+                cmds = i.matches
+                cmds = [cmds] if angular.isString(i.matches)
+                if angular.isArray(cmds)
+                  return i if cmds.indexOf(args[0]) >= 0
             intr
 
 
