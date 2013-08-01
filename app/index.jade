@@ -28,7 +28,9 @@ html(class="no-js", lang="en", ng-app="neo4jApp", ng-controller="MainCtrl")
       | Neo4j appears to be offline.
       a.close(href='#') ×
 
-    #page-container(ng-include='\'views/main.html\'')
+    #page-container
+      include views/main
+
 
     include views/template/tooltip
     include views/template/tabs
