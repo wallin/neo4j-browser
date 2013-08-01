@@ -2,15 +2,14 @@
 
 angular.module('neo4jApp.controllers')
 .controller 'StreamCtrl', [
-  '$location'
-  '$route'
   '$scope'
+  '$timeout'
   'Collection'
   'Document'
   'Folder'
   'Frame'
   'motdService'
-  ($location, $route, $scope, Collection, Document, Folder, Frame, motdService) ->
+  ($scope, $timeout, Collection, Document, Folder, Frame, motdService) ->
 
     ###*
      * Local methods
@@ -173,7 +172,11 @@ angular.module('neo4jApp.controllers')
         $scope.createFolder(doc.folder)
 
     $scope.frames = new Collection()
-    $scope.createFrame(input: 'help welcome')
+
+    # TODO: fix timeout problem
+    $timeout(->
+     $scope.createFrame(input: 'help welcome')
+    , 800)
     $scope.editorHistory = new Collection()
     $scope.editor =
       cursor: null
