@@ -15,7 +15,6 @@ angular.module('neo4jApp.directives')
         parts = url.replace('.html', '').split('/')
         return unless angular.isArray(parts)
 
-        console.log parts[2]
         $rootScope.$broadcast 'frames:create', "help #{parts[3]}"
         $rootScope.$apply() unless $rootScope.$$phase
 

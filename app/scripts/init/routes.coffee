@@ -1,9 +1,9 @@
 angular.module('neo4jApp')
   .config ['$routeProvider', ($routeProvider) ->
     $routeProvider
-      .when('/views', page: 'views')
-      .when('/views/:viewId', page: 'views')
+      .when('/stream', page: 'stream')
+      .when('/stream/:viewId', page: 'stream')
       .when('/system', page: 'system')
       .otherwise
-        redirectTo: '/views'
+        redirectTo: '/stream'
   ]
