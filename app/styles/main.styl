@@ -330,7 +330,6 @@ footer
   border-radius: 3px
   background-color: #fff
   overflow: hidden
-  max-height: 420px
   &.anim
     transform: scale(0.9, 0.9)
   &.outside
@@ -342,7 +341,6 @@ footer
     height: middlebar-height
     line-height: middlebar-height
     color: rgb(120, 129, 133)
-    //background-color: #FFF
     border-top: 1px solid #E7E9EB
     padding-left: horizontal-padding
     font-size: 13px
@@ -377,9 +375,9 @@ footer
     position: relative
     overflow: scroll
     height: auto
-    max-height: 300px
     transist left
     background: #F8F9FB url('/images/background-pending.png') 50% 50% no-repeat
+    min-height: 300px
     z-index: 10
     &.error
       background-image: url('/images/background-error.png')
@@ -395,11 +393,6 @@ footer
         color: color-link
     .view-result-graph
       background-color: #F8F9FB
-      //position: absolute
-      //top: 0
-      //left: 0
-      //right: 0
-      //height: 50%
       height: 300px !important
       a.icon-table
         font-size: 24px

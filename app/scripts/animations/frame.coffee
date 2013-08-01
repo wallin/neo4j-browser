@@ -2,27 +2,28 @@ angular.module("neo4jApp.animations", [])
   .animation("frame-out", ["$window", ($window) ->
     start: (element, done) ->
       TweenMax.to element, 0.4,
-        ease: Power2.easeInOut
+        ease: Power3.easeInOut
         top: -50
         opacity: 0
-        maxHeight: 0
+        height: 0
         onComplete: done
 
   ]).animation("frame-in", ["$window", ($window) ->
     setup: (element) ->
       TweenMax.set element,
-        position: "relative"
-        top: -100
+        position: "absolute"
         opacity: 0
-        maxHeight: 0
 
     start: (element, done) ->
-      TweenMax.to element, 0.4,
-        ease: Power2.easeInOut
-        top: 0
-        opacity: 1
-        maxHeight: 420
-        onComplete: done
+      tl = new TimelineLite()
+
+      tl.to(element, 0.1, {}) # render object to get a size
+      tl.call((e)->
+        console.log element.height()
+        tl.to(element, 0.1, {height: 0})
+        tl.to(element, 0.4, {height: element.height(), opacity: 1, position: "relative", ease: Power3.easeInOut})
+        tl.call(done)
+      )
   ])
 
   .animation("fade-down-out", ["$window", ($window) ->
