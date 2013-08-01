@@ -29,6 +29,8 @@ angular.module('neo4jApp.controllers')
             $scope.kernel[a.name] = a.value
       )
 
+      $scope.today = Date.now()
+
       # XXX: Temporary for now having to change all help files
       $scope.$watch 'server', (val) ->
         $scope.neo4jVersion = val.neo4j_version

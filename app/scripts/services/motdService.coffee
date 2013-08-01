@@ -13,9 +13,7 @@ angular.module('neo4jApp.services')
             '"When you label me, you negate me" -- Soren Kierkegaard'
             '"In the beginning was the command line" -- Neal Stephenson'
             '"Remember, all I\'m offering is the truth – nothing more" -- Morpheus'
-            '"When you label me, you negate me" -- Soren Kierkegaard MOTD 4'
-            '"When you label me, you negate me" -- Soren Kierkegaard MOTD 5'
-            '"When you label me, you negate me" -- Soren Kierkegaard MOTD 6'
+            '"Testing can show the presence of bugs, but never their absence." -- Edsger W. Dijkstra'
           ]
 
         constructor: ->
