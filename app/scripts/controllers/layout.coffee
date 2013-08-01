@@ -63,8 +63,8 @@ angular.module('neo4jApp.controllers')
         $scope.isTableExpanded ^= true
 
       $scope.isSidebarShown = false
-      $scope.toggleSidebar = ->
-        $scope.isSidebarShown ^= true
+      $scope.toggleSidebar = (state = !$scope.isSidebarShown)->
+        $scope.isSidebarShown = state
 
       $scope.isInspectorShown = no
       $scope.toggleInspector = ->

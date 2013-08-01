@@ -77,7 +77,7 @@ angular.module('neo4jApp.controllers')
 
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
-      $scope.toggleSidebar()
+      $scope.toggleSidebar(yes)
 
     $scope.persistFolders = ->
       $scope.folders.save()
