@@ -8,7 +8,7 @@ angular.module("neo4jApp.animations", [])
         maxHeight: 0
         onComplete: done
 
-  ]).animation "frame-in", ["$window", ($window) ->
+  ]).animation("frame-in", ["$window", ($window) ->
     setup: (element) ->
       TweenMax.set element,
         position: "relative"
@@ -23,9 +23,8 @@ angular.module("neo4jApp.animations", [])
         opacity: 1
         maxHeight: 420
         onComplete: done
-  ]
+  ])
 
-angular.module("neo4jApp.animations", [])
   .animation("fade-down-out", ["$window", ($window) ->
     start: (element, done) ->
       TweenMax.to element, 0.4,
@@ -34,7 +33,7 @@ angular.module("neo4jApp.animations", [])
         opacity: 0
         onComplete: done
 
-  ]).animation "fade-down-in", ["$window", ($window) ->
+  ]).animation("fade-down-in", ["$window", ($window) ->
     setup: (element) ->
       TweenMax.set element,
         bottom: -element.height()
@@ -46,4 +45,28 @@ angular.module("neo4jApp.animations", [])
         bottom: 0
         opacity: 1
         onComplete: done
-  ]
+  ])
+
+  .animation("pop-out", ["$window", ($window) ->
+    start: (element, done) ->
+      TweenMax.to element, 0.4,
+        ease: Power2.easeInOut
+        opacity: 0
+        height: 0
+        onComplete: done
+
+  ]).animation("pop-in", ["$window", ($window) ->
+    setup: (element) ->
+      TweenMax.set element,
+        bottom: -element.height()
+        opacity: 0
+        maxHeight: 0
+
+    start: (element, done) ->
+      TweenMax.to element, 0.4,
+        ease: Power2.easeInOut
+        bottom: 0
+        opacity: 1
+        maxHeight: 70
+        onComplete: done
+  ])
