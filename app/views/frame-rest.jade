@@ -21,3 +21,6 @@
           .icon-ok
           span(ng-show='frame.hasErrors')
             | Execution error
+    span(ng-show='frame.isLoading')
+      .icon-spinner.icon-spin
+      | Executing query...

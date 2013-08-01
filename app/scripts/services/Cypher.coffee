@@ -145,6 +145,13 @@ angular.module('neo4jApp.services')
         constructor: ->
           @filters = []
 
+        profile: (query) ->
+          q = $q.defer()
+          Server.cypher('?profile=true', {query: query})
+          .success((r) -> q.resolve(r.plan))
+          .error(q.reject)
+          q.promise
+
         send: (query, processFilters = yes) ->
           mainQ = $q.defer()
           Server.cypher('?includeStats=true', {query: query})

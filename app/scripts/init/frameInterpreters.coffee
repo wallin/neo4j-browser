@@ -108,6 +108,21 @@ angular.module('neo4jApp')
           q.promise
       ]
 
+    # Profile a cypher command
+    FrameProvider.interpreters.push
+      type: 'cypher'
+      matches: "profile"
+      templateUrl: 'views/frame-rest.html'
+      exec: ['Cypher', (Cypher) ->
+        (input, q) ->
+          input = input.substr(7)
+          if input.length is 0
+            q.reject(error("missing query"))
+          else
+            Cypher.profile(input).then(q.resolve, q.reject)
+          q.promise
+      ]
+
     # Fallback interpretor
     # Cypher handler
     FrameProvider.interpreters.push
