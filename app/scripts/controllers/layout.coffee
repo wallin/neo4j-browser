@@ -36,6 +36,12 @@ angular.module('neo4jApp.controllers')
             Relationships created: #{stats.relationships_created}<br>
             "
 
+      $scope.showDoc = () ->
+        $scope.$broadcast 'frames:create', ':play'
+
+      $scope.showStats = () ->
+        $scope.$broadcast 'frames:create', ':schema'
+
       # TODO: Put this in a directive
       $scope.editorHeight = 0
       $scope.editorOneLine = true
