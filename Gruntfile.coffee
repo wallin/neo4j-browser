@@ -148,11 +148,7 @@ module.exports = (grunt) ->
 
     concat:
       dist:
-        files:
-          "<%= yeoman.dist %>/scripts/scripts.js": [
-            ".tmp/scripts/{,*/}*.js",
-            "<%= yeoman.app %>/scripts/{,*/}*.js"
-          ]
+        files: {}
 
     useminPrepare:
       html: "<%= yeoman.app %>/index.html"
@@ -224,13 +220,21 @@ module.exports = (grunt) ->
 
     copy:
       dist:
-        files: [
-          expand: true
-          dot: true
-          cwd: "<%= yeoman.app %>"
-          dest: "<%= yeoman.dist %>"
-          src: ["*.{ico,txt}", "images/{,*/}*.{gif,webp}", "styles/fonts/*"]
-        ]
+        files: [{
+            expand: true
+            dot: true
+            cwd: "<%= yeoman.app %>"
+            dest: "<%= yeoman.dist %>"
+            src: ["*.{ico,txt}", "images/{,*/}*.{gif,webp}", "styles/fonts/*"]
+          },
+          {
+            expand: true
+            flatten: true
+            dot: true
+            cwd: "<%= yeoman.app %>"
+            dest: "<%= yeoman.dist %>/font"
+            src: ["components/**/*.{otf,woff,ttf,svg}"]
+        }]
 
   grunt.renameTask "regarde", "watch"
   grunt.registerTask "server", ["clean:server", "coffee:dist", "configureProxies", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
