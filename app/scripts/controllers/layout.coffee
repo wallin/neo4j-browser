@@ -47,11 +47,13 @@ angular.module('neo4jApp.controllers')
           $scope.$apply() if !$scope.$$phase
 
       CodeMirror.commands.handleEnter = (cm) ->
+        if cm.lineCount() == 1
           $scope.$broadcast 'editor:exec'
         else
           CodeMirror.commands.newlineAndIndent(cm)
 
       CodeMirror.commands.handleUp = (cm) ->
+        $scope.$broadcast 'editor:prev' if cm.lineCount() == 1
 
       CodeMirror.commands.handleDown = (cm) ->
         $scope.$broadcast 'editor:next' if cm.lineCount() == 1
