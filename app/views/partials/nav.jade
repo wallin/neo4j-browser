@@ -1,10 +1,16 @@
 #nav
   ul.nav.nav-list
-    li.nav-header(ng-class='{active: currentPage == "stream"}')
+    li.nav-header(ng-click='togglePopup("about")')
       a(href='#/stream') Neo4j
         .logo(fancy-logo ng-class='{loading: currentFrame.isLoading}')
           .ball.one
           .ball.two
           .ball.three
+    li(ng-class='{active: isSidebarShown}')
+      a(href='#/stream').icon-star(ng-click='toggleSidebar()')
+    li
+      a(href='#/stream').icon-book
+    li
+      a(href='#/stream').icon-hdd
     li.bottom(ng-class='{active: currentPage == "system"}')
       a.icon-gears(href='#/system')
