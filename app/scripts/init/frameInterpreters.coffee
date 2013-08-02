@@ -30,6 +30,14 @@ angular.module('neo4jApp')
           $rootScope.$broadcast 'frames:clear'
       ]
 
+    FrameProvider.interpreters.push
+      type: 'keys'
+      templateUrl: 'views/frame-keys.html'
+      matches: "#{cmdchar}keys"
+      exec: ['$rootScope', ($rootScope) ->
+        (input) -> true
+      ]
+
     # Generic shell commands
     FrameProvider.interpreters.push
       type: 'shell'
