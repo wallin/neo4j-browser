@@ -29,10 +29,6 @@ module.exports = (grunt) ->
         files: ["test/spec/{,*/}*.coffee"]
         tasks: ["coffee:test"]
 
-      compass:
-        files: ["<%= yeoman.app %>/styles/{,*/}*.{scss,sass}"]
-        tasks: ["compass"]
-
       stylus:
         files: 'app/styles/*.styl',
         tasks: ["stylus"]
@@ -59,7 +55,7 @@ module.exports = (grunt) ->
 
       test:
         options:
-          port: 9100
+          port: 9000
           middleware: (connect) ->
             [mountFolder(connect, ".tmp"), mountFolder(connect, "test")]
       proxies: [
@@ -81,8 +77,8 @@ module.exports = (grunt) ->
       dist:
         files: [
           dot: true
-          src: [".tmp", "<%= yeoman.dist %>/*", 
-            "!<%= yeoman.dist %>/.git*", 
+          src: [".tmp", "<%= yeoman.dist %>/*",
+            "!<%= yeoman.dist %>/.git*",
             "<%= yeoman.app %>/views/*.html",
             "<%= yeoman.app %>/content/**/*.html"
           ]
@@ -122,21 +118,6 @@ module.exports = (grunt) ->
           ext: ".js"
         ]
 
-    compass:
-      options:
-        sassDir: "<%= yeoman.app %>/styles"
-        cssDir: ".tmp/styles"
-        imagesDir: "<%= yeoman.app %>/images"
-        javascriptsDir: "<%= yeoman.app %>/scripts"
-        fontsDir: "<%= yeoman.app %>/styles/fonts"
-        importPath: "<%= yeoman.app %>/components"
-        relativeAssets: true
-
-      dist: {}
-      server:
-        options:
-          debugInfo: true
-
     stylus:
       compile:
         files:
@@ -150,22 +131,28 @@ module.exports = (grunt) ->
         dest: '<%= yeoman.app %>'
         options:
           client: false
+          pretty: true
       html:
         src: ["<%= yeoman.app %>/views/*.jade"]
         dest: "<%= yeoman.app %>/views"
         options:
           client: false
+          pretty: true
       content:
         src: ["<%= yeoman.app %>/content/**/*.jade"]
         dest: "<%= yeoman.app %>/content"
         options:
           client: false
+          pretty: true
           basePath: "<%= yeoman.app %>/content/"
 
     concat:
       dist:
         files:
-          "<%= yeoman.dist %>/scripts/scripts.js": [".tmp/scripts/{,*/}*.js", "<%= yeoman.app %>/scripts/{,*/}*.js"]
+          "<%= yeoman.dist %>/scripts/scripts.js": [
+            ".tmp/scripts/{,*/}*.js",
+            "<%= yeoman.app %>/scripts/{,*/}*.js"
+          ]
 
     useminPrepare:
       html: "<%= yeoman.app %>/index.html"
@@ -242,11 +229,11 @@ module.exports = (grunt) ->
           dot: true
           cwd: "<%= yeoman.app %>"
           dest: "<%= yeoman.dist %>"
-          src: ["*.{ico,txt}", ".htaccess", "components/**/*", "images/{,*/}*.{gif,webp}", "styles/fonts/*"]
+          src: ["*.{ico,txt}", "images/{,*/}*.{gif,webp}", "styles/fonts/*"]
         ]
 
   grunt.renameTask "regarde", "watch"
   grunt.registerTask "server", ["clean:server", "coffee:dist", "configureProxies", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "connect:test", "karma"]
-  grunt.registerTask "build", ["clean:dist", "jshint", "test", "coffee", "jade", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "cdnify", "ngmin", "uglify", "rev", "usemin"]
+  grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "cdnify", "uglify", "rev", "usemin"]
   grunt.registerTask "default", ["build"]
