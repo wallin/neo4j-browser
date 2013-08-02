@@ -18,12 +18,3 @@ Object.keys = Object.keys or (o, k, r) ->
 
   # return result
   r
-
-
-if typeof String::endsWith isnt "function"
-  String::endsWith = (suffix) ->
-    @indexOf(suffix, @length - suffix.length) isnt -1
-
-if typeof String::beginsWith isnt "function"
-  String::beginsWith = (prefix) ->
-    @indexOf(prefix) is 0

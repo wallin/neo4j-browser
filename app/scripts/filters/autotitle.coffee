@@ -5,7 +5,7 @@ angular.module('neo4jApp.filters')
     (input) ->
       return '' unless input?
       firstRow = input.split('\n')[0]
-      if firstRow.beginsWith('//')
+      if firstRow.indexOf('//') is 0
         firstRow[2..-1]
       else
         input
