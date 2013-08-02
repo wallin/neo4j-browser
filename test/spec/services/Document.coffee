@@ -9,6 +9,3 @@ describe 'Service: Document', () ->
   Document = {}
   beforeEach inject (_Document_) ->
     Document = _Document_
-
-  it 'should do something', () ->
-    expect(!!Document).toBe true;

@@ -9,6 +9,3 @@ describe 'Service: Folder', () ->
   Folder = {}
   beforeEach inject (_Folder_) ->
     Folder = _Folder_
-
-  it 'should do something', () ->
-    expect(!!Folder).toBe true;

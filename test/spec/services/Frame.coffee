@@ -6,12 +6,6 @@ describe 'Service: Frame', () ->
   # load the service's module
   beforeEach module 'neo4jApp.services'
 
-  beforeEach inject ($httpBackend) ->
-    backend = $httpBackend
-
-  afterEach ->
-    backend.verifyNoOutstandingRequest()
-
   # instantiate service
   Frame = {}
   beforeEach inject (_Frame_) ->

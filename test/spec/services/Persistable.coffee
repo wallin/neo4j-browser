@@ -10,5 +10,3 @@ describe 'Service: Persistable', () ->
   beforeEach inject (_Persistable_) ->
     Persistable = _Persistable_
 
-  it 'should do something', () ->
-    expect(!!Persistable).toBe true;

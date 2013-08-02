@@ -10,5 +10,3 @@ describe 'Service: Server', () ->
   beforeEach inject (_Server_) ->
     Server = _Server_
 
-  it 'should do something', () ->
-    expect(!!Server).toBe true;
