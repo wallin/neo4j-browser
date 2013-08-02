@@ -190,10 +190,6 @@ angular.module('neo4jApp.controllers')
         .attr("class", "node")
         .call(force.drag)
         .call(clickHandler)
-        .on "mouseover", (d) ->
-          selectItem(d)
-        .on "mouseout", (d) ->
-          selectItem(selectedNode)
 
         for renderer in GraphRenderer.nodeRenderers
           nodeGroups.call(renderer.onGraphChange);
