@@ -43,17 +43,23 @@ angular.module('neo4jApp.controllers')
         currentHeight = $('.view-editor').height()
         if currentHeight != $scope.editorHeight
           $scope.editorHeight = $('.view-editor').height()
-          $scope.editorOneLine = codeMirror.display.showingTo == 1
+          $scope.editorOneLine = codeMirror.lineCount() == 1
           $scope.$apply() if !$scope.$$phase
 
       CodeMirror.commands.handleEnter = (cm) ->
-        if cm.display.showingTo == 1
           $scope.$broadcast 'editor:exec'
         else
           CodeMirror.commands.newlineAndIndent(cm)
 
+      CodeMirror.commands.handleUp = (cm) ->
+
+      CodeMirror.commands.handleDown = (cm) ->
+        $scope.$broadcast 'editor:next' if cm.lineCount() == 1
+
       CodeMirror.keyMap["default"]["Enter"] = "handleEnter"
       CodeMirror.keyMap["default"]["Shift-Enter"] = "newlineAndIndent"
+      CodeMirror.keyMap["default"]["Up"] = "handleUp"
+      CodeMirror.keyMap["default"]["Down"] = "handleDown"
 
       $scope.isGraphExpanded = false
       $scope.toggleGraph = ->
