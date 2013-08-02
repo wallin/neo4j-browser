@@ -74,7 +74,7 @@ angular.module('neo4jApp.services')
             frame
 
 
-          @interpreterFor: (input) ->
+          @interpreterFor: (input = '') ->
             intr = null
             args = Utils.argv(input)
             for i in self.interpreters

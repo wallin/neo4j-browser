@@ -10,3 +10,10 @@ describe 'Service: Persistable', () ->
   beforeEach inject (_Persistable_) ->
     Persistable = _Persistable_
 
+  it 'should generate an id when not specified', ->
+    doc = new Persistable()
+    expect(doc.id).toBeTruthy()
+
+  it 'should set the provided id', ->
+    doc = new Persistable(id: 1)
+    expect(doc.id).toBe 1
