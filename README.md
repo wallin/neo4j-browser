@@ -57,6 +57,15 @@ Type `yo` or see [AngularJS generator](https://github.com/yeoman/generator-angul
 
 This will automatically add the dependency to the `bower.json` file.
 
+## Production
+    $ grunt build
+
+Test with local webserver at port 5000 (requires ruby)
+
+    $ cd dist
+    $ ruby -run -e httpd . -p5000
+    $ open http://localhost:5000
+
 ## Publish
 
     $ grunt build            # Build the application for distribution
