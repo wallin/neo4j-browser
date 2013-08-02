@@ -173,7 +173,7 @@ footer
 
 #views
   position: absolute
-  overflow: scroll
+  overflow-y: auto
   top: 0
   bottom: 0
   left: 0
@@ -373,7 +373,7 @@ footer
 
   .view-result
     position: relative
-    overflow-y: scroll
+    overflow-y: auto
     height: auto
     transist left
     background: #F8F9FB url('/images/background-pending.png') 50% 50% no-repeat
@@ -406,14 +406,14 @@ footer
       position: relative
       left: 0
       right: 0
-      max-height: 359px
       a.icon-download-alt
         absolute: top 8px right horizontal-padding*2+20
         font-size: 24px
         right: horizontal-padding
       .view-result-table-scroll
+        overflow-y: auto
+        max-height: 359px
         display: block;
-        overflow: scroll
 
 .update-button
   position:absolute
