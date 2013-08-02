@@ -1,3 +1,9 @@
+.code-bar
+  .label.label-info KEYS
+  span.code {{frame.input | uncomment}}
+  .actions
+    a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
+
 .inner
   .view-result.view-keys
     h4 Keyboard shortcuts
