@@ -113,21 +113,21 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
         folder: 'system'
         content: """
 // Is master
-GET /db/manage/server/ha/master
+:GET /db/manage/server/ha/master
         """
       }
       {
         folder: 'system'
         content: """
 // Is slave
-GET /db/manage/server/ha/slave
+:GET /db/manage/server/ha/slave
         """
       }
       {
         folder: 'system'
         content: """
 // System info
-GET /db/manage/server/jmx/domain/org.neo4j
+:GET /db/manage/server/jmx/domain/org.neo4j
         """
       }
     ]
