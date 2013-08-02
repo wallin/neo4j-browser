@@ -49,30 +49,30 @@ angular.module('neo4jApp.controllers')
     $scope.execScript = (input) ->
       frame = $scope.createFrame(input: input)
       #return unless frame
-      $scope.editorHistory.add(input)
-      $scope.historySet(input)
-      $scope.editor.content = ""
+      if input?.length > 0 and $scope.editorHistory[0] isnt input
+        $scope.editorHistory.unshift(input)
+      $scope.historySet(-1)
 
     $scope.historyNext = ->
-      newItem =
-        $scope.editorHistory.next($scope.editor.cursor) or
-        $scope.editorHistory.last()
-      $scope.historySet(newItem)
-      if $scope.editor.cursor
-        $scope.setEditorContent($scope.editor.cursor)
+      idx = $scope.editor.cursor
+      idx ?= $scope.editorHistory.length
+      idx--
+      $scope.historySet(idx)
 
     $scope.historyPrev = ->
-      newItem =
-        $scope.editorHistory.prev($scope.editor.cursor) or
-        $scope.editorHistory.first()
-      $scope.historySet(newItem)
-      if $scope.editor.cursor
-        $scope.setEditorContent($scope.editor.cursor)
+      idx = $scope.editor.cursor
+      idx ?= -1
+      idx++
+      $scope.historySet(idx)
 
-    $scope.historySet = (item)->
-      $scope.editor.cursor = item
-      $scope.editor.prev = $scope.editorHistory.prev(item)
-      $scope.editor.next = $scope.editorHistory.next(item)
+    $scope.historySet = (idx)->
+      idx = -1 if idx < 0
+      idx = $scope.editorHistory.length - 1 if idx >= $scope.editorHistory.length
+      $scope.editor.cursor = idx
+      $scope.editor.prev = $scope.editorHistory[idx+1]
+      $scope.editor.next = $scope.editorHistory[idx-1]
+      item = $scope.editorHistory[idx] or ''
+      $scope.setEditorContent(item)
 
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
@@ -177,10 +177,12 @@ angular.module('neo4jApp.controllers')
     $timeout(->
      $scope.createFrame(input: 'help welcome')
     , 800)
-    $scope.editorHistory = new Collection()
+    $scope.editorHistory = []
     $scope.editor =
-      cursor: null
       content: ''
+      cursor: null
+      next: null
+      prev: null
 
     $scope.motd = motdService # '"When you label me, you negate me" -- Soren Kierkegaard III'
 

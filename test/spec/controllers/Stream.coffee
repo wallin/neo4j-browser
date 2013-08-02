@@ -9,6 +9,7 @@ describe 'Controller: StreamCtrl', () ->
   Folder = {}
   StreamCtrl = {}
   scope = {}
+  timer = {}
 
 
   # Initialize the controller and a mock scope
@@ -23,16 +24,21 @@ describe 'Controller: StreamCtrl', () ->
 
       return
 
-    inject ($controller, $rootScope, _Folder_, _Frame_) ->
+    inject ($controller, $rootScope, _Folder_, _Frame_, $timeout) ->
       scope = $rootScope.$new()
       Folder = _Folder_
       Frame = _Frame_
+      timer = $timeout
       # Reset storage
       Folder.save([])
 
       # Instantiate
       StreamCtrl = $controller 'StreamCtrl', { $scope: scope }
       scope.$digest()
+
+  it 'should insert the welcome frame when instantiated', ->
+    timer.flush()
+    expect(scope.frames.length).toBe 1
 
   describe 'createFolder:', ->
     it 'should return the created folder', ->
