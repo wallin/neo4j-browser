@@ -3,7 +3,7 @@
 angular.module('neo4jApp.controllers', ['neo4jApp.utils'])
 angular.module('neo4jApp.directives', ['ui.bootstrap.dialog'])
 angular.module('neo4jApp.filters', [])
-angular.module('neo4jApp.services', ['LocalStorageModule', 'neo4jApp.settings'])
+angular.module('neo4jApp.services', ['LocalStorageModule', 'neo4jApp.settings', 'neo4jApp.utils'])
 
 app = angular.module('neo4jApp', [
   'neo4jApp.controllers'

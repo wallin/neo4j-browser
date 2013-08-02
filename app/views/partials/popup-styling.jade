@@ -1,11 +1,9 @@
 div(ng-controller='GrassCtrl')
   .modal-header
-    a.icon-download-alt.pull-right(ng-click='export()')
-    h3 GraSS Code
+    a.close.pull-right(ng-click='togglePopup()')
+      &times;
+    h3(style="display:inline;") GraSS Code
+    a.icon-download-alt(exportable ng-click='exportGraSS(code)', tooltip="Export to file")
   .modal-body
     textarea(ui-codemirror="{theme: 'css', readOnly: true}", ng-model="code")
     file-upload(upload='import($content)', extension='.grass') Drop a GraSS-file here to import
-  //- .modal-footer
-  //-   a.btn(href='#') Close
-  //-   a.btn.btn-primary(href='#') Copy to clipboard
-

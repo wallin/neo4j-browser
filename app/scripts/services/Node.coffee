@@ -1,17 +1,12 @@
 'use strict';
 
 angular.module('neo4jApp.services')
-  .factory 'Node', [() ->
-
-    parseId = (resource = "") ->
-      id = resource.substr(resource.lastIndexOf("/")+1)
-      return parseInt(id, 10)
-
+  .factory 'Node', ['Utils', (Utils) ->
     class Node
       constructor: (@$raw = {}) ->
         @attrs = @$raw.data or {}
         angular.extend(@, @attrs)
-        @id = parseId(@$raw.self)
+        @id = Utils.parseId(@$raw.self)
         @labels = []
 
       toJSON: ->

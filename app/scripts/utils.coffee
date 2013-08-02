@@ -20,6 +20,11 @@ angular.module('neo4jApp.utils', [])
         timeout = $timeout(later, wait)
         result = func.apply(context, args) if callNow
         result
+
+    parseId: (resource = "") ->
+      id = resource.substr(resource.lastIndexOf("/")+1)
+      return parseInt(id, 10)
+
     stripComments: (input) ->
       rows = input.split("\n")
       rv = []

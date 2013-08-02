@@ -19,9 +19,9 @@ angular.module('neo4jApp.controllers')
         dialogFade: yes
         keyboard: yes
 
-      $scope.resultDetails = ->
-        if currentFrame?.response
-          stats = currentFrame.response.stats
+      $scope.resultDetails = (frame) ->
+        if frame?.response
+          stats = frame.response.stats
           "
             Constraints added: #{stats.constraints_added}<br>
             Constraints removed: #{stats.constraints_removed}<br>
@@ -36,6 +36,7 @@ angular.module('neo4jApp.controllers')
             Relationships created: #{stats.relationships_created}<br>
             "
 
+      # TODO: Put this in a directive
       $scope.editorHeight = 0
       $scope.editorOneLine = true
       $scope.editorChanged = (codeMirror) ->

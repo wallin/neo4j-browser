@@ -10,8 +10,6 @@ angular.module('neo4jApp.directives')
 
         topic = e.currentTarget.getAttribute('help-topic')
 
-        console.log("topic attr: #{topic}")
-
         if not topic
           url = e.currentTarget.getAttribute('href')
           if url.match(/^http/)
@@ -21,7 +19,6 @@ angular.module('neo4jApp.directives')
           parts = url.replace('.html', '').split('/')
           return unless angular.isArray(parts)
           topic = parts[parts.length-1]
-          console.log("topic from url: #{topic}")
 
         topic = topic.toLowerCase().trim().replace('-', ' ')
         $rootScope.$broadcast 'frames:create', "help #{topic}"

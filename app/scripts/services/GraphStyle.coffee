@@ -153,7 +153,6 @@ angular.module('neo4jApp.services')
         @
 
       parse: (string)->
-        # TODO
         chars = string.split('')
         insideString = no
         insideProps = no

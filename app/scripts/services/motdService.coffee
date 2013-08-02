@@ -2,10 +2,7 @@
 
 angular.module('neo4jApp.services')
   .factory 'motdService', [
-    'Settings'
-    'Server'
-    (Settings, Server) ->
-
+    ->
       class Motd
 
         choices =
@@ -21,12 +18,12 @@ angular.module('neo4jApp.services')
 
         refresh: ->
           @editor = @pickRandomlyFrom(choices.editor)
-  
+
         pickRandomlyFrom: (fromThis) ->
           return fromThis[Math.floor(Math.random() * fromThis.length)]
 
-        editor: "" 
-        
+        editor: ""
+
 
       new Motd
 ]

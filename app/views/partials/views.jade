@@ -1,26 +1,6 @@
 #main
   #editor(ng-class="{'one-line': editorOneLine}")
     .view-input
-      //- .view-toolbar
-      //-   ul.inline
-      //-     li
-      //-       a.btn(ng-click="toggleSidebar()")
-      //-         i.icon-file-text
-      //-         |  Saved scripts
-      //-     li
-      //-       a.btn(ng-click="execScript(editor.content)")
-      //-         i.icon-play-sign
-      //-         |  Run
-      //-     li
-      //-       a.btn(ng-click='setEditorContent("")')
-      //-         i.icon-file-alt
-      //-         |  Clear
-      //-     //- li
-      //-     //-   select.span2
-      //-     //-     option(ng-repeat='label in labels') {{label}}
-      //-     //- li
-      //-     //-   select
-      //-     //-     option(ng-repeat='relation in relationships') {{ relation }}
       .view-editor
         a.open-sidebar(ng-click="toggleSidebar()")
           i(ng-class="{'icon-chevron-left': isSidebarShown, 'icon-bookmark': !isSidebarShown}")

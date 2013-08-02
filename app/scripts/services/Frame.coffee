@@ -9,10 +9,9 @@ angular.module('neo4jApp.services')
     @$get = [
       '$injector',
       '$q',
-      '$rootScope'
       'Timer'
       'Utils'
-      ($injector, $q, $rootScope, Timer, Utils) ->
+      ($injector, $q, Timer, Utils) ->
         class Frame
           constructor: (data = {})->
             @templateUrl = null

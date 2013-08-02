@@ -4,17 +4,13 @@ angular.module('neo4jApp.directives')
     ->
       replace: yes
       restrict: 'E'
-      #require: 'ngModel'
-      #templateUrl: 'views/neo-table.html'
       link: (scope, elm, attr) ->
         predicate = null
-        scope.reverse = no
+
         unbind = scope.$watch attr.tableData, (result) ->
           return unless result
           # TODO: show something if result is too large
           return if result.isTooLarge
-          #scope.rows = result.rows()
-          #scope.columns = result.columns()
           elm.html(render(result))
           unbind()
 
@@ -40,16 +36,5 @@ angular.module('neo4jApp.directives')
           html += "</tbody>"
           html += "</table>"
           html
-
-
-        scope.orderBy = (col) ->
-          if col is predicate
-            scope.reverse = !scope.reverse
-          else
-            scope.reverse = no
-          predicate = col
-
-        scope.sortOrder = (item) ->
-          if predicate? then item[predicate] else null
 
   ])

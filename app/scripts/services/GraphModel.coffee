@@ -2,10 +2,8 @@
 
 angular.module('neo4jApp.services')
   .factory 'GraphModel', [
-    '$q'
     'Collection'
-    'Cypher'
-    ($q, Collection, Cypher) ->
+    (Collection) ->
       class GraphModel
         constructor: (cypher = {}) ->
           @nodes = new Collection(cypher.nodes)

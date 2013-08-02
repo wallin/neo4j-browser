@@ -37,7 +37,7 @@ div(ng-controller="CypherResultCtrl", fullscreen)
             .icon-ok
             include partials/result-status
             span  in <b>{{frame.runTime}} ms</b>
-            .details.btn.btn-small(popover-animation='true', popover="{{resultDetails()}}", popover-title="Detailed results", popover-placement='bottom', ng-show="frame.response.stats.contains_updates") Details
+            .details.btn.btn-small(popover-animation='true', popover="{{resultDetails(frame)}}", popover-title="Detailed results", popover-placement='bottom', ng-show="frame.response.stats.contains_updates") Details
             .updated-code(ng-show='frame.savedInput != frame.input')
               .icon-info-sign
               | Code has changed since last execution.&nbsp;

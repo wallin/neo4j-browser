@@ -16,9 +16,6 @@ angular.module('neo4jApp.controllers')
         if $scope.style.caption
           $scope.selectedCaption = $scope.style.caption.replace(/\{([^{}]*)\}/, "$1")
 
-      $scope.hasNoProps = ->
-        Object.keys($scope.item.attrs).length == 0
-
       $scope.selectScheme = (color) ->
         $scope.style = color
         $scope.saveStyle()
