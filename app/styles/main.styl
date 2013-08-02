@@ -377,8 +377,8 @@ footer
     height: auto
     transist left
     background: #F8F9FB url('/images/background-pending.png') 50% 50% no-repeat
-    min-height: 300px
-    max-height: 1000px
+    //min-height: 300px
+    max-height: 1000px - middlebar-height - 1
     z-index: 10
     &.error
       background-image: url('/images/background-error.png')
@@ -386,6 +386,8 @@ footer
     pre
       margin: 0
       border: 0
+      padding-top: 0
+      padding-bottom: 0
 
     a[class^="icon-"]
       color: color-default-text
