@@ -1,25 +1,29 @@
 @import 'variables'
 @import 'mixins'
+@import 'nib'
 
-left-margin = 55px
+left-margin = 16px
 
-.CodeMirror
-  -webkit-font-smoothing: initial
-  background-color: transparent
+.code-style
   font-family: "Menlo","Courier New","Terminal", monospace
   font-size: 16px
   line-height: 23px
+  -webkit-font-smoothing: initial
+
+.CodeMirror
+  background-color: transparent
   margin: 24px horizontal-padding 22px left-margin
   transist: all
+  @extend .code-style
   pre
     padding: 0
   .CodeMirror-placeholder
-    color: #caccd0
+    color: #E0E2E6
 .CodeMirror-lines
   padding: 0
 .CodeMirror-gutters
   border: none
-  border-right: 9px solid transparent
+  border-right: 10px solid transparent
   background-color: transparent
 .CodeMirror-linenumber
   padding: 0
@@ -30,6 +34,9 @@ left-margin = 55px
 .CodeMirror-scroll
   overflow-x: auto
   max-height: 140px
+.CodeMirror div.CodeMirror-cursor
+  border-left: 11px solid rgba(155, 157, 162, 0.37)
+  z-index: 3
 
 .CodeMirror
   &.cm-s-neo, &.cm-s-css
@@ -45,8 +52,13 @@ left-margin = 55px
     .cm-variable
       color: #1ABC9C
 
+.prompt
+  absolute: top 24px left (left-margin + 9px)
+  color: #93969b
+  opacity: 0
+
 .one-line
-  .CodeMirror
-    margin-left: left-margin - 20px
   .CodeMirror-linenumber
     opacity: 0
+  .prompt
+    opacity: 1
