@@ -23,6 +23,9 @@ angular.module('neo4jApp.controllers')
         $scope.currentItem = sections[section][r.name]
       )
 
+      $scope.stringify = (val) ->
+        if angular.isString(val) then val else JSON.stringify(val, null, ' ')
+
       $scope.selectItem = (section, name) ->
         $scope.currentItem = $scope.sections[section][name]
 

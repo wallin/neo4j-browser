@@ -23,4 +23,4 @@
         tbody
           tr('ng-repeat' = '(k, v) in attr.value')
             th(style='text-align: right') {{k}}:
-            td {{v.toString()}}
+            td {{stringify(v)}}
