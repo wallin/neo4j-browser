@@ -49,6 +49,9 @@ angular.module('neo4jApp.controllers')
       el.append('defs')
       graph = null
 
+      height = $element.height()
+      width  = $element.width()
+
       selectedNode = null
 
       $scope.style = GraphStyle.rules
@@ -60,6 +63,12 @@ angular.module('neo4jApp.controllers')
       #
       # Local methods
       #
+
+      resize = ->
+        height = $element.height()
+        width  = $element.width()
+        force.size([width, height])
+
       selectItem = (item) ->
         $rootScope.selectedGraphItem = item
         $rootScope.$apply() unless $rootScope.$$phase
@@ -107,8 +116,8 @@ angular.module('neo4jApp.controllers')
           relationshipGroups.call(renderer.onTick)
 
       force = d3.layout.force()
-        .size([960, 300])
-        .linkDistance(80)
+        .size([width, height])
+        .linkDistance(60)
         .charge(-1000)
         .on('tick', tick)
 
