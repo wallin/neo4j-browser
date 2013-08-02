@@ -37,7 +37,7 @@ angular.module('neo4jApp')
       matches: "#{cmdchar}schema"
       exec: ['Server', (Server) ->
         (input, q) ->
-          Server.console(input)
+          Server.console(input.substr(1))
           .then(
             (r) ->
               response = r.data[0]
@@ -124,7 +124,7 @@ angular.module('neo4jApp')
       templateUrl: 'views/frame-rest.html'
       exec: ['Cypher', (Cypher) ->
         (input, q) ->
-          input = input.substr(7)
+          input = input.substr(8)
           if input.length is 0
             q.reject(error("missing query"))
           else
