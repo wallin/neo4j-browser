@@ -20,7 +20,6 @@ angular.module("neo4jApp.animations", [])
 
       tl.to(element, 0.1, {}) # render object to get a size
       tl.call((e)->
-        console.log element.height()
         tl.to(element, 0.1, {maxHeight: 0})
         tl.to element, 0.4,
           maxHeight: Math.max(element.height(), 420)
