@@ -3,9 +3,8 @@
   //-   a(ng-click="toggleSidebar()") Views
   //-   a.close.icon-remove(ng-click="toggleSidebar()")
   h4 Saved scripts
-    a.add(ng-click='createFolder()')
-      .icon-plus
-      | Add folder
+    a.add(ng-click='toggleSidebar()')
+      .icon-remove
   .inner
     .droppable(
       ng-repeat='folder in folders.all()', ui-sortable="sortableOptions")
