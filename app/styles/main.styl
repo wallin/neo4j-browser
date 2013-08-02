@@ -295,16 +295,26 @@ footer
   font-size: 13px
   overflow: hidden
   padding: 0 25px;
+
+  .label
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15)
+    font-size: 11px
+  .label-cypher
+    background-color: #8FDDC7
+  .label-rest
+    background-color: #81C0EB
+  .label-help
+    background-color: #D2A8E9
+
   .code
     text-shadow: 0 1px 0 rgba(255,255,255,0.7)
     font-family: "Menlo","Courier New","Terminal", monospace
-    font-size: 12px
     margin-left: 8px
   a.close-fullscreen
     display: none
   .actions
     opacity: 0
-    transist: opacity
+    transist: opacity 0.2s
     absolute: top 3px right 25px
     background-color: #e7e9eb
     .divider
@@ -479,6 +489,7 @@ footer
     padding: 2px 8px
     font-size: 13px
     width: 157px
+    position: relative
     top: -1px
     font-weight: bold
   .edit-in-place-trigger
