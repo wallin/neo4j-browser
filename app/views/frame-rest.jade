@@ -1,6 +1,6 @@
 .code-bar
   .label.label-info HTTP
-  span.code {{frame.input}}
+  span.code {{frame.input | uncomment}}
   .actions
     a.icon-star(ng-click='importDocument(frame.input)', tooltip-placement='bottom', tooltip='Save script')
     a.icon-edit(tooltip-placement='bottom', tooltip='Modify script')
