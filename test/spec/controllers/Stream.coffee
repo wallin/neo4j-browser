@@ -10,17 +10,29 @@ describe 'Controller: StreamCtrl', () ->
   StreamCtrl = {}
   scope = {}
 
-  # Initialize the controller and a mock scope
-  beforeEach inject ($controller, $rootScope, _Folder_, _Frame_) ->
-    scope = $rootScope.$new()
-    Folder = _Folder_
-    Frame = _Frame_
-    # Reset storage
-    Folder.save([])
 
-    # Instantiate
-    StreamCtrl = $controller 'StreamCtrl', { $scope: scope }
-    scope.$digest()
+  # Initialize the controller and a mock scope
+  beforeEach ->
+    module (FrameProvider) ->
+      FrameProvider.interpreters.push
+        type: 'help'
+        matches: 'help'
+        templateUrl: 'dummy.html'
+        exec: ->
+          (input) -> return true
+
+      return
+
+    inject ($controller, $rootScope, _Folder_, _Frame_) ->
+      scope = $rootScope.$new()
+      Folder = _Folder_
+      Frame = _Frame_
+      # Reset storage
+      Folder.save([])
+
+      # Instantiate
+      StreamCtrl = $controller 'StreamCtrl', { $scope: scope }
+      scope.$digest()
 
   describe 'createFolder:', ->
     it 'should return the created folder', ->
