@@ -59,10 +59,16 @@ angular.module('neo4jApp.controllers')
           CodeMirror.commands.newlineAndIndent(cm)
 
       CodeMirror.commands.handleUp = (cm) ->
-        $scope.$broadcast 'editor:prev' if cm.lineCount() == 1
+        if cm.lineCount() == 1
+          $scope.$broadcast 'editor:prev'
+        else
+          CodeMirror.commands.goLineUp(cm)
 
       CodeMirror.commands.handleDown = (cm) ->
-        $scope.$broadcast 'editor:next' if cm.lineCount() == 1
+        if cm.lineCount() == 1
+          $scope.$broadcast 'editor:next'
+        else
+          CodeMirror.commands.goLineDown(cm)
 
       CodeMirror.keyMap["default"]["Enter"] = "handleEnter"
       CodeMirror.keyMap["default"]["Shift-Enter"] = "newlineAndIndent"
