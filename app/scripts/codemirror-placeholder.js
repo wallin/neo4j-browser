@@ -35,7 +35,9 @@
   }
 
   function onFocus(cm) {
-    clearPlaceholder(cm);
+    if (!isEmpty(cm)) {
+      clearPlaceholder(cm);
+    }
   }
   function onBlur(cm) {
     if (isEmpty(cm)) setPlaceholder(cm);
@@ -44,7 +46,6 @@
     var wrapper = cm.getWrapperElement(), empty = isEmpty(cm);
     wrapper.className = wrapper.className.replace(" CodeMirror-empty", "") + (empty ? " CodeMirror-empty" : "");
 
-    if (cm.hasFocus()) return;
     if (empty) setPlaceholder(cm);
     else clearPlaceholder(cm);
   }
