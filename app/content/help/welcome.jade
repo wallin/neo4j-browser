@@ -3,90 +3,28 @@ article.container.help
     .hero-unit
       h1 Welcome to Neo4j
       p
-        | We think you're a special snowflake.
+        | We think you're a special snowflake. Version: {{neo4jVersion}}
+      p
+        | server: {{server}}
     .row
       .span4
-        h2 Graphs
-          span Nodes + Relationships + Properties
+        h2 Graph =
+          span nodes + relationships + properties
         p
           | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
         p
-          a.btn(href='graphs.html') help graphs »
+          a.btn(href='graph.html') {{cmdchar}}help graph »
       .span4
         h2 Cypher
           span Query statements
         p
           | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
         p
-          a.btn(href='cypher.html') help cypher »
+          a.btn(href='cypher.html') {{cmdchar}}help cypher »
       .span4
         h2 Commands
           span something something
         p
           | Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
         p
-          a.btn(href='commands.html') help commands »
-    hr
-
-
-    h2 Welcome to Neo4j Browser
-    p Start by writing some commands in the bar above
-  section.example
-    p The command bar understands a couple of different things:
-    h1 Cypher
-    p Example
-    figure
-      pre.code(mode='cypher').
-        MATCH &lt;pattern&gt; WHERE &lt;conditions&gt; RETURN &lt;expressions&gt;
-      figcaption Basic form of a Cypher statement.
-    h1 Rest / HTTP
-    p You can use GET, POST, PUT or DELETE followed by a path and optionally a JSON payload, ex:
-    figure
-      pre.code.
-        GET /db/data
-    figure
-      pre.code.
-        GET /db/data/node/0
-
-  section.reference
-    h1 Reference
-    dl
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4jVersion}}/cypher-introduction.html')
-          | Cypher introduction
-    dl
-      dt Related
-      dd
-        a(href='/content/help/match.html')
-          code MATCH
-        | ,
-        a(href='/content/help/where.html')
-          code WHERE
-        | ,
-        a(href='/content/help/return.html')
-          code RETURN
-        | ,
-        a(href='/content/help/create.html')
-          code CREATE
-        | ,
-        a(href='/content/help/merge.html')
-          code MERGE
-        | ,
-        a(href='/content/help/delete.html')
-          code DELETE
-        | ,
-        a(href='/content/help/set.html')
-          code SET
-        | ,
-        a(href='/content/help/foreach.html')
-          code FOREACH
-        | ,
-        a(href='/content/help/with.html')
-          code WITH
-        | ,
-        a(href='/content/help/start.html')
-          code START
-        | ,
-        a(href='/content/help/create-unique.html')
-          code CREATE UNIQUE
+          a.btn(href='commands.html') {{cmdchar}}help commands »

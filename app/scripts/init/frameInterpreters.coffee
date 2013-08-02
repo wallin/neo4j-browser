@@ -3,6 +3,16 @@ angular.module('neo4jApp')
   'FrameProvider'
   (FrameProvider) ->
 
+    # character used to designate client-side commands (non-cypher)
+    cmdchar = ':'
+
+    # convert a string into a topical keyword
+    topicalize = (input) ->
+      if input?
+        input.toLowerCase().trim().replace(' ', '-')
+      else
+        null
+
     argv = (input) ->
       rv = input.toLowerCase().split(' ')
       rv or []
@@ -14,7 +24,7 @@ angular.module('neo4jApp')
 
     FrameProvider.interpreters.push
       type: 'clear'
-      matches: "clear"
+      matches: "#{cmdchar}clear"
       exec: ['$rootScope', ($rootScope) ->
         (input) ->
           $rootScope.$broadcast 'frames:clear'
@@ -24,7 +34,7 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'shell'
       templateUrl: 'views/frame-rest.html'
-      matches: "schema"
+      matches: "#{cmdchar}schema"
       exec: ['Server', (Server) ->
         (input, q) ->
           Server.console(input)
@@ -44,7 +54,7 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'play'
       templateUrl: 'views/frame-help.html'
-      matches: "play"
+      matches: "#{cmdchar}play"
       exec: ->
         step_number = 1
         (input, q) ->
@@ -54,11 +64,10 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'help'
       templateUrl: 'views/frame-help.html'
-      matches: ["help", "man"]
+      matches: ["#{cmdchar}help", "#{cmdchar}man", "help"]
       exec: ['$http', ($http) ->
         (input, q) ->
-          section = input['help'.length..] or 'help'
-          section = section.toLowerCase().trim().replace(' ', '-')
+          section = topicalize(input[('help'.length+1)..]) or 'help'
           url = "content/help/#{section}.html"
           $http.get(url)
           .success(->q.resolve(page: url))
@@ -70,10 +79,10 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'http'
       templateUrl: 'views/frame-rest.html'
-      matches: ['get', 'post', 'delete', 'put']
+      matches: ["#{cmdchar}get", "#{cmdchar}post", "#{cmdchar}delete", "#{cmdchar}put"]
       exec: ['Server', (Server) ->
         (input, q) ->
-          regex = /^((GET)|(PUT)|(POST)|(DELETE)) ([^ ]+)( (.+))?$/i
+          regex = /^[^\w]*((GET)|(PUT)|(POST)|(DELETE)) ([^ ]+)( (.+))?$/i
           result = regex.exec(input)
           [verb, url, data] = [result[1], result[6], result[8]]
 
@@ -111,7 +120,7 @@ angular.module('neo4jApp')
     # Profile a cypher command
     FrameProvider.interpreters.push
       type: 'cypher'
-      matches: "profile"
+      matches: "#{cmdchar}profile"
       templateUrl: 'views/frame-rest.html'
       exec: ['Cypher', (Cypher) ->
         (input, q) ->
@@ -123,16 +132,31 @@ angular.module('neo4jApp')
           q.promise
       ]
 
-    # Fallback interpretor
+
     # Cypher handler
     FrameProvider.interpreters.push
       type: 'cypher'
-      matches: -> true
+      matches: ['cypher', 'start', 'match', 'create', 'drop', 'return', 'set', 'remove', 'delete']
       templateUrl: 'views/frame-cypher.html'
       exec: ['Cypher', (Cypher) ->
         # Return the function that handles the input
         (input) ->
           Cypher.send(input)
+      ]
+
+    # Fallback interpretor
+    # Cypher handler
+    FrameProvider.interpreters.push
+      type: 'help'
+      matches: -> true
+      templateUrl: 'views/frame-help.html'
+      exec: ['$http', ($http) ->
+        (input, q) ->
+          url = "content/help/unknown.html"
+          $http.get(url)
+          .success(->q.resolve(page: url))
+          .error(->q.reject(error("No such help section")))
+          q.promise
       ]
 
 ])

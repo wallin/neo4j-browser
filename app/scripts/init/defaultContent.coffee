@@ -9,7 +9,7 @@ angular.module('neo4jApp')
         folder: 'nodes'
         content: """
 // Count nodes
-MATCH (n{{':'+selected_label}})
+MATCH (n{{':'+label-name}})
 RETURN count(n)
         """
       }
@@ -17,29 +17,29 @@ RETURN count(n)
         folder: 'nodes'
         content: """
 // Create index
-CREATE INDEX ON :{{selected-label}}(propertyName)
+CREATE INDEX ON :{{label-name}}({{property-name}})
         """
       }
       {
         folder: 'nodes'
         content: """
 // Create indexed node
-CREATE (n{{':'+selected_label}} { {{indexed_property}}:"{property_value}" }) RETURN n
+CREATE (n{{':'+label-name}} { {{property-name}}:"{{property-value}}" }) RETURN n
         """
       }
       {
         folder: 'nodes'
         content: """
 // Create node
-CREATE (n{{':'+selected_label}}) RETURN n
+CREATE (n{{':'+label-name}}) RETURN n
         """
       }
       {
         folder: 'nodes'
         content: """
 // Delete a node
-START n=node(*) MATCH (n{{':'+selected_label}})-[r?]-()
-WHERE {{indexed_property}} = "{expected_value}"
+START n=node(*) MATCH (n{{':'+label-name}})-[r?]-()
+WHERE {{property-name}} = "{{property-name}}"
 DELETE n,r
         """
       }
@@ -47,22 +47,22 @@ DELETE n,r
         folder: 'nodes'
         content: """
 // Drop index
-DROP INDEX ON :{{selected-label}}(propertyName)
+DROP INDEX ON :{{label-name}}({{property-name}})
         """
       }
       {
         folder: 'nodes'
         content: """
 // Find a node
-MATCH (n{{':'+selected_label}})
-WHERE n.{{indexed_property}} = "{expected_value}" RETURN n
+MATCH (n{{':'+label-name}})
+WHERE n.{{property-name}} = "{{property-value}}" RETURN n
         """
       }
       {
         folder: 'nodes'
         content: """
 // Get all nodes
-MATCH (n{{':'+selected_label}})
+MATCH (n{{':'+label-name}})
 RETURN n LIMIT 100
         """
       }
@@ -73,8 +73,8 @@ RETURN n LIMIT 100
         folder: 'relationships'
         content: """
 // Isolate node
-MATCH (a)-[r{{':'+selected_type}}]-()
-WHERE a.{property} = "{expected_a_value}"
+MATCH (a)-[r{{':'+type-name}}]-()
+WHERE a.{{property-name}} = "{{property-value}}"
 DELETE r
         """
       }
@@ -83,9 +83,9 @@ DELETE r
         content: """
 // Relate nodes
 MATCH (a),(b)
-WHERE a.{property} = "{expected_a_value}"
-AND b.{property} = "{expected_b_value}"
-CREATE (a)-[r{{':'+selected_type}}]->(b)
+WHERE a.{{property-name}} = "{{property-value-a}}"
+AND b.{{property-name}} = "{{property-value-b}}"
+CREATE (a)-[r{{':'+type-name}}]->(b)
 RETURN a,r,b
         """
       }
@@ -93,8 +93,8 @@ RETURN a,r,b
         folder: 'relationships'
         content: """
 // Shortest path
-MATCH p = shortestPath( (a)-[{{':'+selected_type}}*..4]->(b) )
-WHERE a.name={a_name} AND b.name={b_name}
+MATCH p = shortestPath( (a)-[{{':'+type-name}}*..4]->(b) )
+WHERE a.{{propert-name}}={property-value-a} AND b.{{property-name}}={{property-value-b}}
 RETURN p
         """
       }
@@ -102,7 +102,7 @@ RETURN p
         folder: 'relationships'
         content: """
 // Whats related
-MATCH (a)-[r{{':'+selected_type}}]-(b)
+MATCH (a)-[r{{':'+type-name}}]-(b)
 RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
         """
       }
