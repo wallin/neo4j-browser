@@ -1,5 +1,9 @@
 @import 'variables'
 @import 'nib'
+@import 'mixins'
+
+indent = 27px
+indent-hover = 22px
 
 #sidebar
   user-select: none
@@ -12,11 +16,13 @@
   background-color: sidebar-color-bg
   text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px
   overflow-y: auto
+  .inner
+    padding: 8px 24px
   h3, h4, h5
     position: relative
     color: #fff
     font-weight: bold;
-    padding: 0 horizontal-padding;
+    padding: 0 24px;
     margin: 0;
   h3
     position: relative
@@ -31,13 +37,12 @@
     font-size: 20px
     color: #fff
   h4
-    background-color: sidebar-color-section-bg
-    line-height: 39px;
-    font-size: 13px
-    text-transform: uppercase;
+    background-color: darken(sidebar-color-bg, 15%)
+    line-height: 73px;
+    font-size: 17px;
     a.add
       cursor: pointer
-      absolute: top 0 right 15px
+      absolute: top 0 right 24px
       font-size: 13px
       text-transform: none;
       color: sidebar-color-section-icon
@@ -47,21 +52,21 @@
         color: sidebar-color-section-icon-hover
 
   h5
+    padding: 0 0 0 16px
     font-size: 12px
     line-height: 39px;
     font-size: 13px
-    padding-left: 42px
     border-bottom: 1px solid sidebar-color-border
-    color: sidebar-color-fg
+    color: #fff
     font-weight: bold
     &:hover
       color #fff
     &.folder
       cursor: pointer
       .icon-caret-right
-        absolute: top 13px left 20px
+        absolute: top 13px left 0px
     .icon-trash
-      absolute: top 11px right 17px
+      absolute: top 11px right 2px
       font-size: 16px
       color: sidebar-color-fg-icon
       display: none
@@ -85,12 +90,15 @@
         .meta
           font-weight normal
     li
+      background-color: sidebar-color-bg
+      overflow: hidden
       .list-item
-        background-color: sidebar-color-bg
-        padding: 11px horizontal-padding 11px 42px
+        padding: 11px horizontal-padding 11px 0
         position: relative
         border-bottom: 1px solid sidebar-color-border
         cursor: pointer
+        transist: padding 0.2s
+        overflow: hidden
         &:after
           content: ' '
           stretch()
@@ -98,8 +106,13 @@
           width 0
           opacity 0
         &:hover
+          padding-left: indent-hover
           .icon-trash
             display: block
+          .icon-play-sign, .icon-spinner
+            opacity: 1
+          .icon-play-sign
+            color: color-success
           .contents a
             color: sidebar-color-fg-active
         .background
@@ -111,11 +124,13 @@
             color: sidebar-color-fg-icon-hover
         .icon-trash
           z-index 2
-          absolute: right 16px top 12px
+          absolute: right 2px top 12px
           display: none
         .icon-play-sign, .icon-spinner
+          transist: all 0.2s
+          opacity: 0
           z-index 2
-          absolute: left 15px top 12px
+          absolute: left 0 top 12pxr
         a.icon-spinner
           color: #fff
         .contents
@@ -125,9 +140,11 @@
           a
             color: sidebar-color-fg
             font-size: 13px
-            width: 214px
+            width: 182px
             display: inline-block
             line-height: 1.4
+            max-height: 54px
+            overflow: hidden
           .meta
             color: sidebar-color-fg-muted
             font-size: 12px
@@ -137,12 +154,14 @@
               margin-right: 4px
   ul.indented
     li .list-item
-      padding-left: 68px
+      padding-left: indent
+      &:hover
+        padding-left: indent-hover + indent
       .icon-play-sign, .icon-spinner
-        left 42px
+        left indent
 
   .file-drop-area
-    margin: 14px
+    margin: 14px 0
     border: 2px dashed rgba(255,255,255,0.1)
     border-radius: 12px
     background: none

@@ -120,14 +120,6 @@ select
   margin-bottom: 0
 
 /////
-.body
-  position: absolute
-  overflow: hidden
-  top: 0
-  bottom: 0
-  left: 0
-  right: 0
-
 #error
   position: fixed
   top: 0
@@ -262,8 +254,6 @@ footer
           &.icon-star
             font-size: 19px
 
-      z-index: 1000
-      width: 30px
 .code-bar
   height: middlebar-height
   line-height: middlebar-height
@@ -454,10 +444,12 @@ footer
   .edit-in-place-input
     border: none
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
-    padding: 6px 8px
-    font-size: 13px
     border-radius: 3px
-    width: 187px
+    padding: 2px 8px
+    font-size: 13px
+    width: 157px
+    top: -1px
+    font-weight: bold
   .edit-in-place-trigger
     &:before
       content: "\f040"
@@ -483,5 +475,5 @@ footer
 
     cursor: pointer
     position: absolute
-    right: 42px
+    right: 26px
     top: 11px
