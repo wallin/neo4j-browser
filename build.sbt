@@ -12,11 +12,16 @@ scalaSource in Test <<= baseDirectory(_ / "tools" / "src" / "test")
 
 resourceDirectory in Compile <<= baseDirectory(_ / "dist")
 
+resourceDirectory in Test <<= baseDirectory(_ / "dist")
+
 target <<= baseDirectory { _ / "tools" / "target" }
 
 mainClass in (Compile, run) := Some("org.neo4j.tools.localgraph.LocalGraph")
 
-resolvers += "Neo4j Snapshots" at "http://m2.neo4j.org/content/groups/everything/"
+resolvers ++= Seq(
+  "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository",
+  "Neo4j Snapshots" at "http://m2.neo4j.org/content/groups/everything/"
+)
 
 libraryDependencies ++= Seq(
     "org.neo4j"      % "neo4j-community" % "2.0-SNAPSHOT" % "test",
