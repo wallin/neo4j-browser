@@ -1,7 +1,9 @@
-neo4j-ui
-========
+Neo4j Browser
+=============
 
-Client app built-in to Neo4j.
+*Explore the graph, one query at a time.*
+
+This is an experimental client application for working with Neo4j, a mashup of a REPL, data visualization and lightweight IDE. 
 
 # Getting started
 
