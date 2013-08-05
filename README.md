@@ -24,7 +24,7 @@ At the moment, there is no ready-made download of Neo4j Browser. Until one is di
 
 ## Feedback
 
-Please report using [Github Issues](https://github.com/neo4j/neo4j-browser/issues) for the current milestone.
+Please report on [M02 topics](https://github.com/neo4j/neo4j-browser/wiki/M02-Feedback) using [Github Issues](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open) for the current milestone.
 
 * [M02 topics](https://github.com/neo4j/neo4j-browser/wiki/M02-Feedback)
-* [comments](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open)
+* [Comment here](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open)
