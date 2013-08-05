@@ -10,6 +10,8 @@ angular.module('neo4jApp.directives')
 
         topic = e.currentTarget.getAttribute('help-topic')
 
+        console.log("help-topic: " + topic)
+
         if not topic
           url = e.currentTarget.getAttribute('href')
           if url.match(/^http/)
@@ -21,7 +23,7 @@ angular.module('neo4jApp.directives')
           topic = parts[parts.length-1]
 
         topic = topic.toLowerCase().trim().replace('-', ' ')
-        $rootScope.$broadcast 'frames:create', "help #{topic}"
+        $rootScope.$broadcast 'frames:create', ":help #{topic}"
         $rootScope.$apply() unless $rootScope.$$phase
 
       element.on 'click', '.code', (e) ->

@@ -83,6 +83,16 @@ angular.module('neo4jApp')
           q.promise
       ]
 
+    # about handler
+    FrameProvider.interpreters.push
+      type: 'help'
+      templateUrl: 'views/frame-help.html'
+      matches: "#{cmdchar}about"
+      exec: ->
+        step_number = 1
+        (input, q) ->
+          page: "content/help/about.html"
+
     # HTTP Handler
     FrameProvider.interpreters.push
       type: 'http'

@@ -8,7 +8,7 @@
           .prompt.code-style $
           textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}",
             ng-model='editor.content',
-            placeholder='{{motd.editor}}'
+            placeholder='{{motd.tip}}'
             )
           //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')
         ul.controls.inline
