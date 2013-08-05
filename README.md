@@ -5,78 +5,26 @@ Neo4j Browser
 
 This is an experimental client application for working with Neo4j, a mashup of a REPL, data visualization and lightweight IDE. 
 
-# Getting started
 
-This project was generated using [Yeoman](http://yeoman.io) and the [AngularJS generator](https://github.com/yeoman/generator-angular)
+# Development
 
-## Pre-requisites
+**Management**:
 
-* [git](https://help.github.com/articles/set-up-git) (of course :smiley: ) - to get source
-* [NodeJS + NPM](http://nodejs.org/) - for building and hosting the application
-* [PhantomJS](http://phantomjs.org) - for testing
-* [SBT](http://www.scala-sbt.org) - for packaging up as a maven artifact
-  - the `tools` directory has an sbt script and the needed jar
+* Current Milestone: [M02](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open)
+* Trello wall: [Team Pop](https://trello.com/b/3QpahIAK/team-pop)
 
-## Install
+**How-to**:
 
-    $ npm install -g yo grunt-cli bower
-    $ npm install -g generator-angular
+* [Build instructions](/neo4j/neo4j-browser/wiki/Build)
+* [Neo4j integration branch](https://github.com/akollegger/neo4j/tree/neo4j-browser)
 
-    $ npm install
-    $ bower install
+# Try it
 
-## Run Neo4j
+At the moment, there is no ready-made download of Neo4j Browser. Until one is distributed, you'll need to [build it yourself](/neo4j/neo4j-browser/wiki/Build).
 
-The tools directory has a small SBT project which builds and runs a local Neo4j server
-as a "test" application.
+## Feedback
 
-    $ ./tools/sbt test:run
+Please report using [Github Issues](https://github.com/neo4j/neo4j-browser/issues) for the current milestone.
 
-## Develop
-
-    $ grunt server   # Run server for development
-    $ grunt          # Build the application for production
-    $ grunt clean    # Clean build files
-
-### Running tests
-
-    $ grunt test     # Single test run
-    $ karma start    # Continously run tests as source files changes
-
-### Adding new files
-
-The [AngularJS generator](https://github.com/yeoman/generator-angular) provides a couple of Yeoman tasks for generating new files. Eg. to generate a new controller:
-
-    $ yo angular:controller user --coffee --minsafe
-
-Type `yo` or see [AngularJS generator](https://github.com/yeoman/generator-angular) for complete reference
-
-### Adding new dependencies
-
-[Bower](http://bower.io) is used to install and add new package, eg:
-
-    $ bower install jquery --save
-
-This will automatically add the dependency to the `bower.json` file.
-
-## Production
-    $ grunt build
-
-Test with local webserver at port 5000 (requires ruby)
-
-    $ cd dist
-    $ ruby -run -e httpd . -p5000
-    $ open http://localhost:5000
-
-## Publish
-
-    $ grunt build            # Build the application for distribution
-    $ ./tools/sbt publish    # Build a maven artifact which Neo4j can integrate
-
-
-## Documentation and resources
-
-* [Getting started with Yeoman](http://yeoman.io/gettingstarted.html)
-* [Angular tutorials](http://www.egghead.io/)
-* [Angular best practices](http://www.youtube.com/watch?v=ZhfUv0spHCY)
-* [Karma test runner introduction](http://www.youtube.com/watch?v=MVw8N3hTfCI)
+* [M02 topics](https://github.com/neo4j/neo4j-browser/wiki/M02-Feedback)
+* [comments](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open)
