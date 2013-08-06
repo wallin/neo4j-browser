@@ -100,9 +100,14 @@ angular.module('neo4jApp')
       matches: ["#{cmdchar}get", "#{cmdchar}post", "#{cmdchar}delete", "#{cmdchar}put"]
       exec: ['Server', (Server) ->
         (input, q) ->
-          regex = /^[^\w]*((GET)|(PUT)|(POST)|(DELETE)) ([^ ]+)( (.+))?$/i
+          regex = /^[^\w]*(get|GET|put|PUT|post|POST|delete|DELETE)\s+(\S+)\s*([\S\s]+)?$/i
           result = regex.exec(input)
-          [verb, url, data] = [result[1], result[6], result[8]]
+
+          try 
+            [verb, url, data] = [result[1], result[2], result[3]]
+          catch e
+            q.reject(error("Unparseable http request"))
+            return q.promise
 
           verb = verb?.toLowerCase()
           if not verb
@@ -117,11 +122,12 @@ angular.module('neo4jApp')
             q.reject(error("Method needs data"))
             return q.promise
 
-          # Try to parse JSON
-          data = try
-            JSON.parse(data)
+          # insist that data is parseable JSON
+          try
+            data = JSON.parse(data)
           catch e
-            "\"#{data}\""
+            q.reject(error("Payload does not seem to be valid data."))
+            return q.promise
 
           Server[verb]?(url, data)
           .then(

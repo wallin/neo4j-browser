@@ -12,14 +12,21 @@ angular.module('neo4jApp.controllers')
         $scope.relationships = Server.relationships()
         $scope.server = Server.info()
         $scope.host = $window.location.host
+
+      # $scope.neo4j = summarizeNeo4jServer()
+
       $scope.$on 'db:result:containsUpdates', refresh
+
+      $scope.today = Date.now()
 
       parseName = (str) ->
         str.substr(str.lastIndexOf("name=")+5)
 
+      # summarizeNeo4jServer = ->
+        # gather info from jmx
       Server.jmx(
         [
-          "org.neo4j:instance=kernel#0,name=Configuration"
+          "org.neo4j:instance=kernel#0,name=Configuration",
           "org.neo4j:instance=kernel#0,name=Kernel"
         ]
       ).success((response) ->
@@ -28,8 +35,6 @@ angular.module('neo4jApp.controllers')
           for a in r.attributes
             $scope.kernel[a.name] = a.value
       )
-
-      $scope.today = Date.now()
 
       # XXX: Temporary for now having to change all help files
       $scope.$watch 'server', (val) ->
