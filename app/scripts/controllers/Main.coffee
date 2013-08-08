@@ -15,6 +15,12 @@ angular.module('neo4jApp.controllers')
 
       $scope.neo4j = {}
 
+      $scope.neo4j.license = {
+        type: "GPLv3"
+        url: "http://www.gnu.org/licenses/gpl.html"
+      }
+
+
       $scope.$on 'db:result:containsUpdates', refresh
 
       $scope.today = Date.now()

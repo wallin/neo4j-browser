@@ -9,4 +9,8 @@ div(ng-switch="currentPage", ng-controller='StreamCtrl')
     include partials/views
   .page.system(ng-switch-when='system', ng-controller='JMXCtrl')
     include partials/system
-footer(ng-hide="isSidebarShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}") Copyright &copy; 2002-{{today | date:'yyyy'}} <strong><a href="http://neotechnology.com">Neo Technology</a></strong>. License: GPLv3 or AGPL for Open Source, and NTCL for Commercial.
+footer(ng-hide="isSidebarShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}") 
+  | License: {{neo4j.license.type}}
+  br
+  | &copy; {{today | date:'yyyy'}} <a href="http://neotechnology.com">Neo Technology</a>
+  
