@@ -2,32 +2,33 @@ article.help
   .container
     section
       .hero-unit
-        h1 Welcome to Neo4j
-        p
-          | We think you're a special snowflake. Version: {{neo4j.version}}
-        p
-          | server: {{server}}
-        p 
-          | kernel: {{kernel}}
+        h1 Neo4j {{neo4j.edition}}
+        blockquote
+          | &ldquo;{{motd.quote.text}}&rdquo;
+          br
+          span.author &mdash; {{motd.quote.author}}
       .row
         .span4
-          h2 Graph =
-            span nodes + relationships + properties
+          h3 Graph =
+          p.lead nodes + relationships + properties
           p
-            | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+            | Neo4j is a graph database, storing and querying data in a Property Graph.
+            | Store anything, asking questions about records are related.
           p
-            a.btn(href='graph.html') {{cmdchar}}help graph »
+            a.btn(href='graph.html') learn about graphs »
         .span4
-          h2 Cypher
-            span Query statements
+          h3 Query
+          p.lead a graph with Cypher
           p
-            | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+            | Cypher is a pattern matching language for querying and manipulating graph data.
+            | It has a familiar syntax that is easy on the eyes, and your brain.
           p
-            a.btn(href='cypher.html') {{cmdchar}}help cypher »
+            a.btn(href='cypher.html') help with Cypher »
         .span4
-          h2 Commands
-            span something something
+          h3 Interact
+          p.lead with this command-driven shell
           p
-            | Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+            | Up at the top, you'll notice a friendly command bar where you can enter
+            | ad-hoc Cypher queries and client side commands.
           p
-            a.btn(href='commands.html') {{cmdchar}}help commands »
+            a.btn(href='commands.html') available commands »

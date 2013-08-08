@@ -4,6 +4,7 @@ angular.module('neo4jApp')
   (FrameProvider) ->
 
     # character used to designate client-side commands (non-cypher)
+    # TODO - define this in settings? to be available globally
     cmdchar = ':'
 
     # convert a string into a topical keyword

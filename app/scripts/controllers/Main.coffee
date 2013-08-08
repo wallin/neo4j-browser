@@ -20,10 +20,13 @@ angular.module('neo4jApp.controllers')
         url: "http://www.gnu.org/licenses/gpl.html"
       }
 
+      $scope.neo4j.edition = "Enterprise"
 
       $scope.$on 'db:result:containsUpdates', refresh
 
       $scope.today = Date.now()
+
+      $scope.cmdchar = ':'
 
       parseName = (str) ->
         str.substr(str.lastIndexOf("name=")+5)

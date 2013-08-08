@@ -7,11 +7,12 @@ angular.module('neo4jApp.services')
 
         choices =
           quotes: [
-            '"When you label me, you negate me" -- Soren Kierkegaard'
-            '"In the beginning was the command line" -- Neal Stephenson'
-            '"Remember, all I\'m offering is the truth – nothing more" -- Morpheus'
-            '"Testing can show the presence of bugs, but never their absence." -- Edsger W. Dijkstra'
-            '"We think you\'re a special snowflake" -- Neo4j'
+            { 'text':'When you label me, you negate me', 'author':'Soren Kierkegaard' }
+            { 'text':'In the beginning was the command line', 'author':'Neal Stephenson' }
+            { 'text':'Remember, all I\'m offering is the truth – nothing more', 'author':'Morpheus'}
+            { 'text':'Testing can show the presence of bugs, but never their absence.', 'author':'Edsger W. Dijkstra'}
+            { 'text':'We think you\'re a special snowflake', 'author':'Neo4j'}
+            { 'text':'Still he\'d see the matrix in his sleep, bright lattices of logic unfolding across that colorless void', 'author':'William Gibson'}
           ],
           tips: [
             'Type here! Use <shift-return> for multi-line, <cmd-return> to evaluate command'
