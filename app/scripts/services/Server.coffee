@@ -59,12 +59,16 @@ angular.module('neo4jApp.services')
         #
         # Convenience methods
         #
+
+        # WARNING: avoid using this, as the raw shell is to be deprecated
         console: (command, engine = "shell") ->
           @post(Settings.endpoint.console, {command: command, engine: engine})
 
+        # one-shot cypher queries
         cypher: (path = '', data) ->
           @post("#{Settings.endpoint.cypher}" + path, data)
 
+        # JMX queries
         jmx: (query) ->
           @post Settings.endpoint.jmx, query
 

@@ -13,7 +13,7 @@ angular.module('neo4jApp.controllers')
         $scope.server = Server.info()
         $scope.host = $window.location.host
 
-      # $scope.neo4j = summarizeNeo4jServer()
+      $scope.neo4j = {}
 
       $scope.$on 'db:result:containsUpdates', refresh
 
@@ -38,8 +38,9 @@ angular.module('neo4jApp.controllers')
 
       # XXX: Temporary for now having to change all help files
       $scope.$watch 'server', (val) ->
-        $scope.neo4jVersion = val.neo4j_version
+        $scope.neo4j.version = val.neo4j_version
       , true
+
       refresh()
   ]
 

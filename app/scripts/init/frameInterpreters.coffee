@@ -85,13 +85,21 @@ angular.module('neo4jApp')
 
     # about handler
     FrameProvider.interpreters.push
-      type: 'help'
-      templateUrl: 'views/frame-help.html'
+      type: 'info'
+      templateUrl: 'views/frame-info.html'
       matches: "#{cmdchar}about"
       exec: ->
-        step_number = 1
         (input, q) ->
-          page: "content/help/about.html"
+          page: "content/guides/about.html"
+
+    # sysinfo handler
+    FrameProvider.interpreters.push
+      type: 'info'
+      templateUrl: 'views/frame-info.html'
+      matches: "#{cmdchar}sysinfo"
+      exec: ->
+        (input, q) ->
+          page: "content/guides/sysinfo.html"
 
     # HTTP Handler
     FrameProvider.interpreters.push

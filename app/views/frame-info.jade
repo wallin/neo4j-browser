@@ -1,0 +1,8 @@
+.code-bar
+  .label.label-help INFO
+  span.code {{frame.input | uncomment}}
+  .actions
+    a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
+
+.inner
+  .view-result.help(ng-include = 'frame.response.page')
