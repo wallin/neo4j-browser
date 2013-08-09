@@ -18,7 +18,16 @@ angular.module('neo4jApp.services')
         'stroke': '#D4D6D7'
         'stroke-width': '1.5px'
 
-    # Default color scheme that user can choose from
+    # Default node sizes that user can choose from
+    @defaultSizes = [
+      { diameter: '10px' }
+      { diameter: '20px' }
+      { diameter: '30px' }
+      { diameter: '50px' }
+      { diameter: '80px' }
+    ]
+
+    # Default node colors that user can choose from
     @defaultColors = [
       { fill: '#DFE1E3', stroke: '#D4D6D7' }
       { fill: '#30B6AF', stroke: '#46A39E' }
@@ -218,6 +227,7 @@ angular.module('neo4jApp.services')
       #
       # Misc.
       #
+      defaultSizes: -> provider.defaultSizes
       defaultColors: -> provider.defaultColors
       interpolate: (str, data) ->
         # Supplant

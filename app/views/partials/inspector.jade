@@ -31,6 +31,11 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 60
                 a(ng-click='selectCaption("id")') ID
               li(ng-repeat='attr in item.attrs')
                 a(ng-click='selectCaption(attr.key)') {{attr.key}}
+        li.sizes
+          ul.inline
+            li(ng-repeat='size in sizes')
+              a(style='width: {{size.diameter}}; height: {{size.diameter}}'
+                ng-click='selectSize(size)')
         li.colors
           ul.inline
             li(ng-repeat='scheme in colors')
