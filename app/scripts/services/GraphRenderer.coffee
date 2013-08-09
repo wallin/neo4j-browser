@@ -5,7 +5,6 @@ angular.module('neo4jApp.services')
     class @Renderer
       constructor: (opts = {})->
         angular.extend(@, opts)
-        @requiredSize ?= ->
         @onGraphChange ?= ->
         @onTick ?= ->
 

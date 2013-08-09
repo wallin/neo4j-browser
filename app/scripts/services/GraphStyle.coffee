@@ -4,9 +4,10 @@ angular.module('neo4jApp.services')
   .provider 'GraphStyle', [->
     provider = @
 
-    # Build in style
+    # Default style
     @defaultStyle =
       'node':
+        'diameter': '40px'
         'fill': '#DFE1E3'
         'stroke': '#D4D6D7'
         'stroke-width': '2px'

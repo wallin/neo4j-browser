@@ -30,6 +30,7 @@ node.User {
 }
 
 node {
+  diameter: 40px;
   fill: #FCC940;
   stroke: #F3BA25;
 }
@@ -44,6 +45,7 @@ node {
   describe 'forNode: ', ->
     it 'should be able to get parameters for "node" rules', ->
       expect(GraphStyle.forNode().get('fill')).toBe('#1ABC9C')
+      expect(GraphStyle.forNode().get('diameter')).toBe('40px')
 
     it 'should inherit rules from base node rule', ->
       expect(GraphStyle.forNode(labels: ['Movie']).get('stroke')).toBe('#aaa')

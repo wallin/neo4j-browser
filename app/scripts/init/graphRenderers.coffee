@@ -4,6 +4,9 @@ angular.module('neo4jApp.services')
   'GraphStyle',
   (GraphRenderer, GraphStyle) ->
 
+    radius = (node) ->
+      parseFloat(GraphStyle.forNode(node).get("diameter")) / 2
+
     formatCaption = (node) ->
       tmpl = GraphStyle.forNode(node).get("caption")
       GraphStyle.interpolate(tmpl, node)
@@ -11,7 +14,6 @@ angular.module('neo4jApp.services')
     noop = ->
 
     nodeOutline = new GraphRenderer.Renderer(
-      requiredSize: (node) -> 15
       onGraphChange: (selection) ->
         circles = selection.selectAll("circle.outline").data(
           (node) -> [node]
@@ -21,12 +23,12 @@ angular.module('neo4jApp.services')
         .append("circle")
         .classed('outline', true)
         .attr
-          cx: (d, i) -> 0
-          cy: (d, i) -> 0
+          cx: 0
+          cy: 0
 
         circles
         .attr
-          r: (node) -> node.radius
+          r: (node) -> radius(node)
           fill: (node) -> GraphStyle.forNode(node).get("fill")
           stroke: (node) -> GraphStyle.forNode(node).get("stroke")
           "stroke-width": (node) -> GraphStyle.forNode(node).get("stroke-width")
@@ -36,7 +38,6 @@ angular.module('neo4jApp.services')
     )
 
     nodeCaption = new GraphRenderer.Renderer(
-      requiredSize: (node) -> 15
       onGraphChange: (selection) ->
         text = selection.selectAll("text").data((node) -> [node])
 
@@ -57,7 +58,6 @@ angular.module('neo4jApp.services')
     )
 
     nodeOverlay = new GraphRenderer.Renderer(
-      requiredSize: (node) -> 15
       onGraphChange: (selection) ->
         circles = selection.selectAll("circle.overlay").data((node) ->
           if node.selected then [node] else []
@@ -68,9 +68,9 @@ angular.module('neo4jApp.services')
         .classed('ring', true)
         .classed('overlay', true)
         .attr
-          cx: (d, i) -> 0
-          cy: (d, i) -> 0
-          r: (node) -> node.radius + 6
+          cx: 0
+          cy: 0
+          r: (node) -> radius(node) + 6
           fill: '#f5F6F6'
           stroke: 'rgba(151, 151, 151, 0.2)'
           'stroke-width': '3px'
@@ -80,7 +80,6 @@ angular.module('neo4jApp.services')
     )
 
     arrowPath = new GraphRenderer.Renderer(
-      requiredSize: noop
       onGraphChange: (selection) ->
         lines = selection.selectAll("line").data((rel) -> [rel])
 

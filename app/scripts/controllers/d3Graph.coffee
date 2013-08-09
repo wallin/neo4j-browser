@@ -155,11 +155,6 @@ angular.module('neo4jApp.controllers')
         nodes         = graph.nodes.all()
         relationships = graph.relationships.all()
 
-        for node in nodes
-          sizes = for renderer in GraphRenderer.nodeRenderers
-            renderer.requiredSize()
-          node.radius = Math.max.apply(null, sizes)
-
         force
           .nodes(nodes)
           .links(relationships)
