@@ -77,7 +77,7 @@ angular.module('neo4jApp.controllers')
         #$rootScope.selectedGraphItem = d
         return if d.expanded
         GraphExplorer.exploreNeighbours(d.id).then (result) =>
-          graph.merge(result)
+          graph.merge(result, d)
           d.expanded = yes
           @update()
         # New in Angular 1.1.5

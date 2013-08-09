@@ -28,9 +28,17 @@ angular.module('neo4jApp.services')
 
           rel
 
-        merge: (result = {}) ->
+        merge: (result = {}, localNode = {}) ->
           # Add result to current graph
           if result.nodes?
+            # Set initial location based on existing node, if supplied
+            if localNode.x? && localNode.y?
+              nodeCount = result.nodes.length
+              linkDistance = 60
+              for i in [0..nodeCount-1]
+                n = result.nodes[i]
+                n.x = localNode.x + linkDistance * Math.sin(2 * Math.PI * i / nodeCount)
+                n.y = localNode.y + linkDistance * Math.cos(2 * Math.PI * i / nodeCount)
             @addNode(n) for n in result.nodes
           if result.relationships?
             @addRelationship(r) for r in result.relationships
