@@ -8,8 +8,17 @@ angular.module('neo4jApp.services')
       parseFloat(GraphStyle.forNode(node).get("diameter")) / 2
 
     formatCaption = (node) ->
-      tmpl = GraphStyle.forNode(node).get("caption")
-      GraphStyle.interpolate(tmpl, node)
+      template = GraphStyle.forNode(node).get("caption")
+      captionText = GraphStyle.interpolate(template, node)
+      words = captionText.split(" ")
+      lines = []
+      for i in [0..words.length - 1]
+        lines.push(
+          node: node
+          text: words[i]
+          baseline: (1 + i - words.length / 2) * 10
+        )
+      lines
 
     noop = ->
 
@@ -39,18 +48,18 @@ angular.module('neo4jApp.services')
 
     nodeCaption = new GraphRenderer.Renderer(
       onGraphChange: (selection) ->
-        text = selection.selectAll("text").data((node) -> [node])
+        text = selection.selectAll("text").data(formatCaption)
 
         text.enter().append("text")
         .attr
-          "alignment-baseline": "middle"
           "text-anchor": "middle"
 
         text
-        .text((node) -> formatCaption(node))
+        .text((line) -> line.text)
+        .attr("y", (line) -> line.baseline)
         .attr
-          "fill": (node) ->
-            GraphStyle.forNode(node).get('color')
+          "fill": (line) ->
+            GraphStyle.forNode(line.node).get('color')
 
         text.exit().remove()
 
