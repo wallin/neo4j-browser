@@ -79,10 +79,13 @@ angular.module('neo4jApp.services')
         .attr
           cx: 0
           cy: 0
-          r: (node) -> radius(node) + 6
           fill: '#f5F6F6'
           stroke: 'rgba(151, 151, 151, 0.2)'
           'stroke-width': '3px'
+
+        circles
+        .attr
+          r: (node) -> radius(node) + 6
 
         circles.exit().remove()
       onTick: noop
