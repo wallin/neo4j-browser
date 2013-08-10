@@ -7,7 +7,11 @@ angular.module('neo4jApp.controllers')
     ($scope, GraphStyle) ->
       $scope.sizes = GraphStyle.defaultSizes()
       $scope.colors = GraphStyle.defaultColors()
-      $scope.style = $scope.colors[0]
+      $scope.style =
+        fill: $scope.colors[0].fill
+        stroke: $scope.colors[0].stroke
+        diameter: $scope.sizes[0].diameter
+
       $scope.$watch 'selectedGraphItem', (item) ->
         return unless item
         $scope.item = angular.copy(item)
@@ -22,7 +26,8 @@ angular.module('neo4jApp.controllers')
         $scope.saveStyle()
 
       $scope.selectScheme = (color) ->
-        $scope.style = color
+        $scope.style.fill = color.fill
+        $scope.style.stroke = color.stroke
         $scope.saveStyle()
 
       $scope.selectCaption  = (caption) ->
