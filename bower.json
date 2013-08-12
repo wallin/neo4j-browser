@@ -26,7 +26,7 @@
     "jquery-ui": "~1.10.3",
     "angular-ui-sortable": "~0.0.1",
     "angular-ui-bootstrap": "~0.4.0",
-    "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
+    "bootstrap": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
     "font-awesome": "~3.2.1",
     "angular-unstable": "~1.1.5",
     "css": "https://raw.github.com/marijnh/CodeMirror/master/mode/css/css.js",
