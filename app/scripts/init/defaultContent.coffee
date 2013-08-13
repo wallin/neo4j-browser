@@ -4,6 +4,33 @@ angular.module('neo4jApp')
   'Document'
   'Folder'
   ($rootScope, Document, Folder) ->
+    general_scripts = [
+      {
+        folder: 'general'
+        content: """
+// Get some data
+MATCH (n) RETURN n LIMIT 100
+        """
+      }
+      {
+        folder: 'general'
+        content: """
+// Count nodes
+MATCH (n)
+RETURN count(n)
+        """
+      }
+      {
+        folder: 'general'
+        content: """
+// What is related, and how
+MATCH (a)-[r]->(b)
+RETURN DISTINCT head(labels(a)) AS This, type(r) as To, head(labels(b)) AS That
+LIMIT 100
+        """
+      }
+    ]
+
     node_scripts = [
       {
         folder: 'nodes'
@@ -134,15 +161,20 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
 
     folders = [
       {
-        id: "nodes"
-        name: "Nodes"
-        expanded: no
+        id: "general"
+        name: "General"
+        expanded: yes
       }
-      {
-        id: "relationships"
-        name: "Relationships"
-        expanded: no
-      }
+      # {
+      #   id: "nodes"
+      #   name: "Nodes"
+      #   expanded: no
+      # }
+      # {
+      #   id: "relationships"
+      #   name: "Relationships"
+      #   expanded: no
+      # }
       {
         id: "system"
         name: "System"
@@ -155,6 +187,6 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
 
     if currentDocuments?.length is 0
       Document.fetch()
-      Document.save(node_scripts.concat(relationship_scripts, system_scripts))
+      Document.save(general_scripts.concat(system_scripts))
       Folder.save(folders)
 ])

@@ -184,6 +184,6 @@ angular.module('neo4jApp.controllers')
       next: null
       prev: null
 
-    $scope.motd = motdService # '"When you label me, you negate me" -- Soren Kierkegaard III'
+    $scope.motd = motdService 
 
   ]
