@@ -22,6 +22,8 @@ angular.module('neo4jApp.controllers')
 
       $scope.neo4j.edition = "Enterprise"
 
+      $scope.neo4j.hasData = Server.hasData()
+
       $scope.$on 'db:result:containsUpdates', refresh
 
       $scope.today = Date.now()
@@ -44,6 +46,7 @@ angular.module('neo4jApp.controllers')
           for a in r.attributes
             $scope.kernel[a.name] = a.value
       )
+
 
       # XXX: Temporary for now having to change all help files
       $scope.$watch 'server', (val) ->

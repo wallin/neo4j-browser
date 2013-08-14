@@ -67,7 +67,8 @@ angular.module('neo4jApp')
       exec: ->
         step_number = 1
         (input, q) ->
-          page: "content/guides/learn_#{step_number}.html"
+          topic = topicalize(input[('play'.length+1)..]) or 'learn_1'
+          page: "content/guides/#{topic}.html"
 
     # Help/man handler
     FrameProvider.interpreters.push
@@ -76,11 +77,11 @@ angular.module('neo4jApp')
       matches: ["#{cmdchar}help", "#{cmdchar}man", "help"]
       exec: ['$http', ($http) ->
         (input, q) ->
-          section = topicalize(input[('help'.length+1)..]) or 'help'
-          url = "content/help/#{section}.html"
+          topic = topicalize(input[('help'.length+1)..]) or 'help'
+          url = "content/help/#{topic}.html"
           $http.get(url)
           .success(->q.resolve(page: url))
-          .error(->q.reject(error("No such help section")))
+          .error(->q.reject(error("No such help topic")))
           q.promise
       ]
 

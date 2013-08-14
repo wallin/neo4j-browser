@@ -89,5 +89,12 @@ angular.module('neo4jApp.services')
         log: (path) ->
           @get(path).then((r)-> console.log (r))
 
+        hasData: ->
+          q = $q.defer()
+          @cypher('?profile=true', {query: "MATCH (n) RETURN ID(n) LIMIT 1"})
+          .success((r) -> q.resolve(r.plan.rows == 1))
+          .error(q.reject)
+          q.promise
+
       new Server
   ]

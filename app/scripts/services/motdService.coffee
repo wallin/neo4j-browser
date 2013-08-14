@@ -19,11 +19,17 @@ angular.module('neo4jApp.services')
           ],
           unrecognizable: [
             "Interesting. How does this make you feel?"
-            "Even if I squint, I can't make out what this is. Is it an elephant?"
+            "Even if I squint, I can't make out what that is. Is it an elephant?"
             "This one time, at bandcamp..."
             "Ineffable, enigmatic, possibly transcendent. Also quite good looking."
             "I'm not (yet) smart enough to understand this."
             "Oh I agree. Kaaviot ovat suuria!"
+          ],
+          emptiness: [
+            "No nodes. Know nodes?"
+            "Waiting for the big bang of data"
+            "Ready for anything"
+            "Every graph starts with the first node"
           ]
 
         quote: ""
@@ -32,6 +38,8 @@ angular.module('neo4jApp.services')
 
         unrecognized: ""
 
+        emptiness: ""
+
         constructor: ->
           @refresh()
 
@@ -39,6 +47,7 @@ angular.module('neo4jApp.services')
           @quote = @pickRandomlyFrom(choices.quotes)
           @tip = @pickRandomlyFrom(choices.tips)
           @unrecognized = @pickRandomlyFrom(choices.unrecognizable)
+          @emptiness = @pickRandomlyFrom(choices.emptiness)
 
         pickRandomlyFrom: (fromThis) ->
           return fromThis[Math.floor(Math.random() * fromThis.length)]

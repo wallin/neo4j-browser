@@ -22,30 +22,68 @@ article.help
               td {{kernel.all_stores_total_mapped_memory_size}} 
             tr
               th Storage:
-              td.warn not available
+              td.warn unknown
         .span4
-          h3 Graph
-          table.table.table-condensed
-            tr
-              td 
-                span(ng-repeat='node in labels')
-                  span
-                    a.badge(ng-click="execScript('MATCH (n:'+node+') RETURN n LIMIT 100')") {{node}}
-                  | &nbsp;
-            tr
-              td 
-                span(ng-repeat='relationship in relationships')
-                  span
-                    a.label(ng-click="execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 100')") {{relationship}}
-                  | &nbsp;
+          div(ng-show="neo4j.hasData")
+            h3 Graph
+            table.table.table-condensed
+              tr
+                td
+                  span(ng-repeat='node in labels | limitTo:16')
+                    span
+                      a.badge(ng-click="execScript('MATCH (n:'+node+') RETURN n LIMIT 100')") {{node}}
+                    | &nbsp;
+              tr
+                td 
+                  span(ng-repeat='relationship in relationships | limitTo:16')
+                    span
+                      a.label.relationship(ng-click="execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 100')") {{relationship}}
+                    | &nbsp;
+          div(ng-hide="neo4j.hasData")
+            h3 Empty Graph
+            p.lead {{ motd.emptiness }}
+            table.table.table-condensed
+              tr
+                th Tutorials:
+                td
+                  a.icon-info-sign(play-topic='intro') &nbsp;Intro
+                  | , &nbsp;
+                  a.icon-info-sign(play-topic='cypher') &nbsp;Cypher
+                  | , &nbsp;
+                  a.icon-info-sign(play-topic='patterns') &nbsp;Patterns
+              tr
+                th Graphs:
+                td
+                  a.icon-play-sign(play-topic='movies') &nbsp;Movies
+                  | , &nbsp;
+                  a.icon-info-sign(play-topic='social') &nbsp;Social
+                  | , &nbsp;
+                  a.icon-info-sign(play-topic='telecom') &nbsp;Telecom
         .span4
-          h3 Queries
-          ul
-            li(ng-repeat="document in documents.where({folder: 'general'})")
-              .list-item
-                a.icon-play-sign(ng-click='execScript(document.content)')
-                  a(ng-click="setEditorContent(document.content)")
-                    {{document.content | autotitle}}
+            h3 Browser
+            p.lead Command-driven graph exploration
+            ul
+              li
+                a.icon-info-sign(help-topic='help') &nbsp;
+                  code :help
+                | &nbsp;- how to use this graph Browser
+              li
+                a.icon-info-sign(help-topic='cypher') &nbsp;
+                  code :help cypher
+                | &nbsp;- graph query language
+              li
+                a.icon-info-sign(help-topic='commands') &nbsp;
+                  code :help commands
+                | &nbsp;- all available commands
+                  
+
+            //- ul
+            //-   li(ng-repeat="document in documents.where({folder: 'general'})")
+            //-     .list-item
+            //-       a.icon-play-sign(ng-click='execScript(document.content)')
+            //-         a(ng-click="setEditorContent(document.content)")
+            //-           {{document.content | autotitle}}
+
        .hero-unit
         blockquote
           | &ldquo;{{motd.quote.text}}&rdquo;

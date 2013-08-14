@@ -8,11 +8,17 @@ angular.module('neo4jApp.directives')
       element.on 'click', 'a', (e) ->
         e.preventDefault()
 
-        topic = e.currentTarget.getAttribute('help-topic')
+        if (e.currentTarget.hasAttribute('help-topic'))
+          topic = e.currentTarget.getAttribute('help-topic')
+          command = "help"
+        else if (e.currentTarget.hasAttribute('play-topic'))
+          topic = e.currentTarget.getAttribute('play-topic')
+          command = "play"
 
-        console.log("help-topic: " + topic)
+        console.log(e.currentTarget)
 
         if not topic
+          command = "help"
           url = e.currentTarget.getAttribute('href')
           if url.match(/^http/)
             e.currentTarget.target = '_blank'
@@ -23,7 +29,7 @@ angular.module('neo4jApp.directives')
           topic = parts[parts.length-1]
 
         topic = topic.toLowerCase().trim().replace('-', ' ')
-        $rootScope.$broadcast 'frames:create', ":help #{topic}"
+        $rootScope.$broadcast 'frames:create', ":#{command} #{topic}"
         $rootScope.$apply() unless $rootScope.$$phase
 
       element.on 'click', '.code', (e) ->
