@@ -174,7 +174,7 @@ angular.module('neo4jApp')
       exec: ['Cypher', (Cypher) ->
         # Return the function that handles the input
         (input) ->
-          Cypher.send(input)
+          Cypher.transaction().commit(input)
       ]
 
     # Fallback interpretor

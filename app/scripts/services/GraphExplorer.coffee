@@ -10,8 +10,8 @@ angular.module('neo4jApp.services')
           q.resolve()
           return q.promise
 
-        Cypher
-        .send("START a = node(#{ids.join(',')}) MATCH a -[r]- b RETURN r, b;")
+        Cypher.transaction()
+        .commit("START a = node(#{ids.join(',')}) MATCH (a)-[r]-() RETURN r;")
         .then(q.resolve)
         q.promise
 
@@ -21,8 +21,8 @@ angular.module('neo4jApp.services')
         if ids.length is 0
           q.resolve()
           return q.promise
-        Cypher
-        .send("""
+        Cypher.transaction()
+        .commit("""
           START a = node(#{ids.join(',')}), b = node(#{ids.join(',')})
           MATCH a -[r]-> b RETURN r;"""
         )

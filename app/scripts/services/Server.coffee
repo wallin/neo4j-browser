@@ -53,7 +53,9 @@ angular.module('neo4jApp.services')
           {path, statements, method} = opts
           path = Settings.endpoint.transaction + path
           method = method.toLowerCase()
-
+          for s in statements
+            s.resultDataContents = ['row','graph']
+            s.includeStats = true
           @[method]?(path, {statements: statements})
 
         #

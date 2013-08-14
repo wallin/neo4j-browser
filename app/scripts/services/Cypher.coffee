@@ -8,18 +8,6 @@ angular.module('neo4jApp.services')
     'Relationship'
     'Server'
     ($q, $rootScope, Node, Relationship, Server) ->
-      [NODE, RELATIONSHIP, OTHER] = [1, 2, 3]
-
-      resultType = (data) ->
-        if angular.isObject(data) and data.self
-          type = if data.self.match('/node/')
-            NODE
-          else if data.self.match('/relationship/')
-            RELATIONSHIP
-        else
-          type = OTHER
-        type
-
       parseId = (resource = "") ->
         id = resource.split('/').slice(-2, -1)
         return parseInt(id, 10)
@@ -30,10 +18,12 @@ angular.module('neo4jApp.services')
           @other = []
           @relationships = []
           @size = 0
+          @stats = {}
 
           @size = @_response.data?.length or 0
 
-          @_setStats @_response.stats
+          if @_response.stats
+            @_setStats @_response.stats
 
           # TODO: determine max result size
           @isTooLarge = !(@size? and @size < 1000)
@@ -41,13 +31,10 @@ angular.module('neo4jApp.services')
           @_response.data ?= []
           return @_response unless @_response.data?
           for row in @_response.data
-            for cell in row
-              type = resultType(cell)
-              switch type
-                when NODE         then @nodes.push new Node(cell)
-                when RELATIONSHIP then @relationships.push new Relationship(cell)
-                else
-                  @other.push cell
+            for node in row.graph.nodes
+              @nodes.push new Node(node)
+            for relationship in row.graph.relationships
+              @relationships.push new Relationship(relationship)
 
           @_response
 
@@ -55,8 +42,8 @@ angular.module('neo4jApp.services')
 
         rows: ->
           # TODO: Maybe cache rows
-          for row in @_response.data
-            for cell in row
+          for entry in @_response.data
+            for cell in entry.row
               if not (cell?)
                 null
               else if cell.self?
@@ -74,8 +61,24 @@ angular.module('neo4jApp.services')
         _setStats: (@stats) ->
           $rootScope.$broadcast 'db:result:containsUpdates', angular.copy(@stats) if @stats?.containsUpdates
 
+      promiseResult = (promise) ->
+        q = $q.defer()
+        promise.success(
+          (result) =>
+            if not result
+              q.reject()
+            else if result.errors.length > 0
+              q.reject(result.errors)
+            else
+              results = []
+              for r in result.results
+                results.push( new CypherResult(r) )
+              q.resolve( results[0] ) # TODO: handle multiple...
+        ).error(q.reject)
+        q.promise
+
       class CypherTransaction
-        constructor: (query) ->
+        constructor: () ->
           @_reset()
 
         _onSuccess: (r) ->
@@ -83,54 +86,52 @@ angular.module('neo4jApp.services')
         _onError: (r) ->
 
         _reset: ->
-          @statements = []
           @id = null
 
+        # TODO: the @id is assigned in a promise, we should probably keep the promise around to do the right thing
+        #       if the id hasn't been assigned yet, but the request is still running.
         begin: (query) ->
+          statements = if query then [{statement:query}] else []
           q = $q.defer()
-          # Begin and commit a transaction if query provided
-          if query?
-            return Server.transaction(
-              path: '/commit'
-              statements: [
-                statement: query
-              ]
-            )
-
           Server.transaction(
-            statements: @statements
-          ).then(
+            path: ""
+            statements: statements
+          ).success(
             (r) =>
               @id = parseId(r.data.commit)
-              q.resolve(@)
+              q.resolve(r)
+            (r) => q.reject(r)
           )
-          q.promise
+          promiseResult(q.promise)
 
-        execute: (statements) ->
-          return unless @id
-          statements = [statements] if angular.isString statements
-          for s in statements
-            @statements.push
-              statement: s
-
-          Server.transaction(
+        execute: (query) ->
+          return @begin(query) unless @id
+          promiseResult(Server.transaction(
             path: '/' + @id
-            statements: @statements
-          )
-          @statements = []
+            statements: [
+              statement: query
+            ]
+          ))
 
-        commit: ->
-          return unless @id
-          Server.transaction(
-            path: "/#{@id}/commit"
-          )
-
-        reset: ->
-          return unless @id
-          Server.transaction(
-            path: '/' + @id
-            statements: []
-          )
+        commit: (query) ->
+          statements = if query then [{statement:query}] else []
+          if @id
+            q = $q.defer()
+            Server.transaction(
+              path: "/#{@id}/commit"
+              statements: statements
+            ).success(
+              (r) =>
+                @_reset()
+                q.resolve(r)
+              (r) => q.reject(r)
+            )
+            promiseResult(q.promise)
+          else
+            promiseResult(Server.transaction(
+              path: "/commit"
+              statements: statements
+            ))
 
         # FIXME: What is wrong?
         # DELETE http://localhost:7474/db/data/transaction/14 415 (Unsupported Media Type)
@@ -142,9 +143,6 @@ angular.module('neo4jApp.services')
           ).success(=> @_reset())
 
       class CypherService
-        constructor: ->
-          @filters = []
-
         profile: (query) ->
           q = $q.defer()
           Server.cypher('?profile=true', {query: query})
@@ -152,25 +150,8 @@ angular.module('neo4jApp.services')
           .error(q.reject)
           q.promise
 
-        send: (query, processFilters = yes) ->
-          mainQ = $q.defer()
-          Server.cypher('?includeStats=true', {query: query})
-            .success((result)=>
-              result = new CypherResult(result)
-              if processFilters and @filters.length > 0
-                promises = for filter in @filters
-                  q = $q.defer()
-                  filter(result, q)
-                  q.promise
-                $q.all(promises).then(
-                  -> mainQ.resolve(result)
-                  -> mainQ.reject(result)
-                )
-              else
-                mainQ.resolve(result)
-            )
-            .error(mainQ.reject)
-          mainQ.promise
+        send: (query) -> # Deprecated
+          @transaction().commit(query)
 
         transaction: ->
           new CypherTransaction()

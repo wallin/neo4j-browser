@@ -20,20 +20,9 @@ describe 'Service: GraphModel', () ->
 
   createNode = (id) ->
     data = {
-      "all_relationships": "http://localhost:7474/db/data/node/#{id}/relationships/all",
-      "all_typed_relationships": "http://localhost:7474/db/data/node/#{id}/relationships/all/{-list|&|types}",
-      "create_relationship": "http://localhost:7474/db/data/node/#{id}/relationships",
-      "data": {},
-      "extensions": {},
-      "incoming_relationships": "http://localhost:7474/db/data/node/#{id}/relationships/in",
-      "incoming_typed_relationships": "http://localhost:7474/db/data/node/#{id}/relationships/in/{-list|&|types}",
-      "outgoing_relationships": "http://localhost:7474/db/data/node/#{id}/relationships/out",
-      "outgoing_typed_relationships": "http://localhost:7474/db/data/node/#{id}/relationships/out/{-list|&|types}",
-      "paged_traverse": "http://localhost:7474/db/data/node/#{id}/paged/traverse/{returnType}{?pageSize,leaseTime}",
-      "properties": "http://localhost:7474/db/data/node/#{id}/properties",
-      "property": "http://localhost:7474/db/data/node/#{id}/properties/{key}",
-      "self": "http://localhost:7474/db/data/node/#{id}",
-      "traverse": "http://localhost:7474/db/data/node/#{id}/traverse/{returnType}"
+      "id": id
+      "labels": []
+      "properties": {},
     }
     new Node(data)
 

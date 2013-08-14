@@ -2,17 +2,14 @@
 
 describe 'Service: Relationship', () ->
 
-  cypherData = (type = "node", id = 0, attrs = {}) ->
-    {
-      self: "http://localhost:7474/db/data/#{type}/#{id}"
-      data: attrs
-    }
-
-  nodeData = (id, attrs) -> cypherData("node", id, attrs)
   relationshipData = (id, type, attrs) ->
-    rel = cypherData("relationship", id, attrs)
-    rel.type = type if type?
-    rel
+    {
+      id: id
+      type: type
+      properties: attrs
+      startNode: "1234"
+      endNode: "4321"
+    }
 
   # load the service's module
   beforeEach module 'neo4jApp.services'

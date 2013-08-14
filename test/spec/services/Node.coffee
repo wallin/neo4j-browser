@@ -1,13 +1,12 @@
 'use strict'
 
 describe 'Service: Node', () ->
-  cypherData = (type = "node", id = 0, attrs = {}) ->
+  nodeData = (id, attrs) ->
     {
-      self: "http://localhost:7474/db/data/#{type}/#{id}"
-      data: attrs
+      id: id
+      properties: attrs
+      labels: []
     }
-
-  nodeData = (id, attrs) -> cypherData("node", id, attrs)
 
   # load the service's module
   beforeEach module 'neo4jApp.services'
