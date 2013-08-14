@@ -1,11 +1,12 @@
 article.help.manual
   .container
-    section.row.summary.alert
-      dl.dl-horizontal
-        dt Alert
-        dd
-          p {{ motd.unrecognized }}
-        dt Unrecognized input
-        dd
-          code.text-warning {{frame.input | uncomment}}
+    section.row.alert
+      .span2 Unrecognized Input
+      .span10
+        p {{ motd.unrecognized }}
+        p Input: 
+          code {{frame.input | uncomment}}
+        p Would this work? 
+          a(ng-click='execScript(":"+frame.input)')
+            code :{{frame.input | uncomment}}
   

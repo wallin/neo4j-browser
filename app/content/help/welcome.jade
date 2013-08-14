@@ -42,38 +42,36 @@ article.help
           div(ng-hide="neo4j.hasData")
             h3 Empty Graph
             p.lead {{ motd.emptiness }}
-            table.table.table-condensed
-              tr
-                th Tutorials:
-                td
-                  a.icon-info-sign(play-topic='intro') &nbsp;Intro
-                  | , &nbsp;
-                  a.icon-info-sign(play-topic='cypher') &nbsp;Cypher
-                  | , &nbsp;
-                  a.icon-info-sign(play-topic='patterns') &nbsp;Patterns
-              tr
-                th Graphs:
-                td
-                  a.icon-play-sign(play-topic='movies') &nbsp;Movies
-                  | , &nbsp;
-                  a.icon-info-sign(play-topic='social') &nbsp;Social
-                  | , &nbsp;
-                  a.icon-info-sign(play-topic='telecom') &nbsp;Telecom
+            ul
+              li
+                strong Tutorials: 
+                a.icon-info-sign(play-topic='intro') &nbsp;Intro
+                | , &nbsp;
+                a.icon-info-sign(play-topic='cypher') &nbsp;Cypher
+                | , &nbsp;
+                a.icon-info-sign(play-topic='patterns') &nbsp;Patterns
+              li
+                strong Graphs: 
+                a.icon-play-sign(play-topic='movies') &nbsp;Movies
+                | , &nbsp;
+                a.icon-play-sign(play-topic='social') &nbsp;Social
+                | , &nbsp;
+                a.icon-play-sign(play-topic='telecom') &nbsp;Telecom
         .span4
             h3 Browser
             p.lead Command-driven graph exploration
             ul
               li
-                a.icon-info-sign(help-topic='help') &nbsp;
-                  code :help
+                a(help-topic='help')
+                  code.icon-info-sign &nbsp;:help
                 | &nbsp;- how to use this graph Browser
               li
-                a.icon-info-sign(help-topic='cypher') &nbsp;
-                  code :help cypher
+                a(help-topic='cypher')
+                  code.icon-info-sign &nbsp; :help cypher
                 | &nbsp;- graph query language
               li
-                a.icon-info-sign(help-topic='commands') &nbsp;
-                  code :help commands
+                a(help-topic='commands')
+                  code.icon-info-sign &nbsp; :help commands
                 | &nbsp;- all available commands
                   
 
