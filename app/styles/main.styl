@@ -64,6 +64,37 @@ p.lead
   font-size 16px
   margin-bottom 0em
 
+.status-bar
+  height: middlebar-height
+  line-height: middlebar-height
+  color: rgb(120, 129, 133)
+  border-top: 1px solid #E7E9EB
+  padding-left: horizontal-padding
+  font-size: 13px
+  position: relative
+  .btn-group
+    absolute: top 3px right 12px
+
+  .popover.bottom
+    line-height: 22px
+    .arrow:after
+      border-bottom-color: #f7f7f7
+      border-top-width: 0
+  .details
+    margin-top: -4px
+    margin-left: 12px
+  .updated-code
+    float:right
+    margin-right horizontal-padding
+  &.error
+    color: color-error
+  [class^="icon-"]
+    margin-right: 6px
+  i[class^="icon-"]
+    margin: 0
+  .icon-ok
+    color: color-success
+
 .fullscreen-container
   position: absolute
   left: 0
@@ -72,8 +103,6 @@ p.lead
   right: 0
   background-color: #fff
   z-index: 5000
-  .inner
-    position: relative
   .code-bar
     padding: 0 16px
     .actions
@@ -84,7 +113,14 @@ p.lead
       color: #9B9DA2
       font-size: 20px
   .view-result-graph
+    absolute: top middlebar-height bottom middlebar-height
+    width: 100%
     background-color: #F8F9FB
+  .status-bar
+    absolute: bottom 0
+    width: 100%
+    .btn-group
+      absolute: bottom 0 right 12px
 
 #page-container .page
   position: absolute
@@ -412,37 +448,6 @@ footer
     transform: translate(0, -1000px)
   &.enter
     transform: translate(0, 0)
-
-  .status-bar
-    height: middlebar-height
-    line-height: middlebar-height
-    color: rgb(120, 129, 133)
-    border-top: 1px solid #E7E9EB
-    padding-left: horizontal-padding
-    font-size: 13px
-    position: relative
-    .btn-group
-      absolute: top 3px right 12px
-
-    .popover.bottom
-      line-height: 22px
-      .arrow:after
-        border-bottom-color: #f7f7f7
-        border-top-width: 0
-    .details
-      margin-top: -4px
-      margin-left: 12px
-    .updated-code
-      float:right
-      margin-right horizontal-padding
-    &.error
-      color: color-error
-    [class^="icon-"]
-      margin-right: 6px
-    i[class^="icon-"]
-      margin: 0
-    .icon-ok
-      color: color-success
 
   svg
     //box-shadow: inset 0 1px #fff;
