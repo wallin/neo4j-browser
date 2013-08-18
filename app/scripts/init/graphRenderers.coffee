@@ -48,15 +48,12 @@ angular.module('neo4jApp.services')
         text = selection.selectAll("text").data(formatCaption)
 
         text.enter().append("text")
-        .attr
-          "text-anchor": "middle"
+        .attr("text-anchor": "middle")
 
         text
         .text((line) -> line.text)
         .attr("y", (line) -> line.baseline)
-        .attr
-          "fill": (line) ->
-            GraphStyle.forNode(line.node).get('color')
+        .attr("fill": (line) -> GraphStyle.forNode(line.node).get('color'))
 
         text.exit().remove()
 
@@ -104,15 +101,37 @@ angular.module('neo4jApp.services')
         lines.exit().remove()
 
       onTick: (selection) ->
-        selection.selectAll("line")
-        .attr("x1", (d) -> d.source.x)
-        .attr("y1", (d) -> d.source.y)
-        .attr("x2", (d) -> d.target.x)
-        .attr("y2", (d) -> d.target.y)
+        selection.selectAll('line')
+        .attr('x1', (d) -> d.startPoint.x)
+        .attr('y1', (d) -> d.startPoint.y)
+        .attr('x2', (d) -> d.endPoint.x)
+        .attr('y2', (d) -> d.endPoint.y)
+    )
+
+    relationshipType = new GraphRenderer.Renderer(
+      onGraphChange: (selection) ->
+        lines = selection.selectAll("text").data((rel) -> [rel])
+
+        lines.enter().append("text")
+        .attr("text-anchor": "middle")
+
+        lines
+        .text((rel) -> rel.type)
+
+        lines.exit().remove()
+
+      onTick: (selection) ->
+
+        selection.selectAll("text")
+        .attr('x', (d) -> d.midShaftPoint.x)
+        .attr('y', (d) -> d.midShaftPoint.y + 4)
+        .attr('transform', (d) -> "rotate(#{ d.angle } #{ d.midShaftPoint.x } #{ d.midShaftPoint.y })"
+        )
     )
 
     GraphRenderer.nodeRenderers.push(nodeOutline)
     GraphRenderer.nodeRenderers.push(nodeCaption)
     GraphRenderer.nodeRenderers.push(nodeOverlay)
     GraphRenderer.relationshipRenderers.push(arrowPath)
+    GraphRenderer.relationshipRenderers.push(relationshipType)
 ])

@@ -41,7 +41,8 @@ angular.module('neo4jApp.controllers')
     'GraphExplorer'
     'GraphRenderer'
     'GraphStyle'
-    ($element, $rootScope, $scope, GraphExplorer, GraphRenderer, GraphStyle) ->
+    'GraphGeometry'
+    ($element, $rootScope, $scope, GraphExplorer, GraphRenderer, GraphStyle, GraphGeometry) ->
       #
       # Local variables
       #
@@ -124,7 +125,8 @@ angular.module('neo4jApp.controllers')
       clickHandler.on 'dblclick', onDblClick
 
       tick = ->
-        relationshipGroups = el.selectAll("g.relationship")
+
+        GraphGeometry.onTick(graph)
 
         # Only translate nodeGroups, because this simplifies node renderers;
         # relationship renderers always take account of both node positions
@@ -133,6 +135,8 @@ angular.module('neo4jApp.controllers')
 
         for renderer in GraphRenderer.nodeRenderers
           nodeGroups.call(renderer.onTick)
+
+        relationshipGroups = el.selectAll("g.relationship")
 
         for renderer in GraphRenderer.relationshipRenderers
           relationshipGroups.call(renderer.onTick)
@@ -152,12 +156,7 @@ angular.module('neo4jApp.controllers')
         .enter().append("marker")
         .attr("id", String)
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", (m) ->
-          if m == 'arrow-start'
-            -20
-          else
-            28
-        )
+        .attr("refX", 10)
         .attr("refY", 0)
         .attr("markerWidth", 6)
         .attr("markerHeight", 6).attr("orient", "auto")
