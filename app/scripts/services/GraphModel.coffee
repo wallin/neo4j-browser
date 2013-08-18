@@ -43,6 +43,21 @@ angular.module('neo4jApp.services')
           if result.relationships?
             @addRelationship(r) for r in result.relationships
 
+        boundingBox: ->
+          axes =
+            x: (node) -> node.x
+            y: (node) -> node.y
+
+          bounds = {}
+
+          for key,accessor of axes
+            bounds[key] =
+              min: Math.min.apply(null, @nodes.all().map((node) ->
+                accessor(node) - node.radius))
+              max: Math.max.apply(null, @nodes.all().map((node) ->
+                accessor(node) + node.radius))
+
+          bounds
 
       GraphModel
 ]

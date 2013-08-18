@@ -49,9 +49,6 @@ angular.module('neo4jApp.controllers')
       el.append('defs')
       graph = null
 
-      height = $element.height()
-      width  = $element.width()
-
       selectedNode = null
 
       $scope.style = GraphStyle.rules
@@ -64,10 +61,35 @@ angular.module('neo4jApp.controllers')
       # Local methods
       #
 
+      naturalViewBox = (width, height) ->
+        [
+          0
+          0
+          width
+          height
+        ].join(" ")
+
       resize = ->
         height = $element.height()
         width  = $element.width()
         force.size([width, height])
+        el.attr("viewBox", naturalViewBox(width, height))
+
+      fit = ->
+        height = $element.height()
+        width  = $element.width()
+        box = graph.boundingBox()
+
+        el.transition().attr("viewBox",
+          if (box.x.min > 0 && box.x.max < width && box.y.min > 0 && box.y.max < height)
+            naturalViewBox(width, height)
+          else [
+            box.x.min
+            box.y.min
+            box.x.max - box.x.min
+            box.y.max - box.y.min
+          ].join(" ")
+        )
 
       selectItem = (item) ->
         $rootScope.selectedGraphItem = item
@@ -116,11 +138,11 @@ angular.module('neo4jApp.controllers')
           relationshipGroups.call(renderer.onTick)
 
       force = d3.layout.force()
-        .size([width, height])
         .linkDistance(60)
         .charge(-1000)
         .on('tick', tick)
 
+      resize()
 
       addMarkers = (selection) ->
         # Markers
@@ -158,6 +180,7 @@ angular.module('neo4jApp.controllers')
         force
           .nodes(nodes)
           .links(relationships)
+          .on('end', fit)
           .start()
 
         el.call(addMarkers);
@@ -172,6 +195,9 @@ angular.module('neo4jApp.controllers')
 
         relationshipGroups.enter().append("g")
         .attr("class", "relationship")
+
+        for node in nodes
+          node.radius = parseFloat(GraphStyle.forNode(node).get("diameter")) / 2
 
         for renderer in GraphRenderer.relationshipRenderers
           relationshipGroups.call(renderer.onGraphChange)

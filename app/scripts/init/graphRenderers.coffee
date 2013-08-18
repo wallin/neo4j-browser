@@ -4,9 +4,6 @@ angular.module('neo4jApp.services')
   'GraphStyle',
   (GraphRenderer, GraphStyle) ->
 
-    radius = (node) ->
-      parseFloat(GraphStyle.forNode(node).get("diameter")) / 2
-
     formatCaption = (node) ->
       template = GraphStyle.forNode(node).get("caption")
       captionText = GraphStyle.interpolate(template, node.id, node.propertyMap)
@@ -37,7 +34,7 @@ angular.module('neo4jApp.services')
 
         circles
         .attr
-          r: (node) -> radius(node)
+          r: (node) -> node.radius
           fill: (node) -> GraphStyle.forNode(node).get("fill")
           stroke: (node) -> GraphStyle.forNode(node).get("stroke")
           "stroke-width": (node) -> GraphStyle.forNode(node).get("stroke-width")
@@ -85,7 +82,7 @@ angular.module('neo4jApp.services')
 
         circles
         .attr
-          r: (node) -> radius(node) + 6
+          r: (node) -> node.radius + 6
 
         circles.exit().remove()
       onTick: noop
