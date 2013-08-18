@@ -13,10 +13,10 @@ article.help
           table.table.table-condensed
             tr
               th Database:
-              td {{kernel.store_dir}}
+              td {{kernel.store_dir | basename }}
             tr
               th Location:
-              td.wrapped {{kernel.StoreDirectory}}
+              td.wrapped {{kernel.store_dir | dirname }}
             tr
               th Memory:
               td {{kernel.all_stores_total_mapped_memory_size}} 

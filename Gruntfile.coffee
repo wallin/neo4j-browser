@@ -156,7 +156,7 @@ module.exports = (grunt) ->
         dest: "<%= yeoman.dist %>"
 
     usemin:
-      html: ["<%= yeoman.dist %>/{,*/}*.html"]
+      html: ["<%= yeoman.dist %>/**/*.html"]
       css: ["<%= yeoman.dist %>/styles/{,*/}*.css"]
       options:
         dirs: ["<%= yeoman.dist %>"]
@@ -166,7 +166,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: "<%= yeoman.app %>/images"
-          src: "{,*/}*.{png,jpg,jpeg}"
+          src: "**/*.{png,jpg,jpeg}"
           dest: "<%= yeoman.dist %>/images"
         ]
 
@@ -195,9 +195,9 @@ module.exports = (grunt) ->
           dest: "<%= yeoman.dist %>"
         ]
 
-    cdnify:
-      dist:
-        html: ["<%= yeoman.dist %>/*.html"]
+    # cdnify:
+    #   dist:
+    #     html: ["<%= yeoman.dist %>/*.html"]
 
     ngmin:
       dist:
@@ -239,5 +239,5 @@ module.exports = (grunt) ->
   grunt.renameTask "regarde", "watch"
   grunt.registerTask "server", ["clean:server", "coffee:dist", "configureProxies", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "connect:test", "karma"]
-  grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "cdnify", "uglify", "rev", "usemin"]
+  grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "uglify", "usemin"]
   grunt.registerTask "default", ["build"]
