@@ -1,12 +1,39 @@
-article.help.manual
+article.help.alert
   .container
-    section.row.alert
-      .span2 Unrecognized Input
-      .span10
-        p {{ motd.unrecognized }}
-        p Input: 
-          code {{frame.input | uncomment}}
-        p Would this work? 
-          a(ng-click='execScript(":"+frame.input)')
-            code :{{frame.input | uncomment}}
-  
+    section.row-fluid
+      .title.span3
+        h3 
+          span(ng-show="couldBeCommand(frame.input)") Not-a-command
+          span(ng-hide="couldBeCommand(frame.input)") Unrecognized
+        p.lead {{ motd.unrecognized }}
+      .details.span9
+        table.table-condensed.table-help
+          tr
+            th.lead You said:
+            td
+              code.lead {{frame.input | uncomment}}
+          tr 
+            th Try:
+            td
+              ul
+                li
+                  a(help-topic='help')
+                    code.icon-info-sign &nbsp;:help
+                  | &nbsp;- for general help about using this Browser
+                li
+                  a(help-topic='cypher')
+                    code.icon-info-sign &nbsp;:help commands
+                  | &nbsp;- to see available commands
+                li
+                  a.icon-external-link-sign(href="http://docs.neo4j.org") &nbsp;Neo4j Manual
+                  | &nbsp;- for detailed information about Neo4j
+          tr
+            th Keys:
+            td 
+              ul
+                li
+                  code &lt; ctrl - &uarr; &gt;
+                  | &nbsp; to retrieve previous entry from history.
+                li
+                  code &lt; ctrl - &uarr; &gt;
+                  | &nbsp; to retrieve previous entry from history.

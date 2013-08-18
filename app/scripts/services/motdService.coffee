@@ -13,9 +13,12 @@ angular.module('neo4jApp.services')
             { 'text':'Testing can show the presence of bugs, but never their absence.', 'author':'Edsger W. Dijkstra'}
             { 'text':'We think you\'re a special snowflake', 'author':'Neo4j'}
             { 'text':'Still he\'d see the matrix in his sleep, bright lattices of logic unfolding across that colorless void', 'author':'William Gibson'}
+            { 'text':'Eventually everything connects.', 'author':'Charles Eames'}
+            { 'text':'To develop a complete mind: study the science of art. Study the art of science. Develop your senses - especially learn how to see. Realize that everything connects to everything else', 'author':'Leonardo da Vinci'}
           ],
           tips: [
-            'Type here! Use <shift-return> for multi-line, <cmd-return> to evaluate command'
+            'Use <shift-return> for multi-line, <cmd-return> to evaluate command'
+            'Navigate query bar history with <ctrl- up/down arrow>.'
           ],
           unrecognizable: [
             "Interesting. How does this make you feel?"

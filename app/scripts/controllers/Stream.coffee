@@ -53,6 +53,11 @@ angular.module('neo4jApp.controllers')
         $scope.editorHistory.unshift(input)
       $scope.historySet(-1)
 
+    $scope.couldBeCommand = (input) ->
+      return false unless input?
+      return true if input.charAt(0) is ':'
+      return false
+
     $scope.historyNext = ->
       idx = $scope.editor.cursor
       idx ?= $scope.editorHistory.length

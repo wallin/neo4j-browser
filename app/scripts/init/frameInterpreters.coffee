@@ -170,7 +170,7 @@ angular.module('neo4jApp')
     # Cypher handler
     FrameProvider.interpreters.push
       type: 'cypher'
-      matches: ['cypher', 'start', 'match', 'create', 'drop', 'return', 'set', 'remove', 'delete']
+      matches: ['cypher', 'start', 'match', 'create', 'drop', 'return', 'set', 'remove', 'delete', 'merge']
       templateUrl: 'views/frame-cypher.html'
       exec: ['Cypher', (Cypher) ->
         # Return the function that handles the input
@@ -179,7 +179,7 @@ angular.module('neo4jApp')
       ]
 
     # Fallback interpretor
-    # Cypher handler
+    # offer some advice
     FrameProvider.interpreters.push
       type: 'help'
       matches: -> true

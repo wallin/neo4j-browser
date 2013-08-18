@@ -31,7 +31,7 @@ a
     color: color-link-hover
     text-decoration: none
 
-table
+table.data
   width: 100%
   thead tr th, tfoot tr th
     height: middlebar-height
@@ -167,15 +167,26 @@ select
   padding 2em 60px 1em 60px
   margin-top 1em
 
-.table 
+.dl-horizontal 
+  dt
+    width 120px
+  dd
+    margin-left 140px
+
+.table-help 
+  tr
+    vertical-align top
+
+.table-help
   th
   td
     border 0
 
-.table th
-  text-align right
-  margin 0
-  padding-left 0
+.table-help
+  th
+    text-align right
+    margin 0
+    padding-left 0
 
 .table td.wrapped
   word-break break-all
@@ -187,6 +198,10 @@ a.badge, a.label
 
 .label.relationship
   border-radius: 0px
+
+code
+  // to be consistent with icon-* spans
+  font-family FontAwesome
 
 /////
 #error
