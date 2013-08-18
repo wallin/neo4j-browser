@@ -1,36 +1,41 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code FOREACH
-    p
-      | The
-      code FOREACH
-      |  clause is used to update data within a collection,
-      | whether components of a path, or result of aggregation.
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MATCH p = (ups)<-[DEPENDS_ON]-(device) WHERE ups.id='EPS-7001'
-        FOREACH (n IN nodes(p): SET n.available = FALSE )
-      figcaption Mark all devices plugged into a failed UPS as unavailable.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-foreach.html')
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 FOREACH 
+        p.lead Respectful graph data removal
+      .details.span9
+        p
+          | The
           code FOREACH
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/cypher.html') Cypher overview
-        | ,
-        a(href='/content/help/create.html')
-          code CREATE
-        | ,
-        a(href='/content/help/delete.html')
-          code DELETE
-        | ,
-        a(href='/content/help/set.html')
-          code SET
+          |  clause is used to update data within a collection,
+          | whether components of a path, or result of aggregation.
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-foreach.html')
+                code.icon-external-link-sign &nbsp;FOREACH
+              |  manual page
+          tr
+            th Related:
+            td
+              a(help-topic='create')
+                code.icon-info-sign &nbsp;:help CREATE
+              | , 
+              a(help-topic='delete')
+                code.icon-info-sign &nbsp;:help DELETE
+              | , 
+              a(help-topic='set')
+                code.icon-info-sign &nbsp;:help SET
+              | , 
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            MATCH p = (ups)<-[DEPENDS_ON]-(device) WHERE ups.id='EPS-7001'
+            FOREACH (n IN nodes(p): SET n.available = FALSE )
+          figcaption Mark all devices plugged into a failed UPS as unavailable.
+

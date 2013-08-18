@@ -1,43 +1,47 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code CREATE UNIQUE
-    p
-      | The
-      code CREATE UNIQUE
-      | clause is a mix of
-      code MATCH
-      |  and
-      code CREATE
-      |  &mdash; it will match what it can, and create what is missing.
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MATCH (us:Country)
-        WHERE us.name = 'United States'
-        CREATE UNIQUE (us)-[:STATE]->(ca {name:'California'})
-        RETURN ca
-      figcaption Creates a new state named California, only if it
-        | doesn't already exist.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-create-unique.html')
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 CREATE UNIQUE
+        p.lead Match meets Create
+      .details.span9
+        p
+          | The 
           code CREATE UNIQUE
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/match.html')
+          |  clause is a mix of 
           code MATCH
-        | ,
-        a(href='/content/help/create.html')
+          |  and 
           code CREATE
-        | ,
-        a(href='/content/help/merge.html')
-          code MERGE
-        | ,
-        a(href='/content/help/cypher.html')
-          | Cypher overview
+          |  &mdash; it will match what it can, and create what is missing.
+
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-create-unique.html')
+                 code.icon-external-link-sign &nbsp;CREATE UNIQUE
+              |  manual page
+          tr
+            th Related:
+            td
+              a(help-topic='match')
+                code.icon-info-sign &nbsp;:help MATCH
+              | ,
+              a(help-topic='create')
+                code.icon-info-sign &nbsp;:help CREATE
+              | ,
+              a(help-topic='merge')
+                code.icon-info-sign &nbsp;:help MERGE
+              | ,
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            MATCH (us:Country)
+            WHERE us.name = 'United States'
+            CREATE UNIQUE (us)-[:STATE]->(ca {name:'California'})
+            RETURN ca
+          figcaption Creates a new state named California, only if it
+            | doesn't already exist.

@@ -6,14 +6,11 @@ article.help
         p.lead How to Browse
       .details.span9
         p
-          | Neo4j Browser is a command shell for interacting with the graph database. 
-          | Explore the graph by composing and running Cypher queries in the query bar up above &uarr;.
-          | 
-        p Features:
-        ul
-          li a "query bar" for composing ad-hoc Cypher statements
-          li visualization of result sets containing node data 
-          li 
+          | Neo4j Browser is a command shell. Use the query bar up above &uarr; to
+          | enter Cypher queries or client-side commands.
+        p
+          | Compose multi-line 
+        
         table.table-condensed.table-help
           tr
             th Cypher:
@@ -23,45 +20,9 @@ article.help
               | ,
               a(href="http://docs.neo4j.org/chunked/{{neo4j.version}}/cypher-introduction.html")
                 .icon-external-link-sign &nbsp;Cypher Introduction
+          tr
+            th Commands:
+            td
+              a(help-topic="commands")
+                code.icon-info-sign &nbsp;:help commands
 
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Commands
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/cypher-introduction.html')
-          | Cypher introduction
-      dt Related
-      dd
-        a(href='/content/help/match.html')
-          code MATCH
-        | ,
-        a(href='/content/help/where.html')
-          code WHERE
-        | ,
-        a(href='/content/help/return.html')
-          code RETURN
-        | ,
-        a(href='/content/help/create.html')
-          code CREATE
-        | ,
-        a(href='/content/help/merge.html')
-          code MERGE
-        | ,
-        a(href='/content/help/delete.html')
-          code DELETE
-        | ,
-        a(href='/content/help/set.html')
-          code SET
-        | ,
-        a(href='/content/help/foreach.html')
-          code FOREACH
-        | ,
-        a(href='/content/help/with.html')
-          code WITH
-        | ,
-        a(href='/content/help/start.html')
-          code START
-        | ,
-        a(href='/content/help/create-unique.html')
-          code CREATE UNIQUE

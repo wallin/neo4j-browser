@@ -1,37 +1,49 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code MERGE
-    p
-      | The
-      code MERGE
-      |  clause ensures that an expected pattern exists in the graph, reconciling
-      | whether data was found, or needs to be created through sub-clauses
-      code ON CREATE
-      |  and
-      code ON MATCH
-      | .
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MERGE (charlie:Person { name:'Charlie Sheen', age:10 })
-        RETURN charlie
-      figcaption Look for a person named Charlie Sheen, age 10. If not found, create such a person.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-merge.html')
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 MERGE 
+        p.lead Bring graphs together
+      .details.span9
+        p
+          | The
           code MERGE
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/cypher.html') Cypher overview
-        | ,
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-merge.html#merge-merge-with-on-create.html')
+          |  clause ensures that an expected pattern exists in the graph, reconciling
+          | whether data was found, or needs to be created through sub-clauses 
           code ON CREATE
-        | ,
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-merge.html#merge-merge-with-on-match.html')
+          |  and 
           code ON MATCH
+          | .
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-merge.html')
+                code.icon-external-link-sign &nbsp;MERGE
+              | ,
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-merge.html#merge-merge-with-on-create.html')
+                code.icon-external-link-sign &nbsp;ON CREATE
+              | ,
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-merge.html#merge-merge-with-on-match.html')
+                code.icon-external-link-sign &nbsp;ON MATCH
+          tr
+            th Related:
+            td
+              a(help-topic='match')
+                code.icon-info-sign &nbsp;:help MATCH
+              | ,
+              a(help-topic='create')
+                code.icon-info-sign &nbsp;:help CREATE
+              | , 
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            MERGE (charlie:Person { name:'Charlie Sheen', age:10 })
+            RETURN charlie
+          figcaption Look for a person named Charlie Sheen, age 10. If not found, create such a person.
+
+
+

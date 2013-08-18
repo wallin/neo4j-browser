@@ -1,51 +1,61 @@
 article.help
-  section.summary
-    h1 Cypher - Overview
-    p Cypher is a graph query language.
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MATCH &lt;pattern&gt; WHERE &lt;conditions&gt; RETURN &lt;expressions&gt;
-      figcaption Basic form of a Cypher statement.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/cypher-introduction.html')
-          | Cypher introduction
-      dt Related
-      dd
-        a(href='/content/help/match.html')
-          code MATCH
-        | ,
-        a(href='/content/help/where.html')
-          code WHERE
-        | ,
-        a(href='/content/help/return.html')
-          code RETURN
-        | ,
-        a(href='/content/help/create.html')
-          code CREATE
-        | ,
-        a(href='/content/help/merge.html')
-          code MERGE
-        | ,
-        a(href='/content/help/delete.html')
-          code DELETE
-        | ,
-        a(href='/content/help/set.html')
-          code SET
-        | ,
-        a(href='/content/help/foreach.html')
-          code FOREACH
-        | ,
-        a(href='/content/help/with.html')
-          code WITH
-        | ,
-        a(href='/content/help/start.html')
-          code START
-        | ,
-        a(href='/content/help/create-unique.html')
-          code CREATE UNIQUE
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 Cypher
+        p.lead A graph query language
+      .details.span9
+        p
+          | Cypher is a declarative graph query language.
+
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a.icon-external-link-sign(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/cypher-introduction.html')
+                 &nbsp; Cypher introduction
+          tr
+            th Related:
+            td
+              a(help-topic='match')
+                code.icon-info-sign &nbsp;:help MATCH
+              | , 
+              a(help-topic='where')
+                code.icon-info-sign &nbsp;:help WHERE
+              | , 
+              a(help-topic='return')
+                code.icon-info-sign &nbsp;:help RETURN
+              | , 
+              a(help-topic='create')
+                code.icon-info-sign &nbsp;:help CREATE
+              | , 
+              a(help-topic='merge')
+                code.icon-info-sign &nbsp;:help MERGE
+              | , 
+              a(help-topic='delete')
+                code.icon-info-sign &nbsp;:help DELETE
+              | , 
+              a(help-topic='set')
+                code.icon-info-sign &nbsp;:help SET
+              | , 
+              a(help-topic='foreach')
+                code.icon-info-sign &nbsp;:help FOREACH
+              | , 
+              a(help-topic='with')
+                code.icon-info-sign &nbsp;:help WITH
+              | , 
+              a(help-topic='start')
+                code.icon-info-sign &nbsp;:help START
+              | , 
+              a(help-topic='create-unique')
+                code.icon-info-sign &nbsp;:help CREATE UNIQUE
+              | , 
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            MATCH &lt;pattern&gt; WHERE &lt;conditions&gt; RETURN &lt;expressions&gt;
+          figcaption Basic form of a Cypher statement.
+

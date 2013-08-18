@@ -2,49 +2,26 @@ article.help
   .container
     section.row-fluid.summary
       .summary.span3
-        h3 Commands
-        p.lead Typing commands is 1337
+        h3 REST
+        p.lead Any HTTP verb
       .details.span9
         p
-          | In addition to composing and running Cypher queries, the query bar up above &uarr; 
-          | understands a few client-side commands. They're useful, and some demonstrate
-          | how to use various public APIs. 
-        p Client-side commands  begin with a &nbsp;
-          code :
-          | &nbsp; and end with a smile. 
+          | The query bar has convenience commands for sending any HTTP verb help
+          | to Neo4j's REST API. For PUT and POST, include a JSON payload. 
         table.table-condensed.table-help
-          tr
-            th Information:
-            td
-              a(help-topic="about")
-                code.icon-info-sign &nbsp;:about
-              | ,
-              a(help-topic="sysinfo")
-                code.icon-info-sign &nbsp;:sysinfo
-              | ,
-              a(help-topic="help")
-                code.icon-info-sign &nbsp;:help
-              | ,
-              a(href='/content/help/schema.html')
-                code.icon-info-sign &nbsp;:schema
           tr
             th REST:
             td
-              a(href='/content/help/rest-get.html')
-                code.icon-info-sign &nbsp;:get
+              a(help-topic='rest-get')
+                code.icon-info-sign &nbsp;:help REST GET
               | ,
-              a(href='/content/help/rest-post.html')
-                code.icon-info-sign &nbsp;:post
+              a(help-topic='rest-post')
+                code.icon-info-sign &nbsp;:help REST POST
               | ,
-              a(href='/content/help/rest-put.html')
-                code.icon-info-sign &nbsp;:put
+              a(help-topic='rest-put')
+                code.icon-info-sign &nbsp;:help REST PUT
               | ,
-              a(href='/content/help/rest-delete.html')
-                code.icon-info-sign &nbsp;:delete
-          tr
-            th Browser:
-            td
-              a(help-topic="clear")
-                code.icon-info-sign &nbsp;:clear
+              a(help-topic='rest-delete')
+                code.icon-info-sign &nbsp;:help REST DELETE
           
 

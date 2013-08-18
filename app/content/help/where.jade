@@ -1,38 +1,46 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code WHERE
-    p
-      | The
-      code WHERE
-      |  clause imposes conditions on the data within a potentially matching path,
-      | filtering the result set of a
-      code MATCH
-      | .
-    p
-      code MATCH
-      |  descibes the structure, and
-      code WHERE
-      | specfies the content of a query.
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MATCH (director:Person)-[:DIRECTED]->(movie)
-        WHERE director.name = "Steven Spielberg"
-        RETURN movie.title
-      figcaption Find all the many fine films directed by Steven Spielberg.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-where.html')
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 WHERE 
+        p.lead filter results
+      .details.span9
+        p
+          | The
           code WHERE
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/cypher.html') Cypher overview
-        | ,
-        a(href='/content/help/match.html')
+          |  clause imposes conditions on the data within a potentially matching path,
+          | filtering the result set of a
           code MATCH
+          | .
+        p
+          code MATCH
+          |  descibes the structure, and
+          code WHERE
+          | specfies the content of a query.
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-where.html')
+                code.icon-external-link-sign &nbsp;WHERE
+              |  manual page
+          tr
+            th Related:
+            td
+              a(help-topic='match')
+                code.icon-info-sign &nbsp;:help MATCH
+              | ,
+              a(help-topic='return')
+                code.icon-info-sign &nbsp;:help RETURN
+              | , 
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            MATCH (director:Person)-[:DIRECTED]->(movie)
+            WHERE director.name = "Steven Spielberg"
+            RETURN movie.title
+          figcaption Find all the many fine films directed by Steven Spielberg.
+

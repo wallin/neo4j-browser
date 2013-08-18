@@ -92,7 +92,7 @@ angular.module('neo4jApp')
       matches: "#{cmdchar}about"
       exec: ->
         (input, q) ->
-          page: "content/guides/about.html"
+          page: "content/help/about.html"
 
     # sysinfo handler
     FrameProvider.interpreters.push
@@ -128,16 +128,17 @@ angular.module('neo4jApp')
             q.reject(error("Missing path"))
             return q.promise
 
-          if (verb is 'post' or verb is 'put') and not data
-            q.reject(error("Method needs data"))
-            return q.promise
-
-          # insist that data is parseable JSON
-          try
-            data = JSON.parse(data)
-          catch e
-            q.reject(error("Payload does not seem to be valid data."))
-            return q.promise
+          if (verb is 'post' or verb is 'put') 
+            if not data
+              q.reject(error("Method needs data"))
+              return q.promise
+            else
+              # insist that data is parseable JSON
+              try
+                data = JSON.parse(data)
+              catch e
+                q.reject(error("Payload does not seem to be valid data."))
+                return q.promise
 
           Server[verb]?(url, data)
           .then(

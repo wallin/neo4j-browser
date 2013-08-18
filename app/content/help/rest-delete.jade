@@ -1,35 +1,36 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code DELETE
-    p
-      | The
-      code DELETE
-      |  clause is used to delete nodes and relationships
-      | identified within a
-      code MATCH
-      |  clause, possibly qualified by a
-      code WHERE
-      | .
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MATCH (n)-[r]-() WHERE n.name = 'Soren' DELETE r
-      figcaption Remove all of Soren's friends.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-delete.html') DELETE
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/cypher.html') Cypher overview
-        | ,
-        a(href='/content/help/match.html')
-          code MATCH
-        | ,
-        a(href='/content/help/where.html')
-          code WHERE
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 REST DELETE 
+        p.lead 
+      .details.span9
+        p Use 
+          code :DELETE
+          |  to send DELETE to Neo4j's REST interface.
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/rest-api.html')
+                code.icon-external-link-sign &nbsp;REST
+          tr
+            th Related:
+            td
+              a(help-topic='rest-get')
+                code.icon-info-sign &nbsp;:help REST GET
+              | ,
+              a(help-topic='rest-post')
+                code.icon-info-sign &nbsp;:help REST POST
+              | , 
+              a(help-topic='rest-put')
+                code.icon-info-sign &nbsp;:help REST PUT
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='rest').
+            :DELETE /db/data/transaction/2
+          figcaption Rollback an open transaction.
+
+
+

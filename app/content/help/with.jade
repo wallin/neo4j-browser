@@ -1,32 +1,40 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code WITH
-    p
-      | The
-      code WITH
-      |  clause allows queries to be chained together, piping the results from one
-      | to be used as starting points or criteria in the next.
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MATCH (director:Person)-[:DIRECTED]->(movie)
-        WITH director, ORDER BY count(movie.title) LIMIT 1
-          MATCH (director)<-[:KNOWS*..6]-(hopeful)
-          WHERE hopeful.name = "Starlet Ohuru"
-      figcaption Find a path from a hopeful actor to Hollywood's most prolific director.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-with.html')
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 WITH 
+        p.lead piped queries
+      .details.span9
+        p
+          | The
           code WITH
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/cypher.html') Cypher overview
-        | ,
-        a(href='/content/help/MATCH.html')
-          code MATCH
+          |  clause allows queries to be chained together, piping the results from one
+          | to be used as starting points or criteria in the next.
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-with.html')
+                code.icon-external-link-sign &nbsp;WITH
+              |  manual page
+          tr
+            th Related:
+            td
+              a(help-topic='match')
+                code.icon-info-sign &nbsp;:help MATCH
+              | ,
+              a(help-topic='return')
+                code.icon-info-sign &nbsp;:help RETURN
+              | , 
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            MATCH (director:Person)-[:DIRECTED]->(movie)
+            WITH director, ORDER BY count(movie.title) LIMIT 1
+              MATCH (director)<-[:KNOWS*..6]-(hopeful)
+              WHERE hopeful.name = "Starlet Ohuru"
+          figcaption Find a path from a hopeful actor to Hollywood's most prolific director.
+

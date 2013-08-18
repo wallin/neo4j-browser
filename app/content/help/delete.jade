@@ -1,35 +1,51 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code DELETE
-    p
-      | The
-      code DELETE
-      |  clause is used to delete nodes and relationships
-      | identified within a
-      code MATCH
-      |  clause, possibly qualified by a
-      code WHERE
-      | .
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        MATCH (n)-[r]-() WHERE n.name = 'Soren' DELETE r
-      figcaption Remove all of Soren's friends.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-delete.html') DELETE
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/cypher.html') Cypher overview
-        | ,
-        a(href='/content/help/match.html')
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 DELETE 
+        p.lead Respectful graph data removal
+      .details.span9
+        p
+          | The
+          code DELETE
+          |  clause is used to delete nodes and relationships
+          | identified within a
           code MATCH
-        | ,
-        a(href='/content/help/where.html')
+          |  clause, possibly qualified by a
           code WHERE
+          | .
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-delete.html')
+                code.icon-external-link-sign &nbsp;DELETE
+              |  manual page
+          tr
+            th Related:
+            td
+              a(help-topic='match')
+                code.icon-info-sign &nbsp;:help MATCH
+              | , 
+              a(help-topic='where')
+                code.icon-info-sign &nbsp;:help WHERE
+              | , 
+              a(help-topic='remove')
+                code.icon-info-sign &nbsp;:help RETURN
+              | , 
+              a(help-topic='create')
+                code.icon-info-sign &nbsp;:help REMOVE
+              | , 
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+          tr
+            th :
+            td
+              a(help-topic='match')
+                code.icon-info-sign &nbsp;:help MATCH
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            MATCH (n)-[r]-() WHERE n.name = 'Soren' DELETE r
+          figcaption Remove all of Soren's friends.

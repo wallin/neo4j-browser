@@ -1,33 +1,42 @@
 article.help
-  section.summary
-    h1 Cypher -
-      code CREATE
-    p
-      | The
-      code CREATE
-      |  clause is used to create data by specifying named
-      | nodes and relationships with inline properties.
-  section.example
-    h1 Example
-    figure
-      pre.code(mode='cypher').
-        CREATE (le {name:"Euler"})-[:KNOWS {since:1768}]->(db {name:"Bernoulli"}) RETURN le, db
-      figcaption Create two related people, returning them.
-  section.reference
-    h1 Reference
-    dl.dl-horizontal
-      dt Details
-      dd
-        a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-create.html')
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 CREATE
+        p.lead Insert graph data
+      .details.span9
+        p
+          | The 
           code CREATE
-        |  manual page
-      dt Related
-      dd
-        a(href='/content/help/merge.html')
-          code MERGE
-        | ,
-        a(href='/content/help/create-unique.html')
-          code CREATE UNIQUE
-        | ,
-        a(href='/content/help/cypher.html')
-          | Cypher overview
+          |  clause is used to create data by specifying named
+          | nodes and relationships with inline properties.
+
+        table.table-condensed.table-help
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-create.html')
+                code.icon-external-link-sign &nbsp; CREATE
+              |  manual page
+          tr
+            th Related:
+            td
+              a(help-topic='set')
+                code.icon-info-sign &nbsp;:help SET
+              | ,
+              a(help-topic='create-unique')
+                code.icon-info-sign &nbsp;:help CREATE UNIQUE
+              | ,
+              a(help-topic='merge')
+                code.icon-info-sign &nbsp;:help MERGE
+              | ,
+              a(help-topic='cypher')
+                .icon-info-sign &nbsp;:help Cypher
+    section.row-fluid.example
+      .span9.offset3
+        figure
+          pre.code(mode='cypher').
+            CREATE (le:Person {name:"Euler"}),(db:Person {name:"Bernoulli"}), 
+              (le)-[:KNOWS {since:1768}]->(db)
+            RETURN le, db
+          figcaption Create two related people, returning them.
