@@ -30,6 +30,8 @@ angular.module('neo4jApp')
           dx = relationship.target.x - relationship.source.x
           dy = relationship.target.y - relationship.source.y
           length = Math.sqrt(square(dx) + square(dy))
+          relationship.arrowLength =
+            length - relationship.source.radius - relationship.target.radius
           alongPath = (from, distance) ->
             x: from.x + dx * distance / length
             y: from.y + dy * distance / length
@@ -37,10 +39,11 @@ angular.module('neo4jApp')
           relationship.startPoint = alongPath(relationship.source, relationship.source.radius)
           relationship.endPoint = alongPath(relationship.target, -relationship.target.radius)
           relationship.midShaftPoint = alongPath(relationship.startPoint,
-            (length - relationship.source.radius - relationship.target.radius - 10) / 2)
+            (relationship.arrowLength - 10) / 2)
           relationship.angle = Math.atan2(dy, dx) / Math.PI * 180
+          relationship.textAngle = relationship.angle
           if relationship.angle < -90 or relationship.angle > 90
-            relationship.angle += 180
+            relationship.textAngle += 180
 
       @onGraphChange = (graph) ->
         setNodeRadii(graph.nodes.all())

@@ -50,7 +50,7 @@ angular.module('neo4jApp.controllers')
       el.append('defs')
       graph = null
 
-      selectedNode = null
+      selectedItem = null
 
       $scope.style = GraphStyle.rules
       $scope.$watch 'style', (val) =>
@@ -96,7 +96,7 @@ angular.module('neo4jApp.controllers')
         $rootScope.selectedGraphItem = item
         $rootScope.$apply() unless $rootScope.$$phase
 
-      onDblClick = (d) =>
+      onNodeDblClick = (d) =>
         #$rootScope.selectedGraphItem = d
         return if d.expanded
         GraphExplorer.exploreNeighbours(d.id).then (result) =>
@@ -107,22 +107,29 @@ angular.module('neo4jApp.controllers')
         # https://github.com/angular/angular.js/issues/2371
         $rootScope.$apply() unless $rootScope.$$phase
 
-      onClick = (d) =>
+      onNodeClick = (d) =>
         d.fixed = yes
-        if d is selectedNode
+        toggleSelection(d)
+
+      onRelationshipClick = (d) =>
+        console.log("click!")
+        toggleSelection(d)
+
+      toggleSelection = (d) =>
+        if d is selectedItem
           d.selected = no
-          selectedNode = null
+          selectedItem = null
         else
-          selectedNode?.selected = no
+          selectedItem?.selected = no
           d.selected = yes
-          selectedNode = d
+          selectedItem = d
 
         @update()
-        selectItem(selectedNode)
+        selectItem(selectedItem)
 
       clickHandler = clickcancel()
-      clickHandler.on 'click', onClick
-      clickHandler.on 'dblclick', onDblClick
+      clickHandler.on 'click', onNodeClick
+      clickHandler.on 'dblclick', onNodeDblClick
 
       tick = ->
 
@@ -194,6 +201,7 @@ angular.module('neo4jApp.controllers')
 
         relationshipGroups.enter().append("g")
         .attr("class", "relationship")
+        .on("click", onRelationshipClick)
 
         GraphGeometry.onGraphChange(graph)
 
