@@ -4,14 +4,16 @@ angular.module('neo4jApp.services')
   .factory 'Relationship', [ ->
     class Relationship
       constructor: (@$raw = {}) ->
-        @attrs = @$raw.data or {}
         @id = @$raw.id
         @start = @$raw.startNode
         @end = @$raw.endNode
         @type = @$raw.type
+        @propertyMap = @$raw.properties or {}
+        @propertyList = for key,value of @propertyMap
+          { key: key, value: value }
 
       toJSON: ->
-        @attrs
+        @propertyMap
 
     Relationship
   ]

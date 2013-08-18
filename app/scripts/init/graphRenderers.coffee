@@ -9,7 +9,7 @@ angular.module('neo4jApp.services')
 
     formatCaption = (node) ->
       template = GraphStyle.forNode(node).get("caption")
-      captionText = GraphStyle.interpolate(template, node)
+      captionText = GraphStyle.interpolate(template, node.id, node.propertyMap)
       words = captionText.split(" ")
       lines = []
       for i in [0..words.length - 1]

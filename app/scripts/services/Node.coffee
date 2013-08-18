@@ -6,11 +6,12 @@ angular.module('neo4jApp.services')
       constructor: (@$raw = {}) ->
         @id = @$raw.id
         @labels = @$raw.labels or []
-        @attrs = @$raw.properties or {}
-        angular.extend(@, @attrs)
+        @propertyMap = @$raw.properties or {}
+        @propertyList = for key,value of @propertyMap
+            { key: key, value: value }
 
       toJSON: ->
-        @attrs
+        @propertyMap
 
     Node
   ]

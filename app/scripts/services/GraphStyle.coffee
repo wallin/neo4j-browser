@@ -229,13 +229,13 @@ angular.module('neo4jApp.services')
       #
       defaultSizes: -> provider.defaultSizes
       defaultColors: -> provider.defaultColors
-      interpolate: (str, data) ->
+      interpolate: (str, id, properties) ->
         # Supplant
         # http://javascript.crockford.com/remedial.html
         str.replace(
           /\{([^{}]*)\}/g,
           (a, b) ->
-            r = data[b] or data.id
+            r = properties[b] or id
             return if (typeof r is 'string' or typeof r is 'number') then r else a
         )
 
