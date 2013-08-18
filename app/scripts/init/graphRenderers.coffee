@@ -4,19 +4,6 @@ angular.module('neo4jApp.services')
   'GraphStyle',
   (GraphRenderer, GraphStyle) ->
 
-    formatCaption = (node) ->
-      template = GraphStyle.forNode(node).get("caption")
-      captionText = GraphStyle.interpolate(template, node.id, node.propertyMap)
-      words = captionText.split(" ")
-      lines = []
-      for i in [0..words.length - 1]
-        lines.push(
-          node: node
-          text: words[i]
-          baseline: (1 + i - words.length / 2) * 10
-        )
-      lines
-
     noop = ->
 
     nodeOutline = new GraphRenderer.Renderer(
@@ -45,7 +32,7 @@ angular.module('neo4jApp.services')
 
     nodeCaption = new GraphRenderer.Renderer(
       onGraphChange: (selection) ->
-        text = selection.selectAll("text").data(formatCaption)
+        text = selection.selectAll("text").data((node) -> node.caption)
 
         text.enter().append("text")
         .attr("text-anchor": "middle")

@@ -195,8 +195,7 @@ angular.module('neo4jApp.controllers')
         relationshipGroups.enter().append("g")
         .attr("class", "relationship")
 
-        for node in nodes
-          node.radius = parseFloat(GraphStyle.forNode(node).get("diameter")) / 2
+        GraphGeometry.onGraphChange(graph)
 
         for renderer in GraphRenderer.relationshipRenderers
           relationshipGroups.call(renderer.onGraphChange)
@@ -215,7 +214,6 @@ angular.module('neo4jApp.controllers')
           nodeGroups.call(renderer.onGraphChange);
 
         nodeGroups.exit().remove();
-
 
       @render = (result) ->
         return unless result
