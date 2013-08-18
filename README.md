@@ -15,7 +15,7 @@ This is an experimental client application for working with Neo4j, a mashup of a
 
 **How-to**:
 
-* [Build instructions](/neo4j/neo4j-browser/wiki/Build)
+* [Build instructions](https://github.com/neo4j/neo4j-browser/wiki/Build)
 * [Neo4j integration branch](https://github.com/akollegger/neo4j/tree/neo4j-browser)
 
 # Try it
