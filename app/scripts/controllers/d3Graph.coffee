@@ -112,7 +112,6 @@ angular.module('neo4jApp.controllers')
         toggleSelection(d)
 
       onRelationshipClick = (d) =>
-        console.log("click!")
         toggleSelection(d)
 
       toggleSelection = (d) =>

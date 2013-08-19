@@ -94,11 +94,20 @@ angular.module('neo4jApp.services')
           @loadRules(@storage?.get('grass'))
         catch e
 
+      selector: (item) ->
+        if item.entityType is 'Node'
+          @nodeSelector(item)
+        else if item.entityType is 'Relationship'
+          @relationshipSelector(item)
+
       #
       # Methods for calculating applied style for elements
       #
       calculateStyle: (selector, data) ->
         new StyleElement(selector, data).applyRules(@rules)
+
+      forEntity: (item) ->
+        @calculateStyle(@selector(item), item)
 
       forNode: (node = {}) ->
         @calculateStyle(@nodeSelector(node), node)
@@ -110,10 +119,12 @@ angular.module('neo4jApp.services')
       #
       # Methods for getting and modifying rules
       #
-      changeForNode: (node, props) ->
-        rule = @findNodeRule(node)
+      change: (item, props) ->
+        selector = @selector(item)
+        rule = @findRule(selector)
+
         if not rule?
-          rule = new StyleRule(@nodeSelector(node), {})
+          rule = new StyleRule(selector, {})
           @rules.push(rule)
         angular.extend(rule.props, props)
         @persist()
@@ -124,8 +135,7 @@ angular.module('neo4jApp.services')
         @rules.splice(idx, 1) if idx?
         @persist()
 
-      findNodeRule: (node) ->
-        selector = @nodeSelector(node)
+      findRule: (selector) ->
         rule = r for r in @rules when r.matchesExact(selector)
         rule
 

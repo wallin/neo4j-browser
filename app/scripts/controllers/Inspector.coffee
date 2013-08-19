@@ -15,9 +15,7 @@ angular.module('neo4jApp.controllers')
       $scope.$watch 'selectedGraphItem', (item) ->
         return unless item
         $scope.item = item
-        # Need to transform attrs into array due to some angular repeater problem
-        $scope.item.attrs = ({key: k, value: v} for own k, v of item.attrs)
-        $scope.style = GraphStyle.forNode(item).props
+        $scope.style = GraphStyle.forEntity(item).props
         if $scope.style.caption
           $scope.selectedCaption = $scope.style.caption.replace(/\{([^{}]*)\}/, "$1")
 
@@ -36,6 +34,6 @@ angular.module('neo4jApp.controllers')
         $scope.saveStyle()
 
       $scope.saveStyle = ->
-        GraphStyle.changeForNode($scope.item, $scope.style)
+        GraphStyle.change($scope.item, $scope.style)
 
   ]
