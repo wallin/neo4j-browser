@@ -135,7 +135,7 @@ angular.module('neo4jApp.services')
 
       onTick: (selection) ->
         selection.selectAll('rect')
-          .attr('width', (d) -> d.arrowLength)
+          .attr('width', (d) -> if d.arrowLength > 0 then d.arrowLength else 0)
           .attr('transform', (d) -> "translate(#{ d.startPoint.x } #{ d.startPoint.y }) rotate(#{ d.angle })")
     )
 
