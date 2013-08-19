@@ -15,7 +15,8 @@ angular.module('neo4jApp.services')
       toJSON: ->
         @propertyMap
 
-      entityType: 'Relationship'
+      isNode: false
+      isRelationship: true
 
     Relationship
   ]

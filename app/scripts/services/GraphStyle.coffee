@@ -95,9 +95,9 @@ angular.module('neo4jApp.services')
         catch e
 
       selector: (item) ->
-        if item.entityType is 'Node'
+        if item.isNode
           @nodeSelector(item)
-        else if item.entityType is 'Relationship'
+        else if item.isRelationship
           @relationshipSelector(item)
 
       #

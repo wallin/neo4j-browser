@@ -31,7 +31,7 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 60
                 a(ng-click='selectCaption("id")') ID
               li(ng-repeat='property in item.propertyList')
                 a(ng-click='selectCaption(property.key)') {{property.key}}
-        li.sizes
+        li.node-sizes(ng-show='item.isNode')
           ul.inline
             li(ng-repeat='size in sizes')
               a(style='width: {{size.diameter}}; height: {{size.diameter}}'
