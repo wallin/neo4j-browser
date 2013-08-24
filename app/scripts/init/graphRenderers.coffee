@@ -82,7 +82,7 @@ angular.module('neo4jApp.services')
         lines
         .attr('fill', (rel) -> GraphStyle.forRelationship(rel).get('fill'))
         .attr('stroke', (rel) -> GraphStyle.forRelationship(rel).get('stroke'))
-        .attr('stroke-width', (rel) -> GraphStyle.forRelationship(rel).get('stroke-width'))
+        .attr('stroke-width', (rel) -> GraphStyle.forRelationship(rel).get('shaft-width'))
 
         lines.exit().remove()
 

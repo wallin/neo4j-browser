@@ -16,7 +16,7 @@ angular.module('neo4jApp.services')
       'relationship':
         'fill': 'none'
         'stroke': '#D4D6D7'
-        'stroke-width': '1.5px'
+        'shaft-width': '1.5px'
 
     # Default node sizes that user can choose from
     @defaultSizes = [
@@ -25,6 +25,18 @@ angular.module('neo4jApp.services')
       { diameter: '30px' }
       { diameter: '50px' }
       { diameter: '80px' }
+    ]
+
+    # Default arrow widths that user can choose from
+    @defaultArrayWidths = [
+      { shaftWidth: '1px' }
+      { shaftWidth: '2px' }
+      { shaftWidth: '3px' }
+      { shaftWidth: '5px' }
+      { shaftWidth: '8px' }
+      { shaftWidth: '13px' }
+      { shaftWidth: '25px' }
+      { shaftWidth: '38px' }
     ]
 
     # Default node colors that user can choose from
@@ -238,6 +250,7 @@ angular.module('neo4jApp.services')
       # Misc.
       #
       defaultSizes: -> provider.defaultSizes
+      defaultArrayWidths: -> provider.defaultArrayWidths
       defaultColors: -> provider.defaultColors
       interpolate: (str, id, properties) ->
         # Supplant

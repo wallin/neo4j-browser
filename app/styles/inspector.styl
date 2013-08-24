@@ -109,12 +109,11 @@ inspector-divider-color = #242E3B
         font-size: 18px
         display: inline-block
         width: 29px
-      &.colors, &.node-sizes
+      &.colors, &.node-sizes, &.arrow-widths
         padding-top: 10px
         padding-bottom: 11px
         a
           position: relative
-          border-radius: 50%
           display: inline-block
           background-color: #FFF
           line-height: 0
@@ -128,6 +127,9 @@ inspector-divider-color = #242E3B
             opacity: 0.20
           &:hover, &.active
             opacity: 1
+      &.colors, &.node-sizes
+        a
+          border-radius: 50%
       &.colors
         a
           width: 30px
@@ -137,6 +139,9 @@ inspector-divider-color = #242E3B
             width: 36px
             height: 36px
             border: none
+      &.arrow-widths
+        a
+          height: 30px
 
       &.pair
         overflow: hidden
