@@ -74,37 +74,33 @@ angular.module('neo4jApp.services')
 
     arrowPath = new GraphRenderer.Renderer(
       onGraphChange: (selection) ->
-        lines = selection.selectAll('line').data((rel) -> [rel])
+        paths = selection.selectAll('path').data((rel) -> [rel])
 
-        lines.enter().append('line')
-        .attr('marker-end', 'url(#arrow-end)')
+        paths.enter().append('path')
 
-        lines
+        paths
         .attr('fill', (rel) -> GraphStyle.forRelationship(rel).get('fill'))
-        .attr('stroke', (rel) -> GraphStyle.forRelationship(rel).get('stroke'))
-        .attr('stroke-width', (rel) -> GraphStyle.forRelationship(rel).get('shaft-width'))
+        .attr('stroke', 'none')
 
-        lines.exit().remove()
+        paths.exit().remove()
 
       onTick: (selection) ->
-        selection.selectAll('line')
-        .attr('x1', (d) -> d.startPoint.x)
-        .attr('y1', (d) -> d.startPoint.y)
-        .attr('x2', (d) -> d.endPoint.x)
-        .attr('y2', (d) -> d.endPoint.y)
+        selection.selectAll('path')
+        .attr('d', (d) -> d.arrowOutline)
+        .attr('transform', (d) -> "translate(#{ d.startPoint.x } #{ d.startPoint.y }) rotate(#{ d.angle })")
     )
 
     relationshipType = new GraphRenderer.Renderer(
       onGraphChange: (selection) ->
-        lines = selection.selectAll("text").data((rel) -> [rel])
+        texts = selection.selectAll("text").data((rel) -> [rel])
 
-        lines.enter().append("text")
+        texts.enter().append("text")
         .attr("text-anchor": "middle")
 
-        lines
+        texts
         .text((rel) -> rel.type)
 
-        lines.exit().remove()
+        texts.exit().remove()
 
       onTick: (selection) ->
 
@@ -116,11 +112,11 @@ angular.module('neo4jApp.services')
 
     relationshipOverlay = new GraphRenderer.Renderer(
       onGraphChange: (selection) ->
-        lines = selection.selectAll("rect").data((rel) -> [rel])
+        rects = selection.selectAll("rect").data((rel) -> [rel])
 
         band = 20
 
-        lines.enter()
+        rects.enter()
           .append('rect')
           .classed('overlay', true)
           .attr('fill', 'yellow')
@@ -128,10 +124,10 @@ angular.module('neo4jApp.services')
           .attr('y', -band / 2)
           .attr('height', band)
 
-        lines
+        rects
           .attr('opacity', (rel) -> if rel.selected then 0.3 else 0)
 
-        lines.exit().remove()
+        rects.exit().remove()
 
       onTick: (selection) ->
         selection.selectAll('rect')

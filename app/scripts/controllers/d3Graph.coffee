@@ -154,26 +154,6 @@ angular.module('neo4jApp.controllers')
 
       resize()
 
-      addMarkers = (selection) ->
-        # Markers
-        selection.select("defs")
-        .selectAll("marker")
-        .data(["arrow-start", "arrow-end"])
-        .enter().append("marker")
-        .attr("id", String)
-        .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 10)
-        .attr("refY", 0)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6).attr("orient", "auto")
-        .append("path")
-        .attr("d", (m) ->
-          if m == 'arrow-start'
-            'M10,-5L10,5L0,0'
-          else
-            "M0,-5L10,0L0,5"
-        )
-
       #
       # Public methods
       #
@@ -187,8 +167,6 @@ angular.module('neo4jApp.controllers')
           .links(relationships)
           .on('end', fit)
           .start()
-
-        el.call(addMarkers);
 
         layers = el.selectAll("g.layer").data(["relationships", "nodes"])
 

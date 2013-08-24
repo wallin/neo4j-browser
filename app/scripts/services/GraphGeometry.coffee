@@ -45,10 +45,29 @@ angular.module('neo4jApp')
           if relationship.angle < -90 or relationship.angle > 90
             relationship.textAngle += 180
 
+      calculateArrowOutlines = (relationships) ->
+        for relationship in relationships
+          shaftRadius = parseFloat(GraphStyle.forRelationship(relationship).get("shaft-width")) / 2
+          headRadius = shaftRadius + 3
+          headHeight = headRadius * 2
+          neckHeight = relationship.arrowLength - headHeight
+
+          relationship.arrowOutline = [
+            "M", 0, shaftRadius,
+            "L", neckHeight, shaftRadius,
+            "L", neckHeight, headRadius,
+            "L", relationship.arrowLength, 0,
+            "L", neckHeight, -headRadius,
+            "L", neckHeight, -shaftRadius,
+            "L", 0, -shaftRadius,
+            "Z"
+          ].join(" ")
+
       @onGraphChange = (graph) ->
         setNodeRadii(graph.nodes.all())
         formatNodeCaptions(graph.nodes.all())
 
       @onTick = (graph) ->
         layoutRelationships(graph.relationships.all())
+        calculateArrowOutlines(graph.relationships.all())
   ]
