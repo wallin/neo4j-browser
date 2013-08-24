@@ -8,12 +8,12 @@ angular.module('neo4jApp.services')
 
     nodeOutline = new GraphRenderer.Renderer(
       onGraphChange: (selection) ->
-        circles = selection.selectAll("circle.outline").data(
+        circles = selection.selectAll('circle.outline').data(
           (node) -> [node]
         )
 
         circles.enter()
-        .append("circle")
+        .append('circle')
         .classed('outline', true)
         .attr
           cx: 0
@@ -39,8 +39,9 @@ angular.module('neo4jApp.services')
 
         text
         .text((line) -> line.text)
-        .attr("y", (line) -> line.baseline)
-        .attr("fill": (line) -> GraphStyle.forNode(line.node).get('color'))
+        .attr('y', (line) -> line.baseline)
+        .attr('font-size', (line) -> GraphStyle.forNode(line.node).get('font-size'))
+        .attr('fill': (line) -> GraphStyle.forNode(line.node).get('color'))
 
         text.exit().remove()
 
@@ -98,6 +99,7 @@ angular.module('neo4jApp.services')
         .attr("text-anchor": "middle")
 
         texts
+        .attr('font-size', (rel) -> GraphStyle.forRelationship(rel).get('font-size'))
         .text((rel) -> rel.type)
 
         texts.exit().remove()
@@ -105,9 +107,9 @@ angular.module('neo4jApp.services')
       onTick: (selection) ->
 
         selection.selectAll('text')
-        .attr('x', (d) -> d.midShaftPoint.x)
-        .attr('y', (d) -> d.midShaftPoint.y + 4)
-        .attr('transform', (d) -> "rotate(#{ d.textAngle } #{ d.midShaftPoint.x } #{ d.midShaftPoint.y })")
+        .attr('x', (rel) -> rel.midShaftPoint.x)
+        .attr('y', (rel) -> rel.midShaftPoint.y + parseFloat(GraphStyle.forRelationship(rel).get('font-size')) / 2 - 1)
+        .attr('transform', (rel) -> "rotate(#{ rel.textAngle } #{ rel.midShaftPoint.x } #{ rel.midShaftPoint.y })")
     )
 
     relationshipOverlay = new GraphRenderer.Renderer(

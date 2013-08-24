@@ -13,10 +13,12 @@ angular.module('neo4jApp.services')
         'stroke-width': '2px'
         'color': '#fff'
         'caption': '{id}'
+        'font-size': '10px'
       'relationship':
         'fill': 'none'
         'stroke': '#D4D6D7'
         'shaft-width': '1.5px'
+        'font-size': '8px'
 
     # Default node sizes that user can choose from
     @defaultSizes = [
