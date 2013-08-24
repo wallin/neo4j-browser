@@ -25,13 +25,25 @@ angular.module('neo4jApp')
             )
           node.caption = lines
 
+      measureRelationshipCaption = (relationship, caption) ->
+        fontFamily = 'sans-serif'
+        fontSize = parseFloat(GraphStyle.forRelationship(relationship).get('font-size'))
+        padding = parseFloat(GraphStyle.forRelationship(relationship).get('padding'))
+        TextMeasurent.measure(caption, fontFamily, fontSize) + padding * 2
+
       measureRelationshipCaptions = (relationships) ->
         for relationship in relationships
-          caption = relationship.type
-          fontFamily = 'sans-serif'
-          fontSize = parseFloat(GraphStyle.forRelationship(relationship).get('font-size'))
-          padding = parseFloat(GraphStyle.forRelationship(relationship).get('padding'))
-          relationship.captionLength = TextMeasurent.measure(caption, fontFamily, fontSize) + padding * 2
+          relationship.captionLength = measureRelationshipCaption(relationship, relationship.type)
+
+      shortenCaption = (relationship, caption, targetWidth) ->
+        shortCaption = caption
+        while true
+          if shortCaption.length <= 2
+            return ['', 0]
+          shortCaption = shortCaption.substr(0, shortCaption.length - 2) + '\u2026'
+          width = measureRelationshipCaption(relationship, shortCaption)
+          if width < targetWidth
+            return [shortCaption, width]
 
       layoutRelationships = (relationships) ->
         for relationship in relationships
@@ -44,11 +56,17 @@ angular.module('neo4jApp')
             x: from.x + dx * distance / length
             y: from.y + dy * distance / length
 
-          shaftRadius = parseFloat(GraphStyle.forRelationship(relationship).get("shaft-width")) / 2
+          shaftRadius = parseFloat(GraphStyle.forRelationship(relationship).get('shaft-width')) / 2
           headRadius = shaftRadius + 3
           headHeight = headRadius * 2
           shaftLength = relationship.arrowLength - headHeight
-          startBreak = (shaftLength - relationship.captionLength) / 2
+
+          [relationship.shortCaption, relationship.shortCaptionLength] = if shaftLength > relationship.captionLength
+            [relationship.type, relationship.captionLength]
+          else
+            shortenCaption(relationship, relationship.type, shaftLength)
+
+          startBreak = (shaftLength - relationship.shortCaptionLength) / 2
           endBreak = shaftLength - startBreak
 
           relationship.startPoint = alongPath(relationship.source, relationship.source.radius)

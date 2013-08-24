@@ -100,7 +100,6 @@ angular.module('neo4jApp.services')
 
         texts
         .attr('font-size', (rel) -> GraphStyle.forRelationship(rel).get('font-size'))
-        .text((rel) -> rel.type)
 
         texts.exit().remove()
 
@@ -110,6 +109,7 @@ angular.module('neo4jApp.services')
         .attr('x', (rel) -> rel.midShaftPoint.x)
         .attr('y', (rel) -> rel.midShaftPoint.y + parseFloat(GraphStyle.forRelationship(rel).get('font-size')) / 2 - 1)
         .attr('transform', (rel) -> "rotate(#{ rel.textAngle } #{ rel.midShaftPoint.x } #{ rel.midShaftPoint.y })")
+        .text((rel) -> rel.shortCaption)
     )
 
     relationshipOverlay = new GraphRenderer.Renderer(
