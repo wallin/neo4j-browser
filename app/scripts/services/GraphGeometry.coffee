@@ -30,7 +30,8 @@ angular.module('neo4jApp')
           caption = relationship.type
           fontFamily = 'sans-serif'
           fontSize = parseFloat(GraphStyle.forRelationship(relationship).get('font-size'))
-          relationship.captionLength = TextMeasurent.measure(caption, fontFamily, fontSize)
+          padding = parseFloat(GraphStyle.forRelationship(relationship).get('padding'))
+          relationship.captionLength = TextMeasurent.measure(caption, fontFamily, fontSize) + padding * 2
 
       layoutRelationships = (relationships) ->
         for relationship in relationships
