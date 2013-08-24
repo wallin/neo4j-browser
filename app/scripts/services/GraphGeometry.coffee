@@ -2,8 +2,8 @@
 
 angular.module('neo4jApp')
   .service 'GraphGeometry', [
-    'GraphStyle',
-    (GraphStyle) ->
+    'GraphStyle', 'TextMeasurement',
+    (GraphStyle, TextMeasurent) ->
 
       square = (distance) -> distance * distance
 
@@ -25,6 +25,13 @@ angular.module('neo4jApp')
             )
           node.caption = lines
 
+      measureRelationshipCaptions = (relationships) ->
+        for relationship in relationships
+          caption = relationship.type
+          fontFamily = 'sans-serif'
+          fontSize = parseFloat(GraphStyle.forRelationship(relationship).get('font-size'))
+          relationship.captionLength = TextMeasurent.measure(caption, fontFamily, fontSize)
+
       layoutRelationships = (relationships) ->
         for relationship in relationships
           dx = relationship.target.x - relationship.source.x
@@ -36,38 +43,42 @@ angular.module('neo4jApp')
             x: from.x + dx * distance / length
             y: from.y + dy * distance / length
 
+          shaftRadius = parseFloat(GraphStyle.forRelationship(relationship).get("shaft-width")) / 2
+          headRadius = shaftRadius + 3
+          headHeight = headRadius * 2
+          shaftLength = relationship.arrowLength - headHeight
+          startBreak = (shaftLength - relationship.captionLength) / 2
+          endBreak = shaftLength - startBreak
+
           relationship.startPoint = alongPath(relationship.source, relationship.source.radius)
           relationship.endPoint = alongPath(relationship.target, -relationship.target.radius)
-          relationship.midShaftPoint = alongPath(relationship.startPoint,
-            (relationship.arrowLength - 10) / 2)
+          relationship.midShaftPoint = alongPath(relationship.startPoint, shaftLength / 2)
           relationship.angle = Math.atan2(dy, dx) / Math.PI * 180
           relationship.textAngle = relationship.angle
           if relationship.angle < -90 or relationship.angle > 90
             relationship.textAngle += 180
 
-      calculateArrowOutlines = (relationships) ->
-        for relationship in relationships
-          shaftRadius = parseFloat(GraphStyle.forRelationship(relationship).get("shaft-width")) / 2
-          headRadius = shaftRadius + 3
-          headHeight = headRadius * 2
-          neckHeight = relationship.arrowLength - headHeight
-
           relationship.arrowOutline = [
-            "M", 0, shaftRadius,
-            "L", neckHeight, shaftRadius,
-            "L", neckHeight, headRadius,
-            "L", relationship.arrowLength, 0,
-            "L", neckHeight, -headRadius,
-            "L", neckHeight, -shaftRadius,
-            "L", 0, -shaftRadius,
-            "Z"
-          ].join(" ")
+            'M', 0, shaftRadius,
+            'L', startBreak, shaftRadius,
+            'L', startBreak, -shaftRadius,
+            'L', 0, -shaftRadius,
+            'Z'
+            'M', endBreak, shaftRadius,
+            'L', shaftLength, shaftRadius,
+            'L', shaftLength, headRadius,
+            'L', relationship.arrowLength, 0,
+            'L', shaftLength, -headRadius,
+            'L', shaftLength, -shaftRadius,
+            'L', endBreak, -shaftRadius,
+            'Z'
+          ].join(' ')
 
       @onGraphChange = (graph) ->
         setNodeRadii(graph.nodes.all())
         formatNodeCaptions(graph.nodes.all())
+        measureRelationshipCaptions(graph.relationships.all())
 
       @onTick = (graph) ->
         layoutRelationships(graph.relationships.all())
-        calculateArrowOutlines(graph.relationships.all())
   ]
