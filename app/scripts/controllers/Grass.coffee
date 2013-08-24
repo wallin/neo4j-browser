@@ -14,7 +14,7 @@ angular.module('neo4jApp')
       $scope.$watch 'rules', serialize, true
 
       $scope.import = (content) ->
-        GraphStyle.import(content)
+        GraphStyle.importGrass(content)
 
       serialize()
   ]

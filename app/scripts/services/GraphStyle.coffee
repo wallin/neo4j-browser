@@ -169,12 +169,12 @@ angular.module('neo4jApp.services')
       # Import/export
       #
 
-      import: (string) ->
+      importGrass: (string) ->
         try
           rules = @parse(string)
           @loadRules(rules)
           @persist()
-        catch
+        catch e
           return
 
       loadRules: (data) ->
