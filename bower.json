@@ -40,5 +40,9 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:neo4j/neo4j-browser.git"
+  },
+  "resolutions": {
+    "jquery": "~2.0.3",
+    "codemirror": "~3.15.0"
   }
 }

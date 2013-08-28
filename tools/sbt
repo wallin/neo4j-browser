@@ -1,5 +1,4 @@
 #!/bin/sh
 test -f ~/.sbtconfig && . ~/.sbtconfig
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-exec java -Xms256m -Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=512m ${SBT_OPTS} -jar "${DIR}"/sbt-launch.jar "$@"
+exec java -Xms256m -Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=512m ${SBT_OPTS} -jar `dirname $0`/sbt-launch.jar "$@"

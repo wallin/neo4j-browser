@@ -20,7 +20,7 @@ This is an experimental client application for working with Neo4j, a mashup of a
 
 # Try it
 
-At the moment, there is no ready-made download of Neo4j Browser. Until one is distributed, you'll need to [build it yourself](/neo4j/neo4j-browser/wiki/Build).
+At the moment, there is no ready-made download of Neo4j Browser. Until one is distributed, you'll need to [build it yourself](http://github.com/neo4j/neo4j-browser/wiki/Build).
 
 ## Feedback
 
