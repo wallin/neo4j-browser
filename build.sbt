@@ -2,7 +2,7 @@ name := "neo4j-browser"
 
 organization := "org.neo4j.app"
 
-version := "1.0-SNAPSHOT"
+version := "0.0.2"
 
 scalaVersion := "2.10.2"
 
@@ -24,9 +24,9 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-    "org.neo4j"      % "neo4j-community" % "2.0-SNAPSHOT" % "test",
-    "org.neo4j.app"  % "neo4j-server"    % "2.0-SNAPSHOT" % "test",
-    "org.neo4j.app"  % "neo4j-server"    % "2.0-SNAPSHOT" % "test" classifier "static-web",
+    "org.neo4j"      % "neo4j-community" % "2.0.0-M04" % "test",
+    "org.neo4j.app"  % "neo4j-server"    % "2.0.0-M04" % "test",
+    "org.neo4j.app"  % "neo4j-server"    % "2.0.0-M04" % "test" classifier "static-web",
     "com.sun.jersey" % "jersey-core"     % "1.14"         % "test",
     "com.sun.jersey" % "jersey-server"   % "1.14"         % "test",
     "com.sun.jersey" % "jersey-servlet"  % "1.14"         % "test"
