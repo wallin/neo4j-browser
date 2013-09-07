@@ -20,6 +20,8 @@ angular.module('neo4jApp.services')
         'shaft-width': '1.5px'
         'font-size': '8px'
         'padding': '3px'
+        'text-color-external': '#000000'
+        'text-color-internal': '#FFFFFF'
 
     # Default node sizes that user can choose from
     @defaultSizes = [

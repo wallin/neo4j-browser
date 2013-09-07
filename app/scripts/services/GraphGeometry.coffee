@@ -31,9 +31,18 @@ angular.module('neo4jApp.services')
         padding = parseFloat(GraphStyle.forRelationship(relationship).get('padding'))
         TextMeasurent.measure(caption, fontFamily, fontSize) + padding * 2
 
+      captionFitsInsideArrowShaftWidth = (relationship) ->
+        parseFloat(GraphStyle.forRelationship(relationship).get('shaft-width')) >
+        parseFloat(GraphStyle.forRelationship(relationship).get('font-size'))
+
       measureRelationshipCaptions = (relationships) ->
         for relationship in relationships
           relationship.captionLength = measureRelationshipCaption(relationship, relationship.type)
+          relationship.captionLayout =
+            if captionFitsInsideArrowShaftWidth(relationship)
+              "internal"
+            else
+              "external"
 
       shortenCaption = (relationship, caption, targetWidth) ->
         shortCaption = caption
@@ -61,14 +70,6 @@ angular.module('neo4jApp.services')
           headHeight = headRadius * 2
           shaftLength = relationship.arrowLength - headHeight
 
-          [relationship.shortCaption, relationship.shortCaptionLength] = if shaftLength > relationship.captionLength
-            [relationship.type, relationship.captionLength]
-          else
-            shortenCaption(relationship, relationship.type, shaftLength)
-
-          startBreak = (shaftLength - relationship.shortCaptionLength) / 2
-          endBreak = shaftLength - startBreak
-
           relationship.startPoint = alongPath(relationship.source, relationship.source.radius)
           relationship.endPoint = alongPath(relationship.target, -relationship.target.radius)
           relationship.midShaftPoint = alongPath(relationship.startPoint, shaftLength / 2)
@@ -77,21 +78,41 @@ angular.module('neo4jApp.services')
           if relationship.angle < -90 or relationship.angle > 90
             relationship.textAngle += 180
 
-          relationship.arrowOutline = [
-            'M', 0, shaftRadius,
-            'L', startBreak, shaftRadius,
-            'L', startBreak, -shaftRadius,
-            'L', 0, -shaftRadius,
-            'Z'
-            'M', endBreak, shaftRadius,
-            'L', shaftLength, shaftRadius,
-            'L', shaftLength, headRadius,
-            'L', relationship.arrowLength, 0,
-            'L', shaftLength, -headRadius,
-            'L', shaftLength, -shaftRadius,
-            'L', endBreak, -shaftRadius,
-            'Z'
-          ].join(' ')
+          [relationship.shortCaption, relationship.shortCaptionLength] = if shaftLength > relationship.captionLength
+            [relationship.type, relationship.captionLength]
+          else
+            shortenCaption(relationship, relationship.type, shaftLength)
+
+          if relationship.captionLayout is "external"
+            startBreak = (shaftLength - relationship.shortCaptionLength) / 2
+            endBreak = shaftLength - startBreak
+
+            relationship.arrowOutline = [
+              'M', 0, shaftRadius,
+              'L', startBreak, shaftRadius,
+              'L', startBreak, -shaftRadius,
+              'L', 0, -shaftRadius,
+              'Z'
+              'M', endBreak, shaftRadius,
+              'L', shaftLength, shaftRadius,
+              'L', shaftLength, headRadius,
+              'L', relationship.arrowLength, 0,
+              'L', shaftLength, -headRadius,
+              'L', shaftLength, -shaftRadius,
+              'L', endBreak, -shaftRadius,
+              'Z'
+            ].join(' ')
+          else
+            relationship.arrowOutline = [
+              'M', 0, shaftRadius,
+              'L', shaftLength, shaftRadius,
+              'L', shaftLength, headRadius,
+              'L', relationship.arrowLength, 0,
+              'L', shaftLength, -headRadius,
+              'L', shaftLength, -shaftRadius,
+              'L', 0, -shaftRadius,
+              'Z'
+            ].join(' ')
 
       @onGraphChange = (graph) ->
         setNodeRadii(graph.nodes.all())

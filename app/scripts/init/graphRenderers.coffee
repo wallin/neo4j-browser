@@ -100,6 +100,7 @@ angular.module('neo4jApp.services')
 
         texts
         .attr('font-size', (rel) -> GraphStyle.forRelationship(rel).get('font-size'))
+        .attr('fill', (rel) -> GraphStyle.forRelationship(rel).get('text-color-' + rel.captionLayout))
 
         texts.exit().remove()
 
