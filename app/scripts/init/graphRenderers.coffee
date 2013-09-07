@@ -22,9 +22,9 @@ angular.module('neo4jApp.services')
         circles
         .attr
           r: (node) -> node.radius
-          fill: (node) -> GraphStyle.forNode(node).get('fill')
-          stroke: (node) -> GraphStyle.forNode(node).get('stroke')
-          'stroke-width': (node) -> GraphStyle.forNode(node).get('stroke-width')
+          fill: (node) -> GraphStyle.forNode(node).get('color')
+          stroke: (node) -> GraphStyle.forNode(node).get('border-color')
+          'stroke-width': (node) -> GraphStyle.forNode(node).get('border-width')
 
         circles.exit().remove()
       onTick: noop
@@ -41,7 +41,7 @@ angular.module('neo4jApp.services')
         .text((line) -> line.text)
         .attr('y', (line) -> line.baseline)
         .attr('font-size', (line) -> GraphStyle.forNode(line.node).get('font-size'))
-        .attr('fill': (line) -> GraphStyle.forNode(line.node).get('color'))
+        .attr('fill': (line) -> GraphStyle.forNode(line.node).get('text-color-internal'))
 
         text.exit().remove()
 
@@ -80,7 +80,7 @@ angular.module('neo4jApp.services')
         paths.enter().append('path')
 
         paths
-        .attr('fill', (rel) -> GraphStyle.forRelationship(rel).get('fill'))
+        .attr('fill', (rel) -> GraphStyle.forRelationship(rel).get('color'))
         .attr('stroke', 'none')
 
         paths.exit().remove()

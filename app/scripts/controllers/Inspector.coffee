@@ -9,8 +9,8 @@ angular.module('neo4jApp.controllers')
       $scope.arrowWidths = GraphStyle.defaultArrayWidths()
       $scope.colors = GraphStyle.defaultColors()
       $scope.style =
-        fill: $scope.colors[0].fill
-        stroke: $scope.colors[0].stroke
+        color: $scope.colors[0].color
+        'border-color': $scope.colors[0]['border-color']
         diameter: $scope.sizes[0].diameter
 
       $scope.$watch 'selectedGraphItem', (item) ->
@@ -25,12 +25,12 @@ angular.module('neo4jApp.controllers')
         $scope.saveStyle()
 
       $scope.selectArrowWidth = (arrowWidth) ->
-        $scope.style['shaft-width'] = arrowWidth.shaftWidth
+        $scope.style['shaft-width'] = arrowWidth['shaft-width']
         $scope.saveStyle()
 
       $scope.selectScheme = (color) ->
-        $scope.style.fill = color.fill
-        $scope.style.stroke = color.stroke
+        $scope.style.color = color.color
+        $scope.style['border-color'] = color['border-color']
         $scope.saveStyle()
 
       $scope.selectCaption  = (caption) ->

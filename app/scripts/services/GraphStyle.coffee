@@ -8,15 +8,14 @@ angular.module('neo4jApp.services')
     @defaultStyle =
       'node':
         'diameter': '40px'
-        'fill': '#DFE1E3'
-        'stroke': '#D4D6D7'
-        'stroke-width': '2px'
-        'color': '#fff'
+        'color': '#DFE1E3'
+        'border-color': '#D4D6D7'
+        'border-width': '2px'
+        'text-color-internal': '#fff'
         'caption': '{id}'
         'font-size': '10px'
       'relationship':
-        'fill': 'none'
-        'stroke': '#D4D6D7'
+        'color': '#D4D6D7'
         'shaft-width': '1.5px'
         'font-size': '8px'
         'padding': '3px'
@@ -34,25 +33,25 @@ angular.module('neo4jApp.services')
 
     # Default arrow widths that user can choose from
     @defaultArrayWidths = [
-      { shaftWidth: '1px' }
-      { shaftWidth: '2px' }
-      { shaftWidth: '3px' }
-      { shaftWidth: '5px' }
-      { shaftWidth: '8px' }
-      { shaftWidth: '13px' }
-      { shaftWidth: '25px' }
-      { shaftWidth: '38px' }
+      { 'shaft-width': '1px' }
+      { 'shaft-width': '2px' }
+      { 'shaft-width': '3px' }
+      { 'shaft-width': '5px' }
+      { 'shaft-width': '8px' }
+      { 'shaft-width': '13px' }
+      { 'shaft-width': '25px' }
+      { 'shaft-width': '38px' }
     ]
 
     # Default node colors that user can choose from
     @defaultColors = [
-      { fill: '#DFE1E3', stroke: '#D4D6D7' }
-      { fill: '#30B6AF', stroke: '#46A39E' }
-      { fill: '#AD62CE', stroke: '#9453B1' }
-      { fill: '#FF6C7C', stroke: '#EB5D6C' }
-      { fill: '#F25A29', stroke: '#DC4717' }
-      { fill: '#FCC940', stroke: '#F3BA25' }
-      { fill: '#4356C0', stroke: '#3445A2' }
+      { color: '#DFE1E3', 'border-color': '#D4D6D7' }
+      { color: '#30B6AF', 'border-color': '#46A39E' }
+      { color: '#AD62CE', 'border-color': '#9453B1' }
+      { color: '#FF6C7C', 'border-color': '#EB5D6C' }
+      { color: '#F25A29', 'border-color': '#DC4717' }
+      { color: '#FCC940', 'border-color': '#F3BA25' }
+      { color: '#4356C0', 'border-color': '#3445A2' }
     ]
 
     class Selector
