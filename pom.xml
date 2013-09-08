@@ -53,6 +53,51 @@
     <plugins>
 
       <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <configuration>
+              <target name="hipster build">
+
+                <echo>npm install</echo>
+                <exec executable="npm" dir="${project.basedir}"
+                osfamily="unix" failonerror="true">
+                <arg line="config set color false"/>
+                </exec>
+                <exec executable="npm" dir="${project.basedir}"
+                osfamily="unix" failonerror="true">
+                <arg line="install"/>
+                </exec>
+
+                <echo>bower install</echo>
+                <exec executable="bower" dir="${project.basedir}"
+                osfamily="unix" failonerror="true">
+                <arg line="install"/>
+                </exec>
+
+                <echo>gruntjs build</echo>
+                <exec executable="grunt" dir="${project.basedir}"
+                osfamily="unix" resultproperty="cmdresult">
+                <arg line="--no-color build"/>
+                </exec>
+                <condition property="cmdsuccess">
+                  <equals arg1="${cmdresult}" arg2="0"/>
+                </condition>
+                <fail unless="cmdsuccess"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      <plugin>
+        <!-- For building the local scala-based Neo4j server -->
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
         <version>3.1.0</version>
@@ -74,6 +119,7 @@
       </plugin>
 
       <plugin>
+        <!-- For running the local scala-based Neo4j server -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.2.1</version>
