@@ -1,4 +1,0 @@
-#!/bin/sh
-test -f ~/.sbtconfig && . ~/.sbtconfig
-
-exec java -Xms256m -Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=512m ${SBT_OPTS} -jar `dirname $0`/sbt-launch.jar "$@"

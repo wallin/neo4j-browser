@@ -12,7 +12,7 @@
 
   <groupId>org.neo4j.app</groupId>
   <artifactId>neo4j-browser</artifactId>
-  <version>0.0.2</version>
+  <version>0.1.2-SNAPSHOT</version>
   <name>Neo4j Browser</name>
   <description>Graph database client.</description>
 
@@ -23,6 +23,13 @@
     <docs.url>http://docs.neo4j.org/chunked/${project.version}/cypher-query-lang.html</docs.url>
     <licensing.prepend.text>notice-gpl-prefix.txt</licensing.prepend.text>
   </properties>
+
+  <scm>
+    <connection>scm:git:git://github.com/neo4j/neo4j-browser.git</connection>
+    <developerConnection>scm:git:git@github.com:neo4j/neo4j-browser.git</developerConnection>
+    <url>http://neo4j.github.io/neo4j-browser/</url>
+  </scm>
+
 
   <dependencies>
     <dependency>

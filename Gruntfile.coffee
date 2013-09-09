@@ -235,9 +235,27 @@ module.exports = (grunt) ->
             dest: "<%= yeoman.dist %>/font"
             src: ["components/**/*.{otf,woff,ttf,svg}"]
         }]
+    shell:
+      dirListing:
+        command: 'ls',
+        options:
+            stdout: true
 
   grunt.renameTask "regarde", "watch"
   grunt.registerTask "server", ["clean:server", "coffee:dist", "configureProxies", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "connect:test", "karma"]
   grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "uglify", "usemin"]
   grunt.registerTask "default", ["build"]
+
+  grunt.registerTask 'release', 'Coordinate release with maven.', (subject) ->
+    shell = require('shelljs');
+    semver = require('semver');
+    
+    if arguments.length == 0
+      grunt.log.writeln(this.name + " world!")
+    else
+      grunt.log.writeln(this.name + " " + subject + "!")
+    shell.exec("mvn --batch-mode -Dtag=my-proj-1.2 release:prepare" +
+                " -DreleaseVersion=1.2 " +
+                " -DdevelopmentVersion=2.0-SNAPSHOT -DdryRun=true"
+    )
