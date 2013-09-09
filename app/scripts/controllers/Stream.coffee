@@ -24,6 +24,9 @@ angular.module('neo4jApp.controllers')
      * Scope methods
     ###
 
+    $scope.showingSidebar = (named) ->
+      $scope.isSidebarShown and ($scope.whichSidebar == named)
+
     $scope.createFolder = (id)->
       folder = new Folder(id: id)
       $scope.folders.add(folder)
@@ -180,7 +183,7 @@ angular.module('neo4jApp.controllers')
 
     # TODO: fix timeout problem
     $timeout(->
-     $scope.createFrame(input: 'help welcome')
+     $scope.createFrame(input: ':help welcome')
     , 800)
     $scope.editorHistory = []
     $scope.editor =
