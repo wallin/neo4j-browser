@@ -247,15 +247,4 @@ module.exports = (grunt) ->
   grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "uglify", "usemin"]
   grunt.registerTask "default", ["build"]
 
-  grunt.registerTask 'release', 'Coordinate release with maven.', (subject) ->
-    shell = require('shelljs');
-    semver = require('semver');
-    
-    if arguments.length == 0
-      grunt.log.writeln(this.name + " world!")
-    else
-      grunt.log.writeln(this.name + " " + subject + "!")
-    shell.exec("mvn --batch-mode -Dtag=my-proj-1.2 release:prepare" +
-                " -DreleaseVersion=1.2 " +
-                " -DdevelopmentVersion=2.0-SNAPSHOT -DdryRun=true"
-    )
+  grunt.task.loadTasks "tasks"
