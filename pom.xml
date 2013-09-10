@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 <!--   <parent>
     <groupId>org.neo4j.assembly</groupId>
     <artifactId>neo4j-standalone</artifactId>
@@ -13,7 +11,7 @@
   <groupId>org.neo4j.app</groupId>
   <artifactId>neo4j-browser</artifactId>
   <!-- NOTE: version is always ahead of package.json version  -->
-  <version>0.1.3-SNAPSHOT</version>
+  <version>0.1.5</version>
   <name>Neo4j Browser</name>
   <description>Graph database client.</description>
 
@@ -71,30 +69,26 @@
               <target name="hipster build">
 
                 <echo>npm install</echo>
-                <exec executable="npm" dir="${project.basedir}"
-                osfamily="unix" failonerror="true">
-                <arg line="config set color false"/>
+                <exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                <arg line="config set color false" />
                 </exec>
-                <exec executable="npm" dir="${project.basedir}"
-                osfamily="unix" failonerror="true">
-                <arg line="install"/>
+                <exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                <arg line="install" />
                 </exec>
 
                 <echo>bower install</echo>
-                <exec executable="bower" dir="${project.basedir}"
-                osfamily="unix" failonerror="true">
-                <arg line="install"/>
+                <exec executable="bower" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                <arg line="install" />
                 </exec>
 
                 <echo>gruntjs build</echo>
-                <exec executable="grunt" dir="${project.basedir}"
-                osfamily="unix" resultproperty="cmdresult">
-                <arg line="--no-color build"/>
+                <exec executable="grunt" dir="${project.basedir}" osfamily="unix" resultproperty="cmdresult">
+                <arg line="--no-color build" />
                 </exec>
                 <condition property="cmdsuccess">
-                  <equals arg1="${cmdresult}" arg2="0"/>
+                  <equals arg1="${cmdresult}" arg2="0" />
                 </condition>
-                <fail unless="cmdsuccess"/>
+                <fail unless="cmdsuccess" />
               </target>
             </configuration>
             <goals>
