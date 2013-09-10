@@ -22,7 +22,7 @@ module.exports = function(grunt){
       tag: true,
       push: true,
       pushTags: true,
-      npm : true
+      publish: false
     });
 
     var tagName = grunt.config.getRaw('release.options.tagName') || '<%= version %>';
@@ -40,15 +40,15 @@ module.exports = function(grunt){
     if (options.add) add(config);
     if (options.commit) commit(config);
 
-    mvn("mvn --batch-mode -Dtag=v"+config.newVersion+" release:prepare" +
-                 " -DreleaseVersion="+config.newVersion +
-                 " -DdevelopmentVersion="+config.nextVersion +"-SNAPSHOT"
-    )
+    prepareMavenRelease(config);
+
+    performMavenRelease(config);
 
     // if (options.tag) tag(config);
     // if (options.push) push();
     // if (options.pushTags) pushTags(config);
-    // if (options.npm) publish(config);
+    // if (options.publish) publish(config);
+
 
     function setup(file, type){
       var pkg = grunt.file.readJSON(file);
@@ -61,13 +61,26 @@ module.exports = function(grunt){
       return {file: file, pkg: pkg, newVersion: newVersion, nextVersion: nextVersion };
     }
 
+    // add updated npm package config to git
     function add(config){
       run('git add ' + config.file);
     }
 
+    // commit the updated npm package config
     function commit(config){
       var message = grunt.template.process(commitMessage, templateOptions);
       run('git commit '+ config.file +' -m "'+ message +'"', config.file + ' committed');
+    }
+
+    function prepareMavenRelease(config) {
+      mvn("mvn --batch-mode -Dtag=v"+config.newVersion+" release:prepare" +
+             " -DreleaseVersion="+config.newVersion +
+             " -DdevelopmentVersion="+config.nextVersion +"-SNAPSHOT"
+      )
+    }
+
+    function performMavenRelease(config) {
+      mvn("mvn --batch-mode release:perform")
     }
 
     function tag(config){
