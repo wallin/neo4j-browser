@@ -42,7 +42,7 @@ module.exports = function(grunt){
 
     mvn("mvn --batch-mode -Dtag=v"+config.newVersion+" release:prepare" +
                  " -DreleaseVersion="+config.newVersion +
-                 " -DdevelopmentVersion="+config.nextVersion +"-SNAPSHOT -DdryRun=true"
+                 " -DdevelopmentVersion="+config.nextVersion +"-SNAPSHOT"
     )
 
     // if (options.tag) tag(config);

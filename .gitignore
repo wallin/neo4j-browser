@@ -22,5 +22,9 @@ target
 # Mac
 .DS_Store
 
-# maven
+# maven release plugin artifacts
 release.properties
+pom.xml.next
+pom.xml.releaseBackup
+pom.xml.tag
+
