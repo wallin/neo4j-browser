@@ -144,6 +144,20 @@
   </build>
 
   <distributionManagement>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+        <id>releases@repo.neo4j.org</id>
+        <uniqueVersion>true</uniqueVersion>
+        <name>Neo4j Releases</name>
+        <url>http://m2.neo4j.org/content/repositories/releases/</url>
+        <layout>default</layout>
+   </repository>
+
     <site>
       <id>neo4j-site</id>
       <url>scpexe://static.neo4j.org/var/www/components.neo4j.org/${project.artifactId}/${project.version}</url>
