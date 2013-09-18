@@ -99,7 +99,7 @@ angular.module('neo4jApp.controllers')
       onNodeDblClick = (d) =>
         #$rootScope.selectedGraphItem = d
         return if d.expanded
-        GraphExplorer.exploreNeighbours(d.id).then (result) =>
+        GraphExplorer.exploreNeighbours(d).then (result) =>
           graph.merge(result, d)
           d.expanded = yes
           @update()
@@ -159,8 +159,8 @@ angular.module('neo4jApp.controllers')
       #
       @update = ->
         return unless graph
-        nodes         = graph.nodes.all()
-        relationships = graph.relationships.all()
+        nodes         = graph.nodes()
+        relationships = graph.relationships()
 
         force
           .nodes(nodes)
@@ -200,12 +200,11 @@ angular.module('neo4jApp.controllers')
 
         nodeGroups.exit().remove();
 
-      @render = (result) ->
-        return unless result
-        graph = result
-        return if graph.nodes.length is 0
-        GraphExplorer.internalRelationships(graph.nodes.pluck('id'))
+      @render = (g) ->
+        graph = g
+        return if graph.nodes().length is 0
+        GraphExplorer.internalRelationships(graph.nodes())
         .then (result) =>
-          graph.merge(result)
+          graph.addRelationships(result.relationships)
           @update()
   ])

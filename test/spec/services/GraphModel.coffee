@@ -1,83 +1,87 @@
 'use strict'
 
 describe 'Service: GraphModel', () ->
-  [backend, graph] = [null, null]
   # load the service's module
   beforeEach module 'neo4jApp.services'
 
-  beforeEach inject ($httpBackend) ->
-    backend = $httpBackend
-
-  afterEach ->
-    backend.verifyNoOutstandingRequest()
-
   # instantiate service
   GraphModel = {}
-  Node = {}
-  beforeEach inject (_GraphModel_, _Node_) ->
+  beforeEach inject (_GraphModel_) ->
     GraphModel = _GraphModel_
-    Node     = _Node_
 
   createNode = (id) ->
-    data = {
+    {
       "id": id
       "labels": []
-      "properties": {},
+      "properties": {}
     }
-    new Node(data)
+
+  createRelationship = (id, start, end) ->
+    {
+      "id": id
+      "startNode": start
+      "endNode": end
+    }
+
+  describe 'initializing a graph', ->
+    it 'should store a node', ->
+      graph = new GraphModel( { nodes: [createNode(1)], relationships: []})
+      expect(graph.nodes().length).toBe 1
+      expect(graph.nodes()[0].id).toBe 1
+
+    it 'should store a relationship',  ->
+      graph = new GraphModel( {nodes: [createNode(1), createNode(2)], relationships: [createRelationship(0, 1, 2)]})
+      relationships = graph.relationships()
+      expect(relationships.length).toBe 1
+      expect(relationships[0].source.id).toBe 1
+      expect(relationships[0].target.id).toBe 2
+
+    it 'complains if relationship refers to non-existent node', ->
+      expect(-> new GraphModel( {nodes: [], relationships: [createRelationship(0, 1, 2)]}))
+        .toThrow("Malformed graph: must add nodes before relationships that connect them")
 
   describe 'addNode:', ->
-    beforeEach ->
-      graph = new GraphModel
     it 'should add a node to collection', ->
+      graph = new GraphModel( { nodes: [], relationships: [] })
       node = createNode(1)
       graph.addNode(node)
-      expect(graph.nodes.all().length).toBe 1
+      expect(graph.nodes().length).toBe 1
 
     it 'should not add new node with existing id', ->
-      node1 = createNode(1)
-      node2 = createNode(1)
-      graph.addNode(node1)
-      graph.addNode(node2)
-      expect(graph.nodes.all().length).toBe 1
+      graph = new GraphModel( { nodes: [], relationships: [] })
+      node = graph.addNode(createNode(1))
+      graph.addNode(createNode(1))
+      expect(graph.nodes().length).toBe 1
+      expect(graph.nodes()[0]).toBe node
 
     it 'should be able to add a node with id 0', ->
+      graph = new GraphModel( { nodes: [], relationships: [] })
       node = createNode(0)
       graph.addNode(node)
-      expect(graph.nodes.all().length).toBe 1
+      expect(graph.nodes().length).toBe 1
 
-  describe 'expandAll', ->
-    beforeEach ->
-      graph = new GraphModel
-    xit 'should return promise even if there are no nodes', inject ($rootScope) ->
-      expect(graph.nodes.all().length).toBe 0
+  describe 'adding relationship', ->
+    it 'connects two nodes', ->
+      graph = new GraphModel( { nodes: [], relationships: [] })
+      graph.addNode(createNode(1))
+      graph.addNode(createNode(2))
+      graph.addRelationship(createRelationship(0, 1, 2))
+      relationships = graph.relationships()
+      expect(relationships.length).toBe 1
+      expect(relationships[0].source.id).toBe 1
+      expect(relationships[0].target.id).toBe 2
 
-      promise = graph.expandAll()
-      expect(typeof(promise.then)).toBe 'function'
-
-      callback = jasmine.createSpy('callback')
-      promise.then(callback)
-      $rootScope.$apply();
-      expect(callback).toHaveBeenCalled()
-
-    xit 'should expand existing nodes', ->
-      graph.addNode(createNode(0))
-      backend.expectPOST(/db\/data\/cypher/).respond()
-
-      node = null
-      graph.expandAll().then((g)->
-        node = g.nodes.get(0)
-      )
-      backend.flush()
-      expect(node.expanded).toBeTruthy()
+    it "complains if one of the nodes doesn't exist", ->
+      graph = new GraphModel( { nodes: [], relationships: [] })
+      graph.addNode(createNode(2))
+      expect(-> graph.addRelationship(createRelationship(0, 1, 2)))
+        .toThrow("Malformed graph: must add nodes before relationships that connect them")
 
   describe 'merge', ->
-    beforeEach ->
-      graph = new GraphModel
-
-    it 'should handle empty input', ->
-      merge = ->
-        graph.merge(null)
-
-      expect(merge).not.toThrow()
-
+    it 'guesses where the new nodes should go', ->
+      graph = new GraphModel( { nodes: [], relationships: [] })
+      node = graph.addNode(createNode(0))
+      node.x = 10
+      node.y = 20
+      graph.merge({nodes: [createNode(1), createNode(2)], relationships: []}, node)
+      expect(graph.nodes().every((n) -> n.x? and n.y?)).toBeTruthy()

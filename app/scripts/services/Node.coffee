@@ -3,11 +3,9 @@
 angular.module('neo4jApp.services')
   .factory 'Node', [ ->
     class Node
-      constructor: (@$raw = {}) ->
-        @id = @$raw.id
-        @labels = @$raw.labels or []
-        @propertyMap = @$raw.properties or {}
-        @propertyList = for own key,value of @propertyMap
+      constructor: (@id, @labels, properties) ->
+        @propertyMap = properties
+        @propertyList = for own key,value of properties
             { key: key, value: value }
 
       toJSON: ->

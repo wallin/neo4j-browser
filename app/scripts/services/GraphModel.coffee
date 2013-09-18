@@ -2,46 +2,44 @@
 
 angular.module('neo4jApp.services')
   .factory 'GraphModel', [
-    'Collection'
-    (Collection) ->
+    'Node', 'Relationship'
+    (Node, Relationship) ->
+
       class GraphModel
-        constructor: (cypher = {}) ->
-          @nodes = new Collection(cypher.nodes)
-          @relationships = new Collection(cypher.relationships)
+        constructor: (cypher) ->
+          @nodeMap = {}
+          @relationshipMap = {}
 
-        addNode: (node) ->
-          return false unless node?.id?
-          # TODO: merge nodes if already existing
-          @nodes.add(node) unless @nodes.get(node.id)
-          node
+          for node in cypher.nodes
+            @addNode(node)
+          for relationship in cypher.relationships
+            @addRelationship(relationship)
 
-        addRelationship: (rel) ->
-          return false unless rel?.id?
-          @relationships.add(rel) unless @relationships.get(rel.id)
-          node = @nodes.get(rel.start) or @nodes.get(rel.end)
+        nodes: ->
+          value for own key, value of @nodeMap
 
-          # Connect children if they are missing
-          if node and not (node.source and source.target)
-            rel.source = @nodes.get(rel.start)
-            rel.target = @nodes.get(rel.end)
-            rel.incoming = rel.end is node.id
+        relationships: ->
+          value for own key, value of @relationshipMap
 
-          rel
+        addNode: (raw) ->
+          @nodeMap[raw.id] ||= new Node(raw.id, raw.labels, raw.properties)
 
-        merge: (result = {}, localNode = {}) ->
-          # Add result to current graph
-          if result.nodes?
-            # Set initial location based on existing node, if supplied
-            if localNode.x? && localNode.y?
-              nodeCount = result.nodes.length
-              linkDistance = 60
-              for i in [0..nodeCount-1]
-                n = result.nodes[i]
-                n.x = localNode.x + linkDistance * Math.sin(2 * Math.PI * i / nodeCount)
-                n.y = localNode.y + linkDistance * Math.cos(2 * Math.PI * i / nodeCount)
-            @addNode(n) for n in result.nodes
-          if result.relationships?
-            @addRelationship(r) for r in result.relationships
+        addRelationship: (raw) ->
+          source = @nodeMap[raw.startNode] or throw malformed()
+          target = @nodeMap[raw.endNode] or throw malformed()
+          @relationshipMap[raw.id] = new Relationship(raw.id, source, target, raw.type, raw.properties)
+
+        merge: (result, localNode) ->
+          nodes = (@addNode(n) for n in result.nodes)
+          if localNode.x? && localNode.y?
+            linkDistance = 60
+            for n, i in nodes
+              n.x = localNode.x + linkDistance * Math.sin(2 * Math.PI * i / nodes.length)
+              n.y = localNode.y + linkDistance * Math.cos(2 * Math.PI * i / nodes.length)
+          @addRelationships(result.relationships)
+
+        addRelationships: (relationships) ->
+          @addRelationship(r) for r in relationships
 
         boundingBox: ->
           axes =
@@ -52,12 +50,15 @@ angular.module('neo4jApp.services')
 
           for key,accessor of axes
             bounds[key] =
-              min: Math.min.apply(null, @nodes.all().map((node) ->
+              min: Math.min.apply(null, @nodes().map((node) ->
                 accessor(node) - node.radius))
-              max: Math.max.apply(null, @nodes.all().map((node) ->
+              max: Math.max.apply(null, @nodes().map((node) ->
                 accessor(node) + node.radius))
 
           bounds
+
+      malformed = ->
+        new Error('Malformed graph: must add nodes before relationships that connect them')
 
       GraphModel
 ]

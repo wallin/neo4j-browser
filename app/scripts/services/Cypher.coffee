@@ -4,10 +4,8 @@ angular.module('neo4jApp.services')
   .factory 'Cypher', [
     '$q'
     '$rootScope'
-    'Node'
-    'Relationship'
     'Server'
-    ($q, $rootScope, Node, Relationship, Server) ->
+    ($q, $rootScope, Server) ->
       parseId = (resource = "") ->
         id = resource.split('/').slice(-2, -1)
         return parseInt(id, 10)
@@ -32,9 +30,9 @@ angular.module('neo4jApp.services')
           return @_response unless @_response.data?
           for row in @_response.data
             for node in row.graph.nodes
-              @nodes.push new Node(node)
+              @nodes.push node
             for relationship in row.graph.relationships
-              @relationships.push new Relationship(relationship)
+              @relationships.push relationship
 
           @_response
 
@@ -81,9 +79,9 @@ angular.module('neo4jApp.services')
         constructor: () ->
           @_reset()
 
-        _onSuccess: (r) ->
+        _onSuccess: () ->
 
-        _onError: (r) ->
+        _onError: () ->
 
         _reset: ->
           @id = null

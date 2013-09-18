@@ -115,10 +115,10 @@ angular.module('neo4jApp.services')
             ].join(' ')
 
       @onGraphChange = (graph) ->
-        setNodeRadii(graph.nodes.all())
-        formatNodeCaptions(graph.nodes.all())
-        measureRelationshipCaptions(graph.relationships.all())
+        setNodeRadii(graph.nodes())
+        formatNodeCaptions(graph.nodes())
+        measureRelationshipCaptions(graph.relationships())
 
       @onTick = (graph) ->
-        layoutRelationships(graph.relationships.all())
+        layoutRelationships(graph.relationships())
   ]
