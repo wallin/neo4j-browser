@@ -56,9 +56,9 @@ form
 blockquote, blockquote p
   font-size: 17px; line-height: 24px; color: #777;
 
-blockquote 
-  margin: 0 0 20px; 
-  padding: 9px 0px 
+blockquote
+  margin: 0 0 20px;
+  padding: 9px 0px
 
 p.lead
   font-size 16px
@@ -203,13 +203,13 @@ select
   padding 2em 60px 1em 60px
   margin-top 1em
 
-.dl-horizontal 
+.dl-horizontal
   dt
     width 120px
   dd
     margin-left 140px
 
-.table-help 
+.table-help
   tr
     vertical-align top
 
@@ -323,7 +323,6 @@ footer
     user-select: none
     min-height: 72px
     background-color: #fff
-    border-right: 1px solid #E2E6E7
     position: absolute;
     top: 0
     left: 0
@@ -344,15 +343,22 @@ footer
       a.balled
         background-color: #93969b
         transform: scale(1)
+        border: 1px solid #7B808A
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+        transist: all 0.2s
         &:hover
           transform: scale(1.2)
         &.success
           background-color: color-success
+          border: 1px solid #54D69A
         &.golden
           background-color: #FDCC59
         &.muted
+          border: 1px solid white
           background-color: #E5E5E7
           cursor: default
+          box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.1)
+          text-shadow: 0 1px 0px rgba(0, 0, 0, 0.1)
           &:hover
             transform: scale(1)
         display: inline-block
