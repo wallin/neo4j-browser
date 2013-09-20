@@ -2,7 +2,7 @@
 
 # Requires jQuery
 angular.module('neo4jApp.directives')
-  .directive('article', ['$rootScope', 'Frame', ($rootScope, Frame) ->
+  .directive('article', ['$rootScope', 'Editor', 'Frame', ($rootScope,Editor, Frame) ->
     restrict: 'E'
     link: (scope, element, attrs) ->
       element.on 'click', 'a', (e) ->
@@ -34,7 +34,7 @@ angular.module('neo4jApp.directives')
       element.on 'click', '.code', (e) ->
         code = e.currentTarget.textContent or e.currentTarget.innerText
         return unless code?.length > 0
-        $rootScope.$broadcast 'editor:content', code.trim()
+        Editor.content = code.trim()
         $rootScope.$apply() unless $rootScope.$$phase
 
   ])

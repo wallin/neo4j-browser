@@ -1,27 +1,26 @@
 'use strict'
 
-angular.module('neo4jApp')
-  .controller 'EditorCtrl', [
-    '$scope'
+# TODO: move service into separate file
+angular.module('neo4jApp.services')
+  .service 'Editor', [
     'Frame'
-    ($scope, Frame) ->
-
+    (Frame) ->
       # Configure codemirror
       CodeMirror.commands.handleEnter = (cm) ->
         if cm.lineCount() == 1
-          $scope.$broadcast 'editor:exec'
+          editor.execScript(editor.content)
         else
           CodeMirror.commands.newlineAndIndent(cm)
 
       CodeMirror.commands.handleUp = (cm) ->
         if cm.lineCount() == 1
-          $scope.$broadcast 'editor:prev'
+          editor.historyPrev()
         else
           CodeMirror.commands.goLineUp(cm)
 
       CodeMirror.commands.handleDown = (cm) ->
         if cm.lineCount() == 1
-          $scope.$broadcast 'editor:next'
+          editor.historyNext()
         else
           CodeMirror.commands.goLineDown(cm)
 
@@ -31,54 +30,50 @@ angular.module('neo4jApp')
       CodeMirror.keyMap["default"]["Down"] = "handleDown"
 
 
-      $scope.execScript = (input) ->
-        frame = Frame.create(input: input)
-        #return unless frame
-        if input?.length > 0 and $scope.editorHistory[0] isnt input
-          $scope.editorHistory.unshift(input)
-        $scope.historySet(-1)
+      class Editor
+        constructor: ->
+          @history = []
+          @content = ''
+          @cursor = null
+          @next = null
+          @prev = null
 
-      $scope.setEditorContent = (content) ->
-        $scope.editor.content = content
+        execScript: (input) ->
+          frame = Frame.create(input: input)
+          #return unless frame
+          if input?.length > 0 and @history[0] isnt input
+            @history.unshift(input)
+          @historySet(-1)
 
-      $scope.historyNext = ->
-        idx = $scope.editor.cursor
-        idx ?= $scope.editorHistory.length
-        idx--
-        $scope.historySet(idx)
+        historyNext: ->
+          idx = @cursor
+          idx ?= @history.length
+          idx--
+          @historySet(idx)
 
-      $scope.historyPrev = ->
-        idx = $scope.editor.cursor
-        idx ?= -1
-        idx++
-        $scope.historySet(idx)
+        historyPrev: ->
+          idx = @cursor
+          idx ?= -1
+          idx++
+          @historySet(idx)
 
-      $scope.historySet = (idx)->
-        idx = -1 if idx < 0
-        idx = $scope.editorHistory.length - 1 if idx >= $scope.editorHistory.length
-        $scope.editor.cursor = idx
-        $scope.editor.prev = $scope.editorHistory[idx+1]
-        $scope.editor.next = $scope.editorHistory[idx-1]
-        item = $scope.editorHistory[idx] or ''
-        $scope.setEditorContent(item)
+        historySet: (idx) ->
+          idx = -1 if idx < 0
+          idx = @history.length - 1 if idx >= @history.length
+          @cursor = idx
+          @prev = @history[idx+1]
+          @next = @history[idx-1]
+          item = @history[idx] or ''
+          @content = item
 
-      ###*
-       * Event listeners
-      ###
-      $scope.$on 'editor:content', (ev, content) ->
-        $scope.editor.content = content
+      editor = new Editor()
+  ]
 
-      $scope.$on 'editor:exec', ->
-        $scope.execScript($scope.editor.content)
-
-      $scope.$on 'editor:next', $scope.historyNext
-
-      $scope.$on 'editor:prev', $scope.historyPrev
-
-      $scope.editorHistory = []
-      $scope.editor =
-        content: ''
-        cursor: null
-        next: null
-        prev: null
+# TODO: maybe skip this controller and provide global access somewhere?
+angular.module('neo4jApp.controllers')
+  .controller 'EditorCtrl', [
+    '$scope'
+    'Editor'
+    ($scope, Editor) ->
+      $scope.editor = Editor
   ]

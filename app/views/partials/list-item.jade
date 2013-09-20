@@ -1,7 +1,7 @@
 .list-item
-  a.icon-play-sign(ng-click='execScript(document.content)', tooltip-placement='right', tooltip='Execute script')
-  a.icon-trash('ng-click'="toggleStar(document)")
+  a.icon-play-sign(ng-click='editor.execScript(document.content)', tooltip-placement='right', tooltip='Execute script')
+  a.icon-trash('ng-click'="removeDocument(document)")
   .contents
-    a(ng-click="setEditorContent(document.content)")
+    a(ng-click="editor.content = document.content")
       {{document.content | autotitle}}
 

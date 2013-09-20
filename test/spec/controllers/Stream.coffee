@@ -40,10 +40,3 @@ describe 'Controller: StreamCtrl', () ->
     timer.flush()
     expect(scope.frames.length).toBe 1
 
-  describe 'createFolder:', ->
-
-  describe 'toggleStar', ->
-    it 'should remove the document from collection if already saved', ->
-      doc = scope.createDocument(folder: 'folder')
-      scope.toggleStar(doc)
-      expect(scope.documents.get(doc)).toBeFalsy()

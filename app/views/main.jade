@@ -1,13 +1,11 @@
 include partials/inspector
 
 #error Neo4j is down. Please check if the cord is unplugged.
-div(ng-switch="currentPage")
+#leftbar(ng-controller = "LeftbarCtrl")
   include partials/nav
-  .page(ng-switch-when='stream')
-    include partials/sidebar
-    include partials/views
-  .page.system(ng-switch-when='system', ng-controller='JMXCtrl')
-    include partials/system
+  include partials/sidebar
+#main
+  include partials/views
 footer(ng-hide="isSidebarShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}")
   | License: {{neo4j.license.type}}
   br
