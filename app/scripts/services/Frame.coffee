@@ -7,11 +7,12 @@ angular.module('neo4jApp.services')
     @interpreters = []
 
     @$get = [
-      '$injector',
-      '$q',
+      '$injector'
+      '$q'
+      'Collection'
       'Timer'
       'Utils'
-      ($injector, $q, Timer, Utils) ->
+      ($injector, $q, Collection, Timer, Utils) ->
         class Frame
           constructor: (data = {})->
             @templateUrl = null
@@ -28,7 +29,7 @@ angular.module('neo4jApp.services')
             query = Utils.stripComments(@input.trim())
             return unless query
             # Find first matching input interpretator
-            intr = Frame.interpreterFor(query)
+            intr = frames.interpreterFor(query)
             return unless intr
             @type = intr.type
             intrFn = $injector.invoke(intr.exec)
@@ -64,7 +65,9 @@ angular.module('neo4jApp.services')
             )
             @
 
-          @create: (data = {})  ->
+
+        class Frames extends Collection
+          create: (data = {})  ->
             intr = @interpreterFor(data.input)
             return undefined unless intr
             if intr.templateUrl
@@ -72,10 +75,11 @@ angular.module('neo4jApp.services')
             else
               $injector.invoke(intr.exec)()
 
+            @add(frame)
+
             frame
 
-
-          @interpreterFor: (input = '') ->
+          interpreterFor: (input = '') ->
             intr = null
             args = Utils.argv(input)
             for i in self.interpreters
@@ -89,8 +93,9 @@ angular.module('neo4jApp.services')
                   return i if cmds.indexOf(args[0]) >= 0
             intr
 
+          klass: Frame
 
-        Frame
+        frames = new Frames(null, Frame)
     ]
     @
 ]

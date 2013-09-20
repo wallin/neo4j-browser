@@ -34,7 +34,7 @@ angular.module('neo4jApp.controllers')
     $scope.createFrame = (data = {}) ->
       return undefined unless data.input
       $scope.currentFrame = frame = Frame.create(data)
-      $scope.frames.add(frame.exec()) if frame
+      frame.exec() if frame
       frame
 
     $scope.createDocument = (data = {}) ->
@@ -161,7 +161,7 @@ angular.module('neo4jApp.controllers')
     $scope.folders = Folder
     $scope.documents   = Document
 
-    $scope.frames = new Collection()
+    $scope.frames = Frame
 
     # TODO: fix timeout problem
     $timeout(->
@@ -174,6 +174,6 @@ angular.module('neo4jApp.controllers')
       next: null
       prev: null
 
-    $scope.motd = motdService 
+    $scope.motd = motdService
 
   ]

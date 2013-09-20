@@ -50,7 +50,7 @@ describe 'Controller: StreamCtrl', () ->
 
     it 'should return the created frame', ->
       frame = scope.createFrame(input: ':help')
-      expect(frame instanceof Frame).toBeTruthy()
+      expect(frame instanceof Frame.klass).toBeTruthy()
 
     it 'should create a new frame and add it to the frames', ->
       len = scope.frames.length
