@@ -182,11 +182,15 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
       }
     ]
 
-    currentDocuments = Document.fetch()
-    currentFolders = Folder.fetch()
+    # Restore default content if empty
+    if Document.length is 0
+      Document.add(general_scripts.concat(system_scripts)).save()
+      Folder.add(folders).save()
 
-    if currentDocuments?.length is 0
-      Document.fetch()
-      Document.save(general_scripts.concat(system_scripts))
-      Folder.save(folders)
+    # Find and restore orphan folders
+    for doc in Document.all()
+      continue unless doc.folder
+      if not Folder.get(doc.folder)
+        Folder.create(id: doc.folder)
+
 ])

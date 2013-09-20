@@ -11,13 +11,30 @@ describe 'Service: Document', () ->
     Document = _Document_
 
   it 'should not belong to any folder when created with default options', ->
-    doc = new Document()
+    doc = Document.new()
     expect(doc.folder).toBeFalsy()
 
   it 'should set the specified folder when created', ->
-    doc = new Document(folder: 'examples')
+    doc = Document.new(folder: 'examples')
     expect(doc.folder).toBe 'examples'
 
   it 'should get an id even if not specified', ->
-    doc = new Document()
+    doc = Document.new()
     expect(doc.id).toBeTruthy()
+
+  describe '#create', ->
+    it 'should add a document to the collection', ->
+      len = Document.length
+      Document.create()
+      expect(Document.length).toBe len+1
+
+    it 'should return the document being created', ->
+      d = Document.create()
+      expect(d instanceof Document.klass).toBeTruthy()
+
+  describe '#remove', ->
+    it 'should remove a document from the collection', ->
+      f = Document.create()
+      len = Document.length
+      Document.remove(f)
+      expect(Document.length).toBe len-1

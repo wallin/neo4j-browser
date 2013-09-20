@@ -20,6 +20,9 @@ angular.module('neo4jApp.services')
           items = if angular.isArray(items) then items else [items]
           itemsToAdd = []
           for i in items
+            # Convert to model if defined
+            if @_model and not (i instanceof @_model)
+              i = new @_model(i)
             continue if not i? or @get(i)
             @_byId[if i.id? then i.id else i] = i
             itemsToAdd.push(i)

@@ -9,8 +9,12 @@ describe 'Service: Collection', () ->
 
   # instantiate service
   Collection = {}
-  beforeEach inject (_Collection_) ->
-    Collection = new _Collection_
+  ModelCollection = {}
+  Document = {}
+  beforeEach inject (_Collection_, _Document_) ->
+    Document = _Document_
+    Collection = new _Collection_(null)
+    ModelCollection = new _Collection_(null, _Document_.klass)
 
   describe 'add:', ->
     it 'should be able to add single item', () ->
@@ -24,6 +28,11 @@ describe 'Service: Collection', () ->
     it "should return the collection", ->
       item = {id: 1}
       expect(Collection.add(item)).toBe Collection
+
+    it 'should convert object to a model if defined', ->
+      item = {id: 1}
+      ModelCollection.add(item)
+      expect(ModelCollection.get(1) instanceof Document.klass).toBe true
 
   describe 'first:', ->
     beforeEach ->

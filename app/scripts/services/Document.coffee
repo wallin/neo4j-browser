@@ -2,8 +2,9 @@
 
 angular.module('neo4jApp.services')
   .factory 'Document', [
+    'Collection'
     'Persistable'
-    (Persistable) ->
+    (Collection, Persistable) ->
       class Document extends Persistable
         @storageKey = 'documents'
 
@@ -15,5 +16,17 @@ angular.module('neo4jApp.services')
         toJSON: ->
           {@id, @name, @folder, @content}
 
-      Document
+      class Documents extends Collection
+        create: (data) ->
+          d = new Document(data)
+          @add(d)
+          @save()
+          d
+        klass: Document
+        new: (args) -> new Document(args)
+        remove: (doc) ->
+          super
+          @save()
+
+      new Documents(null, Document).fetch()
   ]

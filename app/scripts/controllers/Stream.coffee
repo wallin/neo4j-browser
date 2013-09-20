@@ -28,10 +28,7 @@ angular.module('neo4jApp.controllers')
       $scope.isSidebarShown and ($scope.whichSidebar == named)
 
     $scope.createFolder = (id)->
-      folder = new Folder(id: id)
-      $scope.folders.add(folder)
-      $scope.folders.save()
-      folder
+      Folder.create(id)
 
     # Creates and executes a new frame
     $scope.createFrame = (data = {}) ->
@@ -41,7 +38,7 @@ angular.module('neo4jApp.controllers')
       frame
 
     $scope.createDocument = (data = {}) ->
-      $scope.documents.add(new Document(data)).save()
+      Document.create(data)
 
     $scope.destroyFrame = (frame) ->
       $scope.frames.remove(frame)
@@ -86,25 +83,16 @@ angular.module('neo4jApp.controllers')
       $scope.createDocument(content: content)
       $scope.toggleSidebar(yes)
 
-    $scope.persistFolders = ->
-      $scope.folders.save()
-
     $scope.removeFolder = (folder) ->
       okToRemove = confirm("Are you sure you want to delete the folder?")
       return unless okToRemove
-      $scope.folders.remove(folder)
-      documentsToRemove = $scope.documents.where(folder: folder.id)
-      $scope.documents.remove(documentsToRemove)
-      $scope.folders.save()
-      $scope.documents.save()
+      Folder.remove(folder)
 
     $scope.toggleFolder = (folder) ->
-      folder.expanded = !folder.expanded
-      $scope.folders.save()
+      Folder.expand(folder)
 
     $scope.toggleStar = (doc) ->
-      $scope.documents.remove(doc)
-      $scope.documents.save()
+      Document.remove(doc)
 
 
     ###*
@@ -169,15 +157,9 @@ angular.module('neo4jApp.controllers')
       connectWith: '.droppable'
       items: 'li'
 
-    # Initialize from persisted documents/folders
-    $scope.folders = new Collection(null, Folder).fetch()
-    $scope.documents   = new Collection(null, Document).fetch()
-
-    # Find and restore orphan folders
-    for doc in $scope.documents.all()
-      continue unless doc.folder
-      if not $scope.folders.get(doc.folder)
-        $scope.createFolder(doc.folder)
+    # Expose documents and folders to views
+    $scope.folders = Folder
+    $scope.documents   = Document
 
     $scope.frames = new Collection()
 
