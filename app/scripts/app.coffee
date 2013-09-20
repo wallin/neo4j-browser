@@ -16,6 +16,7 @@ app = angular.module('neo4jApp', [
   'ui.bootstrap.tooltip'
   'ui.bootstrap.popover'
   'ui.bootstrap.tabs'
+  'ui.bootstrap.carousel'
   'ui.codemirror'
   'ui.sortable'
   'angularMoment'
