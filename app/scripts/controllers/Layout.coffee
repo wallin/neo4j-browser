@@ -43,6 +43,10 @@ angular.module('neo4jApp.controllers')
       $scope.showStats = () ->
         Frame.create(input: ':schema')
 
+      $scope.focusEditor = () ->
+        event.preventDefault()
+        $('.view-editor textarea').focus()
+
       # TODO: Put this in a directive
       $scope.editorHeight = 0
       $scope.editorOneLine = true

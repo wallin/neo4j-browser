@@ -1,7 +1,7 @@
 #main
   #editor(ng-class="{'one-line': editorOneLine}")
     .view-input
-      .view-editor(ng-controller = "EditorCtrl")
+      .view-editor(ng-mousedown="focusEditor()", ng-controller = "EditorCtrl")
         //- a.open-sidebar(ng-click="toggleSidebar()")
           i(ng-class="{'icon-chevron-left': isSidebarShown, 'icon-bookmark': !isSidebarShown}")
         span.ng-cloak
