@@ -49,8 +49,6 @@ div(ng-controller="CypherResultCtrl", fullscreen)
           i.icon-code-fork
         a.btn.btn-small(ng-click='setActive("table")', ng-class='{active: isActive("table")}')
           i.icon-table
-        a.btn.btn-small(ng-class='{active: isActive("code")}')
-          i.icon-code
       span(ng-show='frame.isLoading')
         .icon-spinner.icon-spin
         | Executing query...
