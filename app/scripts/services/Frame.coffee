@@ -75,7 +75,7 @@ angular.module('neo4jApp.services')
             else
               $injector.invoke(intr.exec)()
 
-            @add(frame)
+            @add(frame.exec()) if frame
 
             frame
 

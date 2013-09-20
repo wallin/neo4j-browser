@@ -7,9 +7,10 @@ angular.module('neo4jApp.controllers')
     '$rootScope'
     '$dialog'
     '$route'
+    'Frame'
     'GraphStyle'
     'Utils'
-    ($scope, $dialog, $route, GraphStyle, Utils) ->
+    ($scope, $dialog, $route, Frame, GraphStyle, Utils) ->
 
       dialog = null
       dialogOptions =
@@ -37,10 +38,10 @@ angular.module('neo4jApp.controllers')
             "
 
       $scope.showDoc = () ->
-        $scope.$broadcast 'frames:create', ':play'
+        Frame.create(input: ':play')
 
       $scope.showStats = () ->
-        $scope.$broadcast 'frames:create', ':schema'
+        Frame.create(input: ':schema')
 
       # TODO: Put this in a directive
       $scope.editorHeight = 0

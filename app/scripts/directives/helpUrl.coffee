@@ -2,7 +2,7 @@
 
 # Requires jQuery
 angular.module('neo4jApp.directives')
-  .directive('article', ['$rootScope', ($rootScope) ->
+  .directive('article', ['$rootScope', 'Frame', ($rootScope, Frame) ->
     restrict: 'E'
     link: (scope, element, attrs) ->
       element.on 'click', 'a', (e) ->
@@ -28,7 +28,7 @@ angular.module('neo4jApp.directives')
         e.preventDefault()
 
         topic = topic.toLowerCase().trim().replace('-', ' ')
-        $rootScope.$broadcast 'frames:create', ":#{command} #{topic}"
+        Frame.create(input: ":#{command} #{topic}")
         $rootScope.$apply() unless $rootScope.$$phase
 
       element.on 'click', '.code', (e) ->

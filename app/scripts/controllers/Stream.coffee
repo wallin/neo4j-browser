@@ -34,14 +34,13 @@ angular.module('neo4jApp.controllers')
     $scope.createFrame = (data = {}) ->
       return undefined unless data.input
       $scope.currentFrame = frame = Frame.create(data)
-      frame.exec() if frame
       frame
 
     $scope.createDocument = (data = {}) ->
       Document.create(data)
 
     $scope.destroyFrame = (frame) ->
-      $scope.frames.remove(frame)
+      Frame.remove(frame)
 
     $scope.setEditorContent = (content) ->
       $scope.editor.content = content
@@ -108,12 +107,6 @@ angular.module('neo4jApp.controllers')
 
     $scope.$on 'editor:prev', $scope.historyPrev
 
-    $scope.$on 'frames:clear', ->
-      $scope.frames.reset()
-
-    $scope.$on 'frames:create', (evt, input) ->
-      $scope.createFrame(input: input)
-
     ###*
      * Initialization
     ###
@@ -165,7 +158,7 @@ angular.module('neo4jApp.controllers')
 
     # TODO: fix timeout problem
     $timeout(->
-     $scope.createFrame(input: ':help welcome')
+      Frame.create(input: ':help welcome')
     , 800)
     $scope.editorHistory = []
     $scope.editor =

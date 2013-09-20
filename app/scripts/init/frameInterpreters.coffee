@@ -26,9 +26,9 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'clear'
       matches: "#{cmdchar}clear"
-      exec: ['$rootScope', ($rootScope) ->
+      exec: ['$rootScope', 'Frame', ($rootScope, Frame) ->
         (input) ->
-          $rootScope.$broadcast 'frames:clear'
+          Frame.reset()
       ]
 
     FrameProvider.interpreters.push
@@ -113,7 +113,7 @@ angular.module('neo4jApp')
           regex = /^[^\w]*(get|GET|put|PUT|post|POST|delete|DELETE)\s+(\S+)\s*([\S\s]+)?$/i
           result = regex.exec(input)
 
-          try 
+          try
             [verb, url, data] = [result[1], result[2], result[3]]
           catch e
             q.reject(error("Unparseable http request"))
@@ -128,7 +128,7 @@ angular.module('neo4jApp')
             q.reject(error("Missing path"))
             return q.promise
 
-          if (verb is 'post' or verb is 'put') 
+          if (verb is 'post' or verb is 'put')
             if not data
               q.reject(error("Method needs data"))
               return q.promise
