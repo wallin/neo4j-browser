@@ -43,7 +43,6 @@ angular.module('neo4jApp.controllers')
 
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
-      $scope.toggleSidebar(yes)
 
     $scope.removeFolder = (folder) ->
       okToRemove = confirm("Are you sure you want to delete the folder?")
