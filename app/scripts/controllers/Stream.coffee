@@ -30,53 +30,16 @@ angular.module('neo4jApp.controllers')
     $scope.createFolder = (id)->
       Folder.create(id)
 
-    # Creates and executes a new frame
-    $scope.createFrame = (data = {}) ->
-      return undefined unless data.input
-      $scope.currentFrame = frame = Frame.create(data)
-      frame
-
     $scope.createDocument = (data = {}) ->
       Document.create(data)
 
     $scope.destroyFrame = (frame) ->
       Frame.remove(frame)
 
-    $scope.setEditorContent = (content) ->
-      $scope.editor.content = content
-
-    $scope.execScript = (input) ->
-      frame = $scope.createFrame(input: input)
-      #return unless frame
-      if input?.length > 0 and $scope.editorHistory[0] isnt input
-        $scope.editorHistory.unshift(input)
-      $scope.historySet(-1)
-
     $scope.couldBeCommand = (input) ->
       return false unless input?
       return true if input.charAt(0) is ':'
       return false
-
-    $scope.historyNext = ->
-      idx = $scope.editor.cursor
-      idx ?= $scope.editorHistory.length
-      idx--
-      $scope.historySet(idx)
-
-    $scope.historyPrev = ->
-      idx = $scope.editor.cursor
-      idx ?= -1
-      idx++
-      $scope.historySet(idx)
-
-    $scope.historySet = (idx)->
-      idx = -1 if idx < 0
-      idx = $scope.editorHistory.length - 1 if idx >= $scope.editorHistory.length
-      $scope.editor.cursor = idx
-      $scope.editor.prev = $scope.editorHistory[idx+1]
-      $scope.editor.next = $scope.editorHistory[idx-1]
-      item = $scope.editorHistory[idx] or ''
-      $scope.setEditorContent(item)
 
     $scope.importDocument = (content) ->
       $scope.createDocument(content: content)
@@ -93,19 +56,6 @@ angular.module('neo4jApp.controllers')
     $scope.toggleStar = (doc) ->
       Document.remove(doc)
 
-
-    ###*
-     * Event listeners
-    ###
-    $scope.$on 'editor:content', (ev, content) ->
-      $scope.editor.content = content
-
-    $scope.$on 'editor:exec', ->
-      $scope.execScript($scope.editor.content)
-
-    $scope.$on 'editor:next', $scope.historyNext
-
-    $scope.$on 'editor:prev', $scope.historyPrev
 
     ###*
      * Initialization
@@ -160,13 +110,6 @@ angular.module('neo4jApp.controllers')
     $timeout(->
       Frame.create(input: ':help welcome')
     , 800)
-    $scope.editorHistory = []
-    $scope.editor =
-      content: ''
-      cursor: null
-      next: null
-      prev: null
-
     $scope.motd = motdService
 
   ]

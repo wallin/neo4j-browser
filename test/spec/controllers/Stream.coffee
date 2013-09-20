@@ -42,22 +42,6 @@ describe 'Controller: StreamCtrl', () ->
 
   describe 'createFolder:', ->
 
-  describe 'createFrame:', ->
-    it 'should not create a frame without input', ->
-      frame = scope.createFrame()
-      expect(frame).toBe undefined
-      expect(scope.frames.length).toBe 0
-
-    it 'should return the created frame', ->
-      frame = scope.createFrame(input: ':help')
-      expect(frame instanceof Frame.klass).toBeTruthy()
-
-    it 'should create a new frame and add it to the frames', ->
-      len = scope.frames.length
-      scope.createFrame(input: ':help')
-      expect(scope.frames.length).toBe len+1
-
-
   describe 'toggleStar', ->
     it 'should remove the document from collection if already saved', ->
       doc = scope.createDocument(folder: 'folder')

@@ -1,16 +1,15 @@
 include partials/inspector
 
-// Need to put StreamCtrl on main container to not loose history when changing tab
 #error Neo4j is down. Please check if the cord is unplugged.
-div(ng-switch="currentPage", ng-controller='StreamCtrl')
+div(ng-switch="currentPage")
   include partials/nav
   .page(ng-switch-when='stream')
     include partials/sidebar
     include partials/views
   .page.system(ng-switch-when='system', ng-controller='JMXCtrl')
     include partials/system
-footer(ng-hide="isSidebarShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}") 
+footer(ng-hide="isSidebarShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}")
   | License: {{neo4j.license.type}}
   br
   | &copy; {{today | date:'yyyy'}} <a href="http://neotechnology.com">Neo Technology</a>
-  
+

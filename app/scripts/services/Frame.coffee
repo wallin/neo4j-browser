@@ -68,6 +68,7 @@ angular.module('neo4jApp.services')
 
         class Frames extends Collection
           create: (data = {})  ->
+            return unless data.input
             intr = @interpreterFor(data.input)
             return undefined unless intr
             if intr.templateUrl

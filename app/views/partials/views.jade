@@ -1,7 +1,7 @@
 #main
   #editor(ng-class="{'one-line': editorOneLine}")
     .view-input
-      .view-editor
+      .view-editor(ng-controller = "EditorCtrl")
         //- a.open-sidebar(ng-click="toggleSidebar()")
           i(ng-class="{'icon-chevron-left': isSidebarShown, 'icon-bookmark': !isSidebarShown}")
         span.ng-cloak
@@ -26,7 +26,7 @@
             a.balled(ng-click='historyNext()', ng-class="{muted: !editor.next}")
               i.icon-arrow-right
 
-  #views(style="top: {{editorHeight}}px")
+  #views(style="top: {{editorHeight}}px", ng-controller='StreamCtrl')
     .view(
       ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
       ng-animate="{leave:'frame-out', enter:'frame-in'}"
