@@ -1,7 +1,4 @@
 #sidebar(ng-switch on="whichSidebar")
-  //- h3
-  //-   a(ng-click="toggleSidebar()") Views
-  //-   a.close.icon-remove(ng-click="toggleSidebar()")
   div(ng-switch-when="scripts")
     h4 Saved scripts
       a.create-folder(ng-click='createFolder()', tooltip-placement='bottom', tooltip='Create folder')
@@ -23,8 +20,33 @@
       file-upload(upload="importDocument($content)", type='text')
         | Drop Cypher script file to import
   div(ng-switch-when="info")
-    h4 Help!
+    h4 Learn
+  div(ng-switch-when="database")
+    h4 Database
+    .inner
+      h5 Labels
+        span.count  (17 462)
+      a.badge(ng-click="editor.execScript('MATCH n RETURN n LIMIT 25')") *
+      span(ng-repeat='node in labels | limitTo:16')
+        a.badge(ng-click="editor.execScript('MATCH (n:'+node+') RETURN n LIMIT 25')") {{node}}
+
+      h5 Relationships
+        span.count  (10 219)
+      a.label.relationship(ng-click="editor.execScript('MATCH (a)-[r]-(b) RETURN a,b LIMIT 25')") {{relationship}} *
+      span(ng-repeat='relationship in relationships | limitTo:16')
+        a.label.relationship(ng-click="editor.execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 25')") {{relationship}}
+
+      h5 Server
+      ul
+        li.pair
+          .key Database:
+          .value {{kernel.store_dir}}
+        li.pair
+          .key Location:
+          .value {{kernel.StoreDirectory}}
+        li.pair
+          .key Memory:
+          .value {{kernel.all_stores_total_mapped_memory_size}}
+
   div(ng-switch-default)
     h4 Super secret sidebar. Shh!!
-
-

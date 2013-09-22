@@ -55,16 +55,25 @@ indent-hover = 22px
         color: sidebar-color-section-icon-hover
 
   h5
-    padding: 0 0 0 16px
+    padding: 0
     font-size: 12px
     line-height: 39px;
     font-size: 13px
     border-bottom: 1px solid sidebar-color-border
     color: #fff
     font-weight: bold
+    margin-bottom: 12px
+    margin-top: 12px
+    &:first-child
+      margin-top: 0
+    .count
+      font-weight: normal
+      color: sidebar-color-fg-muted
     &:hover
       color #fff
     &.folder
+      margin: 0
+      padding-left: 16px
       cursor: pointer
       .icon-caret-right
         absolute: top 13px left 0px
@@ -82,6 +91,18 @@ indent-hover = 22px
         display: inline
 
   ul
+    li
+      color: sidebar-color-fg
+      &.pair
+        overflow: hidden
+        .key
+          text-align: right
+          margin-right: 1em
+          width: 80px
+          float: left
+        .value
+          color: sidebar-color-fg-active
+          overflow: hidden
     li.active .list-item
       &:after
         width 4px
@@ -162,6 +183,16 @@ indent-hover = 22px
         padding-left: indent-hover + indent
       .icon-play-sign, .icon-spinner
         left indent
+
+  .badge, .label
+    color: sidebar-color-bg
+    background-color: #9195A0
+    text-shadow: none
+    margin-right: 6px
+    margin-bottom: 6px
+    &:hover
+      background-color: #fff
+
 
   .file-drop-area
     margin: 14px 0
