@@ -55,8 +55,13 @@ angular.module('neo4jApp.controllers')
         currentHeight = $('.view-editor').height()
         if currentHeight != $scope.editorHeight
           $scope.editorHeight = $('.view-editor').height()
-          $scope.editorOneLine = codeMirror.lineCount() == 1
           $scope.$apply() unless $scope.$$phase
+        $scope.editorOneLine = codeMirror.lineCount() == 1
+
+
+      $scope.isEditorExpanded = false
+      $scope.toggleEditor = ->
+        $scope.isGraphExpanded ^= true
 
       $scope.isGraphExpanded = false
       $scope.toggleGraph = ->
@@ -108,7 +113,7 @@ angular.module('neo4jApp.controllers')
         return if $scope.isPopupShown and e.keyCode != 191
 
         if (e.metaKey or e.ctrlKey) and e.keyCode is 13 # Cmd-Enter
-          Editor.execScript(editor.content)
+          Editor.execScript(Editor.content)
           $scope.editorChanged()
         else if e.ctrlKey and e.keyCode is 38 # Ctrl-Up
           e.preventDefault()
@@ -119,6 +124,8 @@ angular.module('neo4jApp.controllers')
         else if e.keyCode is 27 # Esc
           if $scope.isPopupShown
             $scope.togglePopup()
+          else
+            $scope.toggleEditor()
 
       # First level page routes
       $scope.$on '$routeChangeSuccess', ->
