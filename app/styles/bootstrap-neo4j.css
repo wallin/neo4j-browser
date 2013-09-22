@@ -5046,6 +5046,9 @@ a.thumbnail:focus {
   margin-bottom: 20px;
   line-height: 1;
 }
+.carousel.deck {
+  height: 300px;
+}
 .carousel-inner {
   overflow: hidden;
   width: 100%;
@@ -5096,8 +5099,8 @@ a.thumbnail:focus {
 }
 .carousel-control {
   position: absolute;
-  top: 40%;
-  left: 15px;
+  top: 30px;
+  left: -60px;
   width: 40px;
   height: 40px;
   margin-top: -20px;
@@ -5116,7 +5119,7 @@ a.thumbnail:focus {
 }
 .carousel-control.right {
   left: auto;
-  right: 15px;
+  right: -60px;
 }
 .carousel-control:hover,
 .carousel-control:focus {
@@ -5127,11 +5130,15 @@ a.thumbnail:focus {
 }
 .carousel-indicators {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  bottom: 0px;
+  left: 0px;
   z-index: 5;
   margin: 0;
   list-style: none;
+
+  background: #222222;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
 }
 .carousel-indicators li {
   display: block;
