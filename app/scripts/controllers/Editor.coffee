@@ -5,30 +5,6 @@ angular.module('neo4jApp.services')
   .service 'Editor', [
     'Frame'
     (Frame) ->
-      # Configure codemirror
-      CodeMirror.commands.handleEnter = (cm) ->
-        if cm.lineCount() == 1
-          editor.execScript(editor.content)
-        else
-          CodeMirror.commands.newlineAndIndent(cm)
-
-      CodeMirror.commands.handleUp = (cm) ->
-        if cm.lineCount() == 1
-          editor.historyPrev()
-        else
-          CodeMirror.commands.goLineUp(cm)
-
-      CodeMirror.commands.handleDown = (cm) ->
-        if cm.lineCount() == 1
-          editor.historyNext()
-        else
-          CodeMirror.commands.goLineDown(cm)
-
-      CodeMirror.keyMap["default"]["Enter"] = "handleEnter"
-      CodeMirror.keyMap["default"]["Shift-Enter"] = "newlineAndIndent"
-      CodeMirror.keyMap["default"]["Up"] = "handleUp"
-      CodeMirror.keyMap["default"]["Down"] = "handleDown"
-
 
       class Editor
         constructor: ->
@@ -44,6 +20,9 @@ angular.module('neo4jApp.services')
           if input?.length > 0 and @history[0] isnt input
             @history.unshift(input)
           @historySet(-1)
+
+        execCurrent: ->
+          @execScript(@content)
 
         historyNext: ->
           idx = @cursor
@@ -67,6 +46,33 @@ angular.module('neo4jApp.services')
           @content = item
 
       editor = new Editor()
+
+      # Configure codemirror
+      CodeMirror.commands.handleEnter = (cm) ->
+        if cm.lineCount() == 1
+          editor.execCurrent()
+          $('.intro').removeClass('visible')
+        else
+          CodeMirror.commands.newlineAndIndent(cm)
+
+      CodeMirror.commands.handleUp = (cm) ->
+        if cm.lineCount() == 1
+          editor.historyPrev()
+        else
+          CodeMirror.commands.goLineUp(cm)
+
+      CodeMirror.commands.handleDown = (cm) ->
+        if cm.lineCount() == 1
+          editor.historyNext()
+        else
+          CodeMirror.commands.goLineDown(cm)
+
+      CodeMirror.keyMap["default"]["Enter"] = "handleEnter"
+      CodeMirror.keyMap["default"]["Shift-Enter"] = "newlineAndIndent"
+      CodeMirror.keyMap["default"]["Up"] = "handleUp"
+      CodeMirror.keyMap["default"]["Down"] = "handleDown"
+
+      editor
   ]
 
 # TODO: maybe skip this controller and provide global access somewhere?
