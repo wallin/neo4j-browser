@@ -80,6 +80,9 @@ angular.module('neo4jApp.services')
         relationships: ->
           returnAndUpdateArray @get Settings.endpoint.rest + '/relationship/types'
 
+        propertyKeys: ->
+          returnAndUpdateArray @get Settings.endpoint.rest + '/propertykeys'
+
         info: ->
           returnAndUpdateObject @get Settings.endpoint.rest + '/'
 

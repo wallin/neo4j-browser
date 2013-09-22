@@ -5047,7 +5047,7 @@ a.thumbnail:focus {
   line-height: 1;
 }
 .carousel.deck {
-  height: 300px;
+  height: 200px;
 }
 .carousel-inner {
   overflow: hidden;

@@ -10,6 +10,7 @@ angular.module('neo4jApp.controllers')
       refresh = ->
         $scope.labels = Server.labels()
         $scope.relationships = Server.relationships()
+        $scope.propertyKeys = Server.propertyKeys()
         $scope.server = Server.info()
         $scope.host = $window.location.host
 

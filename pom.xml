@@ -17,7 +17,7 @@
 
   <properties>
     <!-- NOTE: neo4j.version is used *just* for local server, it is not a build dependency. -->
-    <neo4j.version>2.0.0-M04</neo4j.version>
+    <neo4j.version>2.0.0-SNAPSHOT</neo4j.version>
     <scala.version>2.10.2</scala.version>
     <license-text.header>GPL-3-header.txt</license-text.header>
     <docs.url>http://docs.neo4j.org/chunked/${project.version}/cypher-query-lang.html</docs.url>
@@ -64,7 +64,7 @@
         <version>1.7</version>
         <executions>
           <execution>
-            <phase>generate-sources</phase>
+            <!-- <phase>generate-sources</phase> -->
             <configuration>
               <target name="hipster build">
 

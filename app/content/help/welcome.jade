@@ -31,13 +31,19 @@ article.help
                 td
                   span(ng-repeat='node in labels | limitTo:16')
                     span
-                      a.badge(ng-click="execScript('MATCH (n:'+node+') RETURN n LIMIT 100')") {{node}}
+                      a.badge(ng-click="editor.execScript('MATCH (n:'+node+') RETURN n LIMIT 100')") {{node}}
                     | &nbsp;
               tr
                 td 
                   span(ng-repeat='relationship in relationships | limitTo:16')
                     span
-                      a.label.relationship(ng-click="execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 100')") {{relationship}}
+                      a.label.relationship(ng-click="editor.execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 100')") {{relationship}}
+                    | &nbsp;
+              tr
+                td 
+                  span(ng-repeat='propertyKey in propertyKeys | limitTo:16')
+                    span
+                      a.label.property(ng-click="editor.execScript('MATCH (a) WHERE has(a.'+propertyKey+') RETURN a LIMIT 100')") {{propertyKey}}
                     | &nbsp;
           div(ng-hide="neo4j.hasData")
             h3 Empty Graph
