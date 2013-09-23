@@ -8,4 +8,8 @@ angular.module('neo4jApp.controllers')
     ($scope, Editor, motdService) ->
       $scope.editor = Editor
       $scope.motd = motdService
+
+      $scope.star = ->
+        Editor.saveDocument()
+        $scope.toggleSidebar("scripts", true)
   ]

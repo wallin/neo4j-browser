@@ -21,12 +21,6 @@ angular.module('neo4jApp.controllers')
       $scope.showingSidebar = (named) ->
         $scope.isSidebarShown and ($scope.whichSidebar == named)
 
-      $scope.createFolder = (id)->
-        Folder.create(id)
-
-      $scope.toggleFolder = (folder) ->
-        Folder.expand(folder)
-
       $scope.removeFolder = (folder) ->
         return unless confirm("Are you sure you want to delete the folder?")
         Folder.remove(folder)

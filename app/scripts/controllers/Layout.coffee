@@ -60,8 +60,9 @@ angular.module('neo4jApp.controllers')
 
       $scope.isSidebarShown = false
       $scope.whichSidebar = ""
-      $scope.toggleSidebar = (selectedSidebar = "") ->
-        $scope.isSidebarShown = !$scope.isSidebarShown or (selectedSidebar != $scope.whichSidebar)
+      $scope.toggleSidebar = (selectedSidebar = "", state) ->
+        state ?= !$scope.isSidebarShown or (selectedSidebar != $scope.whichSidebar)
+        $scope.isSidebarShown = state
         $scope.whichSidebar = selectedSidebar
 
       $scope.isInspectorShown = no

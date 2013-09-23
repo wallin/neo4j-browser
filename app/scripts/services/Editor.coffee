@@ -2,14 +2,16 @@
 
 angular.module('neo4jApp.services')
   .service 'Editor', [
+    'Document'
     'Frame'
-    (Frame) ->
+    (Document, Frame) ->
 
       class Editor
         constructor: ->
           @history = []
           @content = ''
           @cursor = null
+          @documentId = null
           @next = null
           @prev = null
 
@@ -43,6 +45,24 @@ angular.module('neo4jApp.services')
           @next = @history[idx-1]
           item = @history[idx] or ''
           @content = item
+          @documentId = null
+
+        loadDocument: (id) ->
+          doc = Document.get(id)
+          return unless doc
+          @content = doc.content
+          @documentId = doc.id
+
+        saveDocument: ->
+          input = @content.trim()
+          return unless input
+          doc = Document.get(@documentId) if @documentId
+          if doc
+            doc.content = input
+            Document.save()
+          else
+            doc = Document.create(content: @content)
+            @documentId = doc.id
 
       editor = new Editor()
 

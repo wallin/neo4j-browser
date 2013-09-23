@@ -77,7 +77,6 @@ angular.module('neo4jApp.services')
               $injector.invoke(intr.exec)()
 
             @add(frame.exec()) if frame
-
             frame
 
           interpreterFor: (input = '') ->

@@ -16,7 +16,7 @@
             i.icon-remove
         li.divider &nbsp;
         li(tooltip-placement='bottom', tooltip='Save')
-          a.balled.golden.rectangle(ng-class="{active: editor.content}")
+          a.balled.golden.rectangle(ng-class="{active: editor.content}", ng-click='star()')
             i.icon-star
 
 #views(style="top: {{editorHeight}}px", ng-controller='StreamCtrl')
