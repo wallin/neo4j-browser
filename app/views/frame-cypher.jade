@@ -3,11 +3,8 @@ div(ng-controller="CypherResultCtrl", fullscreen)
     .label.label-cypher CYPHER
     span.code {{frame.input | uncomment}}
     .actions
-      a.icon-star(ng-click='importDocument(frame.input)', tooltip-placement='bottom', tooltip='Save script')
-      //- a.icon-edit(tooltip-placement='bottom', tooltip='Modify script')
-      span.divider &nbsp;
       a.icon-fullscreen(ng-click="toggleFullscreen(true)", tooltip-placement='bottom', tooltip='Fullscreen')
-      a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
+      include partials/frame-common-actions
     a.close-fullscreen.icon-chevron-down(ng-click="toggleFullscreen(false)")
   .inner
     .view-result.boxed(

@@ -2,7 +2,7 @@
   .label.label-keys KEYS
   span.code {{frame.input | uncomment}}
   .actions
-    a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
+    include partials/frame-common-actions
 
 .inner
   .view-result.view-keys
