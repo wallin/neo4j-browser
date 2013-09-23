@@ -82,6 +82,7 @@ angular.module('neo4jApp.services')
 
           interpreterFor: (input = '') ->
             intr = null
+            input = Utils.stripComments(input.trim())
             args = Utils.argv(input)
             for i in self.interpreters
               if angular.isFunction(i.matches)
@@ -91,7 +92,8 @@ angular.module('neo4jApp.services')
                 cmds = i.matches
                 cmds = [cmds] if angular.isString(i.matches)
                 if angular.isArray(cmds)
-                  return i if cmds.indexOf(args[0]) >= 0
+                  if cmds.indexOf(args[0]) >= 0
+                    return i
             intr
 
           klass: Frame
