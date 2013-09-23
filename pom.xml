@@ -16,9 +16,6 @@
   <description>Graph database client.</description>
 
   <properties>
-    <!-- NOTE: neo4j.version is used *just* for local server, it is not a build dependency. -->
-    <neo4j.version>2.0.0-SNAPSHOT</neo4j.version>
-    <scala.version>2.10.2</scala.version>
     <license-text.header>GPL-3-header.txt</license-text.header>
     <docs.url>http://docs.neo4j.org/chunked/${project.version}/cypher-query-lang.html</docs.url>
     <licensing.prepend.text>notice-gpl-prefix.txt</licensing.prepend.text>
@@ -30,32 +27,12 @@
     <url>http://neo4j.github.io/neo4j-browser/</url>
   </scm>
 
-
-  <dependencies>
-    <dependency>
-      <groupId>org.neo4j.app</groupId>
-      <artifactId>neo4j-server</artifactId>
-      <version>${neo4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.neo4j.app</groupId>
-      <artifactId>neo4j-server</artifactId>
-      <version>${neo4j.version}</version>
-      <classifier>static-web</classifier>
-    </dependency>
-
-  </dependencies>
-
   <build>
     <resources>
       <resource>
         <directory>dist</directory>
       </resource>
     </resources>
-
-
-    <sourceDirectory>tools/src/main/scala</sourceDirectory>
-    <testSourceDirectory>tools/src/test/scala</testSourceDirectory>
 
     <plugins>
 
@@ -98,47 +75,6 @@
         </executions>
       </plugin>
 
-
-      <plugin>
-        <!-- For building the local scala-based Neo4j server -->
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>scala-maven-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>scala-compile</id>
-            <goals>
-              <goal>compile</goal>
-              <goal>testCompile</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <jvmArgs>
-            <jvmArg>-Xms64m</jvmArg>
-            <jvmArg>-Xmx1024m</jvmArg>
-          </jvmArgs>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <!-- For running the local scala-based Neo4j server -->
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.2.1</version>
-        <executions>
-          <execution>
-            <phase>test</phase>
-            <goals>
-              <goal>java</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <mainClass>org.neo4j.tools.localgraph.LocalGraph</mainClass>
-          <classpathScope>test</classpathScope>
-        </configuration>
-      </plugin>
 
     </plugins>
 
