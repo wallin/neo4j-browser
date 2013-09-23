@@ -1,29 +1,23 @@
 #editor(ng-class="{'one-line': editorOneLine}")
   .view-input
     .view-editor(ng-mousedown="focusEditor()", ng-controller = "EditorCtrl")
-      //- a.open-sidebar(ng-click="toggleSidebar()")
-        i(ng-class="{'icon-chevron-left': isSidebarShown, 'icon-bookmark': !isSidebarShown}")
       span.ng-cloak
         .prompt.code-style $
         textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, onChange: editorChanged, onFocus: editorChanged}",
           ng-model='editor.content',
           placeholder='{{motd.tip}}'
           )
-        //- a.icon-play-sign('ng-click' = 'execScript(editor.content)')
       ul.controls.inline
         li(tooltip-placement='bottom', tooltip='Execute')
-          a.balled.success('ng-click' = 'editor.execScript(editor.content)', ng-class="{muted: editor.content == ''}")
+          a.balled.success('ng-click' = 'editor.execScript(editor.content)', ng-class="{active: editor.content}")
             i.icon-play
         li(tooltip-placement='bottom', tooltip='Clear')
-          a.balled(ng-click='editor.content = ""', ng-class="{muted: !editor.content}")
+          a.balled.remove(ng-click='editor.content = ""', ng-class="{active: editor.content}")
             i.icon-remove
         li.divider &nbsp;
-        li(tooltip-placement='bottom', tooltip='Previous')
-          a.balled(ng-click='editor.historyPrev()', ng-class="{muted: !editor.prev}")
-            i.icon-arrow-left
-        li(tooltip-placement='bottom', tooltip='Next')
-          a.balled(ng-click='editor.historyNext()', ng-class="{muted: !editor.next}")
-            i.icon-arrow-right
+        li(tooltip-placement='bottom', tooltip='Save')
+          a.balled.golden.rectangle(ng-class="{active: editor.content}")
+            i.icon-star
 
 #views(style="top: {{editorHeight}}px", ng-controller='StreamCtrl')
   .view(
