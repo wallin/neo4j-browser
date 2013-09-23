@@ -3,8 +3,7 @@
   span.code {{frame.input | uncomment}}
   .actions
     a.icon-fullscreen(ng-click="fullscreen = !fullscreen", tooltip-placement='bottom', tooltip='Fullscreen')
-    a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
-
+    include partials/frame-common-actions
 .inner
   .view-result.help(ng-hide='frame.hasErrors', ng-include = 'frame.response.page')
 

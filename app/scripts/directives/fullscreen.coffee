@@ -27,7 +27,7 @@ angular.module('neo4jApp.directives')
       scope.$watch 'fullscreen', (val) ->
         if val
           fullscreenService.display(element)
-        else 
+        else
           # if parent[0].innerHTML is ""
           parent.append(element)
           fullscreenService.hide()

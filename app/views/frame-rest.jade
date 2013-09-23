@@ -2,11 +2,10 @@
   .label.label-rest HTTP
   span.code {{frame.input | uncomment}}
   .actions
-    a.icon-star(ng-click='importDocument(frame.input)', tooltip-placement='bottom', tooltip='Save script')
     a.icon-edit(tooltip-placement='bottom', tooltip='Modify script')
     a.icon-download-alt(exportable ng-click='exportJSON(frame.response)', tooltip-placement='bottom', tooltip='Export JSON')
     span.divider &nbsp;
-    a.icon-trash(ng-click='destroyFrame(frame)', tooltip-placement='bottom', tooltip='Remove')
+    include partials/frame-common-actions
 
 .inner
   .view-result.boxed(ng-show='frame.response')
