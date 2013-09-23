@@ -4,6 +4,8 @@ angular.module('neo4jApp.controllers')
   .controller 'EditorCtrl', [
     '$scope'
     'Editor'
-    ($scope, Editor) ->
+    'motdService'
+    ($scope, Editor, motdService) ->
       $scope.editor = Editor
+      $scope.motd = motdService
   ]

@@ -4,12 +4,9 @@ angular.module('neo4jApp.controllers')
 .controller 'StreamCtrl', [
   '$scope'
   '$timeout'
-  'Collection'
   'Document'
-  'Folder'
   'Frame'
-  'motdService'
-  ($scope, $timeout, Collection, Document, Folder, Frame, motdService) ->
+  ($scope, $timeout, Document, Frame) ->
 
     ###*
      * Local methods
@@ -43,6 +40,4 @@ angular.module('neo4jApp.controllers')
     $timeout(->
       Frame.create(input: ':help welcome')
     , 800)
-    $scope.motd = motdService
-
   ]
