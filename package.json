@@ -1,6 +1,6 @@
 {
   "name": "neo4j-browser",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
