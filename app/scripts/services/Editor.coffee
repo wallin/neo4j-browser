@@ -14,13 +14,18 @@ angular.module('neo4jApp.services')
           @documentId = null
           @next = null
           @prev = null
+          @errorCode = null
+          @errorMessage = 'Tjoo'
 
         execScript: (input) ->
+          @errorCode = null
           frame = Frame.create(input: input)
-          #return unless frame
           if input?.length > 0 and @history[0] isnt input
             @history.unshift(input)
           @historySet(-1)
+          if !frame and input != ''
+            @errorMessage = input
+            @errorCode = 'error'
 
         execCurrent: ->
           @execScript(@content)

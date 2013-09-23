@@ -5,13 +5,14 @@
 angular.module('neo4jApp.controllers')
   .controller 'LayoutCtrl', [
     '$rootScope'
+    '$timeout'
     '$dialog'
     '$route'
     'Editor'
     'Frame'
     'GraphStyle'
     'Utils'
-    ($scope, $dialog, $route, Editor, Frame, GraphStyle, Utils) ->
+    ($scope, $timeout, $dialog, $route, Editor, Frame, GraphStyle, Utils) ->
 
       dialog = null
       dialogOptions =
@@ -31,16 +32,9 @@ angular.module('neo4jApp.controllers')
         event.preventDefault()
         $('.view-editor textarea').focus()
 
-      # TODO: Put this in a directive
-      $scope.editorHeight = 0
       $scope.editorOneLine = true
       $scope.editorChanged = (codeMirror) ->
-        currentHeight = $('.view-editor').height()
-        if currentHeight != $scope.editorHeight
-          $scope.editorHeight = $('.view-editor').height()
-          $scope.$apply() unless $scope.$$phase
         $scope.editorOneLine = codeMirror.lineCount() == 1
-
 
       $scope.isEditorExpanded = false
       $scope.toggleEditor = ->
@@ -116,4 +110,16 @@ angular.module('neo4jApp.controllers')
         $scope.isInspectorShown = no
         $scope.currentPage = $route.current.page
 
+      # we need set a max-height to make the stream scrollable, but since it's
+      # position:relative the max-height needs to be calculated.
+      timer = null
+      resize = ->
+        $('#views').css
+          'max-height': $(window).height() - $('.view-editor').height() - 40
+      $(window).resize(resize)
+      check = ->
+        resize()
+        $timeout.cancel(timer)
+        timer = $timeout(check, 500)
+      check()
   ]

@@ -180,17 +180,17 @@ angular.module('neo4jApp')
 
     # Fallback interpretor
     # offer some advice
-    FrameProvider.interpreters.push
-      type: 'help'
-      matches: -> true
-      templateUrl: 'views/frame-help.html'
-      exec: ['$http', ($http) ->
-        (input, q) ->
-          url = "content/help/unknown.html"
-          $http.get(url)
-          .success(->q.resolve(page: url))
-          .error(->q.reject(error("No such help section")))
-          q.promise
-      ]
+    #  FrameProvider.interpreters.push
+    #    type: 'help'
+    #    matches: -> true
+    #    templateUrl: 'views/frame-help.html'
+    #    exec: ['$http', ($http) ->
+    #      (input, q) ->
+    #        url = "content/help/unknown.html"
+    #        $http.get(url)
+    #        .success(->q.resolve(page: url))
+    #        .error(->q.reject(error("No such help section")))
+    #        q.promise
+    #    ]
 
 ])

@@ -19,9 +19,14 @@
           a.balled.golden.rectangle(ng-class="{active: editor.content}", ng-click='star()')
             i.icon-star
 
-#views(style="top: {{editorHeight}}px", ng-controller='StreamCtrl')
-  .view(
-    ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
-    ng-animate="{leave:'frame-out', enter:'frame-in'}"
-    ng-include = "frame.templateUrl"
-  )
+      .message-bar.error(ng-show='editor.errorCode', ng-animate="{hide:'slide-down-out', show:'slide-down-in'}")
+        | You screamed <b>{{editor.errorMessage | uncomment}}</b> but nobody replied.
+        | Type <code>help</code> for a list of available commands.
+        a.icon-remove(ng-click='editor.errorCode = null')
+    #views(ng-controller='StreamCtrl')
+      .view(
+        ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
+        ng-animate="{leave:'frame-out', enter:'frame-in'}"
+        ng-include = "frame.templateUrl"
+      )
+
