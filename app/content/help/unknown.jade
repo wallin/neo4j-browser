@@ -2,9 +2,8 @@ article.help.alert
   .container
     section.row-fluid
       .title.span3
-        h3 
-          span(ng-show="couldBeCommand(frame.input)") Not-a-command
-          span(ng-hide="couldBeCommand(frame.input)") Unrecognized
+        h3
+          span {{frame.input | commandError}}
         p.lead {{ motd.unrecognized }}
       .details.span9
         table.table-condensed.table-help
@@ -12,7 +11,7 @@ article.help.alert
             th.lead You said:
             td
               code.lead {{frame.input | uncomment}}
-          tr 
+          tr
             th Try:
             td
               ul
@@ -29,7 +28,7 @@ article.help.alert
                   | &nbsp;- for detailed information about Neo4j
           tr
             th Keys:
-            td 
+            td
               ul
                 li
                   code &lt; ctrl - &uarr; &gt;

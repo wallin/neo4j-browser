@@ -19,11 +19,6 @@ angular.module('neo4jApp.controllers')
     $scope.destroyFrame = (frame) ->
       Frame.remove(frame)
 
-    $scope.couldBeCommand = (input) ->
-      return false unless input?
-      return true if input.charAt(0) is ':'
-      return false
-
     $scope.createDocument = (data = {}) ->
       Document.create(data)
 
