@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('neo4jApp')
-  .controller 'GrassCtrl', [
+angular.module('neo4jApp.controllers')
+  .controller 'StylePreviewCtrl', [
     '$scope'
     '$window'
     'GraphStyle'
