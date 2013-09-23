@@ -14,28 +14,20 @@ angular.module('neo4jApp.controllers')
         $scope.server = Server.info()
         $scope.host = $window.location.host
 
-      $scope.neo4j = {}
-
-      $scope.neo4j.license = {
-        type: "GPLv3"
-        url: "http://www.gnu.org/licenses/gpl.html"
-      }
-
-      $scope.neo4j.edition = "Enterprise"
-
-      $scope.neo4j.hasData = Server.hasData()
+      $scope.neo4j =
+        license =
+          type: "GPLv3"
+          url: "http://www.gnu.org/licenses/gpl.html"
+          edition: "Enterprise"
+          hasData: Server.hasData()
 
       $scope.$on 'db:result:containsUpdates', refresh
 
       $scope.today = Date.now()
 
-      $scope.cmdchar = ':'
+      $scope.cmdchar = Settings.cmdchar
 
-      parseName = (str) ->
-        str.substr(str.lastIndexOf("name=")+5)
-
-      # summarizeNeo4jServer = ->
-        # gather info from jmx
+      # gather info from jmx
       Server.jmx(
         [
           "org.neo4j:instance=kernel#0,name=Configuration",
@@ -47,7 +39,6 @@ angular.module('neo4jApp.controllers')
           for a in r.attributes
             $scope.kernel[a.name] = a.value
       )
-
 
       # XXX: Temporary for now having to change all help files
       $scope.$watch 'server', (val) ->

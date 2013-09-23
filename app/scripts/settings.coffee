@@ -4,6 +4,7 @@ restAPI = "#{baseURL}/db/data"
 
 angular.module('neo4jApp.settings', [])
   .constant('Settings', {
+    cmdchar: ':'
     host: baseURL
     endpoint:
       console: "#{baseURL}/db/manage/server/console"
