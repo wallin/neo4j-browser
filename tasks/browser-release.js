@@ -136,7 +136,7 @@ module.exports = function(grunt){
         grunt.verbose.writeln('Maven dry run.');
       }
 
-      grunt.verbose.writeln(cmd);
+      grunt.verbose.writeln("[Grunt] " + cmd);
 
       shell.exec(cmd, {silent:false});
 
