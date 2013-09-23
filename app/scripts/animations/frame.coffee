@@ -1,11 +1,17 @@
 angular.module("neo4jApp.animations", [])
+
+  # Animation for creating and removing result frames
+  #
   .animation("frame-out", ["$window", ($window) ->
+    setup: (element) ->
+      TweenMax.set element,
+        height: element.height()
+
     start: (element, done) ->
-      TweenMax.to element, 0.4,
+      TweenMax.to element, 0.6,
         ease: Power2.easeInOut
-        top: -50
         opacity: 0
-        maxHeight: 0
+        height: 0
         onComplete: done
 
   ]).animation("frame-in", ["$window", ($window) ->
@@ -16,18 +22,23 @@ angular.module("neo4jApp.animations", [])
         opacity: 0
 
     start: (element, done) ->
+      beforeDone = () ->
+        # remove max-height to be able to resize the frame when interacting
+        TweenMax.set element, maxHeight: 'initial'
+        done()
+
       tl = new TimelineLite()
 
       tl.to(element, 0.1, {}) # render object to get a size
       tl.call((e)->
         tl.to(element, 0.01, {maxHeight: 0})
-        tl.to element, 0.4,
-          maxHeight: Math.max(element.height(), 420)
+        tl.to element, 0.8,
+          maxHeight: element.height()
           top: 0
           opacity: 1
           position: "relative"
           ease: Power3.easeInOut
-        tl.call(done)
+        tl.call(beforeDone)
       )
   ])
 
