@@ -5,10 +5,6 @@
   "author": "Neo Technology, Inc",
   "homepage": "http://neo4j.org",
   "dependencies": {
-    "angular": "~1.0.7",
-    "angular-cookies": "~1.0.7",
-    "angular-sanitize": "~1.0.7",
-    "angular-resource": "~1.0.7",
     "json3": "~3.2.4",
     "es5-shim": "~2.0.8",
     "angular-ui-codemirror": "latest",
@@ -42,7 +38,6 @@
     "url": "git@github.com:neo4j/neo4j-browser.git"
   },
   "resolutions": {
-    "jquery": "~2.0.3",
-    "codemirror": "~3.15.0"
+    "jquery": "~2.0.3"
   }
 }
