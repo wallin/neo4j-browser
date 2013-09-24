@@ -124,18 +124,19 @@ indent-hover = 22px
         transist: padding 0.2s
         overflow: hidden
         &.loaded
+          padding-left: indent-hover
+          &:hover
+            padding-left: indent-hover
+            .contents a
+              color: color-star
           .icon-long-arrow-right
             opacity: 1
-            left: 16px
+            left: 0
             &:hover
               color: color-star
           &:hover .icon-play-sign
             opacity: 0
             left: 50px
-          &:hover
-            padding-left: 0
-            .contents a
-              color: color-star
           .contents
             a, a:hover
               font-weight: bold
@@ -202,6 +203,8 @@ indent-hover = 22px
         padding-left: indent-hover + indent
         &:hover
           padding-left: indent-hover + indent
+        .icon-long-arrow-right
+          left: indent
       &:hover
         padding-left: indent-hover + indent
       .icon-play-sign, .icon-spinner
