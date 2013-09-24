@@ -16,7 +16,6 @@ angular.module('neo4jApp.controllers')
 
     # TODO: fix timeout problem
     $timeout(->
-      $('.intro').addClass('visible')
-      #Frame.create(input: ':help welcome')
+      Frame.create(input: ':help welcome')
     , 800)
   ]

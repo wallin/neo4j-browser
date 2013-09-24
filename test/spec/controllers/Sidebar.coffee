@@ -1,17 +1,17 @@
 'use strict'
 
-describe 'Controller: LeftbarCtrl', () ->
+describe 'Controller: SidebarCtrl', () ->
 
   # load the controller's module
   beforeEach module 'neo4jApp.controllers', 'neo4jApp.services'
 
-  LeftbarCtrl = {}
+  SidebarCtrl = {}
   scope = {}
 
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new()
-    LeftbarCtrl = $controller 'LeftbarCtrl', {
+    SidebarCtrl = $controller 'SidebarCtrl', {
       $scope: scope
     }
 

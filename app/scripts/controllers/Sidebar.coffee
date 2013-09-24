@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('neo4jApp.controllers')
-  .controller 'LeftbarCtrl', [
+  .controller 'SidebarCtrl', [
     '$scope'
     'Document'
     'Editor'
