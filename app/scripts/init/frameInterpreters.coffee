@@ -28,6 +28,7 @@ angular.module('neo4jApp')
       exec: ['$rootScope', 'Frame', ($rootScope, Frame) ->
         (input) ->
           Frame.reset()
+          true
       ]
 
     FrameProvider.interpreters.push

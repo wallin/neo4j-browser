@@ -74,10 +74,10 @@ angular.module('neo4jApp.services')
             if intr.templateUrl
               frame = new Frame(data)
             else
-              $injector.invoke(intr.exec)()
+              rv = $injector.invoke(intr.exec)()
 
             @add(frame.exec()) if frame
-            frame
+            frame or rv
 
           interpreterFor: (input = '') ->
             intr = null
