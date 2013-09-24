@@ -59,3 +59,12 @@ describe 'Service: Editor', ->
       expect(Editor.documentId).toBeTruthy()
       Editor.historySet(0)
       expect(Editor.documentId).toBeFalsy()
+
+  describe '#setContent', ->
+    it 'should set the content', ->
+      Editor.setContent 'hello'
+      expect(Editor.content).toBe 'hello'
+    it 'should clear the current document ID', ->
+      Editor.loadDocument 1
+      Editor.setContent 'hello'
+      expect(Editor.documentId).toBeFalsy()

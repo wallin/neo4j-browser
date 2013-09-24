@@ -12,7 +12,7 @@
           a.balled.success('ng-click' = 'editor.execScript(editor.content)', ng-class="{active: editor.content}")
             i.icon-play
         li(tooltip-placement='bottom', tooltip='Clear')
-          a.balled.remove(ng-click='editor.content = ""', ng-class="{active: editor.content}")
+          a.balled.remove(ng-click='editor.setContent("")', ng-class="{active: editor.content}")
             i.icon-remove
         li.divider &nbsp;
         li(tooltip-placement='bottom', tooltip='Save')

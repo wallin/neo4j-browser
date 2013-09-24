@@ -69,6 +69,10 @@ angular.module('neo4jApp.services')
             doc = Document.create(content: @content)
             @documentId = doc.id
 
+        setContent: (content = '')->
+          @content = content
+          @documentId = null
+
       editor = new Editor()
 
       # Configure codemirror
