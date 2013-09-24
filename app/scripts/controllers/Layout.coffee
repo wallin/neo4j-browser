@@ -120,6 +120,6 @@ angular.module('neo4jApp.controllers')
       check = ->
         resize()
         $timeout.cancel(timer)
-        timer = $timeout(check, 500)
+        timer = $timeout(check, 500, false)
       check()
   ]
