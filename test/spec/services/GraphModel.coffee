@@ -76,12 +76,3 @@ describe 'Service: GraphModel', () ->
       graph.addNode(createNode(2))
       expect(-> graph.addRelationship(createRelationship(0, 1, 2)))
         .toThrow("Malformed graph: must add nodes before relationships that connect them")
-
-  describe 'merge', ->
-    it 'guesses where the new nodes should go', ->
-      graph = new GraphModel( { nodes: [], relationships: [] })
-      node = graph.addNode(createNode(0))
-      node.x = 10
-      node.y = 20
-      graph.merge({nodes: [createNode(1), createNode(2)], relationships: []}, node)
-      expect(graph.nodes().every((n) -> n.x? and n.y?)).toBeTruthy()
