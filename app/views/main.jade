@@ -3,10 +3,10 @@ include partials/inspector
 #error Neo4j is down. Please check if the cord is unplugged.
 #leftbar(ng-controller = "SidebarCtrl")
   include partials/nav
-  include partials/sidebar
+  include partials/drawer
 #main
   include partials/views
-footer(ng-hide="isSidebarShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}")
+footer(ng-hide="isDrawerShown", ng-animate="{hide:'fade-down-out', show:'fade-down-in'}")
   | License: {{neo4j.license.type}}
   br
   | &copy; {{today | date:'yyyy'}} <a href="http://neotechnology.com">Neo Technology</a>

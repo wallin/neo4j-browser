@@ -48,16 +48,16 @@ angular.module('neo4jApp.controllers')
       $scope.toggleTable = ->
         $scope.isTableExpanded ^= true
 
-      # $scope.isSidebarShown = false
-      # $scope.toggleSidebar = (state = !$scope.isSidebarShown)->
-      #   $scope.isSidebarShown = state
+      # $scope.isDrawerShown = false
+      # $scope.toggleDrawer = (state = !$scope.isDrawerShown)->
+      #   $scope.isDrawerShown = state
 
-      $scope.isSidebarShown = false
-      $scope.whichSidebar = ""
-      $scope.toggleSidebar = (selectedSidebar = "", state) ->
-        state ?= !$scope.isSidebarShown or (selectedSidebar != $scope.whichSidebar)
-        $scope.isSidebarShown = state
-        $scope.whichSidebar = selectedSidebar
+      $scope.isDrawerShown = false
+      $scope.whichDrawer = ""
+      $scope.toggleDrawer = (selectedDrawer = "", state) ->
+        state ?= !$scope.isDrawerShown or (selectedDrawer != $scope.whichDrawer)
+        $scope.isDrawerShown = state
+        $scope.whichDrawer = selectedDrawer
 
       $scope.isInspectorShown = no
       $scope.toggleInspector = ->

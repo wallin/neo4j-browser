@@ -5,15 +5,15 @@
 indent = 16px
 indent-hover = 22px
 
-#sidebar
+#drawer
   user-select: none
   position: absolute
   top: 0
   right: 0
   left: nav-width
-  width: sidebar-width
+  width: drawer-width
   bottom: 0
-  background-color: sidebar-color-bg
+  background-color: drawer-color-bg
   text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px
   overflow-y: auto
   .inner
@@ -37,29 +37,29 @@ indent-hover = 22px
     font-size: 20px
     color: #fff
   h4
-    background-color: darken(sidebar-color-bg, 15%)
+    background-color: darken(drawer-color-bg, 15%)
     line-height: 73px;
     font-size: 17px;
     a.add
       absolute: top -18px right 8px
       font-size: 16px
-      color: sidebar-color-section-icon
+      color: drawer-color-section-icon
       padding: 16px
       &:hover
-        color: sidebar-color-section-icon-hover
+        color: drawer-color-section-icon-hover
     a.create-folder
       font-size: 16px
       color: #4A5055
       padding: 8px
       &:hover
-        color: sidebar-color-section-icon-hover
+        color: drawer-color-section-icon-hover
 
   h5
     padding: 0
     font-size: 12px
     line-height: 39px;
     font-size: 13px
-    border-bottom: 1px solid sidebar-color-border
+    border-bottom: 1px solid drawer-color-border
     color: #fff
     font-weight: bold
     margin-bottom: 12px
@@ -68,7 +68,7 @@ indent-hover = 22px
       margin-top: 0
     .count
       font-weight: normal
-      color: sidebar-color-fg-muted
+      color: drawer-color-fg-muted
     &:hover
       color #fff
     &.folder
@@ -80,10 +80,10 @@ indent-hover = 22px
     .icon-trash
       absolute: top 11px right 2px
       font-size: 16px
-      color: sidebar-color-fg-icon
+      color: drawer-color-fg-icon
       display: none
       &:hover
-        color: sidebar-color-fg-icon-hover
+        color: drawer-color-fg-icon-hover
     &:hover
       .icon-trash
         display: block
@@ -92,7 +92,7 @@ indent-hover = 22px
 
   ul
     li
-      color: sidebar-color-fg
+      color: drawer-color-fg
       &.pair
         overflow: hidden
         .key
@@ -101,25 +101,25 @@ indent-hover = 22px
           width: 80px
           float: left
         .value
-          color: sidebar-color-fg-active
+          color: drawer-color-fg-active
           overflow: hidden
     li.active .list-item
       &:after
         width 4px
         opacity 1
-      background-color: sidebar-color-bg-active
+      background-color: drawer-color-bg-active
       .contents a
         //font-weight bold
-        color: sidebar-color-fg-active
+        color: drawer-color-fg-active
         .meta
           font-weight normal
     li
-      background-color: sidebar-color-bg
+      background-color: drawer-color-bg
       overflow: hidden
       .list-item
         padding: 9px horizontal-padding 9px 0
         position: relative
-        border-bottom: 1px solid sidebar-color-border
+        border-bottom: 1px solid drawer-color-border
         cursor: pointer
         transist: padding 0.2s
         overflow: hidden
@@ -156,14 +156,14 @@ indent-hover = 22px
           .icon-play-sign
             color: color-success
           .contents a
-            color: sidebar-color-fg-active
+            color: drawer-color-fg-active
         .background
           stretch()
         a[class*="icon-"]
           font-size: 16px
-          color: sidebar-color-fg-icon
+          color: drawer-color-fg-icon
           &:hover
-            color: sidebar-color-fg-icon-hover
+            color: drawer-color-fg-icon-hover
         .icon-trash
           z-index 2
           absolute: right 2px top 10px
@@ -184,14 +184,14 @@ indent-hover = 22px
           line-height: 1
           a
             width: 182px
-            color: sidebar-color-fg
+            color: drawer-color-fg
             font-size: 13px
             display: inline-block
             line-height: 1.4
             max-height: 54px
             overflow: hidden
           .meta
-            color: sidebar-color-fg-muted
+            color: drawer-color-fg-muted
             font-size: 12px
             margin-top 2px
             .icon
@@ -214,7 +214,7 @@ indent-hover = 22px
         left indent
 
   .badge, .label
-    color: sidebar-color-bg
+    color: drawer-color-bg
     background-color: #9195A0
     text-shadow: none
     margin-right: 6px

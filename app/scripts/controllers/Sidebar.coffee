@@ -19,8 +19,8 @@ angular.module('neo4jApp.controllers')
       ###*
        * Scope methods
       ###
-      $scope.showingSidebar = (named) ->
-        $scope.isSidebarShown and ($scope.whichSidebar == named)
+      $scope.showingDrawer = (named) ->
+        $scope.isDrawerShown and ($scope.whichDrawer == named)
 
       $scope.removeFolder = (folder) ->
         return unless confirm("Are you sure you want to delete the folder?")
