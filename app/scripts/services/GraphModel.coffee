@@ -29,13 +29,8 @@ angular.module('neo4jApp.services')
           target = @nodeMap[raw.endNode] or throw malformed()
           @relationshipMap[raw.id] = new Relationship(raw.id, source, target, raw.type, raw.properties)
 
-        merge: (result, localNode) ->
-          nodes = (@addNode(n) for n in result.nodes)
-          if localNode.x? && localNode.y?
-            linkDistance = 60
-            for n, i in nodes
-              n.x = localNode.x + linkDistance * Math.sin(2 * Math.PI * i / nodes.length)
-              n.y = localNode.y + linkDistance * Math.cos(2 * Math.PI * i / nodes.length)
+        merge: (result) ->
+          @addNode(n) for n in result.nodes
           @addRelationships(result.relationships)
 
         addRelationships: (relationships) ->

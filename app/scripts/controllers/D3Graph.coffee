@@ -38,14 +38,15 @@ angular.module('neo4jApp.controllers')
     '$element'
     '$rootScope'
     '$scope'
+    'CircularLayout'
     'GraphExplorer'
     'GraphRenderer'
     'GraphStyle'
     'GraphGeometry'
-    ($element, $rootScope, $scope, GraphExplorer, GraphRenderer, GraphStyle, GraphGeometry) ->
-      #
-      # Local variables
-      #
+    ($element, $rootScope, $scope, CircularLayout, GraphExplorer, GraphRenderer, GraphStyle, GraphGeometry) ->
+
+      linkDistance = 60
+
       el = d3.select($element[0])
       el.append('defs')
       graph = null
@@ -100,7 +101,8 @@ angular.module('neo4jApp.controllers')
         #$rootScope.selectedGraphItem = d
         return if d.expanded
         GraphExplorer.exploreNeighbours(d).then (result) =>
-          graph.merge(result, d)
+          graph.merge(result)
+          CircularLayout.layout(graph.nodes(), d, linkDistance)
           d.expanded = yes
           @update()
         # New in Angular 1.1.5
@@ -132,7 +134,8 @@ angular.module('neo4jApp.controllers')
 
       accelerateLayout = (force, render) ->
         maxStepsPerTick = 100
-        maxComputeTime = 1000 / 60 # Browser renders at max 60 frames per second
+        maxAnimationFramesPerSecond = 60
+        maxComputeTime = 1000 / maxAnimationFramesPerSecond
         now = if angular.isDefined(window.performance) and angular.isFunction(window.performance.now)
           () -> window.performance.now()
         else
@@ -166,7 +169,7 @@ angular.module('neo4jApp.controllers')
           relationshipGroups.call(renderer.onTick)
 
       force = d3.layout.force()
-        .linkDistance(60)
+        .linkDistance(linkDistance)
         .charge(-1000)
 
       accelerateLayout(force, render)
@@ -181,11 +184,11 @@ angular.module('neo4jApp.controllers')
         nodes         = graph.nodes()
         relationships = graph.relationships()
 
-        linkDistance = 60
         radius = nodes.length * linkDistance / (Math.PI * 2)
-        for n, i in nodes
-          n.x = $element.width() / 2 + radius * Math.sin(2 * Math.PI * i / nodes.length)
-          n.y = $element.height() / 2 + radius * Math.cos(2 * Math.PI * i / nodes.length)
+        center =
+          x: $element.width() / 2
+          y: $element.height() / 2
+        CircularLayout.layout(nodes, center, radius)
 
         force
           .nodes(nodes)
