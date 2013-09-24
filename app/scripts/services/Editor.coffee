@@ -11,7 +11,7 @@ angular.module('neo4jApp.services')
           @history = []
           @content = ''
           @cursor = null
-          @documentId = null
+          @document = null
           @next = null
           @prev = null
           @errorCode = null
@@ -50,28 +50,28 @@ angular.module('neo4jApp.services')
           @next = @history[idx-1]
           item = @history[idx] or ''
           @content = item
-          @documentId = null
+          @document = null
 
         loadDocument: (id) ->
           doc = Document.get(id)
           return unless doc
           @content = doc.content
-          @documentId = doc.id
+          @document = doc
 
         saveDocument: ->
           input = @content.trim()
           return unless input
-          doc = Document.get(@documentId) if @documentId
-          if doc
-            doc.content = input
+          # re-fetch document from collection
+          @document = Document.get(@document.id) if @document?.id
+          if @document
+            @document.content = input
             Document.save()
           else
-            doc = Document.create(content: @content)
-            @documentId = doc.id
+            @document = Document.create(content: @content)
 
         setContent: (content = '')->
           @content = content
-          @documentId = null
+          @document = null
 
       editor = new Editor()
 

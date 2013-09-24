@@ -24,7 +24,7 @@ describe 'Service: Editor', ->
       expect(Editor.content).toBe 'test content'
 
     it 'should load document ID from a document', ->
-      expect(Editor.documentId).toBe 1
+      expect(Editor.document.id).toBe 1
 
   describe '#saveDocument', ->
     it 'should not create a new document with blank input', ->
@@ -42,7 +42,7 @@ describe 'Service: Editor', ->
     it 'should set document ID after a new document was created', ->
       Editor.content = "new document"
       Editor.saveDocument()
-      expect(Editor.documentId).toBeTruthy()
+      expect(Editor.document).toBeTruthy()
 
     it 'should update an existing document if it was loaded', ->
       len = Document.length
@@ -56,9 +56,9 @@ describe 'Service: Editor', ->
     it 'should clear the current document id', ->
       Editor.history = ['first', 'second']
       Editor.loadDocument 1
-      expect(Editor.documentId).toBeTruthy()
+      expect(Editor.document).toBeTruthy()
       Editor.historySet(0)
-      expect(Editor.documentId).toBeFalsy()
+      expect(Editor.document).toBeFalsy()
 
   describe '#setContent', ->
     it 'should set the content', ->
@@ -67,4 +67,4 @@ describe 'Service: Editor', ->
     it 'should clear the current document ID', ->
       Editor.loadDocument 1
       Editor.setContent 'hello'
-      expect(Editor.documentId).toBeFalsy()
+      expect(Editor.document).toBeFalsy()
