@@ -25,13 +25,11 @@
     h4 Database
     .inner
       h5 Labels
-        span.count  (17 462)
       a.badge(ng-click="editor.execScript('MATCH n RETURN n LIMIT 25')") *
       span(ng-repeat='node in labels | limitTo:16')
         a.badge(ng-click="editor.execScript('MATCH (n:'+node+') RETURN n LIMIT 25')") {{node}}
 
       h5 Relationships
-        span.count  (10 219)
       a.label.relationship(ng-click="editor.execScript('MATCH (a)-[r]-(b) RETURN a,b LIMIT 25')") {{relationship}} *
       span(ng-repeat='relationship in relationships | limitTo:16')
         a.label.relationship(ng-click="editor.execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 25')") {{relationship}}
