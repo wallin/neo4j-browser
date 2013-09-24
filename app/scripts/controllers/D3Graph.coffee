@@ -130,8 +130,26 @@ angular.module('neo4jApp.controllers')
       clickHandler.on 'click', onNodeClick
       clickHandler.on 'dblclick', onNodeDblClick
 
-      tick = ->
+      accelerateLayout = (force, render) ->
+        maxStepsPerTick = 100
+        maxComputeTime = 1000 / 60 # Browser renders at max 60 frames per second
+        now = if angular.isDefined(window.performance) and angular.isFunction(window.performance.now)
+          () -> window.performance.now()
+        else
+          () -> Date.now()
 
+        d3Tick = force.tick
+        force.tick = () ->
+          startTick = now()
+          step = maxStepsPerTick
+          while step-- and now() - startTick < maxComputeTime
+            if d3Tick()
+              maxStepsPerTick = 2
+              return true
+          render()
+          false
+
+      render = ->
         GraphGeometry.onTick(graph)
 
         # Only translate nodeGroups, because this simplifies node renderers;
@@ -150,7 +168,8 @@ angular.module('neo4jApp.controllers')
       force = d3.layout.force()
         .linkDistance(60)
         .charge(-1000)
-        .on('tick', tick)
+
+      accelerateLayout(force, render)
 
       resize()
 
@@ -162,10 +181,15 @@ angular.module('neo4jApp.controllers')
         nodes         = graph.nodes()
         relationships = graph.relationships()
 
+        linkDistance = 60
+        radius = nodes.length * linkDistance / (Math.PI * 2)
+        for n, i in nodes
+          n.x = $element.width() / 2 + radius * Math.sin(2 * Math.PI * i / nodes.length)
+          n.y = $element.height() / 2 + radius * Math.cos(2 * Math.PI * i / nodes.length)
+
         force
           .nodes(nodes)
           .links(relationships)
-          .on('end', fit)
           .start()
 
         layers = el.selectAll("g.layer").data(["relationships", "nodes"])
