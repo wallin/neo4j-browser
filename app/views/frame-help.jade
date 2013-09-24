@@ -1,9 +1,4 @@
-.code-bar
-  .label.label-help HELP {{foo}}
-  span.code {{frame.input | uncomment}}
-  .actions
-    a.icon-fullscreen(ng-click="fullscreen = !fullscreen", tooltip-placement='bottom', tooltip='Fullscreen')
-    include partials/frame-common-actions
+include partials/frame-common-actions
 .inner
   .view-result.help(ng-hide='frame.hasErrors', ng-include = 'frame.response.page')
 

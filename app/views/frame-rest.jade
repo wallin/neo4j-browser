@@ -1,12 +1,4 @@
-.code-bar
-  .label.label-rest HTTP
-  span.code {{frame.input | uncomment}}
-  .actions
-    a.icon-edit(tooltip-placement='bottom', tooltip='Modify script')
-    a.icon-download-alt(exportable ng-click='exportJSON(frame.response)', tooltip-placement='bottom', tooltip='Export JSON')
-    span.divider &nbsp;
-    include partials/frame-common-actions
-
+include partials/frame-common-actions
 .inner
   .view-result.boxed(ng-show='frame.response')
     pre(output-raw = "frame.response")

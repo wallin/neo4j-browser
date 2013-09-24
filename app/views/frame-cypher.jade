@@ -1,11 +1,5 @@
 div(ng-controller="CypherResultCtrl", fullscreen)
-  .code-bar
-    .label.label-cypher CYPHER
-    span.code {{frame.input | uncomment}}
-    .actions
-      a.icon-fullscreen(ng-click="toggleFullscreen(true)", tooltip-placement='bottom', tooltip='Fullscreen')
-      include partials/frame-common-actions
-    a.close-fullscreen.icon-chevron-down(ng-click="toggleFullscreen(false)")
+  include partials/frame-common-actions
   .inner
     .view-result.boxed(
       ng-class='{error: frame.hasErrors}'

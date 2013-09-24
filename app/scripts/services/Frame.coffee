@@ -23,7 +23,7 @@ angular.module('neo4jApp.services')
             @id ?= UUID.genV1().toString()
 
           toJSON: ->
-            {@id, @starred, @folder, @input}
+            {@id, @input}
 
           exec: ->
             query = Utils.stripComments(@input.trim())
@@ -33,6 +33,8 @@ angular.module('neo4jApp.services')
             return unless intr
             @type = intr.type
             intrFn = $injector.invoke(intr.exec)
+
+            @setProperties()
 
             @errorText = no
             @hasErrors = no
@@ -64,6 +66,10 @@ angular.module('neo4jApp.services')
                 @runTime = timer.stop().time()
             )
             @
+          setProperties: ->
+            # FIXME: this should maybe be defined by the interpreters
+            @exportable     = @type in ['cypher', 'http']
+            @fullscreenable = @type is 'cypher'
 
 
         class Frames extends Collection

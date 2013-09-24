@@ -34,7 +34,7 @@ angular.module('neo4jApp.directives')
       element.on 'click', '.code', (e) ->
         code = e.currentTarget.textContent or e.currentTarget.innerText
         return unless code?.length > 0
-        Editor.content = code.trim()
+        Editor.setContent(code.trim())
         $rootScope.$apply() unless $rootScope.$$phase
 
   ])
