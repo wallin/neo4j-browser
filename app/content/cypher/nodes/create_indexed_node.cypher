@@ -1,2 +1,6 @@
 // Create indexed node
-CREATE (n{{':'+selected_label}} { {{indexed_property}}:"{property_value}" }) RETURN n
+// Replace:
+//   'LabelName' - with label to apply to new node
+//   'propertyKey' - with the a property key
+//   'property_value' - with the value for the named property
+CREATE (n:LabelName { propertyKey:"property_value" }) RETURN n

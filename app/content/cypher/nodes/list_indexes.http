@@ -1,2 +1,2 @@
 // List indexes
-GET /db/data/schema/index/{{selected_label}}
+GET /db/data/schema/index/

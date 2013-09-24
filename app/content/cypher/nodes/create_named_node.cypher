@@ -1,2 +1,4 @@
 // Create named node
-CREATE (n{{':'+selected_label}} {name:"{{name_generator}}"}) RETURN n
+// Replace:
+//   'whats_my_name' - with value of the name property
+CREATE (n { name:"whats_my_name"}) RETURN n

@@ -36,7 +36,8 @@ LIMIT 100
         folder: 'nodes'
         content: """
 // Count nodes
-MATCH (n{{':'+label-name}})
+// Note: may take a long time.
+MATCH (n)
 RETURN count(n)
         """
       }
@@ -44,29 +45,41 @@ RETURN count(n)
         folder: 'nodes'
         content: """
 // Create index
-CREATE INDEX ON :{{label-name}}({{property-name}})
+// Replace:
+//   'LabelName' with label to index
+//   'propertyKey' with property to be indexed
+CREATE INDEX ON :LabelName(propertyKey)
         """
       }
       {
         folder: 'nodes'
         content: """
 // Create indexed node
-CREATE (n{{':'+label-name}} { {{property-name}}:"{{property-value}}" }) RETURN n
+// Replace:
+//   'LabelName' with label to apply to new node
+//   'propertyKey' with property to add
+//   'property_value' with value of the added property
+CREATE (n:LabelName { propertyKey:"property_value" }) RETURN n
         """
       }
       {
         folder: 'nodes'
         content: """
 // Create node
-CREATE (n{{':'+label-name}}) RETURN n
+CREATE (n) RETURN n
         """
       }
       {
         folder: 'nodes'
         content: """
 // Delete a node
-START n=node(*) MATCH (n{{':'+label-name}})-[r?]-()
-WHERE {{property-name}} = "{{property-name}}"
+// Replace:
+//   'LabelName' with label of node to delete
+//   'propertyKey' with property to find
+//   'expected_value' with value of property
+START n=node(*) 
+MATCH (n:LabelName)-[r?]-()
+WHERE n.propertyKey = "expected_value"
 DELETE n,r
         """
       }
@@ -74,7 +87,10 @@ DELETE n,r
         folder: 'nodes'
         content: """
 // Drop index
-DROP INDEX ON :{{label-name}}({{property-name}})
+// Replace:
+//   'LabelName' with label index
+//   'propertyKey' with indexed property
+DROP INDEX ON :LabelName(propertyKey)
         """
       }
       {
@@ -85,14 +101,6 @@ MATCH (n{{':'+label-name}})
 WHERE n.{{property-name}} = "{{property-value}}" RETURN n
         """
       }
-      {
-        folder: 'nodes'
-        content: """
-// Get all nodes
-MATCH (n{{':'+label-name}})
-RETURN n LIMIT 100
-        """
-      }
     ]
 
     relationship_scripts = [
@@ -100,8 +108,13 @@ RETURN n LIMIT 100
         folder: 'relationships'
         content: """
 // Isolate node
-MATCH (a)-[r{{':'+type-name}}]-()
-WHERE a.{{property-name}} = "{{property-value}}"
+// Description: Delete some relationships to a particular node
+// Replace:
+//   'RELATIONSHIP' with relationship type to match (or remove for all)
+//   'propertyKey' with property by which to find the node
+//   'expected_value' with the property value to find
+MATCH (a)-[r:RELATIONSHIP]-()
+WHERE a.propertyKey = "expected_value"
 DELETE r
         """
       }
@@ -109,10 +122,15 @@ DELETE r
         folder: 'relationships'
         content: """
 // Relate nodes
+// Replace:
+//   'propertyKey' with property to evaluate on either node
+//   'expected_value_a' with property value to find node a
+//   'expected_value_b' with property value to find node b
+//   'RELATIONSHP' with type of new relationship between a and b
 MATCH (a),(b)
-WHERE a.{{property-name}} = "{{property-value-a}}"
-AND b.{{property-name}} = "{{property-value-b}}"
-CREATE (a)-[r{{':'+type-name}}]->(b)
+WHERE a.propertyKey = "expected_value_a"
+AND b.propertyKey = "expected_value_b"
+CREATE (a)-[r:RELATIONSHIP]->(b)
 RETURN a,r,b
         """
       }
@@ -120,8 +138,12 @@ RETURN a,r,b
         folder: 'relationships'
         content: """
 // Shortest path
-MATCH p = shortestPath( (a)-[{{':'+type-name}}*..4]->(b) )
-WHERE a.{{propert-name}}={property-value-a} AND b.{{property-name}}={{property-value-b}}
+// Replace:
+//   'propertyKey' with property to evaluate on either node
+//   'expected_value_a' with property value to find node a
+//   'expected_value_b' with property value to find node b
+MATCH p = shortestPath( (a)-[*..4]->(b) )
+WHERE a.propertyKey='expected_value_a' AND b.propertyKey='expected_value_b'
 RETURN p
         """
       }
@@ -129,8 +151,9 @@ RETURN p
         folder: 'relationships'
         content: """
 // Whats related
-MATCH (a)-[r{{':'+type-name}}]-(b)
-RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
+// Description: find a random sample of nodes, revealing how they are related
+MATCH (a)-[r]-(b)
+RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
         """
       }
     ]
@@ -140,6 +163,7 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
         folder: 'system'
         content: """
 // Is master
+// NOTE: only works in Neo4j Enterprise
 :GET /db/manage/server/ha/master
         """
       }
@@ -147,6 +171,7 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
         folder: 'system'
         content: """
 // Is slave
+// NOTE: only works in Neo4j Enterprise
 :GET /db/manage/server/ha/slave
         """
       }
@@ -154,6 +179,7 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b))
         folder: 'system'
         content: """
 // System info
+// Description: gets raw system information
 :GET /db/manage/server/jmx/domain/org.neo4j
         """
       }
