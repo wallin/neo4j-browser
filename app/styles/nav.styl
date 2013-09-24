@@ -36,6 +36,7 @@
       transform:translate(-1px,11px), scale(1)
 
 #nav
+  user-select: none
   .nav-list
     padding: 0
     > li
@@ -48,6 +49,8 @@
         border-bottom: none
         border-top: 1px solid #5D6370
       &.nav-header
+        &.active
+          border-color: #2D2F36
         > a
           line-height: 72px
           text-indent: -9999px
