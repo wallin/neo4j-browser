@@ -15,7 +15,7 @@ angular.module('neo4jApp.services')
           @next = null
           @prev = null
           @errorCode = null
-          @errorMessage = 'Tjoo'
+          @errorMessage = ''
 
         execScript: (input) ->
           @errorCode = null

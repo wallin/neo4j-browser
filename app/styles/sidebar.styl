@@ -123,6 +123,23 @@ indent-hover = 22px
         cursor: pointer
         transist: padding 0.2s
         overflow: hidden
+        &.loaded
+          .icon-long-arrow-right
+            opacity: 1
+            left: 16px
+            &:hover
+              color: color-star
+          &:hover .icon-play-sign
+            opacity: 0
+            left: 50px
+          &:hover
+            padding-left: 0
+            .contents a
+              color: color-star
+          .contents
+            a, a:hover
+              font-weight: bold
+              color: color-star
         &:after
           content: ' '
           stretch()
@@ -150,11 +167,13 @@ indent-hover = 22px
           z-index 2
           absolute: right 2px top 10px
           display: none
-        .icon-play-sign, .icon-spinner
+        .icon-play-sign, .icon-spinner, .icon-long-arrow-right
           transist: all 0.2s
           opacity: 0
           z-index 2
           absolute: left 0 top 10px
+        a.icon-long-arrow-right
+          color: color-star
         a.icon-spinner
           color: #fff
         .contents
@@ -162,9 +181,9 @@ indent-hover = 22px
           z-index: 1
           line-height: 1
           a
+            width: 182px
             color: sidebar-color-fg
             font-size: 13px
-            width: 182px
             display: inline-block
             line-height: 1.4
             max-height: 54px
@@ -179,6 +198,10 @@ indent-hover = 22px
   ul.indented
     li .list-item
       padding-left: indent
+      &.loaded
+        padding-left: indent-hover + indent
+        &:hover
+          padding-left: indent-hover + indent
       &:hover
         padding-left: indent-hover + indent
       .icon-play-sign, .icon-spinner
