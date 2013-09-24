@@ -1,6 +1,6 @@
 .list-item(ng-click="editor.loadDocument(document.id)", ng-class="{loaded: editor.documentId == document.id}")
   a.icon-long-arrow-right
-  a.icon-play-sign(ng-click='editor.execScript(document.content)')
-  a.icon-trash('ng-click'="removeDocument(document)")
+  a.icon-play-sign(ng-click='playDocument(document.content);$event.stopPropagation()')
+  a.icon-trash('ng-click'="removeDocument(document);$event.stopPropagation()")
   .contents
     a {{document.content | autotitle}}

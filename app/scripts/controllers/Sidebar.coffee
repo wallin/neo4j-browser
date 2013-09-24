@@ -5,8 +5,9 @@ angular.module('neo4jApp.controllers')
     '$scope'
     'Document'
     'Editor'
+    'Frame'
     'Folder'
-    ($scope, Document, Editor, Folder) ->
+    ($scope, Document, Editor, Frame, Folder) ->
       ###*
        * Local methods
       ###
@@ -30,6 +31,9 @@ angular.module('neo4jApp.controllers')
 
       $scope.importDocument = (content) ->
         Document.create(content: content)
+
+      $scope.playDocument = (content) ->
+        Frame.create(input: content)
 
       ###*
        * Initialization
