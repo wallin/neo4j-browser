@@ -30,6 +30,9 @@ angular.module('neo4jApp.services')
         execCurrent: ->
           @execScript(@content)
 
+        hasChanged:->
+          @document and @document.content.trim() isnt @content.trim()
+
         historyNext: ->
           idx = @cursor
           idx ?= @history.length

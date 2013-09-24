@@ -52,6 +52,17 @@ describe 'Service: Editor', ->
       expect(Document.length).toBe 1
       expect(Document.get(1).content).toBe('updated document')
 
+  describe '#hasChanged', ->
+    it 'is not changed when no script is loaded', ->
+      expect(Editor.hasChanged()).toBeFalsy()
+    it 'is not changed when script is loaded', ->
+      Editor.loadDocument 1
+      expect(Editor.hasChanged()).toBeFalsy()
+    it 'is changed when script is loaded and changed', ->
+      Editor.loadDocument 1
+      Editor.content = 'new content'
+      expect(Editor.hasChanged()).toBeTruthy()
+
   describe '#historySet', ->
     it 'should clear the current document id', ->
       Editor.history = ['first', 'second']

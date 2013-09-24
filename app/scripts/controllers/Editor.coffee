@@ -10,6 +10,7 @@ angular.module('neo4jApp.controllers')
       $scope.motd = motdService
 
       $scope.star = ->
+        unless Editor.document
+          $scope.toggleDrawer("scripts", true)
         Editor.saveDocument()
-        $scope.toggleSidebar("scripts", true)
   ]

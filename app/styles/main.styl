@@ -382,22 +382,29 @@ footer
             transform: scale(1.2)
 
           &.success
-            color: #fff
-            background-color: color-success
-            border: 2px solid darken(color-success, 8%)
+            &:hover
+              color: color-success
+              border: 2px solid color-success
           &.golden
+            //&.enabled
+            //  color: color-star
+            //  border: 2px solid darken(color-star, 8%)
             &.enabled
+              color: #fff
+              background-color: color-star
+              border: 2px solid darken(color-star, 8%)
+            &.changed
+              background-color: #fff
               color: color-star
               border: 2px solid darken(color-star, 8%)
             &:hover
               color: #fff
               background-color: color-star
               border: 2px solid darken(color-star, 8%)
-          &.remove
+          &.add
             &:hover
-              color: #fff
-              background-color: color-error
-              border: 2px solid darken(color-error, 8%)
+              color: color-link
+              border: 2px solid color-link
 
         [class^="icon-"]
           font-size: 18px
