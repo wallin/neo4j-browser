@@ -31,4 +31,5 @@ angular.module('neo4jApp.directives')
           # if parent[0].innerHTML is ""
           parent.append(element)
           fullscreenService.hide()
+        scope.$emit 'layout.changed'
 ])

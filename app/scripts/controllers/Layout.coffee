@@ -48,16 +48,15 @@ angular.module('neo4jApp.controllers')
       $scope.toggleTable = ->
         $scope.isTableExpanded ^= true
 
-      # $scope.isDrawerShown = false
-      # $scope.toggleDrawer = (state = !$scope.isDrawerShown)->
-      #   $scope.isDrawerShown = state
-
       $scope.isDrawerShown = false
       $scope.whichDrawer = ""
       $scope.toggleDrawer = (selectedDrawer = "", state) ->
         state ?= !$scope.isDrawerShown or (selectedDrawer != $scope.whichDrawer)
         $scope.isDrawerShown = state
         $scope.whichDrawer = selectedDrawer
+
+      $scope.$watch 'isDrawerShown', () ->
+        $timeout(() -> $scope.$emit 'layout.changed', 0)
 
       $scope.isInspectorShown = no
       $scope.toggleInspector = ->
@@ -116,6 +115,7 @@ angular.module('neo4jApp.controllers')
       resize = ->
         $('#views').css
           'max-height': $(window).height() - $('.view-editor').height() - 40
+        $scope.$emit 'layout.changed'
       $(window).resize(resize)
       check = ->
         resize()

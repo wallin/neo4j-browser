@@ -36,6 +36,7 @@ clickcancel = ->
 angular.module('neo4jApp.controllers')
   .controller('D3GraphCtrl', [
     '$element'
+    '$window'
     '$rootScope'
     '$scope'
     'CircularLayout'
@@ -43,7 +44,7 @@ angular.module('neo4jApp.controllers')
     'GraphRenderer'
     'GraphStyle'
     'GraphGeometry'
-    ($element, $rootScope, $scope, CircularLayout, GraphExplorer, GraphRenderer, GraphStyle, GraphGeometry) ->
+    ($element, $window, $rootScope, $scope, CircularLayout, GraphExplorer, GraphRenderer, GraphStyle, GraphGeometry) ->
 
       linkDistance = 60
 
@@ -59,46 +60,20 @@ angular.module('neo4jApp.controllers')
         @update()
       , true
 
-      #
-      # Local methods
-      #
-
-      naturalViewBox = (width, height) ->
-        [
-          0
-          0
-          width
-          height
-        ].join(" ")
-
       resize = ->
         height = $element.height()
         width  = $element.width()
-        force.size([width, height])
-        el.attr("viewBox", naturalViewBox(width, height))
-
-      fit = ->
-        height = $element.height()
-        width  = $element.width()
-        box = graph.boundingBox()
-
-        el.transition().attr("viewBox",
-          if (box.x.min > 0 && box.x.max < width && box.y.min > 0 && box.y.max < height)
-            naturalViewBox(width, height)
-          else [
-            box.x.min
-            box.y.min
-            box.x.max - box.x.min
-            box.y.max - box.y.min
-          ].join(" ")
-        )
+        currentSize = force.size()
+        if currentSize[0] != width or currentSize[1] != height
+          console.log(width, height)
+          force.size([width, height])
+          force.start()
 
       selectItem = (item) ->
         $rootScope.selectedGraphItem = item
         $rootScope.$apply() unless $rootScope.$$phase
 
       onNodeDblClick = (d) =>
-        #$rootScope.selectedGraphItem = d
         return if d.expanded
         GraphExplorer.exploreNeighbours(d).then (result) =>
           graph.merge(result)
@@ -174,8 +149,6 @@ angular.module('neo4jApp.controllers')
 
       accelerateLayout(force, render)
 
-      resize()
-
       #
       # Public methods
       #
@@ -194,6 +167,9 @@ angular.module('neo4jApp.controllers')
           .nodes(nodes)
           .links(relationships)
           .start()
+
+        resize()
+        $rootScope.$on 'layout.changed', resize
 
         layers = el.selectAll("g.layer").data(["relationships", "nodes"])
 
