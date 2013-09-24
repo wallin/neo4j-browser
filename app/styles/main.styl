@@ -34,17 +34,21 @@ a
 table.data
   width: 100%
   thead tr th, tfoot tr th
+    text-align: left
     height: middlebar-height
     font-weight: bold
     padding: 0 horizontal-padding
     line-height: middlebar-height
     border-bottom: 1px solid table-color-border-color
   tbody tr td, tr td, tfoot tr td
-    background-color: #fff
     border-bottom: 1px solid table-color-border-color
     vertical-align: top
-    line-height: middlebar-height
+    line-height: 26px
     padding: 0 horizontal-padding
+  tbody tr
+    background-color: #fff
+    &:hover
+     background-color: #F8F8F9
 
 ul
   list-style-type none

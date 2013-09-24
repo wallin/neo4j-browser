@@ -19,7 +19,7 @@ angular.module('neo4jApp.directives')
         render = (result) ->
           rows = result.rows()
           return "" unless rows.length
-          html  = "<table class='table-striped data'>"
+          html  = "<table class='table data'>"
           html += "<thead><tr>"
           for col in result.columns()
             html += "<th>#{col}</th>"
