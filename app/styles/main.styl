@@ -384,17 +384,20 @@ footer
           &.success
             color: #fff
             background-color: color-success
-            border: 2px solid #54D69A
+            border: 2px solid darken(color-success, 8%)
           &.golden
+            &.enabled
+              color: color-star
+              border: 2px solid darken(color-star, 8%)
             &:hover
               color: #fff
-              background-color: #FDCC59
-              border: 2px solid #F0BC44
+              background-color: color-star
+              border: 2px solid darken(color-star, 8%)
           &.remove
             &:hover
               color: #fff
               background-color: color-error
-              border: 2px solid #DA3727
+              border: 2px solid darken(color-error, 8%)
 
         [class^="icon-"]
           font-size: 18px

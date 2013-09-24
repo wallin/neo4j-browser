@@ -8,16 +8,16 @@
           placeholder='{{motd.tip}}'
           )
       ul.controls.inline
-        li(tooltip-placement='bottom', tooltip='Execute')
-          a.balled.success('ng-click' = 'editor.execScript(editor.content)', ng-class="{active: editor.content}")
-            i.icon-play
+        li(tooltip-placement='bottom', tooltip='Save')
+          a.balled.golden(ng-class="{active: editor.content, 'enabled': editor.documentId}", ng-click='star()')
+            i.icon-star(ng-class="{'icon-ok': editor.documentId}")
         li(tooltip-placement='bottom', tooltip='Clear')
           a.balled.remove(ng-click='editor.setContent("")', ng-class="{active: editor.content}")
             i.icon-remove
         li.divider &nbsp;
-        li(tooltip-placement='bottom', tooltip='Save')
-          a.balled.golden.rectangle(ng-class="{active: editor.content}", ng-click='star()')
-            i.icon-star
+        li(tooltip-placement='bottom', tooltip='Execute')
+          a.balled.success('ng-click' = 'editor.execScript(editor.content)', ng-class="{active: editor.content}")
+            i.icon-play
 
       .message-bar.error(ng-show='editor.errorCode', ng-animate="{hide:'slide-down-out', show:'slide-down-in'}")
         | You screamed <b>{{editor.errorMessage | uncomment}}</b> but nobody replied.
