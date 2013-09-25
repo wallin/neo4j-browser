@@ -14,6 +14,13 @@ angular.module('neo4jApp.directives')
           elm.html(render(result))
           unbind()
 
+        json2html = (obj) ->
+          html  = "<table class='unstyled'><tbody>"
+          html += "<tr><th>#{k}</th><td>#{v}</td></tr>" for own k, v of obj
+          html += "</tbody></table>"
+          html
+
+
         # Manual rendering function due to performance reasons
         # (repeat watchers are expensive)
         render = (result) ->
@@ -30,6 +37,8 @@ angular.module('neo4jApp.directives')
             for cell in row
               if angular.isString(cell)
                 html += "<td>#{cell}</td>"
+              else if angular.isObject(cell)
+                html += "<td>#{json2html(cell)}</td>"
               else
                 html += "<td>#{JSON.stringify(cell)}</td>"
             html += "</tr>"
