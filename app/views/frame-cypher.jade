@@ -1,22 +1,15 @@
 div(ng-controller="CypherResultCtrl", fullscreen)
   include partials/frame-common-actions
   .inner
-    .view-result.boxed(
-      ng-class='{error: frame.hasErrors}'
-      ng-hide='frame.hasErrors')
+    .view-result(ng-class='{error: frame.hasErrors}', ng-hide='frame.hasErrors')
       .view-result-graph(ng-show='isActive("graph")')
-        svg(
-          neo-graph,
-          graph-data='frame.response',
-          ng-controller='D3GraphCtrl'
-          style="pointer-events:fill;",
-          preserveAspectRatio="xMidyMid")
-
+        svg(neo-graph, graph-data='frame.response', ng-controller='D3GraphCtrl'
+          style="pointer-events:fill;", preserveAspectRatio="xMidyMid")
         include partials/legend
       .view-result-table(ng-show='isActive("table")', ng-animate = "'animate-box'")
-        .view-result-table-scroll
-          neo-table(table-data='frame.response')
+        neo-table(table-data='frame.response')
         a.icon-download-alt(exportable 'ng-click'='exportCSV(frame.response)', tooltip-placement='left', tooltip='Download CSV')
+
     .status-bar(ng-class='{error: frame.hasErrors, loading: frame.isLoading}')
       div(ng-hide='frame.isLoading')
         span(ng-show='frame.hasErrors')
@@ -28,13 +21,6 @@ div(ng-controller="CypherResultCtrl", fullscreen)
             include partials/result-status
             span  in <b>{{frame.runTime}} ms</b>
             .details.btn.btn-small(popover-animation='true', popover="{{resultDetails(frame)}}", popover-title="Detailed results", popover-placement='bottom', ng-show="frame.response.stats.contains_updates") Details
-            .updated-code(ng-show='frame.savedInput != frame.input')
-              .icon-info-sign
-              | Code has changed since last execution.&nbsp;
-              a(ng-click='frame.revertCode()') Revert
-          div(ng-hide='frame.response')
-            .icon-info-sign
-            | <b>Query not executed yet.</b> Press the play button or hit Ctrl-Enter to execute it.
       .btn-group
         a.btn.btn-small(ng-click='setActive("graph")', ng-class='{active: isActive("graph")}')
           i.icon-code-fork
