@@ -38,3 +38,10 @@ describe 'Service: Document', () ->
       len = Document.length
       Document.remove(f)
       expect(Document.length).toBe len-1
+
+    it 'should clear a removed document', ->
+     d = Document.create(content: 'test')
+     Document.remove(d)
+     expect(d.id).toBeNull()
+     expect(d.content).toBeNull()
+     expect(d.folder).toBeNull()
