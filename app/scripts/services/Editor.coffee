@@ -30,6 +30,9 @@ angular.module('neo4jApp.services')
         execCurrent: ->
           @execScript(@content)
 
+        focusEditor: ->
+          $('.view-editor textarea').focus()
+
         hasChanged:->
           @document and @document.content.trim() isnt @content.trim()
 
@@ -59,6 +62,7 @@ angular.module('neo4jApp.services')
           doc = Document.get(id)
           return unless doc
           @content = doc.content
+          @focusEditor()
           @document = doc
 
         saveDocument: ->
@@ -74,6 +78,7 @@ angular.module('neo4jApp.services')
 
         setContent: (content = '')->
           @content = content
+          @focusEditor()
           @document = null
 
       editor = new Editor()
