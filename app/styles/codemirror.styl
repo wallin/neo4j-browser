@@ -32,7 +32,7 @@ left-margin = 16px
 .CodeMirror
   height: auto
 .CodeMirror-scroll
-  overflow-x: auto
+  overflow: hidden
   max-height: 140px
 .CodeMirror div.CodeMirror-cursor
   border-left: 11px solid rgba(155, 157, 162, 0.37)
@@ -41,6 +41,12 @@ left-margin = 16px
 .CodeMirror
   &.cm-s-neo, &.cm-s-css
     color: #2E383C
+    .cm-placeholder
+      background-color: #FF6E6E
+      color: #FFF
+      border-radius: 4px
+    .cm-comment
+      color: #C0C4CA
     .cm-keyword
       color: #3498DB
     .cm-atom
