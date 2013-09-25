@@ -10,7 +10,6 @@
     "angular-ui-codemirror": "latest",
     "codemirror": "~3.15.0",
     "d3": "~3.2.2",
-    "cypher": "https://raw.github.com/neo4j-contrib/rabbithole/master/src/main/webapp/javascripts/cypher.js",
     "blob": "latest",
     "file-saver": "latest",
     "angular-local-storage": "latest",
