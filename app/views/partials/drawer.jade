@@ -8,13 +8,19 @@
     .inner
       h5 Labels
       a.badge(ng-click="editor.execScript('MATCH n RETURN n LIMIT 25')") *
-      span(ng-repeat='node in labels | limitTo:16')
+      span(ng-repeat='node in labels')
         a.badge(ng-click="editor.execScript('MATCH (n:'+node+') RETURN n LIMIT 25')") {{node}}
 
       h5 Relationships
       a.label.relationship(ng-click="editor.execScript('MATCH (a)-[r]-(b) RETURN a,b LIMIT 25')") {{relationship}} *
-      span(ng-repeat='relationship in relationships | limitTo:16')
+      span(ng-repeat='relationship in relationships')
         a.label.relationship(ng-click="editor.execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 25')") {{relationship}}
+
+      span(ng-show='propertyKeys')
+        h5 Properties
+        //- a.label.property(ng-click="editor.execScript('MATCH (a)-[r]-(b) RETURN a,b LIMIT 25')") {{relationship}} *
+        span(ng-repeat='propertyKey in propertyKeys')
+          a.label.property(ng-click="editor.execScript('MATCH (a) WHERE has(a.'+propertyKey+') RETURN a LIMIT 25')") {{propertyKey}}
 
       h5 Server
       ul
