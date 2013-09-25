@@ -27,8 +27,6 @@ angular.module('neo4jApp.services')
         remove: (doc) ->
           super
           @save()
-          # clear the document data
-          doc[k] = null for own k, v of doc
 
       new Documents(null, Document).fetch()
   ]

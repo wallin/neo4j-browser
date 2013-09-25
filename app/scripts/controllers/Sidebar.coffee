@@ -28,6 +28,8 @@ angular.module('neo4jApp.controllers')
 
       $scope.removeDocument = (doc) ->
         Document.remove(doc)
+        # also clear the document contents to cleanup editor content etc.
+        doc[k] = null for own k, v of doc
 
       $scope.importDocument = (content) ->
         Document.create(content: content)
