@@ -75,6 +75,7 @@ angular.module("neo4jApp.animations", [])
     setup: (element) ->
       TweenMax.set element,
         height: 0
+        display: 'block'
 
     start: (element, done) ->
       TweenMax.to element, 0.4,
