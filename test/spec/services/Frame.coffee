@@ -63,7 +63,7 @@ describe 'Service: Frame', () ->
       expect(frame).toBeUndefined()
 
     it 'should not create more frames than specified in Settings', ->
-      f = Frame.create(input: 'help') while Frame.length < Settings.maxFrames
+      f = Frame.create(input: 'help') until Frame.length >= Settings.maxFrames
       firstFrame = Frame.first()
 
       Frame.create(input: 'help')

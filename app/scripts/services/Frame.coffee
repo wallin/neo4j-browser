@@ -85,8 +85,8 @@ angular.module('neo4jApp.services')
 
             if frame
               # Make sure we don't create more frames than allowed
-              @remove(@first()) while @length >= Settings.maxFrames
               @add(frame.exec())
+              @remove(@first()) until @length <= Settings.maxFrames
             frame or rv
 
           interpreterFor: (input = '') ->
