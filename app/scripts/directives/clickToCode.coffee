@@ -5,7 +5,7 @@ angular.module('neo4jApp.directives')
     restrict: 'A'
     link: (scope, element, attrs) ->
       element.click (e) ->
-        code = e.currentTarget.textContent or e.currentTarget.innerText
+        code = scope.$eval(attrs.clickToCode)
         return unless code?.length > 0
         Editor.setContent(code.trim())
         scope.$apply()
