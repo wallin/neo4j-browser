@@ -58,6 +58,12 @@ left-margin = 16px
     .cm-variable
       color: #1ABC9C
 
+// Smooth transition from multi-line to one-line
+.CodeMirror-sizer
+  transist min-height
+.CodeMirror-scroll div:nth-child(2)
+  transist top
+
 .prompt
   absolute: top 24px left (left-margin + 9px)
   color: #93969b
