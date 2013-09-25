@@ -89,7 +89,6 @@ angular.module('neo4jApp.services')
       CodeMirror.commands.handleEnter = (cm) ->
         if cm.lineCount() == 1
           editor.execCurrent()
-          $('.intro').removeClass('visible')
         else
           CodeMirror.commands.newlineAndIndent(cm)
 
