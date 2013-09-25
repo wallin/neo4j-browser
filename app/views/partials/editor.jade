@@ -1,6 +1,6 @@
 #editor
   .view-editor(ng-mousedown="focusEditor()", ng-controller = "EditorCtrl")
-    span(ng-class="{'one-line': editorOneLine}")
+    span(ng-class="{'one-line': editorOneLine, 'disable-highlighting': disableHighlighting}")
       .prompt.code-style $
       textarea('ui-codemirror'="{theme: 'neo', autofocus: true, lineNumbers: true, lineWrapping: true, onChange: editorChanged, onFocus: editorChanged}",
         ng-model='editor.content',
