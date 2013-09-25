@@ -10,9 +10,10 @@ angular.module('neo4jApp.services')
       '$injector'
       '$q'
       'Collection'
+      'Settings'
       'Timer'
       'Utils'
-      ($injector, $q, Collection, Timer, Utils) ->
+      ($injector, $q, Collection, Settings, Timer, Utils) ->
         class Frame
           constructor: (data = {})->
             @templateUrl = null
@@ -82,7 +83,10 @@ angular.module('neo4jApp.services')
             else
               rv = $injector.invoke(intr.exec)()
 
-            @add(frame.exec()) if frame
+            if frame
+              # Make sure we don't create more frames than allowed
+              @remove(@first()) while @length >= Settings.maxFrames
+              @add(frame.exec())
             frame or rv
 
           interpreterFor: (input = '') ->

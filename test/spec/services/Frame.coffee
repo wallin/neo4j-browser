@@ -8,6 +8,7 @@ describe 'Service: Frame', () ->
 
   # instantiate service
   Frame = {}
+  Settings = {}
   beforeEach ->
     module (FrameProvider) ->
       FrameProvider.interpreters.push
@@ -28,8 +29,9 @@ describe 'Service: Frame', () ->
 
       return
 
-    inject (_Frame_) ->
+    inject (_Frame_, _Settings_) ->
       Frame = _Frame_
+      Settings = _Settings_
 
   describe "interpreterFor", ->
     it 'should not return anything when no match', ->
@@ -59,3 +61,12 @@ describe 'Service: Frame', () ->
     it 'should not return a frame is there is not templateUrl for interpreter', ->
       frame = Frame.create(input: 'command1')
       expect(frame).toBeUndefined()
+
+    it 'should not create more frames than specified in Settings', ->
+      f = Frame.create(input: 'help') while Frame.length < Settings.maxFrames
+      firstFrame = Frame.first()
+
+      Frame.create(input: 'help')
+
+      expect(Frame.length).toBe Settings.maxFrames
+      expect(Frame.get(firstFrame)).toBeFalsy()
