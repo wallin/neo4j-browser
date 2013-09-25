@@ -51,6 +51,12 @@
       &.nav-header
         &.active
           border-color: #2D2F36
+          .ball
+            background: #06E267
+            background: linear-gradient(top, #41FF95, #06E267)
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4)
+          > a
+            //background-color: #202930
         > a
           line-height: 72px
           text-indent: -9999px
@@ -82,27 +88,24 @@
   background: #525864
 
   .nav-header:hover .ball
-    background-color: #fff
-  //.nav-header
-  //  background-color: #40454E
+    background: #fff
+    background: linear-gradient(top, #fff, #fff)
 
   .logo
     absolute: top 35px left 45px
     .ball
-      background-color: #fff
+      transist: all
+      background: #fff
+      background: linear-gradient(top, #fff, #fff)
       &.one
-        transist: all
         absolute: top -4px left -4px
         transform: translate(-5px,-14px)
         circle(9px)
       &.two
-        transist: all
         absolute: top -8px left -8px
         transform: translate(10px,-7px)
         circle(17px)
-
       &.three
-        transist: all
         absolute: top -6px left -6px
         transform: translate(-1px,11px)
         circle(13px)

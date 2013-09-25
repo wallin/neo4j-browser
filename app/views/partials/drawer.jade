@@ -4,7 +4,7 @@
   div(ng-switch-when="info")
     h4 Learn
   div(ng-switch-when="database")
-    h4 Neo4j {{neo4j.edition}} {{ neo4j.version }}
+    h4 Neo4j {{ neo4j.version }}
     .inner
       h5 Labels
       a.badge(ng-click="editor.execScript('MATCH n RETURN n LIMIT 25')") *
