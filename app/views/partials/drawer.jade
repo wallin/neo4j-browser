@@ -1,38 +1,11 @@
-#drawer(ng-switch on="whichDrawer")
-  div(ng-switch-when="scripts")
+#drawer(ng-switch on="whichDrawer", ng-animate="'animate-drawer'")
+  div.pane(ng-switch-when="scripts")
     include drawer-scripts
-  div(ng-switch-when="info")
+  div.pane(ng-switch-when="learn")
     h4 Learn
-  div(ng-switch-when="database")
-    h4 Neo4j {{ neo4j.version }}
-    .inner
-      h5 Labels
-      a.badge(ng-click="editor.execScript('MATCH n RETURN n LIMIT 25')") *
-      span(ng-repeat='node in labels')
-        a.badge(ng-click="editor.execScript('MATCH (n:'+node+') RETURN n LIMIT 25')") {{node}}
-
-      h5 Relationships
-      a.label.relationship(ng-click="editor.execScript('MATCH (a)-[r]-(b) RETURN a,b LIMIT 25')") {{relationship}} *
-      span(ng-repeat='relationship in relationships')
-        a.label.relationship(ng-click="editor.execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 25')") {{relationship}}
-
-      span(ng-show='propertyKeys')
-        h5 Properties
-        //- a.label.property(ng-click="editor.execScript('MATCH (a)-[r]-(b) RETURN a,b LIMIT 25')") {{relationship}} *
-        span(ng-repeat='propertyKey in propertyKeys')
-          a.label.property(ng-click="editor.execScript('MATCH (a) WHERE has(a.'+propertyKey+') RETURN a LIMIT 25')") {{propertyKey}}
-
-      h5 Server
-      ul
-        li.pair
-          .key Database:
-          .value {{kernel.store_dir}}
-        li.pair
-          .key Location:
-          .value {{kernel.StoreDirectory}}
-        li.pair
-          .key Memory:
-          .value {{kernel.all_stores_total_mapped_memory_size}}
-
-  div(ng-switch-default)
+  div.pane(ng-switch-when="database")
+    include drawer-database
+  div.pane(ng-switch-when="info")
+    include drawer-info
+  div.pane(ng-switch-default)
     h4 Super secret sidebar. Shh!!
