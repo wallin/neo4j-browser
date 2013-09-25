@@ -4,7 +4,8 @@ angular.module('neo4jApp.services')
   .service 'Editor', [
     'Document'
     'Frame'
-    (Document, Frame) ->
+    'Settings'
+    (Document, Frame, Settings) ->
 
       class Editor
         constructor: ->
@@ -22,6 +23,7 @@ angular.module('neo4jApp.services')
           frame = Frame.create(input: input)
           if input?.length > 0 and @history[0] isnt input
             @history.unshift(input)
+            @history.pop() until @history.length <= Settings.maxHistory
           @historySet(-1)
           if !frame and input != ''
             @errorMessage = input

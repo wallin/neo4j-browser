@@ -13,4 +13,5 @@ angular.module('neo4jApp.settings', [])
       transaction: "#{restAPI}/transaction"
     host: baseURL
     maxFrames: 50
+    maxHistory: 100
   })

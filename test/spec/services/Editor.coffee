@@ -8,13 +8,25 @@ describe 'Service: Editor', ->
   # instantiate service
   Document = {}
   Editor = {}
-  beforeEach inject (_Document_, _Editor_) ->
+  Settings = {}
+  beforeEach inject (_Document_, _Editor_, _Settings_) ->
     Document = _Document_
     Editor = _Editor_
+    Settings = _Settings_
     Document.reset([{
       id: 1
       content: 'test content'
     }])
+
+  describe '#execScript', ->
+    it 'does not create more history items than allowed by Settings', ->
+      # Need to provide random commands since it wont add the same one twice
+      Editor.execScript("test" + Math.random()) until Editor.history.length >= Settings.maxHistory
+
+      Editor.execScript('test2')
+      expect(Editor.history.length).toBe Settings.maxHistory
+      expect(Editor.history[0]).toBe 'test2'
+
 
   describe '#loadDocument', ->
     beforeEach ->
