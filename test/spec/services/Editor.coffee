@@ -52,6 +52,14 @@ describe 'Service: Editor', ->
       expect(Document.length).toBe 1
       expect(Document.get(1).content).toBe('updated document')
 
+    it 'should create a new document if the current lacks an id', ->
+      len = Document.length
+      Editor.loadDocument 1
+      Document.remove(Editor.document)
+      expect(Document.length).toBe len-1
+      Editor.saveDocument()
+      expect(Document.length).toBe len
+
   describe '#hasChanged', ->
     it 'is not changed when no script is loaded', ->
       expect(Editor.hasChanged()).toBeFalsy()

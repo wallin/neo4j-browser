@@ -34,7 +34,7 @@ angular.module('neo4jApp.services')
           $('.view-editor textarea').focus()
 
         hasChanged:->
-          @document and @document.content.trim() isnt @content.trim()
+          @document?.content and @document.content.trim() isnt @content.trim()
 
         historyNext: ->
           idx = @cursor
@@ -70,7 +70,7 @@ angular.module('neo4jApp.services')
           return unless input
           # re-fetch document from collection
           @document = Document.get(@document.id) if @document?.id
-          if @document
+          if @document?.id
             @document.content = input
             Document.save()
           else
