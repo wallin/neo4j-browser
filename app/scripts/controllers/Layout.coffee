@@ -36,18 +36,6 @@ angular.module('neo4jApp.controllers')
       $scope.editorChanged = (codeMirror) ->
         $scope.editorOneLine = codeMirror.lineCount() == 1
 
-      $scope.isEditorExpanded = false
-      $scope.toggleEditor = ->
-        $scope.isGraphExpanded ^= true
-
-      $scope.isGraphExpanded = false
-      $scope.toggleGraph = ->
-        $scope.isGraphExpanded ^= true
-
-      $scope.isTableExpanded = false
-      $scope.toggleTable = ->
-        $scope.isTableExpanded ^= true
-
       $scope.isDrawerShown = false
       $scope.whichDrawer = ""
       $scope.toggleDrawer = (selectedDrawer = "", state) ->
@@ -102,12 +90,6 @@ angular.module('neo4jApp.controllers')
             $scope.togglePopup()
           else
             $scope.toggleEditor()
-
-      # First level page routes
-      $scope.$on '$routeChangeSuccess', ->
-        $scope.togglePopup()
-        $scope.isInspectorShown = no
-        $scope.currentPage = $route.current.page
 
       # we need set a max-height to make the stream scrollable, but since it's
       # position:relative the max-height needs to be calculated.
