@@ -30,7 +30,7 @@ angular.module('neo4jApp.controllers')
 
       $scope.focusEditor = () ->
         event.preventDefault()
-        $('.view-editor textarea').focus()
+        $('#editor textarea').focus()
 
       $scope.editorOneLine = true
       $scope.editorChanged = (codeMirror) ->
@@ -95,8 +95,8 @@ angular.module('neo4jApp.controllers')
       # position:relative the max-height needs to be calculated.
       timer = null
       resize = ->
-        $('#views').css
-          'max-height': $(window).height() - $('.view-editor').height() - 40
+        $('#stream').css
+          'max-height': $(window).height() - $('#editor').height() - 40
         $scope.$emit 'layout.changed'
       $(window).resize(resize)
       check = ->

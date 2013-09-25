@@ -1,0 +1,157 @@
+@import 'variables'
+@import 'nib'
+@import 'mixins'
+
+#stream
+  position: relative
+  padding-bottom: 60px
+  overflow-y: auto
+  padding-top: 24px
+
+  .intro
+    transist: all 0.8s
+    opacity: 0
+    margin-left: -210px
+    width: 417px
+    left: 50%
+    position: absolute
+    top: 150px
+    &.visible
+      top: 90px
+      opacity: 1
+
+  .frame
+    overflow: hidden
+    &:hover
+      .code-bar .actions
+        opacity: 1
+
+  .frame .inner
+    position: relative
+    margin: 0 24px 24px 24px
+    //margin: 0 auto 24px
+    //max-width: 720px
+    border: 1px solid #D2D7DD
+    //box-shadow: 0 1px 2px rgba(0,0,0,0.07)
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset, rgba(0, 0, 0, 0.03) 0 0 3px 0;
+    border-radius: 3px
+    background-color: #fff
+    overflow: hidden
+    &.anim
+      transform: scale(0.9, 0.9)
+    &.outside
+      transform: translate(0, -1000px)
+    &.enter
+      transform: translate(0, 0)
+
+    svg
+      //box-shadow: inset 0 1px #fff;
+      height: 400px
+
+    .view-result
+      position: relative
+      overflow-y: auto
+      height: auto
+      transist left
+      background: #F8F9FB
+      //min-height: 300px
+      //max-height: 1000px - middlebar-height - 1
+      z-index: 10
+
+      pre
+        margin: 0
+        border: 0
+        padding-top: 0
+        padding-bottom: 0
+
+      a[class^="icon-"]
+        color: color-default-text
+        cursor: pointer
+        &:hover
+          color: color-link
+      .view-result-graph
+        background-color: #F8F9FB
+        a.icon-table
+          font-size: 24px
+          absolute: bottom 57px right horizontal-padding
+      .view-result-table
+        border-top: 1px solid #fff
+        background-color: #F8F9FB
+        position: relative
+        left: 0
+        right: 0
+        a.icon-download-alt
+          absolute: top 8px right horizontal-padding*2+20
+          font-size: 24px
+          right: horizontal-padding
+        .view-result-table-scroll
+          overflow-y: auto
+          max-height: 359px
+          display: block;
+
+.code-bar
+  height: middlebar-height
+  line-height: middlebar-height
+  color: #848790
+  //background-color: #FFF
+  border-bottom: 1px solid table-color-border-color
+  padding-left: horizontal-padding
+  font-size: 13px
+  overflow: hidden
+  padding: 0 25px;
+
+  .label
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15)
+    font-size: 11px
+  .label-cypher
+    background-color: #8FDDC7
+  .label-rest
+    background-color: #81C0EB
+  .label-help
+    background-color: #D2A8E9
+
+  .code
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7)
+    font-family: "Menlo","Courier New","Terminal", monospace
+    font-size: 14px
+    margin-left: 8px
+    &:hover
+      cursor: pointer
+      border-bottom: 1px dotted #B6ADAD
+      padding-bottom: 2px
+  a.close-fullscreen
+    display: none
+  .actions
+    opacity: 0
+    transist: opacity 0.2s
+    absolute: top 3px right 25px
+    background-color: #e7e9eb
+    .divider
+      margin-left: 11px
+      width: 0
+      padding: 0
+      display: inline-block
+      height: 22px
+      border-right: 1px solid rgba(0,0,0,0.15)
+      position: relative
+      top: 4px
+    a
+      font-size: 20px
+      margin-left: 13px
+      vertical-align: center
+      position: relative
+      color: #9B9DA2
+      &:hover
+        color: #3F434B
+      &.icon-edit
+        top: 1px
+      &.icon-fullscreen
+        font-size: 19px
+        margin-left: 16px
+      &.icon-trash
+        font-size: 21px
+      &.icon-remove
+        top: 1px
+        font-size: 26px
+    .btn
+      margin-left: 4px

@@ -33,7 +33,7 @@ angular.module('neo4jApp.services')
           @execScript(@content)
 
         focusEditor: ->
-          $('.view-editor textarea').focus()
+          $('#editor textarea').focus()
 
         hasChanged:->
           @document?.content and @document.content.trim() isnt @content.trim()
