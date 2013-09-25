@@ -3,9 +3,8 @@ article.help
     section
      .row
         .span12
-          h1 
-            img(src="images/about-logo.png") 
-            |  {{neo4j.edition}}
+          h1
+            img(src="images/about-logo.png")
           p {{ neo4j.version }}
       .row
         .span4
@@ -19,7 +18,7 @@ article.help
               td.wrapped {{kernel.store_dir | dirname }}
             tr
               th Memory:
-              td {{kernel.all_stores_total_mapped_memory_size}} 
+              td {{kernel.all_stores_total_mapped_memory_size}}
             tr
               th Storage:
               td.warn unknown
@@ -34,13 +33,13 @@ article.help
                       a.badge(ng-click="editor.execScript('MATCH (n:'+node+') RETURN n LIMIT 100')") {{node}}
                     | &nbsp;
               tr
-                td 
+                td
                   span(ng-repeat='relationship in relationships | limitTo:16')
                     span
                       a.label.relationship(ng-click="editor.execScript('MATCH (a)-[:'+relationship+']->(b) RETURN a,b LIMIT 100')") {{relationship}}
                     | &nbsp;
               tr
-                td 
+                td
                   span(ng-repeat='propertyKey in propertyKeys | limitTo:16')
                     span
                       a.label.property(ng-click="editor.execScript('MATCH (a) WHERE has(a.'+propertyKey+') RETURN a LIMIT 100')") {{propertyKey}}
@@ -50,14 +49,14 @@ article.help
             p.lead {{ motd.emptiness }}
             ul
               li
-                strong Tutorials: 
+                strong Tutorials:
                 a.icon-info-sign(play-topic='intro') &nbsp;Intro
                 | , &nbsp;
                 a.icon-info-sign(play-topic='cypher') &nbsp;Cypher
                 | , &nbsp;
                 a.icon-info-sign(play-topic='patterns') &nbsp;Patterns
               li
-                strong Graphs: 
+                strong Graphs:
                 a.icon-play-sign(play-topic='movies') &nbsp;Movies
                 | , &nbsp;
                 a.icon-play-sign(play-topic='social') &nbsp;Social
@@ -79,7 +78,7 @@ article.help
                 a(help-topic='commands')
                   code.icon-info-sign &nbsp;:help commands
                 | &nbsp;- all available commands
-                  
+
 
             //- ul
             //-   li(ng-repeat="document in documents.where({folder: 'general'})")
