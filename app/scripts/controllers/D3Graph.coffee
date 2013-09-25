@@ -65,7 +65,6 @@ angular.module('neo4jApp.controllers')
         width  = $element.width()
         currentSize = force.size()
         if currentSize[0] != width or currentSize[1] != height
-          console.log(width, height)
           force.size([width, height])
           force.start()
 
