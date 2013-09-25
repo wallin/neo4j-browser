@@ -3,6 +3,15 @@
 angular.module('neo4jApp.services')
   .factory 'GraphExplorer', ['$q', 'Cypher', ($q, Cypher) ->
     return  {
+      exploreNeighboursWithInternalRelationships: (node, graph) ->
+        q = $q.defer()
+        @exploreNeighbours(node).then (neighboursResult) =>
+          graph.merge(neighboursResult)
+          @internalRelationships(graph.nodes()).then (result) =>
+            graph.addRelationships(result.relationships)
+            q.resolve()
+        q.promise
+
       exploreNeighbours: (node) ->
         q = $q.defer()
         Cypher.transaction()

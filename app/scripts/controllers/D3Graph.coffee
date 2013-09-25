@@ -75,8 +75,7 @@ angular.module('neo4jApp.controllers')
 
       onNodeDblClick = (d) =>
         return if d.expanded
-        GraphExplorer.exploreNeighbours(d).then (result) =>
-          graph.merge(result)
+        GraphExplorer.exploreNeighboursWithInternalRelationships(d, graph).then () =>
           CircularLayout.layout(graph.nodes(), d, linkDistance)
           d.expanded = yes
           @update()
