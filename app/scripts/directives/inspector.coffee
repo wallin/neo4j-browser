@@ -28,7 +28,7 @@ angular.module('neo4jApp.directives')
         scope.$watch shownExpr, (val) ->
           if val
             dialog.open()
-            dialog.modalEl.draggable?()
+            dialog.modalEl.draggable?(handle: '.header')
           else
             dialog.close() if dialog.isOpen()
   ])
