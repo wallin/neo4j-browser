@@ -43,6 +43,14 @@
       padding: 0
       margin: 0
       border-bottom: 1px solid #5D6370
+      position: relative
+
+      // fix quirk with item not being selected when clicking moving balls
+      .cover
+        stretch()
+        cursor: pointer
+        z-index: 1
+
       &.bottom
         position: absolute
         bottom: 0

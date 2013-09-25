@@ -1,7 +1,8 @@
 #nav
   ul.nav.nav-list
     li.nav-header(ng-class='{active: showingDrawer("database") }')
-      a(ng-click='toggleDrawer("database")') Neo4j
+      .cover(ng-click='toggleDrawer("database")')
+      a Neo4j
         .logo(fancy-logo ng-class='{loading: currentFrame.isLoading}')
           .ball.one
           .ball.two
