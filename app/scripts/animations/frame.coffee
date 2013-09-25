@@ -8,7 +8,7 @@ angular.module("neo4jApp.animations", [])
         height: element.height()
 
     start: (element, done) ->
-      TweenMax.to element, 0.6,
+      TweenMax.to element, 0.4,
         ease: Power2.easeInOut
         opacity: 0
         height: 0
@@ -29,10 +29,10 @@ angular.module("neo4jApp.animations", [])
 
       tl = new TimelineLite()
 
-      tl.to(element, 0.1, {}) # render object to get a size
+      tl.to(element, 0.2, {}) # render object to get a size
       tl.call((e)->
         tl.to(element, 0.01, {maxHeight: 0})
-        tl.to element, 0.8,
+        tl.to element, 0.4,
           maxHeight: element.height()
           top: 0
           opacity: 1
