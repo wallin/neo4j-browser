@@ -69,7 +69,7 @@ angular.module('neo4jApp.services')
           setProperties: ->
             # FIXME: this should maybe be defined by the interpreters
             @exportable     = @type in ['cypher', 'http']
-            @fullscreenable = @type is 'cypher'
+            @fullscreenable = yes
 
 
         class Frames extends Collection
