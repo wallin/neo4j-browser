@@ -5,11 +5,13 @@ angular.module('neo4jApp.services')
     'Document'
     'Frame'
     'Settings'
-    (Document, Frame, Settings) ->
-
+    'localStorageService'
+    (Document, Frame, Settings, localStorageService) ->
+      storageKey = 'history'
       class Editor
         constructor: ->
-          @history = []
+          @history = localStorageService.get(storageKey)
+          @history = [] unless angular.isArray(@history)
           @content = ''
           @cursor = null
           @document = null
@@ -24,6 +26,7 @@ angular.module('neo4jApp.services')
           if input?.length > 0 and @history[0] isnt input
             @history.unshift(input)
             @history.pop() until @history.length <= Settings.maxHistory
+            localStorageService.add(storageKey, JSON.stringify(@history))
           @historySet(-1)
           if !frame and input != ''
             @errorMessage = input
