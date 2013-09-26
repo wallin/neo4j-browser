@@ -7,12 +7,11 @@ describe 'Service: GraphStyle', () ->
 
   styledata =
     'node':
-      'color': '#1ABC9C'
-      'border-color': '#aaa'
+      'color': '#aaa'
       'border-width': '2px'
       'caption': 'Node'
     'node.Actor':
-      'border-color': '#fff'
+      'color': '#fff'
     'relationship':
       'color': '#BDC3C7'
 
@@ -43,18 +42,23 @@ node {
     GraphStyle.loadRules(styledata)
 
   describe 'forNode: ', ->
-    it 'should be able to get parameters for "node" rules', ->
-      expect(GraphStyle.forNode().get('color')).toBe('#1ABC9C')
+    it 'should be able to get parameters for nodes without labels', ->
+      expect(GraphStyle.forNode().get('color')).toBe('#aaa')
       expect(GraphStyle.forNode().get('diameter')).toBe('40px')
 
     it 'should inherit rules from base node rule', ->
-      expect(GraphStyle.forNode(labels: ['Movie']).get('border-color')).toBe('#aaa')
+      expect(GraphStyle.forNode(labels: ['Actor']).get('border-width')).toBe('2px')
+      expect(GraphStyle.forNode(labels: ['Movie']).get('border-width')).toBe('2px')
 
-    it 'should not match "node with type1" rule when no type2 is specified', ->
-      expect(GraphStyle.forNode(labels: ['Movie']).get('border-color')).not.toBe('#fff')
+    it 'should apply rules when specified', ->
+      expect(GraphStyle.forNode(labels: ['Actor']).get('color')).toBe('#fff')
 
-    it 'should be able to get parameters for "node with type" rules', ->
-      expect(GraphStyle.forNode(labels: ['Actor']).get('border-color')).toBe('#fff')
+    it 'should create new rules for labels that have not been seen before', ->
+      expect(GraphStyle.forNode(labels: ['Movie']).get('color')).toBe('#DFE1E3')
+      expect(GraphStyle.forNode(labels: ['Person']).get('color')).toBe('#30B6AF')
+      sheet = GraphStyle.toSheet()
+      expect(sheet['node.Movie']['color']).toBe('#DFE1E3')
+      expect(sheet['node.Person']['color']).toBe('#30B6AF')
 
   describe 'parse:', ->
     it 'should parse rules from grass text', ->

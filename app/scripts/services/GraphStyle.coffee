@@ -95,8 +95,8 @@ angular.module('neo4jApp.services')
             angular.extend(@props, rule.props)
             break
         if not applied
-          angular.extend(@props, rule.props) for rule in rules when rule.matches(@selector)
-
+          for rule in rules when rule.matches(@selector)
+            angular.extend(@props, rule.props)
         @
 
       get: (attr) ->
@@ -126,11 +126,24 @@ angular.module('neo4jApp.services')
         @calculateStyle(@selector(item), item)
 
       forNode: (node = {}) ->
-        @calculateStyle(@nodeSelector(node), node)
+        selector = @nodeSelector(node)
+        if node.labels?.length > 0
+          @setDefaultStyling(selector)
+        @calculateStyle(selector, node)
 
       forRelationship: (rel) ->
         @calculateStyle(@relationshipSelector(rel), rel)
 
+      setDefaultStyling: (selector) ->
+        rule = @findRule(selector)
+
+        if not rule?
+          rule = new StyleRule(selector, provider.defaultColors[@nextDefaultColor])
+          @nextDefaultColor++
+          if @nextDefaultColor >= provider.defaultColors.length
+            @nextDefaultColor = 0
+          @rules.push(rule)
+          @persist()
 
       #
       # Methods for getting and modifying rules
@@ -253,9 +266,10 @@ angular.module('neo4jApp.services')
       #
       # Misc.
       #
+      nextDefaultColor: 0
       defaultSizes: -> provider.defaultSizes
       defaultArrayWidths: -> provider.defaultArrayWidths
-      defaultColors: -> provider.defaultColors
+      defaultColors: -> angular.copy(provider.defaultColors)
       interpolate: (str, id, properties) ->
         # Supplant
         # http://javascript.crockford.com/remedial.html
