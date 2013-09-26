@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('neo4jApp.services')
-  .factory 'GraphExplorer', ['$q', 'Cypher', ($q, Cypher) ->
+  .factory 'GraphExplorer', ['$q', 'Cypher', 'Settings', ($q, Cypher, Settings) ->
     return  {
       exploreNeighboursWithInternalRelationships: (node, graph) ->
         q = $q.defer()
         @exploreNeighbours(node).then (neighboursResult) =>
+          if neighboursResult.nodes.length > Settings.maxNeighbours
+            return q.reject('Sorry! Too many neighbours')
           graph.merge(neighboursResult)
           @internalRelationships(graph.nodes()).then (result) =>
             graph.addRelationships(result.relationships)

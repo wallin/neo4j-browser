@@ -74,10 +74,19 @@ angular.module('neo4jApp.controllers')
 
       onNodeDblClick = (d) =>
         return if d.expanded
-        GraphExplorer.exploreNeighboursWithInternalRelationships(d, graph).then () =>
-          CircularLayout.layout(graph.nodes(), d, linkDistance)
-          d.expanded = yes
-          @update()
+        GraphExplorer.exploreNeighboursWithInternalRelationships(d, graph)
+        .then(
+          # Success
+          () =>
+            CircularLayout.layout(graph.nodes(), d, linkDistance)
+            d.expanded = yes
+            @update()
+          ,
+          # Error
+          (msg) ->
+            # Too many neighbours
+            alert(msg)
+        )
         # New in Angular 1.1.5
         # https://github.com/angular/angular.js/issues/2371
         $rootScope.$apply() unless $rootScope.$$phase
