@@ -6,4 +6,4 @@
     a.icon-download-alt(exportable ng-click='exportGraSS(code)', tooltip="Export to file")
   .modal-body
     textarea(ui-codemirror="{theme: 'css', readOnly: true}", ng-model="code")
-    file-upload(upload='import($content)', extension='.grass') Drop a GraSS-file here to import
+    file-upload(upload='import($content)') Drop a GraSS-file here to import
