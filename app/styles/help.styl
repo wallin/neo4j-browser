@@ -3,13 +3,20 @@
 @import 'mixins'
 
 
-
-.view-result
+#stream .view-result
   article.help
     background-color #fff
     padding 0
-    padding 1em
+    padding: 30px
     margin 0
+    [help-topic]
+      font-family: mono-font-family;
+      font-size: 12px;
+      margin-right: 5px;
+    p
+      font-size: 15px
+      line-height: 23px
+      color: #666
     h1, h2, h3, h4, h5, dt
       background none
       display inline
@@ -20,10 +27,8 @@
       font-style italic
     figure  {
       display: block;
-      margin-before: 1em;
-      margin-after: 1em;
-      margin-start: 40px;
-      margin-end: 40px;
+      margin: 0;
+      margin-top: 16px;
     }
     figcaption {
       padding: 5px;
@@ -36,6 +41,7 @@
       text-align: center;
     }
     pre.code
+      background: #F3F3F3
       cursor: pointer
     &.manual
       section
