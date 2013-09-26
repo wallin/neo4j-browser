@@ -7,6 +7,10 @@ angular.module('neo4jApp.services')
     'Settings'
     ($http, $q, Settings) ->
 
+      # http://docs.angularjs.org/api/ng.$http
+      httpOptions =
+        timeout: Settings.maxExecutionTime
+
       returnAndUpdate = (Type, promise) ->
         rv = new Type()
         promise.success(
@@ -30,19 +34,19 @@ angular.module('neo4jApp.services')
         #
         delete: (path = '', data = null) ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
-          $http.delete(path)
+          $http.delete(path, httpOptions)
 
         get: (path = '', data = null) ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
-          $http.get(path)
+          $http.get(path, httpOptions)
 
         post: (path = '', data) ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
-          $http.post(path, data)
+          $http.post(path, data, httpOptions)
 
         put: (path = '', data) ->
           path = Settings.host + path unless path.indexOf(Settings.host) is 0
-          $http.put(path, data)
+          $http.put(path, data, httpOptions)
 
         transaction: (opts) ->
           opts = angular.extend(
