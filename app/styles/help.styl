@@ -4,7 +4,7 @@
 
 
 #stream .view-result
-  article.help
+  article.help, article.guide
     background-color #fff
     padding 0
     padding: 30px
@@ -43,9 +43,38 @@
     pre.code
       background: #F3F3F3
       cursor: pointer
+      &:hover
+        background: lighten(color-link, 80%)
+        //outline: 2px solid color-link
     &.manual
       section
       h1
         font-size 12pt
       h1 span
         display block
+
+.carousel-indicators-wrapper
+  position: absolute
+  bottom: 0
+  left: 0
+  height: 40px
+  z-index: 45
+  text-align: center
+  right: 0
+  .carousel-indicators
+    opacity: 1
+    position: relative
+    z-index: 5
+    margin: 0 auto
+    list-style: none
+    background: transparent
+    left: initial
+    height: 10px
+    display: inline-block
+    li
+      cursor: pointer
+      background-color: rgba(188, 195, 207, 0.64)
+      &.active
+        background-color: color-link
+
+
