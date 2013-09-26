@@ -37,11 +37,25 @@ node {
 
   # instantiate service
   GraphStyle = {}
+  beforeEach
+
   beforeEach inject (_GraphStyle_) ->
     GraphStyle = _GraphStyle_
     GraphStyle.loadRules(styledata)
 
-  describe 'forNode: ', ->
+  describe '#change', ->
+    it 'should change node rules', ->
+      GraphStyle.change({isNode:yes}, {color: '#bbb'})
+      newColor = GraphStyle.forNode().get('color')
+      expect(newColor).toBe '#bbb'
+
+    it 'should change relationship rules', ->
+      GraphStyle.change({isRelationship:yes}, {color: '#bbb'})
+      newColor = GraphStyle.forRelationship().get('color')
+      expect(newColor).toBe '#bbb'
+
+
+  describe '#forNode: ', ->
     it 'should be able to get parameters for nodes without labels', ->
       expect(GraphStyle.forNode().get('color')).toBe('#aaa')
       expect(GraphStyle.forNode().get('border-width')).toBe('2px')
@@ -60,6 +74,15 @@ node {
       expect(sheet['node.Movie']['color']).toBe('#DFE1E3')
       expect(sheet['node.Person']['color']).toBe('#30B6AF')
 
-  describe 'parse:', ->
+  describe '#parse:', ->
     it 'should parse rules from grass text', ->
       expect(GraphStyle.parse(grass).node).toEqual(jasmine.any(Object))
+
+  describe '#resetToDefault', ->
+    it 'should reset to the default styling', ->
+      GraphStyle.change({isNode:yes}, {color: '#bbb'})
+      newColor = GraphStyle.forNode().get('color')
+      expect(newColor).toBe '#bbb'
+      GraphStyle.resetToDefault()
+      color = GraphStyle.forNode().get('color')
+      expect(color).toBe('#DFE1E3')

@@ -104,6 +104,7 @@ angular.module('neo4jApp.services')
           @loadRules(@storage?.get('grass'))
         catch e
 
+      # Generate a selector string from an object (node or rel)
       selector: (item) ->
         if item.isNode
           @nodeSelector(item)
@@ -171,7 +172,7 @@ angular.module('neo4jApp.services')
           selector += ".#{node.labels[0]}"
         new Selector(selector)
 
-      relationshipSelector: (rel) ->
+      relationshipSelector: (rel = {}) ->
         selector = 'relationship'
         selector += ".#{rel.type}" if rel.type?
         new Selector(selector)
@@ -241,6 +242,10 @@ angular.module('neo4jApp.services')
 
       persist: ->
         @storage?.add('grass', JSON.stringify(@toSheet()))
+
+      resetToDefault: ->
+        @loadRules()
+        @persist()
 
       toSheet: ->
         sheet = {}

@@ -16,5 +16,8 @@ angular.module('neo4jApp.controllers')
       $scope.import = (content) ->
         GraphStyle.importGrass(content)
 
+      $scope.reset = ->
+        GraphStyle.resetToDefault()
+
       serialize()
   ]
