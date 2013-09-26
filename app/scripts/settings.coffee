@@ -12,7 +12,7 @@ angular.module('neo4jApp.settings', [])
       cypher: "#{restAPI}/cypher"
       transaction: "#{restAPI}/transaction"
     host: baseURL
-    maxExecutionTime: 60
+    maxExecutionTime: 60000
     maxFrames: 50
     maxHistory: 100
     maxNeighbours: 100
