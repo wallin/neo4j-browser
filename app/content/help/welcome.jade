@@ -50,33 +50,26 @@ article.help
             ul
               li
                 strong Tutorials:
-                a.icon-info-sign(play-topic='intro') &nbsp;Intro
-                | , &nbsp;
-                a.icon-info-sign(play-topic='cypher') &nbsp;Cypher
-                | , &nbsp;
-                a.icon-info-sign(play-topic='patterns') &nbsp;Patterns
+                a(play-topic='intro') Intro
+                a(play-topic='cypher') Cypher
+                a(play-topic='patterns') Patterns
               li
                 strong Graphs:
                 a.icon-play-sign(play-topic='movies') &nbsp;Movies
-                | , &nbsp;
                 a.icon-play-sign(play-topic='social') &nbsp;Social
-                | , &nbsp;
                 a.icon-play-sign(play-topic='telecom') &nbsp;Telecom
         .span4
             h3 Browser
             p.lead Command-driven graph exploration
             ul
               li
-                a(help-topic='help')
-                  code.icon-info-sign &nbsp;:help
+                a(help-topic='help') help
                 | &nbsp;- how to use this graph Browser
               li
-                a(help-topic='cypher')
-                  code.icon-info-sign &nbsp;:help cypher
+                a(help-topic='cypher') :help cypher
                 | &nbsp;- graph query language
               li
-                a(help-topic='commands')
-                  code.icon-info-sign &nbsp;:help commands
+                a(help-topic='commands') :help commands
                 | &nbsp;- all available commands
 
 

@@ -2,7 +2,7 @@ article.help
   .container
     section.row-fluid.summary
       .summary.span3
-        h3 WITH 
+        h3 WITH
         p.lead piped queries
       .details.span9
         p
@@ -20,14 +20,9 @@ article.help
           tr
             th Related:
             td
-              a(help-topic='match')
-                code.icon-info-sign &nbsp;:help MATCH
-              | ,
-              a(help-topic='return')
-                code.icon-info-sign &nbsp;:help RETURN
-              | , 
-              a(help-topic='cypher')
-                .icon-info-sign &nbsp;:help Cypher
+              a(help-topic='match') :help MATCH
+              a(help-topic='return') :help RETURN
+              a(help-topic='cypher') :help Cypher
     section.row-fluid.example
       .span9.offset3
         figure

@@ -6,45 +6,30 @@ article.help
         p.lead Typing commands is 1337
       .details.span9
         p
-          | In addition to composing and running Cypher queries, the query bar up above &uarr; 
+          | In addition to composing and running Cypher queries, the query bar up above &uarr;
           | understands a few client-side commands. They're useful, and some demonstrate
-          | how to use various public APIs. 
+          | how to use various public APIs.
         p Client-side commands  begin with a &nbsp;
           code :
-          | &nbsp; and end with a smile. 
+          | &nbsp; and end with a smile.
         table.table-condensed.table-help
           tr
             th Information:
             td
-              a(help-topic="help")
-                code.icon-info-sign &nbsp;:help help
-              | ,
-              a(help-topic="about")
-                code.icon-info-sign &nbsp;:help about
-              | ,
-              a(help-topic="sysinfo")
-                code.icon-info-sign &nbsp;:help sysinfo
-              | ,
-              a(help-topic='schema')
-                code.icon-info-sign &nbsp;:help schema
+              a(help-topic="help") :help help
+              a(help-topic="about") :help about
+              a(help-topic="sysinfo") :help sysinfo
+              a(help-topic='schema') :help schema
           tr
             th REST:
             td
-              a(help-topic='rest-get')
-                code.icon-info-sign &nbsp;:help REST GET
-              | ,
-              a(help-topic='rest-post')
-                code.icon-info-sign &nbsp;:help REST POST
-              | ,
-              a(help-topic='rest-put')
-                code.icon-info-sign &nbsp;:help REST PUT
-              | ,
-              a(help-topic='rest-delete')
-                code.icon-info-sign &nbsp;:help REST DELETE
+              a(help-topic='rest-get') :help REST GET
+              a(help-topic='rest-post') :help REST POST
+              a(help-topic='rest-put') :help REST PUT
+              a(help-topic='rest-delete') :help REST DELETE
           tr
             th Browser:
             td
-              a(help-topic="clear")
-                code.icon-info-sign &nbsp;:clear
-          
+              a(help-topic="clear") :clear
+
 
