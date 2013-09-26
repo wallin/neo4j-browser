@@ -14,13 +14,13 @@ article.guide
           | Neo4j has a trio of programming interfaces, focused on different kinds of interaction.
         ul
           li
-            em Work 
+            em Work
             | with the Cypher query language over HTTP
           li
-            em Discover 
+            em Discover
             | raw graph primitives over REST
           li
-            em Customize 
+            em Customize
             | the database with plugins (for special cases)
       .span4
         img(src='/images/api-trio.png')
@@ -39,12 +39,12 @@ article.guide
         p.lead Create a node
       .span9
         p
-          | Let's use Cypher to generate the graph described in the 
+          | Let's use Cypher to generate the graph described in the
           a(play-topic='learn') Learn Guide
           | . Starting with Emil:
         figure
           pre.pre-scrollable.code(mode='cypher').
-            CREATE (ee { name: "Emil", from: "Sweden" })        
+            CREATE (ee { name: "Emil", from: "Sweden" })
         ul
           li
             code CREATE
@@ -67,7 +67,7 @@ article.guide
           | Now find the node representing Emil:
         figure
           pre.pre-scrollable.code(mode='cypher').
-            MATCH (ee) WHERE ee.name = "Emil" RETURN ee;        
+            MATCH (ee) WHERE ee.name = "Emil" RETURN ee;
         ul
           li
             code MATCH
@@ -102,15 +102,15 @@ article.guide
             (ee)-[:KNOWS {since: 2001}]->(js),(ee)-[:KNOWS {rating: 5}]->(ir),
             (js)-[:KNOWS]->(ir),(js)-[:KNOWS]->(rvb),
             (ir)-[:KNOWS]->(js),(ir)-[:KNOWS]->(ally),
-            (rvb)-[:KNOWS]->(ally);        
+            (rvb)-[:KNOWS]->(ally);
     slide.row
       h2 Cypher pattern matching
       p.summary
         | Cypher uses patterns to describe how to find things in the graph.
         | For instance, to find Emil's friends:
       pre.
-        \nSTART ee=node(*) MATCH (ee)-[:KNOWS]-        (friends) 
-        WHERE ee.name! = "Emil" RETURN friends;        
+        \nSTART ee=node(*) MATCH (ee)-[:KNOWS]-        (friends)
+        WHERE ee.name! = "Emil" RETURN friends;
       ul
         li
           code MATCH
@@ -130,10 +130,10 @@ article.guide
         | Pattern matching can be used to make recommendations. Johan is learning to surf, so he may want to find
         | a new friend who already does:
       pre.
-        \nSTART js=node(*) 
-        MATCH (js)-[:KNOWS]-        ()-[:KNOWS]-        (surfer) 
+        \nSTART js=node(*)
+        MATCH (js)-[:KNOWS]-        ()-[:KNOWS]-        (surfer)
         WHERE js.name! = "Johan" AND surfer.hobby! = "surfing"
-        RETURN DISTINCT surfer;        
+        RETURN DISTINCT surfer;
       ul
         li
           code ()
@@ -179,13 +179,13 @@ article.guide
       p Next steps:
       ul
         li
-          a.icon-external-link-sign(href='http://www.neo4j.org/develop/drivers', target='_blank') Download 
+          a.icon-external-link-sign(href='http://www.neo4j.org/develop/drivers') Download
           | a driver for your language of choice
         li
-          a.icon-external-link-sign(href='http://www.neo4j.org/learn/cypher', target='_blank') Learn 
+          a.icon-external-link-sign(href='http://www.neo4j.org/learn/cypher') Learn
           | more about Cypher
         li
-          a.icon-external-link-sign(href='http://docs.neo4j.org/chunked/@@neo4j.version@@/', target='_blank') Read 
+          a.icon-external-link-sign(href='http://docs.neo4j.org/chunked/@@neo4j.version@@/') Read
           | the Neo4j manual for details
       p.hint
         | Or, see
