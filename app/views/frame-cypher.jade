@@ -9,7 +9,7 @@ div(ng-controller="CypherResultCtrl", fullscreen)
       .view-result-table(ng-show='isActive("table")', ng-animate = "'animate-box'")
         neo-table(table-data='frame.response.table')
         a.icon-download-alt(exportable 'ng-click'='exportCSV(frame.response.table)', tooltip-placement='left', tooltip='Download CSV')
-      .view-result-error(ng-show='frame.hasErrors')
+      .view-result-error(ng-show='frame.detailedErrorText')
         pre
           {{ frame.detailedErrorText }}
 

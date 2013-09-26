@@ -176,11 +176,14 @@ angular.module('neo4jApp')
       exec: ['Cypher', 'GraphModel', (Cypher, GraphModel) ->
         # Return the function that handles the input
         (input, q) ->
-          Cypher.transaction().commit(input).then((response) ->
-            q.resolve(
-              table: response
-              graph: new GraphModel(response)
-            )
+          Cypher.transaction().commit(input).then(
+            (response) ->
+              q.resolve(
+                table: response
+                graph: new GraphModel(response)
+              )
+          ,
+          q.reject
           )
 
           q.promise
