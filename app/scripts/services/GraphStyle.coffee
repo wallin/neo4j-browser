@@ -84,19 +84,13 @@ angular.module('neo4jApp.services')
         @props = {}
 
       applyRules: (rules) ->
-        # Apply default style first
-        if provider.defaultStyle[@selector.tag]
-          angular.extend(@props, provider.defaultStyle[@selector.tag])
         # Two passes
-        applied = no
-        for rule in rules
-          if rule.matchesExact(@selector)
-            applied = yes
-            angular.extend(@props, rule.props)
-            break
-        if not applied
-          for rule in rules when rule.matches(@selector)
-            angular.extend(@props, rule.props)
+        for rule in rules when rule.matches(@selector)
+          angular.extend(@props, rule.props)
+          break
+        for rule in rules when rule.matchesExact(@selector)
+          angular.extend(@props, rule.props)
+          break
         @
 
       get: (attr) ->
@@ -195,7 +189,7 @@ angular.module('neo4jApp.services')
           return
 
       loadRules: (data) ->
-        return @ unless angular.isObject(data)
+        data = provider.defaultStyle unless angular.isObject(data)
         @rules.length = 0
         for rule, props of data
           @rules.push(new StyleRule(new Selector(rule), angular.copy(props)))

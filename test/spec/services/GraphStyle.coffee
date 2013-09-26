@@ -44,7 +44,7 @@ node {
   describe 'forNode: ', ->
     it 'should be able to get parameters for nodes without labels', ->
       expect(GraphStyle.forNode().get('color')).toBe('#aaa')
-      expect(GraphStyle.forNode().get('diameter')).toBe('40px')
+      expect(GraphStyle.forNode().get('border-width')).toBe('2px')
 
     it 'should inherit rules from base node rule', ->
       expect(GraphStyle.forNode(labels: ['Actor']).get('border-width')).toBe('2px')
