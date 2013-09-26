@@ -178,10 +178,13 @@ angular.module('neo4jApp')
         (input, q) ->
           Cypher.transaction().commit(input).then(
             (response) ->
-              q.resolve(
-                table: response
-                graph: new GraphModel(response)
-              )
+              if response.size > Settings.maxRows
+                q.reject(error("Resultset too large (over #{Settings.maxRows} rows)"))
+              else
+                q.resolve(
+                  table: response
+                  graph: new GraphModel(response)
+                )
           ,
           q.reject
           )

@@ -9,8 +9,6 @@ angular.module('neo4jApp.directives')
 
         unbind = scope.$watch attr.tableData, (result) ->
           return unless result
-          # TODO: show something if result is too large
-          return if result.isTooLarge
           elm.html(render(result))
           unbind()
 

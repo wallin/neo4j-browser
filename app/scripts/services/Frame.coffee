@@ -48,12 +48,7 @@ angular.module('neo4jApp.services')
             $q.when(intrFn(query, $q.defer())).then(
               (result) =>
                 @isLoading = no
-                if result.isTooLarge
-                  @hasErrors = yes
-                  @errorText = "Resultset is too large"
-                else
-                  @response = result
-                  @savedInput = @input
+                @response = result
                 @runTime = timer.stop().time()
               ,
               (result = {}) =>
