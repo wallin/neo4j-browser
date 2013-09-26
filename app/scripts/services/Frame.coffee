@@ -38,6 +38,7 @@ angular.module('neo4jApp.services')
             @setProperties()
 
             @errorText = no
+            @detailedErrorText = no
             @hasErrors = no
             @isLoading = yes
             @response  = null
@@ -61,9 +62,8 @@ angular.module('neo4jApp.services')
                 @response = result.data
                 @errorText = result.message or "Unknown error"
                 if result.length > 0 and result[0].status
-                  @errorText = result[0].status
-                  if result[0].message
-                    @errorText += ": " + result[0].message.split("\n")[0]
+                  @errorText = result[0].status if result[0].status
+                  @detailedErrorText = result[0].message if result[0].message
                 @runTime = timer.stop().time()
             )
             @
