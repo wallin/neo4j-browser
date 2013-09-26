@@ -173,10 +173,17 @@ angular.module('neo4jApp')
       type: 'cypher'
       matches: ['cypher', 'start', 'match', 'create', 'drop', 'return', 'set', 'remove', 'delete', 'merge']
       templateUrl: 'views/frame-cypher.html'
-      exec: ['Cypher', (Cypher) ->
+      exec: ['Cypher', 'GraphModel', (Cypher, GraphModel) ->
         # Return the function that handles the input
-        (input) ->
-          Cypher.transaction().commit(input)
+        (input, q) ->
+          Cypher.transaction().commit(input).then((response) ->
+            q.resolve(
+              table: response
+              graph: new GraphModel(response)
+            )
+          )
+
+          q.promise
       ]
 
     # Fallback interpretor

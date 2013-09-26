@@ -4,7 +4,7 @@ angular.module('neo4jApp.controllers')
   .controller 'CypherResultCtrl', ['$scope', ($scope) ->
 
     $scope.$watch 'frame.response', ->
-      $scope.showGraph = $scope.frame.response?.nodes.length
+      $scope.showGraph = $scope.frame.response?.table.nodes.length
       $scope.tab = if $scope.showGraph then 'graph' else 'table'
 
     $scope.setActive = (tab) -> $scope.tab = tab
@@ -12,7 +12,7 @@ angular.module('neo4jApp.controllers')
 
     $scope.resultDetails = (frame) ->
       if frame?.response
-        stats = frame.response.stats
+        stats = frame.response.table.stats
         "
           Constraints added: #{stats.constraints_added}<br>
           Constraints removed: #{stats.constraints_removed}<br>
