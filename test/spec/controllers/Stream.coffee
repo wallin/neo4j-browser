@@ -35,8 +35,3 @@ describe 'Controller: StreamCtrl', () ->
       # Instantiate
       StreamCtrl = $controller 'StreamCtrl', { $scope: scope }
       scope.$digest()
-
-  it 'should insert the welcome frame when instantiated', ->
-    timer.flush()
-    expect(scope.frames.length).toBe 1
-

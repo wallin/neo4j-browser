@@ -13,9 +13,4 @@ angular.module('neo4jApp.controllers')
     ###
     $scope.frames = Frame
     $scope.motd = motdService
-
-    # TODO: fix timeout problem
-    $timeout(->
-      Frame.create(input: ':help welcome')
-    , 800)
   ]
