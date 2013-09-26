@@ -22,7 +22,6 @@ div(ng-controller="CypherResultCtrl", fullscreen)
           div(ng-show='frame.response.table')
             .icon-ok
             include partials/result-status
-            .details.btn.btn-small(popover-animation='true', popover="{{resultDetails(frame)}}", popover-title="Detailed results", popover-placement='bottom', ng-show="frame.response.table.stats.contains_updates") Details
       .btn-group(ng-hide='frame.hasErrors')
         a.btn.btn-small(ng-click='setActive("graph")', ng-class='{active: isActive("graph")}')
           i.icon-code-fork
