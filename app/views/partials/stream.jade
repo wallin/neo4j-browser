@@ -1,5 +1,5 @@
 #stream(ng-controller='StreamCtrl')
-  .intro(ng-hide='frames.items.length', ng-animate="{hide:'intro-out', show:'intro-in'}")
+  .intro(ng-animate="{hide:'intro-out', show:'intro-in'}", ng-show="neo4j.version && frames.items.length == 0")
     img(src='/images/intro.png')
   .frame(
     ng-repeat = 'frame in frames.items | orderBy:"startTime":true'

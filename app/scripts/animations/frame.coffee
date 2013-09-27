@@ -44,6 +44,33 @@ angular.module("neo4jApp.animations", [])
 
   # Animation for message bar below editor
   #
+  .animation("intro-out", ["$window", ($window) ->
+    start: (element, done) ->
+      TweenMax.to element, 0.4,
+        ease: Power2.easeInOut
+        opacity: 0
+        top: 40
+        onComplete: done
+
+  ]).animation("intro-in", ["$window", ($window) ->
+    setup: (element) ->
+      TweenMax.set element,
+        opacity: 0
+        top: 30
+        scale: 0.8
+        display: 'block'
+
+    start: (element, done) ->
+      TweenMax.to element, 1.6,
+        ease: Power2.easeInOut
+        opacity: 1
+        top: 0
+        scale: 1
+        onComplete: done
+  ])
+
+  # Animation for message bar below editor
+  #
   .animation("slide-down-out", ["$window", ($window) ->
     start: (element, done) ->
       TweenMax.to element, 0.4,
