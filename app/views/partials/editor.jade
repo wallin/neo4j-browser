@@ -20,5 +20,5 @@
 
     .message-bar.error(ng-show='editor.errorCode', ng-animate="{hide:'slide-down-out', show:'slide-down-in'}")
       | You screamed <b>{{editor.errorMessage | uncomment}}</b> but nobody replied.
-      | Type <code>help</code> for a list of available commands.
+      | Type <code>:help</code> for a list of available commands.
       a.icon-remove(ng-click='editor.errorCode = null')

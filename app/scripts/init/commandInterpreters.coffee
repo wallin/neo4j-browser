@@ -74,7 +74,7 @@ angular.module('neo4jApp')
     FrameProvider.interpreters.push
       type: 'help'
       templateUrl: 'views/frame-help.html'
-      matches: ["#{cmdchar}help", "#{cmdchar}man", "help"]
+      matches: ["#{cmdchar}help", "#{cmdchar}man"]
       exec: ['$http', ($http) ->
         (input, q) ->
           topic = topicalize(input[('help'.length+1)..]) or 'help'
