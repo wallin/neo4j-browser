@@ -41,7 +41,6 @@ module.exports = function(grunt){
     commit(config);
 
     // prepareMavenRelease(config);
-
     // performMavenRelease(config);
 
     tag(config);
@@ -52,6 +51,7 @@ module.exports = function(grunt){
     bump(config, config.developmentVersion)
     add(config)
     commit(config)
+    push();
 
     function setup(file, type){
       var pkg = grunt.file.readJSON(file);
@@ -128,14 +128,17 @@ module.exports = function(grunt){
       }
       else {
         grunt.verbose.writeln('Running: ' + cmd);
-        shell.exec(cmd, {silent:true});
+        var exitCode = shell.exec(cmd, {silent:true}).code;
+        if (exitCode != 0) {
+          grunt.fail.fatal("[ERROR] " + cmd, exitCode)
+        }
       }
 
       if (msg) grunt.log.ok(msg);
     }
 
 
-    function mvn(cmd, msg){
+    function mvn(cmd, msg) {
       var nowrite = grunt.option('no-write');
       if (nowrite) {
         cmd = cmd + " -DdryRun=true";
@@ -144,7 +147,11 @@ module.exports = function(grunt){
 
       grunt.verbose.writeln("[Grunt] " + cmd);
 
-      shell.exec(cmd, {silent:false});
+      var exitCode = shell.exec(cmd, {silent:false}).code;
+
+      if (exitCode != 0) {
+        grunt.fail.fatal("[ERROR] " + cmd, exitCode)
+      }
 
       if (msg) grunt.log.ok(msg);
     }
