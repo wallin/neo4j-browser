@@ -46,7 +46,7 @@ module.exports = function(grunt){
     tag(config);
     push();
     pushTags(config);
-    publish(config);
+    // publish(config);
 
     grunt.verbose.writeln('Post-release, preparing development version');
 
