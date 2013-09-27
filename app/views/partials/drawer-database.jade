@@ -15,17 +15,11 @@ h4 Neo4j {{ neo4j.version }}
     span(ng-repeat='propertyKey in propertyKeys')
       a.label.property(ng-click="editor.execScript('MATCH (a) WHERE has(a.'+propertyKey+') RETURN a LIMIT 25')") {{propertyKey}}
 
-  h5 Server
+  h5 Database
   ul
-    li.pair
-      .key Database:
-      .value {{kernel.store_dir}}
     li.pair
       .key Location:
       .value {{kernel.StoreDirectory}}
     li.pair
-      .key Memory:
-      .value {{kernel.all_stores_total_mapped_memory_size}}
-    li.pair
-      .key Store Size:
+      .key Size:
       .value {{kernel.TotalStoreSize | humanReadableBytes}}
