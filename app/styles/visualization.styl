@@ -1,4 +1,5 @@
 @import 'nib'
+@import 'variables'
 
 .graph-viz {
   float: left;
@@ -31,6 +32,10 @@ text
   &:hover
     .outline
       transform: scale(1.4)
+
+.relationship
+  &:hover
+    stroke: color-link
 
 .outline, .overlay
   cursor: pointer
