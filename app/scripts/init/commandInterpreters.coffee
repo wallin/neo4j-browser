@@ -64,12 +64,16 @@ angular.module('neo4jApp')
       type: 'play'
       templateUrl: 'views/frame-help.html'
       matches: "#{cmdchar}play"
-      exec: ->
+      exec: ['$http', ($http) ->
         step_number = 1
         (input, q) ->
-          topic = topicalize(input[('play'.length+1)..]) or 'learn_1'
-          page: "content/guides/#{topic}.html"
-
+          topic = topicalize(input[('play'.length+1)..]) or 'learn'
+          url = "content/guides/#{topic}.html"
+          $http.get(url)
+          .success(->q.resolve(page: url))
+          .error(->q.reject(error("No such topic to play")))
+          q.promise
+      ]
     # Help/man handler
     FrameProvider.interpreters.push
       type: 'help'
