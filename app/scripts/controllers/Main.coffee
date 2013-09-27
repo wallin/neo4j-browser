@@ -21,7 +21,7 @@ angular.module('neo4jApp.controllers')
           edition: "Enterprise"
           hasData: Server.hasData()
 
-      $scope.$on 'db:result:containsUpdates', refresh
+      $scope.$on 'db:changed:labels', refresh
 
       $scope.today = Date.now()
 

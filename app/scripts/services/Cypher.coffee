@@ -54,7 +54,9 @@ angular.module('neo4jApp.services')
           @nodes.length is 0 and @relationships.length is 0
 
         _setStats: (@stats) ->
-          $rootScope.$broadcast 'db:result:containsUpdates', angular.copy(@stats) if @stats?.containsUpdates
+          return unless @stats?
+          if stats.labels_added > 0 or stats.labels_removed > 0
+            $rootScope.$broadcast 'db:changed:labels', angular.copy(@stats)
 
       promiseResult = (promise) ->
         q = $q.defer()
