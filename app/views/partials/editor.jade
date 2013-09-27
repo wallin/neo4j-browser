@@ -20,6 +20,6 @@
 
     .message-bar.error(ng-show='editor.showMessage', ng-animate="{hide:'slide-down-out', show:'slide-down-in'}", ng-class="editor.errorCode")
       span(ng-bind-html-unsafe="editor.errorMessage")
-      |  Type <code>:help</code> for a list of available commands.
+      |  Type <code click-to-code="':help'">:help</code> for a list of available commands.
       .actions
         a.icon-remove(ng-click='editor.showMessage = null')
