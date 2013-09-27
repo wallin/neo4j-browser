@@ -97,11 +97,11 @@ module.exports = function(grunt){
     }
 
     function push(){
-      run('git push', 'pushed to remote');
+      run('git push origin master', 'pushed to remote');
     }
 
     function pushTags(config){
-      run('git push --tags', 'pushed new tag '+ config.releaseVersion +' to remote');
+      run('git push --tags origin', 'pushed new tag '+ config.releaseVersion +' to remote');
     }
 
     function publish(config) {
