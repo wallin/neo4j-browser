@@ -47,7 +47,7 @@ inspector(show='isInspectorShown', ng-controller='InspectorCtrl', style="top: 60
           ul.inline
             li(ng-repeat='scheme in colors')
               a(style='background-color: {{scheme.color}}'
-                ng-class='{active: scheme.color == style.color && scheme.borderColor == style["border-color"]}'
+                ng-class='{active: scheme.color == style.color && scheme["border-color"] == style["border-color"]}'
                 ng-click="selectScheme(scheme)")
         li
           i.icon-code
