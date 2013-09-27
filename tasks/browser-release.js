@@ -48,6 +48,8 @@ module.exports = function(grunt){
     pushTags(config);
     publish(config);
 
+    grunt.verbose.writeln('Post-release, preparing development version');
+
     bump(config, config.developmentVersion)
     add(config)
     commit(config)
