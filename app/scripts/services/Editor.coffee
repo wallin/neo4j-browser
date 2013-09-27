@@ -17,11 +17,10 @@ angular.module('neo4jApp.services')
           @document = null
           @next = null
           @prev = null
-          @errorCode = null
-          @errorMessage = ''
+          @setMessage('Welcome to the Neo4j Browser.')
 
         execScript: (input) ->
-          @errorCode = null
+          @showMessage = no
           frame = Frame.create(input: input)
           if input?.length > 0 and @history[0] isnt input
             @history.unshift(input)
@@ -29,8 +28,7 @@ angular.module('neo4jApp.services')
             localStorageService.add(storageKey, JSON.stringify(@history))
           @historySet(-1)
           if !frame and input != ''
-            @errorMessage = input
-            @errorCode = 'error'
+            @setMessage("You screamed <b>#{input}</b> but nobody replied.", 'error')
 
         execCurrent: ->
           @execScript(@content)
@@ -85,6 +83,11 @@ angular.module('neo4jApp.services')
           @content = content
           @focusEditor()
           @document = null
+
+        setMessage: (message, type = 'info')
+          @showMessage = yes
+          @errorCode = type
+          @errorMessage = message
 
       editor = new Editor()
 

@@ -20,7 +20,7 @@
 
     .message-bar.error(ng-show='editor.errorCode', ng-animate="{hide:'slide-down-out', show:'slide-down-in'}")
       | <b>Unrecognized</b>: &quot;{{editor.errorMessage | uncomment}}&quot;. {{motd.unrecognized}}
-      | Type 
+      | Type
       a(help-topic="help") :help
       |  for a list of available commands.
       .actions

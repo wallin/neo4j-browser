@@ -19,7 +19,6 @@
     opacity: 0 // avoid being displayed before CodeMirror has loaded
 
   .message-bar
-    display: none
     height: 49px
     line-height: 49px
     padding: 0 24px
@@ -49,6 +48,10 @@
       background-color: color-error
       code
         color: color-error
+    &.info
+      background-color: color-link
+      code
+        color: color-link
 
   ul.controls
     z-index: 1000
