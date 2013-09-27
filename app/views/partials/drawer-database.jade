@@ -26,3 +26,6 @@ h4 Neo4j {{ neo4j.version }}
     li.pair
       .key Memory:
       .value {{kernel.all_stores_total_mapped_memory_size}}
+    li.pair
+      .key Store Size:
+      .value {{kernel.TotalStoreSize | humanReadableBytes}}

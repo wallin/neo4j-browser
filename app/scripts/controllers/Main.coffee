@@ -30,8 +30,9 @@ angular.module('neo4jApp.controllers')
       # gather info from jmx
       Server.jmx(
         [
-          "org.neo4j:instance=kernel#0,name=Configuration",
+          "org.neo4j:instance=kernel#0,name=Configuration"
           "org.neo4j:instance=kernel#0,name=Kernel"
+          "org.neo4j:instance=kernel#0,name=Store file sizes"
         ]
       ).success((response) ->
         $scope.kernel = {}
