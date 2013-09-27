@@ -1,8 +1,9 @@
-#stream(ng-controller='StreamCtrl')
+div(ng-controller='StreamCtrl')
   .intro(ng-animate="{hide:'intro-out', show:'intro-in'}", ng-show="neo4j.version && frames.items.length == 0")
     img(src='/images/intro.png')
-  .frame(
-    ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
-    ng-animate="{leave:'frame-out', enter:'frame-in'}"
-    ng-include = "frame.templateUrl"
-  )
+  #stream
+    .frame(
+      ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
+      ng-animate="{leave:'frame-out', enter:'frame-in'}"
+      ng-include = "frame.templateUrl"
+    )
