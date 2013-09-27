@@ -128,7 +128,7 @@ module.exports = function(grunt){
       }
       else {
         grunt.verbose.writeln('Running: ' + cmd);
-        var exitCode = shell.exec(cmd, {silent:true}).code;
+        var exitCode = shell.exec(cmd, {silent:false}).code;
         if (exitCode != 0) {
           grunt.fail.fatal("[ERROR] " + cmd, exitCode)
         }
