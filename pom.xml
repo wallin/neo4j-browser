@@ -16,6 +16,8 @@
   <description>Graph database client.</description>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <license-text.header>GPL-3-header.txt</license-text.header>
     <docs.url>http://docs.neo4j.org/chunked/${project.version}/cypher-query-lang.html</docs.url>
     <licensing.prepend.text>notice-gpl-prefix.txt</licensing.prepend.text>
@@ -82,18 +84,12 @@
 
   <distributionManagement>
     <repository>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-        <id>releases@repo.neo4j.org</id>
-        <uniqueVersion>true</uniqueVersion>
-        <name>Neo4j Releases</name>
-        <url>http://m2.neo4j.org/content/repositories/releases/</url>
-        <layout>default</layout>
-   </repository>
+      <id>releases@repo.neo4j.org</id>
+      <uniqueVersion>true</uniqueVersion>
+      <name>Neo4j Releases</name>
+      <url>http://m2.neo4j.org/content/repositories/releases/</url>
+      <layout>default</layout>
+    </repository>
 
     <site>
       <id>neo4j-site</id>
