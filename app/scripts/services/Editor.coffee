@@ -6,7 +6,8 @@ angular.module('neo4jApp.services')
     'Frame'
     'Settings'
     'localStorageService'
-    (Document, Frame, Settings, localStorageService) ->
+    'motdService'
+    (Document, Frame, Settings, localStorageService, motdService) ->
       storageKey = 'history'
       class Editor
         constructor: ->
@@ -17,7 +18,7 @@ angular.module('neo4jApp.services')
           @document = null
           @next = null
           @prev = null
-          @setMessage('Welcome to the Neo4j Browser.')
+          @setMessage("#{motdService.quote.text}.")
 
         execScript: (input) ->
           @showMessage = no
@@ -28,7 +29,7 @@ angular.module('neo4jApp.services')
             localStorageService.add(storageKey, JSON.stringify(@history))
           @historySet(-1)
           if !frame and input != ''
-            @setMessage("You screamed <b>#{input}</b> but nobody replied.", 'error')
+            @setMessage("<b>Unrecognized:</b> <i>#{input}</i>. #{motdService.unrecognized}", 'error')
 
         execCurrent: ->
           @execScript(@content)
@@ -79,12 +80,12 @@ angular.module('neo4jApp.services')
           else
             @document = Document.create(content: @content)
 
-        setContent: (content = '')->
+        setContent: (content = '') ->
           @content = content
           @focusEditor()
           @document = null
 
-        setMessage: (message, type = 'info')
+        setMessage: (message, type = 'info') ->
           @showMessage = yes
           @errorCode = type
           @errorMessage = message

@@ -18,10 +18,8 @@
         a.balled.success('ng-click' = 'editor.execScript(editor.content)', ng-class="{active: editor.content}")
           i.icon-play
 
-    .message-bar.error(ng-show='editor.errorCode', ng-animate="{hide:'slide-down-out', show:'slide-down-in'}")
-      | <b>Unrecognized</b>: &quot;{{editor.errorMessage | uncomment}}&quot;. {{motd.unrecognized}}
-      | Type
-      a(help-topic="help") :help
-      |  for a list of available commands.
+    .message-bar.error(ng-show='editor.showMessage', ng-animate="{hide:'slide-down-out', show:'slide-down-in'}", ng-class="editor.errorCode")
+      span(ng-bind-html-unsafe="editor.errorMessage")
+      |  Type <code>:help</code> for a list of available commands.
       .actions
-        a.icon-remove(ng-click='editor.errorCode = null')
+        a.icon-remove(ng-click='editor.showMessage = null')
