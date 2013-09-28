@@ -28,6 +28,7 @@
     "nib": "~0.9.1",
     "grunt-jade": "~0.4.0",
     "karma": "~0.10.2",
+    "karma-ng-scenario": "~0.1.0",
     "grunt-connect-proxy": "~0.1.5",
     "shelljs": "~0.2.3",
     "semver": "~2.1.0"
