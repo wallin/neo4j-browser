@@ -7,18 +7,19 @@ angular.module('neo4jApp.services')
 
         choices =
           quotes: [
-            { 'text':'When you label me, you negate me', 'author':'Soren Kierkegaard' }
-            { 'text':'In the beginning was the command line', 'author':'Neal Stephenson' }
-            { 'text':'Remember, all I\'m offering is the truth – nothing more', 'author':'Morpheus'}
+            { 'text':'When you label me, you negate me.', 'author':'Soren Kierkegaard' }
+            { 'text':'In the beginning was the command line.', 'author':'Neal Stephenson' }
+            { 'text':'Remember, all I\'m offering is the truth – nothing more.', 'author':'Morpheus'}
             { 'text':'Testing can show the presence of bugs, but never their absence.', 'author':'Edsger W. Dijkstra'}
-            { 'text':'We think you\'re a special snowflake', 'author':'Neo4j'}
-            { 'text':'Still he\'d see the matrix in his sleep, bright lattices of logic unfolding across that colorless void', 'author':'William Gibson'}
+            { 'text':'We think you\'re a special snowflake.', 'author':'Neo4j'}
+            { 'text':'Still he\'d see the matrix in his sleep, bright lattices of logic unfolding across that colorless void.', 'author':'William Gibson'}
             { 'text':'Eventually everything connects.', 'author':'Charles Eames'}
-            # { 'text':'To develop a complete mind: study the science of art. Study the art of science. Develop your senses - especially learn how to see. Realize that everything connects to everything else', 'author':'Leonardo da Vinci'}
+            { 'text':'To develop a complete mind: study the science of art. Study the art of science. Develop your senses - especially learn how to see. Realize that everything connects to everything else.', 'author':'Leonardo da Vinci'}
           ],
           tips: [
             'Use <shift-return> for multi-line, <cmd-return> to evaluate command'
-            'Navigate query bar history with <ctrl- up/down arrow>.'
+            'Navigate history with <ctrl- up/down arrow>'
+            'When in doubt, ask for :help'
           ],
           unrecognizable: [
             "Interesting. How does this make you feel?"
@@ -30,9 +31,12 @@ angular.module('neo4jApp.services')
           ],
           emptiness: [
             "No nodes. Know nodes?"
-            "Waiting for the big bang of data"
-            "Ready for anything"
-            "Every graph starts with the first node"
+            "Waiting for the big bang of data."
+            "Ready for anything."
+            "Every graph starts with the first node."
+          ],
+          disconnected: [
+            "Please check if the cord is unplugged."
           ]
 
         quote: ""
@@ -51,6 +55,7 @@ angular.module('neo4jApp.services')
           @tip = @pickRandomlyFrom(choices.tips)
           @unrecognized = @pickRandomlyFrom(choices.unrecognizable)
           @emptiness = @pickRandomlyFrom(choices.emptiness)
+          @disconnected = @pickRandomlyFrom(choices.disconnected)
 
         pickRandomlyFrom: (fromThis) ->
           return fromThis[Math.floor(Math.random() * fromThis.length)]

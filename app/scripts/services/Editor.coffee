@@ -18,7 +18,7 @@ angular.module('neo4jApp.services')
           @document = null
           @next = null
           @prev = null
-          @setMessage("#{motdService.quote.text}.")
+          # @setMessage("#{motdService.quote.text}.")
 
         execScript: (input) ->
           @showMessage = no

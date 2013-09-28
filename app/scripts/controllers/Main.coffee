@@ -6,13 +6,16 @@ angular.module('neo4jApp.controllers')
     '$window'
     'Server'
     'Settings'
-    ($scope, $window, Server, Settings) ->
+    'motdService'
+    ($scope, $window, Server, Settings, motdService) ->
       refresh = ->
         $scope.labels = Server.labels()
         $scope.relationships = Server.relationships()
         $scope.propertyKeys = Server.propertyKeys()
         $scope.server = Server.info()
         $scope.host = $window.location.host
+
+      $scope.motd = motdService
 
       $scope.neo4j =
         license =
