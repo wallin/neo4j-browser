@@ -31,13 +31,13 @@ angular.module('neo4jApp')
           true
       ]
 
-    FrameProvider.interpreters.push
-      type: 'keys'
-      templateUrl: 'views/frame-keys.html'
-      matches: "#{cmdchar}keys"
-      exec: ['$rootScope', ($rootScope) ->
-        (input) -> true
-      ]
+    # FrameProvider.interpreters.push
+    #   type: 'keys'
+    #   templateUrl: 'views/frame-keys.html'
+    #   matches: "#{cmdchar}keys"
+    #   exec: ['$rootScope', ($rootScope) ->
+    #     (input) -> true
+    #   ]
 
     # Generic shell commands
     FrameProvider.interpreters.push
@@ -157,19 +157,19 @@ angular.module('neo4jApp')
       ]
 
     # Profile a cypher command
-    FrameProvider.interpreters.push
-      type: 'cypher'
-      matches: "#{cmdchar}profile"
-      templateUrl: 'views/frame-rest.html'
-      exec: ['Cypher', (Cypher) ->
-        (input, q) ->
-          input = input.substr(8)
-          if input.length is 0
-            q.reject(error("missing query"))
-          else
-            Cypher.profile(input).then(q.resolve, q.reject)
-          q.promise
-      ]
+    # FrameProvider.interpreters.push
+    #   type: 'cypher'
+    #   matches: "#{cmdchar}profile"
+    #   templateUrl: 'views/frame-rest.html'
+    #   exec: ['Cypher', (Cypher) ->
+    #     (input, q) ->
+    #       input = input.substr(8)
+    #       if input.length is 0
+    #         q.reject(error("missing query"))
+    #       else
+    #         Cypher.profile(input).then(q.resolve, q.reject)
+    #       q.promise
+    #   ]
 
 
     # Cypher handler

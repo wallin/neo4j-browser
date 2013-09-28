@@ -3,24 +3,42 @@ article.help
     section.row-fluid.summary
       .summary.span3
         h3 Help
-        p.lead How to Browse
+        p.lead What is all this?
       .details.span9
         p
-          | Neo4j Browser is a command shell. Use the query bar up above &uarr; to
-          | enter Cypher queries or client-side commands.
+          | Neo4j Browser is a command shell. Use the editor bar up above &uarr; to
+          | enter Cypher queries or client-side commands. Each command will produce
+          | a "frame" like this one in the result stream. The 
+          code :help
+          | &nbsp;command provides brief reference and usage information.
         p
-          | Compose multi-line
-
+          | New to Neo4j? Walk through one of the guides to learn the basics. 
+        
         table.table-condensed.table-help
           tr
-            th Cypher:
+            th Usage:
+            td
+              code :help &lt;topic&gt;
+          tr
+            th Topics:
             td
               a(help-topic="cypher") :help cypher
-              | ,
-              a(href="http://docs.neo4j.org/chunked/{{neo4j.version}}/cypher-introduction.html")
-                .icon-external-link-sign &nbsp;Cypher Introduction
-          tr
-            th Commands:
-            td
+              | , 
               a(help-topic="commands") :help commands
+              | , 
+              a(help-topic="keys") :help keys
+          tr
+            th Guides:
+            td
+              a(play-topic="intro") :play intro
+              | , 
+              a(play-topic="graphs") :play graphs
+              | , 
+              a(play-topic="cypher") :play cypher
+          tr
+            th Reference:
+            td
+              a(href="http://docs.neo4j.org/chunked/{{neo4j.version}}/")
+              .icon-external-link-sign &nbsp;Neo4j Manual
+
 
