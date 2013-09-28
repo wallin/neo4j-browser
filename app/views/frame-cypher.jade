@@ -2,14 +2,14 @@ div(ng-controller="CypherResultCtrl", fullscreen)
   include partials/frame-common-actions
   .inner
     .view-result(ng-class='{error: frame.hasErrors}')
-      .view-result-graph(ng-show='isActive("graph")')
+      .view-result-graph.result(ng-show='isActive("graph")')
         svg(neo-graph, graph-data='frame.response.graph', ng-controller='D3GraphCtrl'
           style="pointer-events:fill;", preserveAspectRatio="xMidyMid")
         include partials/legend
-      .view-result-table(ng-show='isActive("table")', ng-animate = "'animate-box'")
+      .view-result-table.result(ng-show='isActive("table")', ng-animate = "'animate-box'")
         neo-table(table-data='frame.response.table')
         a.icon-download-alt(exportable 'ng-click'='exportCSV(frame.response.table)', tooltip-placement='left', tooltip='Download CSV')
-      .view-result-error(ng-show='frame.detailedErrorText')
+      .view-result-error.result(ng-show='frame.detailedErrorText')
         pre
           {{ frame.detailedErrorText }}
 

@@ -31,6 +31,9 @@ a
     color: color-link-hover
     text-decoration: none
 
+svg
+  display: block
+
 .help
   [help-topic]
     border: 1px solid #DADADA
@@ -151,6 +154,9 @@ p.lead
   background-color: #fff
   z-index: 5000
   .code-bar
+    background-color: #fff
+    position: relative
+    z-index: 2
     padding: 0 16px
     .actions
       display: none
@@ -161,19 +167,21 @@ p.lead
       font-size: 20px
   a.icon-download-alt
     color: #9B9DA2
-    absolute: top 9px right 50px
+    absolute: top 9px right 18px
     font-size: 22px
-  .view-result-graph
-    absolute: top middlebar-height bottom middlebar-height
-    width: 100%
+  .result
     background-color: #F8F9FB
   .status-bar
     absolute: bottom 0
     width: 100%
     .btn-group
-      absolute: bottom 0 right 12px
+      absolute: bottom 0 right 32px
   .view-result
     stretch()
+    top: middlebar-height
+    bottom: middlebar-height
+    left: 0
+    right: 0
     position: absolute
     overflow-y: scroll
 
