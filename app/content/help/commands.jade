@@ -6,18 +6,18 @@ article.help
         p.lead Typing commands is 1337
       .details.span9
         p
-          | In addition to composing and running Cypher queries, the query bar up above &uarr;
+          | In addition to composing and running Cypher queries, the editor bar up above &uarr;
           | understands a few client-side commands. They're useful, and some demonstrate
           | how to use various public APIs.
         p Client-side commands  begin with a &nbsp;
           code :
-          | &nbsp; and end with a smile.
+          | . Without a colon, we'll assume you're trying to enter a Cypher query.
         table.table-condensed.table-help
           tr
             th Information:
             td
               a(help-topic="help") :help help
-              a(help-topic="about") :help about
+              a(help-topic="play") :help play
           tr
             th REST:
             td
@@ -31,7 +31,7 @@ article.help
               //- a(click-to-code="':profile'")  :profile
               a(click-to-code="':schema'")  :schema
           tr
-            th Browser:
+            th Editor:
             td
               a(click-to-code="':clear'")  :clear
               //- a(click-to-code="':keys'")  :keys
