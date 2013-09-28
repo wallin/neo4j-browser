@@ -14,7 +14,7 @@ angular.module('neo4jApp.services')
           @history = localStorageService.get(storageKey)
           @history = [] unless angular.isArray(@history)
           @content = ''
-          @cursor = null
+          @cursor = -1
           @document = null
           @next = null
           @prev = null
