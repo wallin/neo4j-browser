@@ -13,7 +13,7 @@ angular.module('neo4jApp.directives')
           unbind()
 
         json2html = (obj) ->
-          html  = "<table class='unstyled'><tbody>"
+          html  = "<table class='json-object'><tbody>"
           html += "<tr><th>#{k}</th><td>#{v}</td></tr>" for own k, v of obj
           html += "</tbody></table>"
           html
