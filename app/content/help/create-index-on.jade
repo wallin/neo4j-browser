@@ -1,0 +1,29 @@
+article.help
+  .container
+    section.row-fluid.summary
+      .summary.span3
+        h3 CREATE INDEX ON
+        p.lead Index labeled nodes by property
+      .details.span9
+        p
+          | The 
+          code CREATE INDEX ON
+          |  clause will create and populate an index on a property for all nodes that have a label.
+
+        table.table-condensed.table-help
+          tr
+            th Usage:
+            td
+              code.code CREATE INDEX ON :Person(name)
+          tr
+            th Reference:
+            td
+              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-schema-index.html')
+                 code.icon-external-link-sign &nbsp;schema indexes
+              |  manual page
+          tr
+            th Related:
+            td
+              a(help-topic='drop-index-on') :help DROP INDEX ON
+              | &nbsp;
+              a(help-topic='cypher') :help Cypher

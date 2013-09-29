@@ -9,7 +9,7 @@ angular.module('neo4jApp')
     # convert a string into a topical keyword
     topicalize = (input) ->
       if input?
-        input.toLowerCase().trim().replace(' ', '-')
+        input.toLowerCase().trim().replace /\s+/g, '-'
       else
         null
 

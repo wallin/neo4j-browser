@@ -7,9 +7,7 @@ article.help
       .details.span9
         p
           | In addition to composing and running Cypher queries, the editor bar up above &uarr;
-          | understands a few client-side commands. They're useful, and some demonstrate
-          | how to use various public APIs.
-        p Client-side commands  begin with a &nbsp;
+          | understands a few client-side commands, which begin with a &nbsp;
           code :
           | . Without a colon, we'll assume you're trying to enter a Cypher query.
         table.table-condensed.table-help
@@ -29,9 +27,9 @@ article.help
             th Database:
             td
               //- a(click-to-code="':profile'")  :profile
-              a(click-to-code="':schema'")  :schema
+              a(help-topic="schema") :help schema
           tr
             th Editor:
             td
-              a(click-to-code="':clear'")  :clear
+              a(help-topic="clear") :help clear
               //- a(click-to-code="':keys'")  :keys

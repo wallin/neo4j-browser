@@ -7,14 +7,14 @@ article.help
       .details.span9
         p
           | Cypher is Neo4j's graph query language. Working with a graph is all about understanding
-          | patterns of data; Cypher's declarative syntax with familiar SQL-like clauses is 
-          | natural for describing patterns. Use 
+          | patterns of data, which are central to Cypher queries. 
+        p Use 
           code MATCH
           |  clauses for reading data, and 
           code CREATE
-          | or 
-          code MERGE 
-          | for creating data. 
+          |  or 
+          code MERGE
+          |  for writing data. 
         table.table-condensed.table-help
           tr
             th Reference:
@@ -52,7 +52,7 @@ article.help
     section.row-fluid.example
       .span9.offset3
         figure
-          pre.code(mode='cypher').
+          pre.
             MATCH &lt;pattern&gt; WHERE &lt;conditions&gt; RETURN &lt;expressions&gt;
-          figcaption Basic form of a Cypher statement. (Not executable)
+          figcaption Basic form of a Cypher read statement. (Not executable)
 
