@@ -6,8 +6,15 @@ article.help
         p.lead A graph query language
       .details.span9
         p
-          | Cypher is a declarative graph query language.
-
+          | Cypher is Neo4j's graph query language. Working with a graph is all about understanding
+          | patterns of data; Cypher's declarative syntax with familiar SQL-like clauses is 
+          | natural for describing patterns. Use 
+          code MATCH
+          |  clauses for reading data, and 
+          code CREATE
+          | or 
+          code MERGE 
+          | for creating data. 
         table.table-condensed.table-help
           tr
             th Reference:
@@ -38,8 +45,10 @@ article.help
               a(help-topic='start') :help START
               | &nbsp;
               a(help-topic='create-unique') :help CREATE UNIQUE
-              | &nbsp;
-              a(help-topic='cypher') :help Cypher
+          tr
+            th Guide:
+            td 
+              a(play-topic='cypher') Cypher
     section.row-fluid.example
       .span9.offset3
         figure
