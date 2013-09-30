@@ -6,6 +6,19 @@ proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = (grunt) ->
 
+  grunt.registerMultiTask "append", "Append specified header to source files if it doesn't exists", ->
+    data = @data
+    path = require("path")
+    files = grunt.file.expand(@filesSrc)
+    header = grunt.file.read(grunt.template.process(data.header))
+    sep = "\n"
+    files.forEach (f) ->
+      contents = grunt.file.read(f)
+      if contents.indexOf(header) isnt 0
+        grunt.file.write f, header + sep + contents
+        grunt.log.writeln "Header appended to \"" + f + "\"."
+
+
   grunt.loadNpmTasks 'grunt-contrib-stylus'
 
   # load all grunt tasks
@@ -19,6 +32,13 @@ module.exports = (grunt) ->
   try
     yeomanConfig.app = require("./component.json").appPath or yeomanConfig.app
   grunt.initConfig
+    append:
+      coffee:
+        header: "copyright/copyright.coffee"
+        src: [
+          "<%= yeoman.app %>/scripts/{,*/}*.coffee"
+        ]
+
     yeoman: yeomanConfig
     watch:
       coffee:
