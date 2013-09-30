@@ -5047,7 +5047,7 @@ a.thumbnail:focus {
   line-height: 1;
 }
 .carousel.deck {
-  height: 200px;
+  /*height: 200px;*/
 }
 .carousel-inner {
   overflow: hidden;
@@ -5100,7 +5100,7 @@ a.thumbnail:focus {
 .carousel-control {
   position: absolute;
   top: 30px;
-  left: -60px;
+  left: -52px;
   width: 40px;
   height: 40px;
   margin-top: -20px;
@@ -5119,7 +5119,7 @@ a.thumbnail:focus {
 }
 .carousel-control.right {
   left: auto;
-  right: -60px;
+  right: -52px;
 }
 .carousel-control:hover,
 .carousel-control:focus {
