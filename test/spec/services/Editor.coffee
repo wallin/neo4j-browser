@@ -19,9 +19,10 @@ describe 'Service: Editor', ->
     }])
 
   describe '#execScript', ->
-    xit 'does not create more history items than allowed by Settings', ->
+    it 'does not create more history items than allowed by Settings', ->
       # Need to provide random commands since it wont add the same one twice
-      Editor.execScript("test" + Math.random()) until Editor.history.length >= Settings.maxHistory
+      for i in [0..Settings.maxHistory]
+        Editor.execScript("test" + i)
 
       Editor.execScript('test2')
       expect(Editor.history.length).toBe Settings.maxHistory
