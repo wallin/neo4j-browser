@@ -34,20 +34,14 @@ a
 svg
   display: block
 
-.help
-  [help-topic]
-    border: 1px solid #DADADA
-    border-radius: 3px
-    padding: 0 4px
-    background-color: #F8F8F8
-    margin-bottom: 5px
-    display: inline-block
-    line-height: 18px
-
-[play-topic], [help-topic]
+[play-topic], [help-topic], a[target]
   &:before
     font-family: FontAwesome
     padding-right: 4px
+  &.no-icon
+    &:before
+      padding-right: 0
+      content: ''
 
 [play-topic]
   &:before
@@ -56,6 +50,10 @@ svg
 [help-topic]
   &:before
     content: "\f05a"
+
+a[target]
+  &:before
+    content: "\f14c"
 
 table.data
   width: 100%

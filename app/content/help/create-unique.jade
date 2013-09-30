@@ -6,11 +6,11 @@ article.help
         p.lead Match meets Create
       .details.span9
         p
-          | The 
+          | The
           code CREATE UNIQUE
-          |  clause is a mix of 
+          |  clause is a mix of
           code MATCH
-          |  and 
+          |  and
           code CREATE
           |  &mdash; it will match what it can, and create what is missing.
 
@@ -18,8 +18,8 @@ article.help
           tr
             th Reference:
             td
-              a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-create-unique.html')
-                 code.icon-external-link-sign &nbsp;CREATE UNIQUE
+              code
+                a(href='http://docs.neo4j.org/chunked/{{neo4j.version}}/query-create-unique.html') CREATE UNIQUE
               |  manual page
           tr
             th Related:
@@ -41,4 +41,4 @@ article.help
             RETURN ca
           figcaption Finds the country named "United States". If found, will then
             | create a new state named California, but only if it
-            | doesn't already exist. 
+            | doesn't already exist.
