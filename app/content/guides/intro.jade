@@ -2,100 +2,56 @@ article.guide
   carousel.deck.container
     slide.row
       .span3
-        h3 Learn
-        p.lead An introduction to basic graph concepts.
+        h3 Introduction
+        p.lead Getting started with Neo4j Browser
       .span5
-        ol.big
-          li Nodes - graph data records
-          li Relationships - connecting nodes
-          li Properties - named data values
-    slide.row
-      .span3
-        h3 A
-          em Graph
-          | Database
-        p.lead Neo4j stores data in a Graph, with records called Nodes.
-      .span5
-        p The simplest graph has just a single node with some named values called Properties.
-          | Let's draw a social graph of our friends on the Neo4j team:
-        ol
-          li Start by drawing a circle for the node
-          li Add the name Emil
-          li Note that he is from Sweden
-        ul
-          li Nodes are the name for data records in a graph
-          li Data is stored in nodes as Properties
-          li Properties are simple name/value pairs
-      .span4
-        img(src='/images/one_node.png')
-    slide.row
-      .span3
-        h3 More Nodes
-        p.lead Schema-free, nodes can have a mix of common and unique properties.
-      .span5
-        p Like any database, storing data in Neo4j can be as simple
-          | as adding more records. We'll add a few more nodes:
-        ol
-          li Emil has a klout score of 99
-          li Johan, from Sweden, who is learning to surf
-          li Ian, from England, who is an author
-          li Rik, from Belgium, has a cat named Orval
-          li Allison, from California, who surfs
-        ul
-          li Similar nodes (like People) can have different properties
-          li Properties can be strings, numbers, or booleans
-          li Neo4j can store billions of nodes
-      .span4
-        img(src='/images/more_nodes.png')
-    slide.row
-      .span3
-        h3 Now consider Relationships
-      .span5
-        p.summary
-          | The real power of Neo4j is in connected data. To connect any two nodes,
-          | add a Relationship which describes how the data is related.
-        p
-          | In our social graph, we simply say who KNOWS whom:
-        ol
-          li Emil KNOWS Johan and Ian
-          li Johan KNOWS Ian and Rik
-          li Rik and Ian KNOWS Allison
-        ul
-          li Relationships always have direction
-          li Relationships always have a type
-          li Relationships can have properties
-      .span4
-        img(src='/images/relationships.png')
-    slide.row
-      .span3
-        h3 Relationships are data
-      .span5
-        p.summary
-          | In a property graph, relationships are data structures that can also
-          | store data.
-          | Looking more closely at Emil's relationships, note that:
-        ul
-          li Emil has known Johan since 2001
-          li Emil rates Ian 5 (out of 5)
-          li Everyone else can have similar relationship properties
-      .span4
-        img(src='/images/rel-props.png')
-    slide
-      .span3
-        h3 Summary
-        p.lead Neo4j stores data in a Property Graph.
-      .span5
-        p A property graph contains nodes and relationships,
-          | with properties on both. Absolutely any domain can be stored in a graph.
-          | Having "whiteboarded" a graph, you are ready to create a graph in Neo4j.
-        p Next steps:
+        p Neo4j Browser is a command driven client, like a web-based shell environment.
         ul.big
-          li
-            a(play-topic='develop') Develop
-            | a mini graph application
-          li
-            a(play-topic='tour') Review
-            | how to use this Browser
-          li
-            a(play-topic='explore') Explore
-            | external content
+          li 
+    slide.row
+      .span3
+        h3 Editor
+        p.lead Command editing and execution
+      .span5
+        p The editor is the primary interface for entering and running commands.
+          | Enter Cypher queries to work with graph data. Use client-side
+          | commands like 
+          code :help
+          |  for other operations.
+        ul
+          li Single line editing for brief queries or commands
+          li Switch to multi-line editing with &lt;shift-enter&gt;
+          li Run a query with &lt;ctrl-enter&gt;
+          li History is kept for easily retrieving previous commands
+    .span4
+        img(src='/images/screen_editor.png')
+    slide.row
+      .span3
+        h3 Stream
+        p.lead Scrolling series of result frames
+      .span5
+        p A result frame is created for each command execution, added to the top
+          | of the stream to create a scrollable collection in reverse chronological order.
+        ul
+          li Special frames like data visualization
+          li Expand a frame to full screen
+          li Remove a specific frame from the stream
+          li Clear the stream with the 
+             code :clear
+             |  command
+      .span4
+        img(src='/images/screen_stream.png')
+    slide.row
+      .span3
+        h3 Sidebar
+        p.lead Convenient clickable access
+      .span5
+        p The sidebar expands to reveal different functional panels
+          | for common queries and information.
+        ul
+          li Database metadata and basic information
+          li Saved scripts organized into folders
+          li Information links for docs and reference
+          li Credits and licensing information
+      .span4
+        img(src='/images/screen_sidebar.png')

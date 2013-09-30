@@ -3,45 +3,22 @@ article.guide
   carousel.deck.container
     slide.row
       .span3
-        h3 Develop a Graph
-        p.lead From whiteboard to world stage, Neo4j works the way you think.
-    slide.row
-      .span3
-        h3 There are Three APIs...
-        p.lead As always, pick the right tool for the job.
-      .span5
-        p.summary
-          | Neo4j has a trio of programming interfaces, focused on different kinds of interaction.
-        ul
-          li
-            em Work
-            | with the Cypher query language over HTTP
-          li
-            em Discover
-            | raw graph primitives over REST
-          li
-            em Customize
-            | the database with plugins (for special cases)
-      .span4
-        img(src='/images/api-trio.png')
-    slide.row
-      .span3
         h3 Cypher
         p.lead Neo4j's graph query language
       .span9
         p
-          | Neo4j's Cypher language is purpose built for working with graph data. Inspired
-          | by SQL syntax, embracing pattern matching for describing paths, Cypher is
-          | the primary tool for building graph applications.
+          | Neo4j's Cypher language is purpose built for working with graph data.
+        ul.big
+          li uses patterns to describe graph data 
+          li familiar SQL-like clauses
+          li declarative, describing what to find, not how to find it
     slide.row
       .span3
-        h3 Cypher
+        h3 CREATE
         p.lead Create a node
       .span9
         p
-          | Let's use Cypher to generate the graph described in the
-          a(play-topic='learn') Learn Guide
-          | . Starting with Emil:
+          | Let's use Cypher to generate a small social graph.
         figure
           pre.pre-scrollable.code(mode='cypher').
             CREATE (ee { name: "Emil", from: "Sweden" })
@@ -60,7 +37,7 @@ article.guide
             |  brackets to add properties to the node
     slide.row
       .span3
-        h3 Cypher
+        h3 MATCH
         p.lead Finding nodes
       .span9
         p
@@ -79,15 +56,15 @@ article.guide
             code WHERE
             |  clause to constrain the results
           li
-            code ee.name \= "Emil"
+            code ee.name = "Emil"
             |  compares name property to the value "Emil"
           li
             code RETURN
             |  clause used to request particular results
     slide.row
       .span3
-        h3 Cypher
-        p.lead Create nodes and relationships
+        h3 CREATE more
+        p.lead Nodes and relationships
       .span9
         p
           code CREATE
@@ -102,91 +79,69 @@ article.guide
             (ee)-[:KNOWS {since: 2001}]->(js),(ee)-[:KNOWS {rating: 5}]->(ir),
             (js)-[:KNOWS]->(ir),(js)-[:KNOWS]->(rvb),
             (ir)-[:KNOWS]->(js),(ir)-[:KNOWS]->(ally),
-            (rvb)-[:KNOWS]->(ally);
+            (rvb)-[:KNOWS]->(ally)
     slide.row
-      h2 Cypher pattern matching
-      p.summary
-        | Cypher uses patterns to describe how to find things in the graph.
-        | For instance, to find Emil's friends:
-      pre.
-        \nSTART ee=node(*) MATCH (ee)-[:KNOWS]-        (friends)
-        WHERE ee.name! = "Emil" RETURN friends;
-      ul
-        li
-          code MATCH
-          | clause to describe the pattern from known Nodes to found Nodes
-        li
-          code (ee)
-          | starts the pattern with Emil
-        li
-          code -[:KNOWS]-
-          | matches outgoing "KNOWS" relationships
-        li
-          code (friends)
-          | will be bound to Emil's friends
+      .span3
+        h3 Pattern matching
+        p.lead Describe what to find in the graph
+      .span9
+        p.summary
+          | For instance, a pattern can be used to find Emil's friends:
+        figure
+          pre.pre-scrollable.code(mode='cypher').
+            MATCH (ee)-[:KNOWS]-(friends)
+            WHERE ee.name = "Emil" RETURN friends
+        ul
+          li
+            code MATCH
+            | clause to describe the pattern from known Nodes to found Nodes
+          li
+            code (ee)
+            | starts the pattern with Emil
+          li
+            code -[:KNOWS]-
+            | matches outgoing "KNOWS" relationships
+          li
+            code (friends)
+            | will be bound to Emil's friends
     slide.row
-      h2 Cypher recommendations
-      p.summary
-        | Pattern matching can be used to make recommendations. Johan is learning to surf, so he may want to find
-        | a new friend who already does:
-      pre.
-        \nSTART js=node(*)
-        MATCH (js)-[:KNOWS]-        ()-[:KNOWS]-        (surfer)
-        WHERE js.name! = "Johan" AND surfer.hobby! = "surfing"
-        RETURN DISTINCT surfer;
-      ul
-        li
-          code ()
-          | empty parenthesis to ignore these nodes
-        li
-          code DISTINCT
-          | because more than one path will match the pattern
-        li
-          code surfer
-          | will contain Allison, a friend of a friend who surfs
+      .span3
+        h3 Recommend
+        p.lead Using patterns
+      .span9
+        p.summary
+          | Pattern matching can be used to make recommendations. Johan is learning to surf, so he may want to find
+          | a new friend who already does:
+        figure
+          pre.pre-scrollable.code(mode='cypher').
+            MATCH (js)-[:KNOWS]-()-[:KNOWS]-(surfer)
+            WHERE js.name = "Johan" AND surfer.hobby = "surfing"
+            RETURN DISTINCT surfer
+        ul
+          li
+            code ()
+            | empty parenthesis to ignore these nodes
+          li
+            code DISTINCT
+            | because more than one path will match the pattern
+          li
+            code surfer
+            | will contain Allison, a friend of a friend who surfs
     slide.row
-      h2 Discover with REST
-      img(src='/content/help/guides/img/api-rest.png')
-      p.summary
-        | Once you've created a graph with Cypher, the REST interface can be useful for
-        | interactively walking the graph in a hypermedia way. This interface is also
-        | useful for checking system statistics and settings.
-      ul
-        li work with raw graph primitives
-        li basic monitoring
-        li not recommended for high-load access
-      p.hint The web is a graph. Why not navigate a graph like browsing the web.
-    slide.row
-      h2 Customize with Plugins
-      img(src='images/console.png')
-      p
-        | Cypher is an expressive and powerful language, intended to cover the
-        | vast majority of operations. When you have specialized needs, plugins
-        | allow you to "get under the hood."
-      ul
-        li raw access to the database
-        li your choice of JVM language
-        li
-          em note
-          | : for advanced users with special needs
-      p.hint With great power comes great responsibility.
-    slide.row
-      h2 Summary
-      p
-        | Start your application using Cypher to create and query graph data. Use the REST API
-        | to monitor the database. In special cases, consider a plugin.
-      p Now, go get started on your own application.
-      p Next steps:
-      ul
-        li
-          a.icon-external-link-sign(href='http://www.neo4j.org/develop/drivers') Download
-          | a driver for your language of choice
-        li
-          a.icon-external-link-sign(href='http://www.neo4j.org/learn/cypher') Learn
-          | more about Cypher
-        li
-          a.icon-external-link-sign(href='http://docs.neo4j.org/chunked/@@neo4j.version@@/') Read
-          | the Neo4j manual for details
-      p.hint
-        | Or, see
-        a(play-topic='guide') other guides
+      .span3
+        h3 Next steps
+        p.lead Develop expertise
+      .span9
+        p
+          | Start your application using Cypher to create and query graph data. Use the REST API
+          | to monitor the database. In special cases, consider a plugin.
+        ul
+          li
+            a.icon-external-link-sign(href='http://www.neo4j.org/learn/cypher') Learn 
+            | more about Cypher
+          li
+            a.icon-external-link-sign(href='http://www.neo4j.org/develop/drivers') Download 
+            | a driver for your language of choice
+          li
+            a.icon-external-link-sign(href='http://docs.neo4j.org/chunked/@@neo4j.version@@/') Read 
+            | the Neo4j manual for details
