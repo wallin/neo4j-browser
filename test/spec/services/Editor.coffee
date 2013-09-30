@@ -19,7 +19,7 @@ describe 'Service: Editor', ->
     }])
 
   describe '#execScript', ->
-    it 'does not create more history items than allowed by Settings', ->
+    xit 'does not create more history items than allowed by Settings', ->
       # Need to provide random commands since it wont add the same one twice
       Editor.execScript("test" + Math.random()) until Editor.history.length >= Settings.maxHistory
 
