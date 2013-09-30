@@ -18,6 +18,13 @@ module.exports = (grunt) ->
         grunt.file.write f, header + sep + contents
         grunt.log.writeln "Header appended to \"" + f + "\"."
 
+  grunt.registerMultiTask "replace", "Replaces text in files", ->
+    data = @data
+    path = require("path")
+    files = grunt.file.expand(@filesSrc)
+    files.forEach (f) ->
+      contents = grunt.file.read(f)
+      grunt.file.write f, contents.replace(data.find, data.replace)
 
   grunt.loadNpmTasks 'grunt-contrib-stylus'
 
@@ -269,10 +276,16 @@ module.exports = (grunt) ->
         options:
             stdout: true
 
+    replace:
+      dist:
+        find: 'url(/images'
+        replace: 'url(/browser/images'
+        src: ["<%= yeoman.dist %>/styles/main.css"]
+
   grunt.renameTask "regarde", "watch"
   grunt.registerTask "server", ["clean:server", "coffee:dist", "configureProxies", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "connect:test", "karma"]
-  grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "concat", "copy", "imagemin", "cssmin", "htmlmin", "uglify", "usemin"]
+  grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "concat", "copy", "imagemin", "cssmin", "htmlmin", "uglify", "usemin", "replace"]
   grunt.registerTask "default", ["build"]
 
   grunt.task.loadTasks "tasks"
