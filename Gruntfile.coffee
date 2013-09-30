@@ -197,10 +197,11 @@ module.exports = (grunt) ->
           dest: "<%= yeoman.dist %>/images"
         ]
 
-    cssmin:
-      dist:
-        files:
-          "<%= yeoman.dist %>/styles/main.css": [".tmp/styles/{,*/}*.css", "<%= yeoman.app %>/styles/{,*/}*.css"]
+    # This task is populated by usemin
+    # cssmin:
+    #   dist:
+    #     files:
+    #       "<%= yeoman.dist %>/styles/main.css": [".tmp/styles/{,*/}*.css", "<%= yeoman.app %>/styles/{,*/}*.css"]
 
     htmlmin:
       dist:
@@ -271,7 +272,7 @@ module.exports = (grunt) ->
   grunt.renameTask "regarde", "watch"
   grunt.registerTask "server", ["clean:server", "coffee:dist", "configureProxies", "stylus", "jade", "livereload-start", "connect:livereload", "watch"]
   grunt.registerTask "test", ["clean:server", "coffee", "connect:test", "karma"]
-  grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "imagemin", "cssmin", "htmlmin", "concat", "copy", "uglify", "usemin"]
+  grunt.registerTask "build", ["clean:dist", "test", "coffee", "jade", "stylus", "useminPrepare", "concat", "copy", "imagemin", "cssmin", "htmlmin", "uglify", "usemin"]
   grunt.registerTask "default", ["build"]
 
   grunt.task.loadTasks "tasks"
