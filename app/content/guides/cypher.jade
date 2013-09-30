@@ -21,7 +21,7 @@ article.guide
           | Let's use Cypher to generate a small social graph.
         figure
           pre.pre-scrollable.code(mode='cypher').
-            CREATE (ee { name: "Emil", from: "Sweden" })
+            CREATE (ee { name: "Emil", from: "Sweden", klout: 99 })
         ul
           li
             code CREATE
@@ -71,8 +71,9 @@ article.guide
           | clauses can create many nodes and relationships at once.
         figure
           pre.pre-scrollable.code(mode='cypher').
-            CREATE (ee { name: "Emil", from: "Sweden", klout: 99 }),
-            (js { name: "Johan", from: "Sweden", learn: "surfing" }),
+            MATCH (ee)
+            WHERE ee.name = "Emil"
+            CREATE (js { name: "Johan", from: "Sweden", learn: "surfing" }),
             (ir { name: "Ian", from: "England", title: "author" }),
             (rvb { name: "Rik", from: "Belgium", pet: "Orval" }),
             (ally { name: "Allison", from: "California", hobby: "surfing" }),
@@ -90,7 +91,7 @@ article.guide
         figure
           pre.pre-scrollable.code(mode='cypher').
             MATCH (ee)-[:KNOWS]-(friends)
-            WHERE ee.name = "Emil" RETURN friends
+            WHERE ee.name = "Emil" RETURN ee, friends
         ul
           li
             code MATCH
@@ -100,7 +101,7 @@ article.guide
             | starts the pattern with Emil
           li
             code -[:KNOWS]-
-            | matches outgoing "KNOWS" relationships
+            | matches "KNOWS" relationships
           li
             code (friends)
             | will be bound to Emil's friends
@@ -138,10 +139,10 @@ article.guide
         ul
           li
             a(href='http://www.neo4j.org/learn/cypher') Learn
-            | more about Cypher
+            |  more about Cypher
           li
             a(href='http://www.neo4j.org/develop/drivers') Download
-            | a driver for your language of choice
+            |  a driver for your language of choice
           li
             a(href='http://docs.neo4j.org/chunked/@@neo4j.version@@/') Read
-            | the Neo4j manual for details
+            |  the Neo4j manual for details
