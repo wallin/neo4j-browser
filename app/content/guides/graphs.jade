@@ -1,6 +1,6 @@
 article.guide
   carousel.deck.container
-    slide.row
+    slide.row-fluid
       .span3
         h3 Learn
         p.lead An introduction to basic graph concepts.
@@ -9,7 +9,7 @@ article.guide
           li Nodes - graph data records
           li Relationships - connecting nodes
           li Properties - named data values
-    slide.row
+    slide.row-fluid
       .span3
         h3 A
           em Graph
@@ -28,7 +28,7 @@ article.guide
           li Properties are simple name/value pairs
       .span4
         img(src='/images/one_node.png')
-    slide.row
+    slide.row-fluid
       .span3
         h3 More Nodes
         p.lead Schema-free, nodes can have a mix of common and unique properties.
@@ -47,7 +47,7 @@ article.guide
           li Neo4j can store billions of nodes
       .span4
         img(src='/images/more_nodes.png')
-    slide.row
+    slide.row-fluid
       .span3
         h3 Now consider Relationships
       .span5
@@ -66,7 +66,7 @@ article.guide
           li Relationships can have properties
       .span4
         img(src='/images/relationships.png')
-    slide.row
+    slide.row-fluid
       .span3
         h3 Relationships are data
       .span5
@@ -85,12 +85,12 @@ article.guide
         h3 Next steps
         p.lead Query with Cypher
       .span5
-        p A property graph contains nodes and relationships, with properties on both.           
+        p A property graph contains nodes and relationships, with properties on both.
           | Having "whiteboarded" a graph, you are ready to create a graph in Neo4j.
         ul.big
           li
-            a(play-topic='cypher') Develop 
+            a(play-topic='cypher') Develop
             | a mini graph application
           li
-            a(play-topic='intro') Review 
+            a(play-topic='intro') Review
             | how to use this Browser

@@ -1,7 +1,7 @@
 
 article.guide
   carousel.deck.container
-    slide.row
+    slide.row-fluid
       .span3
         h3 Cypher
         p.lead Neo4j's graph query language
@@ -12,7 +12,7 @@ article.guide
           li uses patterns to describe graph data
           li familiar SQL-like clauses
           li declarative, describing what to find, not how to find it
-    slide.row
+    slide.row-fluid
       .span3
         h3 CREATE
         p.lead Create a node
@@ -35,7 +35,7 @@ article.guide
           li
             code {}
             |  brackets to add properties to the node
-    slide.row
+    slide.row-fluid
       .span3
         h3 MATCH
         p.lead Finding nodes
@@ -61,7 +61,7 @@ article.guide
           li
             code RETURN
             |  clause used to request particular results
-    slide.row
+    slide.row-fluid
       .span3
         h3 CREATE more
         p.lead Nodes and relationships
@@ -80,7 +80,7 @@ article.guide
             (js)-[:KNOWS]->(ir),(js)-[:KNOWS]->(rvb),
             (ir)-[:KNOWS]->(js),(ir)-[:KNOWS]->(ally),
             (rvb)-[:KNOWS]->(ally)
-    slide.row
+    slide.row-fluid
       .span3
         h3 Pattern matching
         p.lead Describe what to find in the graph
@@ -104,7 +104,7 @@ article.guide
           li
             code (friends)
             | will be bound to Emil's friends
-    slide.row
+    slide.row-fluid
       .span3
         h3 Recommend
         p.lead Using patterns
@@ -127,7 +127,7 @@ article.guide
           li
             code surfer
             | will contain Allison, a friend of a friend who surfs
-    slide.row
+    slide.row-fluid
       .span3
         h3 Next steps
         p.lead Develop expertise

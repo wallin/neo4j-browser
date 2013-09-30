@@ -1,26 +1,26 @@
 article.guide
   carousel.deck.container
-    slide.row
+    slide.row-fluid
       .span3
         h3 Introduction
         p.lead Getting started with Neo4j Browser
       .span9
         p Neo4j Browser is a command driven client, like a web-based shell environment.
           |  It is perfect for running ad-hoc graph queries, with just enough ability
-          | to prototype a Neo4j-based application. 
+          | to prototype a Neo4j-based application.
         ul.big
           li Developer focused, for writing and running graph queries with Cypher
           li Exportable tabular results of any query result
           li Graph visualization of query results containing nodes and relationships
           li Convenient exploration of Neo4j's REST API
-    slide.row
+    slide.row-fluid
       .span3
         h3 Editor
         p.lead Command editing and execution
       .span5
         p The editor is the primary interface for entering and running commands.
           | Enter Cypher queries to work with graph data. Use client-side
-          | commands like 
+          | commands like
           code :help
           |  for other operations.
         ul
@@ -30,7 +30,7 @@ article.guide
           li History is kept for easily retrieving previous commands
       .span4
           img(src='/images/screen_editor.png')
-    slide.row
+    slide.row-fluid
       .span3
         h3 Stream
         p.lead Scrolling series of result frames
@@ -41,12 +41,12 @@ article.guide
           li Special frames like data visualization
           li Expand a frame to full screen
           li Remove a specific frame from the stream
-          li Clear the stream with the 
+          li Clear the stream with the
              code :clear
              |  command
       .span4
         img(src='/images/screen_stream.png')
-    slide.row
+    slide.row-fluid
       .span3
         h3 Sidebar
         p.lead Convenient clickable access
