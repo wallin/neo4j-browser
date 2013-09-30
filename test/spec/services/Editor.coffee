@@ -5,6 +5,8 @@ describe 'Service: Editor', ->
   # load the service's module
   beforeEach module 'neo4jApp.services'
 
+  beforeEach -> localStorage.clear()
+
   # instantiate service
   Document = {}
   Editor = {}
@@ -20,13 +22,12 @@ describe 'Service: Editor', ->
 
   describe '#execScript', ->
     it 'does not create more history items than allowed by Settings', ->
-      # Need to provide random commands since it wont add the same one twice
       for i in [0..Settings.maxHistory]
-        Editor.execScript("test" + i)
+        Editor.addToHistory("command " + i)
 
-      Editor.execScript('test2')
+      Editor.addToHistory('new command')
       expect(Editor.history.length).toBe Settings.maxHistory
-      expect(Editor.history[0]).toBe 'test2'
+      expect(Editor.history[0]).toBe 'new command'
 
 
   describe '#loadDocument', ->

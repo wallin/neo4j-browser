@@ -46,12 +46,15 @@ angular.module('neo4jApp.services')
           if !frame and input != ''
             @setMessage("<b>Unrecognized:</b> <i>#{input}</i>. #{motdService.unrecognized}", 'error')
           else
-            @current = ''
-            if input?.length > 0 and @history[0] isnt input
-              @history.unshift(input)
-              @history.pop() until @history.length <= Settings.maxHistory
-              localStorageService.add(storageKey, JSON.stringify(@history))
-            @historySet(-1)
+            @addToHistory(input)
+
+        addToHistory: (input) ->
+          @current = ''
+          if input?.length > 0 and @history[0] isnt input
+            @history.unshift(input)
+            @history.pop() until @history.length <= Settings.maxHistory
+            localStorageService.add(storageKey, JSON.stringify(@history))
+          @historySet(-1)
 
         execCurrent: ->
           @execScript(@content)
