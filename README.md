@@ -25,7 +25,6 @@ Goals:
 **How-to**:
 
 * [Build instructions](https://github.com/neo4j/neo4j-browser/wiki/Build)
-* [Neo4j integration branch](https://github.com/akollegger/neo4j/tree/neo4j-browser)
 
 # Try it
 
