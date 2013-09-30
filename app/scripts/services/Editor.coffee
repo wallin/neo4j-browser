@@ -34,22 +34,24 @@ angular.module('neo4jApp.services')
           @history = localStorageService.get(storageKey)
           @history = [] unless angular.isArray(@history)
           @content = ''
+          @current = ''
           @cursor = -1
           @document = null
-          @next = null
-          @prev = null
           # @setMessage("#{motdService.quote.text}.")
 
         execScript: (input) ->
           @showMessage = no
           frame = Frame.create(input: input)
-          if input?.length > 0 and @history[0] isnt input
-            @history.unshift(input)
-            @history.pop() until @history.length <= Settings.maxHistory
-            localStorageService.add(storageKey, JSON.stringify(@history))
-          @historySet(-1)
+
           if !frame and input != ''
             @setMessage("<b>Unrecognized:</b> <i>#{input}</i>. #{motdService.unrecognized}", 'error')
+          else
+            @current = ''
+            if input?.length > 0 and @history[0] isnt input
+              @history.unshift(input)
+              @history.pop() until @history.length <= Settings.maxHistory
+              localStorageService.add(storageKey, JSON.stringify(@history))
+            @historySet(-1)
 
         execCurrent: ->
           @execScript(@content)
@@ -73,12 +75,13 @@ angular.module('neo4jApp.services')
           @historySet(idx)
 
         historySet: (idx) ->
+          # cache unsaved changes if moving away from the temporary buffer
+          @current = @content if @cursor == -1 and idx != -1
+
           idx = -1 if idx < 0
           idx = @history.length - 1 if idx >= @history.length
           @cursor = idx
-          @prev = @history[idx+1]
-          @next = @history[idx-1]
-          item = @history[idx] or ''
+          item = @history[idx] or @current
           @content = item
           @document = null
 
