@@ -34,10 +34,19 @@ angular.module('neo4jApp.directives')
 
         json2html = (obj) ->
           html  = "<table class='json-object'><tbody>"
-          html += "<tr><th>#{k}</th><td>#{v}</td></tr>" for own k, v of obj
+          html += "<tr><th>#{k}</th><td>#{cell2html(v)}</td></tr>" for own k, v of obj
           html += "</tbody></table>"
           html
 
+        cell2html = (cell) ->
+          if angular.isString(cell)
+            cell
+          else if angular.isArray(cell)
+            cell2html(el) for el in cell
+          else if angular.isObject(cell)
+            json2html(cell)
+          else
+            JSON.stringify(cell)
 
         # Manual rendering function due to performance reasons
         # (repeat watchers are expensive)
@@ -53,16 +62,7 @@ angular.module('neo4jApp.directives')
           for row in result.rows()
             html += "<tr>"
             for cell in row
-              html += '<td>'
-              if angular.isString(cell)
-                html += cell
-              else if angular.isArray(cell)
-                html += json2html(el) + "<hr>" for el in cell
-              else if angular.isObject(cell)
-                html += json2html(cell)
-              else
-                html += JSON.stringify(cell)
-              html += '</td>'
+              html += '<td>' + cell2html(cell) + '</td>'
             html += "</tr>"
           html += "</tbody>"
           html += "</table>"
