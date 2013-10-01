@@ -42,7 +42,7 @@ angular.module('neo4jApp.directives')
           if angular.isString(cell)
             cell
           else if angular.isArray(cell)
-            cell2html(el) for el in cell
+            (cell2html(el) for el in cell).join(', ')
           else if angular.isObject(cell)
             json2html(cell)
           else
