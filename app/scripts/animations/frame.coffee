@@ -24,115 +24,43 @@ angular.module("neo4jApp.animations", [])
   #
   .animation("frame-out", ["$window", ($window) ->
     setup: (element) ->
-      TweenMax.set element,
-        height: element.height()
+      element.css height: element.height()
 
     start: (element, done) ->
-      TweenMax.to element, 0.4,
-        ease: Power2.easeInOut
+      element.animate
         opacity: 0
         height: 0
-        onComplete: done
+      ,
+        duration: 400
+        easing: "easeInOutCubic"
+        complete: done
 
   ]).animation("frame-in", ["$window", ($window) ->
     setup: (element) ->
-      TweenMax.set element,
+      element.css
         position: "absolute"
         top: -100
         opacity: 0
 
     start: (element, done) ->
-      beforeDone = () ->
-        # remove max-height to be able to resize the frame when interacting
-        TweenMax.set element, maxHeight: 'initial'
-        done()
+      afterFirst = () ->
+        element.css position: "relative"
 
-      tl = new TimelineLite()
-
-      tl.to(element, 0.2, {}) # render object to get a size
-      tl.call((e)->
-        tl.to(element, 0.01, {maxHeight: 0})
-        tl.to element, 0.4,
-          maxHeight: element.height()
-          top: 0
+        element.animate
           opacity: 1
-          position: "relative"
-          ease: Power3.easeInOut
-        tl.call(beforeDone)
-      )
-  ])
+          top: 0
+          maxHeight: element.height()
+        ,
+          duration: 400
+          easing: "easeInOutCubic"
+          complete: ->
+            # remove max-height to be able to resize the frame when interacting
+            element.css maxHeight: 'initial'
+            done()
 
-  # Animation for message bar below editor
-  #
-  .animation("intro-out", ["$window", ($window) ->
-    start: (element, done) ->
-      TweenMax.to element, 0.4,
-        ease: Power2.easeInOut
-        opacity: 0
-        top: 40
-        onComplete: done
-
-  ]).animation("intro-in", ["$window", ($window) ->
-    setup: (element) ->
-      TweenMax.set element,
-        opacity: 0
-        top: 30
-        scale: 0.8
-        display: 'block'
-
-    start: (element, done) ->
-      TweenMax.to element, 1.6,
-        ease: Power2.easeInOut
-        opacity: 1
-        top: 0
-        scale: 1
-        onComplete: done
-  ])
-
-  # Animation for message bar below editor
-  #
-  .animation("slide-down-out", ["$window", ($window) ->
-    start: (element, done) ->
-      TweenMax.to element, 0.4,
-        ease: Power2.easeInOut
-        height: 0
-        onComplete: done
-
-  ]).animation("slide-down-in", ["$window", ($window) ->
-    setup: (element) ->
-      TweenMax.set element,
-        height: 0
-        display: 'block'
-
-    start: (element, done) ->
-      TweenMax.to element, 0.4,
-        ease: Power2.easeInOut
-        height: 49
-        onComplete: done
-  ])
-
-  # Animation for saved scripts list elements
-  #
-  .animation("pop-out", ["$window", ($window) ->
-    start: (element, done) ->
-      TweenMax.to element, 0.25,
-        ease: Power2.easeInOut
-        opacity: 0
-        height: 0
-        onComplete: done
-
-  ]).animation("pop-in", ["$window", ($window) ->
-    setup: (element) ->
-      TweenMax.set element,
-        bottom: -element.height()
-        opacity: 0
-        maxHeight: 0
-
-    start: (element, done) ->
-      TweenMax.to element, 0.25,
-        ease: Power2.easeInOut
-        bottom: 0
-        opacity: 1
-        maxHeight: 70
-        onComplete: done
+      # render object to get a size
+      element.animate
+        opacity: 0.01
+      , 200, ->
+        afterFirst()
   ])
