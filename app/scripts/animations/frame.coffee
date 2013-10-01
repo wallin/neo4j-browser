@@ -64,3 +64,32 @@ angular.module("neo4jApp.animations", [])
       , 200, ->
         afterFirst()
   ])
+
+  # Animation for message bar below editor
+  #
+  .animation("intro-out", ["$window", ($window) ->
+    start: (element, done) ->
+      element.animate
+        opacity: 0
+        top: 40
+      ,
+        duration: 400
+        easing: "easeInOutCubic"
+        complete: done
+
+  ]).animation("intro-in", ["$window", ($window) ->
+    setup: (element) ->
+      element.css
+        opacity: 0
+        top: 30
+        display: 'block'
+
+    start: (element, done) ->
+      element.animate
+        opacity: 1
+        top: 0
+      ,
+        duration: 1600
+        easing: "easeInOutCubic"
+        complete: done
+  ])
