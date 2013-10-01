@@ -26,7 +26,8 @@
     "angular-unstable": "~1.1.5",
     "css": "https://raw.github.com/marijnh/CodeMirror/master/mode/css/css.js",
     "modernizr": "git+https://github.com/ejoubaud/bower-modernizr.git#2.6.2",
-    "jquery.easing": "~1.3.0"
+    "jquery.easing": "~1.3.0",
+    "jquery.animate-enhanced": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.5",
