@@ -81,7 +81,7 @@ angular.module("neo4jApp.animations", [])
     setup: (element) ->
       element.css
         opacity: 0
-        top: 30
+        top: 0
         display: 'block'
 
     start: (element, done) ->
