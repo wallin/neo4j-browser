@@ -69,10 +69,25 @@ node {
 
     it 'should create new rules for labels that have not been seen before', ->
       expect(GraphStyle.forNode(labels: ['Movie']).get('color')).toBe('#DFE1E3')
-      expect(GraphStyle.forNode(labels: ['Person']).get('color')).toBe('#30B6AF')
+      expect(GraphStyle.forNode(labels: ['Person']).get('color')).toBe('#F25A29')
       sheet = GraphStyle.toSheet()
       expect(sheet['node.Movie']['color']).toBe('#DFE1E3')
-      expect(sheet['node.Person']['color']).toBe('#30B6AF')
+      expect(sheet['node.Person']['color']).toBe('#F25A29')
+
+    it 'should allocate colors that are not already used by existing rules', ->
+      GraphStyle.change({isNode:yes, labels: ['Person']}, {color: '#DFE1E3'})
+      expect(GraphStyle.forNode(labels: ['Movie']).get('color')).toBe('#F25A29')
+      sheet = GraphStyle.toSheet()
+      expect(sheet['node.Person']['color']).toBe('#DFE1E3')
+      expect(sheet['node.Movie']['color']).toBe('#F25A29')
+
+    it 'should stick to first default color once all default colors have been exhausted', ->
+      for i in [1..GraphStyle.defaultColors().length]
+        GraphStyle.forNode(labels: ["Label #{i}"])
+
+      GraphStyle.change({isNode:yes, labels: ['Person']}, {color: '#DFE1E3'})
+      GraphStyle.change({isNode:yes, labels: ['Movie']}, {color: '#DFE1E3'})
+      GraphStyle.change({isNode:yes, labels: ['Animal']}, {color: '#DFE1E3'})
 
   describe '#parse:', ->
     it 'should parse rules from grass text', ->

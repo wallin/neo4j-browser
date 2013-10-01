@@ -66,10 +66,10 @@ angular.module('neo4jApp.services')
     # Default node colors that user can choose from
     @defaultColors = [
       { color: '#DFE1E3', 'border-color': '#D4D6D7', 'text-color-internal': '#000000' }
-      { color: '#30B6AF', 'border-color': '#46A39E', 'text-color-internal': '#FFFFFF' }
-      { color: '#AD62CE', 'border-color': '#9453B1', 'text-color-internal': '#FFFFFF' }
-      { color: '#FF6C7C', 'border-color': '#EB5D6C', 'text-color-internal': '#FFFFFF' }
       { color: '#F25A29', 'border-color': '#DC4717', 'text-color-internal': '#FFFFFF' }
+      { color: '#AD62CE', 'border-color': '#9453B1', 'text-color-internal': '#FFFFFF' }
+      { color: '#30B6AF', 'border-color': '#46A39E', 'text-color-internal': '#FFFFFF' }
+      { color: '#FF6C7C', 'border-color': '#EB5D6C', 'text-color-internal': '#FFFFFF' }
       { color: '#FCC940', 'border-color': '#F3BA25', 'text-color-internal': '#000000' }
       { color: '#4356C0', 'border-color': '#3445A2', 'text-color-internal': '#FFFFFF' }
     ]
@@ -149,14 +149,23 @@ angular.module('neo4jApp.services')
       forRelationship: (rel) ->
         @calculateStyle(@relationshipSelector(rel), rel)
 
+      findAvailableDefaultColor: () ->
+        usedColors = {}
+        for rule in @rules
+          if rule.props.color?
+            usedColors[rule.props.color] = yes
+
+        for defaultColor in provider.defaultColors
+          if !usedColors[defaultColor.color]?
+            return defaultColor
+
+        return provider.defaultColors[0]
+
       setDefaultStyling: (selector) ->
         rule = @findRule(selector)
 
         if not rule?
-          rule = new StyleRule(selector, provider.defaultColors[@nextDefaultColor])
-          @nextDefaultColor++
-          if @nextDefaultColor >= provider.defaultColors.length
-            @nextDefaultColor = 0
+          rule = new StyleRule(selector, @findAvailableDefaultColor())
           @rules.push(rule)
           @persist()
 
