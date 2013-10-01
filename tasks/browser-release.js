@@ -161,9 +161,7 @@ module.exports = function(grunt){
     function bump(config, version) {
       config.pkg.version = version
       grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
-      mvn("mvn --batch-mode release:update-versions" +
-             " -DdevelopmentVersion="+version
-             )
+      mvn("mvn versions:set -DnewVersion="+version)
       grunt.log.ok('Versions bumped to ' + version);
     }
 
