@@ -93,3 +93,29 @@ angular.module("neo4jApp.animations", [])
         easing: "easeInOutCubic"
         complete: done
   ])
+
+  # Animation for message bar below editor
+  #
+  .animation("slide-down-out", ["$window", ($window) ->
+    start: (element, done) ->
+      element.animate
+        height: 0
+      ,
+        duration: 400
+        easing: "easeInOutCubic"
+        complete: done
+
+  ]).animation("slide-down-in", ["$window", ($window) ->
+    setup: (element) ->
+      element.css
+        height: 0
+        display: 'block'
+
+    start: (element, done) ->
+      element.animate
+        height: 49
+      ,
+        duration: 400
+        easing: "easeInOutCubic"
+        complete: done
+  ])
