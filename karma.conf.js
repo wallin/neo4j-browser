@@ -4,6 +4,33 @@
 module.exports = function(config) {
   config.set({
 
+    // global config for SauceLabs
+    sauceLabs: {
+      username: 'akollegger',
+      accessKey: 'ff1b10cf-880d-426e-af1a-3f5e5db70a0d',
+      startConnect: true,
+      testName: 'neo4j browser unit tests'
+    },
+
+    // define SL browsers
+    customLaunchers: {
+      sl_safari_mac: {
+        base: 'SauceLabs',
+        browserName: 'safari',
+        platform: 'OS X 10.8'
+      },
+      sl_chrome_mac: {
+        base: 'SauceLabs',
+        browserName: 'chrome',
+        platform: 'OS X 10.8'
+      },
+      sl_ie_windows_8: {
+        base: 'SauceLabs',
+        browserName: 'internet explorer',
+        platform: 'Windows 8'
+      }
+    },
+
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
@@ -66,7 +93,9 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS'],
+    // browsers: ['PhantomJS','sl_safari_mac','sl_ie_windows_8'],
+    // browsers: ['PhantomJS'],
+    browsers: ['sl_ie_windows_8'],
 
 
     // If browser does not capture in given timeout [ms], kill it
@@ -75,6 +104,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: true
   });
 };

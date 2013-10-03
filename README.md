@@ -3,9 +3,8 @@ Neo4j Browser
 
 *Explore the graph, one query at a time.* 
 
-Neo4j Browser is a stealth project to update Neo4j's built-in client application, a mashup of a REPL, data visualization and lightweight IDE.
+Neo4j Browser is [Neo4j's](http://github.com/neo4j/neo4j/) built-in client application, a mashup of a REPL, data visualization and lightweight IDE.
 
-*Please* do not share links to this project or discuss it in any public forums.
 
 Goals:
 
@@ -14,13 +13,11 @@ Goals:
 - uses only public APIs
 - for modern browsers, with reasonable fallbacks
 
-
-# Development
+## Development
 
 **Management**:
 
-* Current Milestone: [M02](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open)
-* Trello wall: [Team Pop](https://trello.com/b/3QpahIAK/team-pop)
+* [Trello Wall](https://trello.com/b/3QpahIAK/team-pop)
 
 **How-to**:
 
@@ -32,7 +29,5 @@ At the moment, there is no ready-made download of Neo4j Browser. Until one is di
 
 ## Feedback
 
-*Please* do not discuss this on any public forums.
-
-* [Andreas Kollegger](mailto:andreas@neotechnology.com) - send email to me
-* [Github Issues](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open) - report bugs (not feature requests)
+* [Andreas Kollegger](mailto:andreas@neotechnology.com) - questions or comments? send an email to me
+* [Github Issues](https://github.com/neo4j/neo4j-browser/issues?milestone=2&state=open) - feature requests and bug reports (please note OS + web browser)
