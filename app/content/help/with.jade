@@ -30,8 +30,9 @@ article.help
         figure
           pre.code(mode='cypher').
             MATCH (director:Person)-[:DIRECTED]->(movie)
-            WITH director, ORDER BY count(movie.title) LIMIT 1
-              MATCH (director)<-[:KNOWS*..6]-(hopeful)
-              WHERE hopeful.name = "Starlet Ohuru"
+            WITH director, count(movie) as directed ORDER BY directed DESC LIMIT 1
+              MATCH (hopeful:Person)-[:ACTED_IN]->(movie)
+              WITH director, hopeful, count(movie) as appearances ORDER BY appearances LIMIT 1
+                MATCH p=(director)-[*..4]-(hopeful)
+              RETURN p
           figcaption Find a path from a hopeful actor to Hollywood's most prolific director.
-
