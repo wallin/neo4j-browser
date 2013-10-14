@@ -13,7 +13,7 @@ h4 Neo4j {{ neo4j.version }}
   span(ng-show='propertyKeys')
     h5 Property keys
     span(ng-repeat='propertyKey in propertyKeys')
-      a.label.property(ng-click="editor.execScript('MATCH (a) WHERE has(a.'+propertyKey+') RETURN a.'+propertyKey+' LIMIT 25')") {{propertyKey}}
+      a.label.property(ng-click="editor.execScript('MATCH (a) WHERE has(a.`'+propertyKey+'`) RETURN a.`'+propertyKey+'` LIMIT 25')") {{propertyKey}}
 
   h5 Database
   ul
