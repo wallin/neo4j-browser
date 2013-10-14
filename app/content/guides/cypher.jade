@@ -21,7 +21,7 @@ article.guide
           | Let's use Cypher to generate a small social graph.
         figure
           pre.pre-scrollable.code(mode='cypher').
-            CREATE (ee { name: "Emil", from: "Sweden", klout: 99 })
+            CREATE (ee:Person { name: "Emil", from: "Sweden", klout: 99 }) 
         ul
           li
             code CREATE
@@ -30,8 +30,8 @@ article.guide
             code ()
             |  parenthesis to indicate a node
           li
-            code ee
-            |  a variable for the new node
+            code ee:Person
+            |  a variable 'ee' and label 'Person' for the new node
           li
             code {}
             |  brackets to add properties to the node
@@ -44,14 +44,14 @@ article.guide
           | Now find the node representing Emil:
         figure
           pre.pre-scrollable.code(mode='cypher').
-            MATCH (ee) WHERE ee.name = "Emil" RETURN ee;
+            MATCH (ee:Person) WHERE ee.name = "Emil" RETURN ee;
         ul
           li
             code MATCH
             |  clause to specify a pattern of nodes and relationships
           li
-            code (ee)
-            |  a single node pattern. All matches will be assigned to 'ee'
+            code (ee:Person)
+            |  a single node pattern with label 'Person' which will assign matches to the variable 'ee'
           li
             code WHERE
             |  clause to constrain the results
@@ -71,12 +71,11 @@ article.guide
           | clauses can create many nodes and relationships at once.
         figure
           pre.pre-scrollable.code(mode='cypher').
-            MATCH (ee)
-            WHERE ee.name = "Emil"
-            CREATE (js { name: "Johan", from: "Sweden", learn: "surfing" }),
-            (ir { name: "Ian", from: "England", title: "author" }),
-            (rvb { name: "Rik", from: "Belgium", pet: "Orval" }),
-            (ally { name: "Allison", from: "California", hobby: "surfing" }),
+            MATCH (ee:Person) WHERE ee.name = "Emil"
+            CREATE (js:Person { name: "Johan", from: "Sweden", learn: "surfing" }),
+            (ir:Person { name: "Ian", from: "England", title: "author" }),
+            (rvb:Person { name: "Rik", from: "Belgium", pet: "Orval" }),
+            (ally:Person { name: "Allison", from: "California", hobby: "surfing" }),
             (ee)-[:KNOWS {since: 2001}]->(js),(ee)-[:KNOWS {rating: 5}]->(ir),
             (js)-[:KNOWS]->(ir),(js)-[:KNOWS]->(rvb),
             (ir)-[:KNOWS]->(js),(ir)-[:KNOWS]->(ally),
@@ -90,7 +89,7 @@ article.guide
           | For instance, a pattern can be used to find Emil's friends:
         figure
           pre.pre-scrollable.code(mode='cypher').
-            MATCH (ee)-[:KNOWS]-(friends)
+            MATCH (ee:Person)-[:KNOWS]-(friends)
             WHERE ee.name = "Emil" RETURN ee, friends
         ul
           li
@@ -98,10 +97,10 @@ article.guide
             | clause to describe the pattern from known Nodes to found Nodes
           li
             code (ee)
-            | starts the pattern with Emil
+            | starts the pattern with a Person (qualified by WHERE)
           li
             code -[:KNOWS]-
-            | matches "KNOWS" relationships
+            | matches "KNOWS" relationships (in either direction)
           li
             code (friends)
             | will be bound to Emil's friends
@@ -115,7 +114,7 @@ article.guide
           | a new friend who already does:
         figure
           pre.pre-scrollable.code(mode='cypher').
-            MATCH (js)-[:KNOWS]-()-[:KNOWS]-(surfer)
+            MATCH (js:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)
             WHERE js.name = "Johan" AND surfer.hobby = "surfing"
             RETURN DISTINCT surfer
         ul
@@ -131,7 +130,6 @@ article.guide
     slide.row-fluid
       .span3
         h3 Next steps
-        p.lead Develop expertise
       .span9
         p
           | Start your application using Cypher to create and query graph data. Use the REST API

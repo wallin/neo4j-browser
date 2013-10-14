@@ -2,12 +2,12 @@ article.guide
   carousel.deck.container-fluid
     slide.row-fluid
       .span3
-        h3 Learn
-        p.lead An introduction to basic graph concepts.
+        h3 Graphs
+        p.lead An introduction to basic concepts.
       .span5
         ol.big
           li Nodes - graph data records
-          li Relationships - connecting nodes
+          li Relationships - connect nodes
           li Properties - named data values
     slide.row-fluid
       .span3
@@ -24,10 +24,25 @@ article.guide
           li Note that he is from Sweden
         ul
           li Nodes are the name for data records in a graph
-          li Data is stored in nodes as Properties
+          li Data is stored as Properties
           li Properties are simple name/value pairs
       .span4
         img(src='images/one_node.png')
+    slide.row-fluid
+      .span3
+        h3 Labels
+        p.lead Associate a set of nodes.
+      .span5
+        p Nodes can be grouped together by applying a Label to each member.
+          | In our social graph, we'll label each node that represents a Person.
+        ol
+          li Apply the label "Person" to the node we created for Emil
+          li Color "Person" nodes red
+        ul
+          li A node can have zero or more labels
+          li Labels do not have any properties
+      .span4
+        img(src='images/labeled_node.png')
     slide.row-fluid
       .span3
         h3 More Nodes
@@ -42,18 +57,19 @@ article.guide
           li Rik, from Belgium, has a cat named Orval
           li Allison, from California, who surfs
         ul
-          li Similar nodes (like People) can have different properties
+          li Similar nodes can have different properties
           li Properties can be strings, numbers, or booleans
           li Neo4j can store billions of nodes
       .span4
         img(src='images/more_nodes.png')
     slide.row-fluid
       .span3
-        h3 Now consider Relationships
+        h3 Consider Relationships
+        p.lead Connect nodes in the graph
       .span5
         p.summary
-          | The real power of Neo4j is in connected data. To connect any two nodes,
-          | add a Relationship which describes how the data is related.
+          | The real power of Neo4j is in connected data. To associate any two nodes,
+          | add a Relationship which describes how the records are related.
         p
           | In our social graph, we simply say who KNOWS whom:
         ol
@@ -63,16 +79,17 @@ article.guide
         ul
           li Relationships always have direction
           li Relationships always have a type
-          li Relationships can have properties
+          li Relationships form patterns of data
       .span4
         img(src='images/relationships.png')
     slide.row-fluid
       .span3
-        h3 Relationships are data
+        h3 Relationship properties
+        p.lead Store information shared by two nodes.
       .span5
         p.summary
-          | In a property graph, relationships are data structures that can also
-          | store data.
+          | In a property graph, relationships are data records that can also
+          | contain properties.
           | Looking more closely at Emil's relationships, note that:
         ul
           li Emil has known Johan since 2001
@@ -83,14 +100,13 @@ article.guide
     slide.row-fluid
       .span3
         h3 Next steps
-        p.lead Query with Cypher
-      .span5
+      .span9
         p A property graph contains nodes and relationships, with properties on both.
           | Having "whiteboarded" a graph, you are ready to create a graph in Neo4j.
         ul.big
           li
-            a(play-topic='cypher') Develop
-            |  a mini graph application
+            a(play-topic='cypher') Cypher
+            |  - develop a mini graph application
           li
-            a(play-topic='intro') Review
-            |  how to use this Browser
+            a(play-topic='intro') Intro
+            |  - review how to use this Browser
