@@ -52,6 +52,7 @@ angular.module('neo4jApp.controllers')
         event.preventDefault()
         $('#editor textarea').focus()
 
+      $scope.editor = Editor
       $scope.editorOneLine = true
       $scope.editorChanged = (codeMirror) ->
         $scope.editorOneLine = codeMirror.lineCount() == 1
@@ -94,10 +95,6 @@ angular.module('neo4jApp.controllers')
         $scope.popupContent = content
         $scope.isPopupShown = !!content
 
-      $scope.isEditorMaximized = no
-      $scope.toggleEditor = ->
-        $scope.isEditorMaximized ^= yes
-
       $scope.globalKey = (e) ->
         # Don't toggle anything when shortcut popup is open
         return if $scope.isPopupShown and e.keyCode != 191
@@ -115,7 +112,7 @@ angular.module('neo4jApp.controllers')
           if $scope.isPopupShown
             $scope.togglePopup()
           else
-            $scope.toggleEditor()
+            Editor.maximize()
 
       # we need set a max-height to make the stream scrollable, but since it's
       # position:relative the max-height needs to be calculated.

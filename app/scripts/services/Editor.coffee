@@ -47,6 +47,7 @@ angular.module('neo4jApp.services')
             @setMessage("<b>Unrecognized:</b> <i>#{input}</i>. #{motdService.unrecognized}", 'error')
           else
             @addToHistory(input)
+            @maximize(no)
 
         addToHistory: (input) ->
           @current = ''
@@ -94,6 +95,9 @@ angular.module('neo4jApp.services')
           @content = doc.content
           @focusEditor()
           @document = doc
+
+        maximize: (state = !@maximized) ->
+          @maximized = !!state
 
         saveDocument: ->
           input = @content.trim()
