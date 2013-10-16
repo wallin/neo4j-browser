@@ -354,8 +354,19 @@ a.badge, a.label
   .close
     display: none
 
-.expand-editor .view-editor
-    bottom: 0
+.maximize-editor
+  #editor
+    min-height: 100%
+    .view-editor
+      min-height: 100%
+    .CodeMirror-scroll
+      max-height: initial
+    .message-bar
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      z-index: 10
 
 // TODO: implement this class as @extend .icon-pencil
 .edit-in-place

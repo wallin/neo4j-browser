@@ -94,6 +94,10 @@ angular.module('neo4jApp.controllers')
         $scope.popupContent = content
         $scope.isPopupShown = !!content
 
+      $scope.isEditorMaximized = no
+      $scope.toggleEditor = ->
+        $scope.isEditorMaximized ^= yes
+
       $scope.globalKey = (e) ->
         # Don't toggle anything when shortcut popup is open
         return if $scope.isPopupShown and e.keyCode != 191
