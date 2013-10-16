@@ -28,16 +28,15 @@ angular.module('neo4jApp')
       {
         folder: 'general'
         content: """
-// Get some data
-MATCH (n) RETURN n LIMIT 100
+// Create a node
+CREATE (n {name:"World"}) RETURN "hello", n.name
         """
       }
       {
         folder: 'general'
         content: """
-// Count nodes
-MATCH (n)
-RETURN count(n)
+// Get some data
+MATCH (n) RETURN n LIMIT 100
         """
       }
       {
@@ -46,7 +45,14 @@ RETURN count(n)
 // What is related, and how
 MATCH (a)-[r]->(b)
 RETURN DISTINCT head(labels(a)) AS This, type(r) as To, head(labels(b)) AS That
-LIMIT 100
+LIMIT 10
+        """
+      }
+      {
+        folder: 'general'
+        content: """
+// REST API
+:GET /db/data
         """
       }
     ]
@@ -56,7 +62,7 @@ LIMIT 100
         folder: 'nodes'
         content: """
 // Count nodes
-// Note: may take a long time.
+// Warning: may take a long time.
 MATCH (n)
 RETURN count(n)
         """
@@ -182,16 +188,35 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
       {
         folder: 'system'
         content: """
-// System info
-// Description: gets raw system information
-:GET /db/manage/server/jmx/domain/org.neo4j
+// Server configuration
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DConfiguration
+        """
+      }
+      {
+        folder: 'system'
+        content: """
+// Kernel information
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DKernel
+        """
+      }
+      {
+        folder: 'system'
+        content: """
+// ID Allocation
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DPrimitive%20count
+        """
+      }
+      {
+        folder: 'system'
+        content: """
+// Store file sizes
+:GET /db/manage/server/jmx/domain/org.neo4j/instance%3Dkernel%230%2Cname%3DStore%20file%20sizes
         """
       }
       {
         folder: 'system'
         content: """
 // Extensions
-// Description: show installed plugins and extensions
 :GET /db/data/ext
         """
       }
