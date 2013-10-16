@@ -32,7 +32,7 @@ angular.module('neo4jApp.directives')
         rest = val.substring(Settings.maxRawSize + 1)
         if rest
           rest = rest.split("\n")[0] or ''
-          str += rest + "\n...\n<truncated output>"
+          str += rest + "\n...\n<truncated output>\n\nPress download to see complete response"
         element.text(str)
         unbind()
   ])
