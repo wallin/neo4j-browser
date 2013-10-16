@@ -4,7 +4,7 @@ div(ng-controller='StreamCtrl')
       {{motd.quote.text}}
       br
       &mdash; {{motd.quote.author}}
-  #stream
+  #stream(scroll-top-when="frames.length")
     .frame(
       ng-repeat = 'frame in frames.items | orderBy:"startTime":true'
       ng-animate="{leave:'frame-out', enter:'frame-in'}"

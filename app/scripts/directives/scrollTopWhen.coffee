@@ -18,25 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-#baseURL = 'http://localhost:7474'
-baseURL = ''
-restAPI = "#{baseURL}/db/data"
+'use strict';
 
-angular.module('neo4jApp.settings', [])
-  .constant('Settings', {
-    cmdchar: ':'
-    endpoint:
-      console: "#{baseURL}/db/manage/server/console"
-      jmx: "#{baseURL}/db/manage/server/jmx/query"
-      rest: restAPI
-      cypher: "#{restAPI}/cypher"
-      transaction: "#{restAPI}/transaction"
-    host: baseURL
-    maxExecutionTime: 60000
-    maxFrames: 50
-    maxHistory: 100
-    maxNeighbours: 100
-    maxNodes: 1000
-    maxRows: 1000
-    scrollToTop: yes # When new frames are inserted in to the stream
-  })
+angular.module('neo4jApp.directives')
+  .directive('scrollTopWhen', ['Settings', (Settings) ->
+    (scope, element, attrs) ->
+      return unless Settings.scrollToTop
+      scope.$watch attrs.scrollTopWhen, (val) ->
+        element.scrollTop(0)
+  ])
