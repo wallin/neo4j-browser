@@ -182,27 +182,20 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
       {
         folder: 'system'
         content: """
-// Is master
-// NOTE: only works in Neo4j Enterprise
-:GET /db/manage/server/ha/master
-        """
-      }
-      {
-        folder: 'system'
-        content: """
-// Is slave
-// NOTE: only works in Neo4j Enterprise
-:GET /db/manage/server/ha/slave
-        """
-      }
-      {
-        folder: 'system'
-        content: """
 // System info
 // Description: gets raw system information
 :GET /db/manage/server/jmx/domain/org.neo4j
         """
       }
+      {
+        folder: 'system'
+        content: """
+// Extensions
+// Description: show installed plugins and extensions
+:GET /db/data/ext
+        """
+      }
+      
     ]
 
     folders = [
