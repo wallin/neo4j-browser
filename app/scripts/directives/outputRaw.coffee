@@ -21,12 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 angular.module('neo4jApp.directives')
-  .directive('outputRaw', [() ->
+  .directive('outputRaw', ['Settings', (Settings) ->
     restrict: 'A'
     link: (scope, element, attrs) ->
       unbind = scope.$watch attrs.outputRaw, (val) ->
         return unless val
-        val = JSON.stringify(val) unless angular.isString(val)
-        element.text(val)
+        val = JSON.stringify(val, null, 2) unless angular.isString(val)
+        # Try to truncate string at first newline after limit
+        str = val.substring(0, Settings.maxRawSize)
+        rest = val.substring(Settings.maxRawSize + 1)
+        if rest
+          rest = rest.split("\n")[0] or ''
+          str += rest + "\n...\n<truncated output>"
+        element.text(str)
         unbind()
   ])
