@@ -30,6 +30,8 @@ angular.module('neo4jApp.directives')
       ($scope, $window, CSV) ->
 
         saveAs = (data, filename, mime = "text/csv;charset=utf-8") ->
+          if !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
+            return alert('Exporting data is currently not supported in Safari. Please use another browser.')
           blob = new Blob([data], {type: mime});
           $window.saveAs(blob, filename);
 
