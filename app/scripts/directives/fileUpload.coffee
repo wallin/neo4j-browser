@@ -87,7 +87,7 @@ angular.module('neo4jApp.directives')
 
         reader.onloadend = scopeApply (evt) ->
           data = evt.target.result
-          data = data.split(';base64,')[1]
+          data = data.split('base64,')[1]
           onUploadSuccess($window.atob(data))
           $scope.status = INITIAL_STATUS
 
