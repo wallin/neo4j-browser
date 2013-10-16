@@ -43,10 +43,7 @@ angular.module('neo4jApp')
 
       scope.save  = ->
         scope.editing = false
-        # invoke onBlur callback if any
-        if scope.callback
-          exp = $parse(scope.callback)
-          exp(scope)
+        scope.callback() if scope.callback
 
       inputElement.bind "blur", (e) ->
         scope.save()
