@@ -48,8 +48,8 @@ angular.module('neo4jApp.controllers')
       $scope.showStats = () ->
         Frame.create(input: ':schema')
 
-      $scope.focusEditor = () ->
-        event.preventDefault()
+      $scope.focusEditor = (ev) ->
+        ev?.preventDefault()
         $('#editor textarea').focus()
 
       $scope.editor = Editor
