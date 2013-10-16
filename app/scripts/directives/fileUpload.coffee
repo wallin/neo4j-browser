@@ -63,7 +63,8 @@ angular.module('neo4jApp.directives')
         if $attrs.extension
           # Check if name ends with extension
           reg = new RegExp($attrs.extension + "$")
-          return unless file.name.match(reg)
+          unless file.name.match(reg)
+            return alert("Only .#{$attrs.extension} files are supported")
 
         $scope.status = "Uploading..."
         @readFile file
