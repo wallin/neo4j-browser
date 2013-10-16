@@ -21,13 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 'use strict'
 
 angular.module('neo4jApp.controllers')
-  .controller 'CypherResultCtrl', ['$scope', ($scope) ->
+  .controller 'CypherResultCtrl', ['$rootScope', '$scope', ($rootScope, $scope) ->
 
-    $scope.$watch 'frame.response', ->
-      $scope.showGraph = $scope.frame.response?.table.nodes.length
-      $scope.tab = if $scope.showGraph then 'graph' else 'table'
+    $scope.$watch 'frame.response', (resp) ->
+      return unless resp
+      # Initialise tab state from user selected if any
+      $scope.tab = $rootScope.stickyTab
+      # Otherwise try to detect the best mode
+      if not $scope.tab?
+        showGraph = resp.table.nodes.length
+        $scope.tab = if showGraph then 'graph' else 'table'
 
-    $scope.setActive = (tab) -> $scope.tab = tab
+    $scope.setActive = (tab) -> $rootScope.stickyTab = $scope.tab = tab
     $scope.isActive = (tab) -> tab is $scope.tab
 
     $scope.resultStatistics = (frame) ->
