@@ -30,7 +30,7 @@ CodeMirror.defineMode "cypher", (config) ->
     if /[{}\(\),\.;\[\]]/.test(ch)
       curPunc = ch
       "node"
-    else if ch is "/"
+    else if ch is "/" and stream.eat("/")
       stream.skipToEnd()
       "comment"
     else if operatorChars.test(ch)
