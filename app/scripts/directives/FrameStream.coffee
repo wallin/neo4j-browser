@@ -20,24 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 'use strict'
 
-###
-# DEPRECATED
-###
 
-angular.module('neo4jApp.controllers')
-.controller 'StreamCtrl', [
-  '$scope'
-  '$timeout'
-  'Document'
-  'Frame'
-  'Editor'
-  'motdService'
-  ($scope, $timeout, Document, Frame, Editor, motdService) ->
-    ###*
-     * Initialization
-    ###
-    $scope.frames = Frame
-    $scope.motd = motdService
-    
-  ]
-
+angular.module('neo4jApp.directives')
+.directive('frameStream', ['Frame','Editor','motdService',
+  (Frame, Editor, motdService) ->
+    restrict: 'A'
+    priority: 0
+    templateUrl: 'views/partials/stream.html'
+    replace: false
+    transclude: false
+    scope: false
+    controller: ['$scope', 'Frame', 'Editor', 'motdService', ($scope, Frame, Editor, motdService) ->
+      $scope.frames = Frame
+      $scope.motd = motdService
+      $scope.editor = Editor
+    ]
+    link: (scope, element, attrs) ->
+      scope.editor.execScript(":play intro")
+])

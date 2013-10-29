@@ -18,26 +18,35 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-'use strict'
+'use strict';
 
-###
-# DEPRECATED
-###
+angular.module('neo4jApp.services')
+  .factory 'User', [
+    'Collection'
+    'Persistable'
+    (Collection, Persistable) ->
+      class User extends Persistable
+        @storageKey = 'users'
 
-angular.module('neo4jApp.controllers')
-.controller 'StreamCtrl', [
-  '$scope'
-  '$timeout'
-  'Document'
-  'Frame'
-  'Editor'
-  'motdService'
-  ($scope, $timeout, Document, Frame, Editor, motdService) ->
-    ###*
-     * Initialization
-    ###
-    $scope.frames = Frame
-    $scope.motd = motdService
-    
+        constructor: (data) ->
+          super data
+          @name ?= 'Graph Hero'
+          @folder ?= no
+
+        toJSON: ->
+          {@id, @name, @folder, @content}
+
+      class Users extends Collection
+        create: (data) ->
+          u = new User(data)
+          @add(d)
+          @save()
+          u
+        klass: User
+        new: (args) -> new User(args)
+        remove: (user) ->
+          super
+          @save()
+
+      new Users(null, User).fetch()
   ]
-

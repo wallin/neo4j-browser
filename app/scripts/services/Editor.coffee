@@ -44,7 +44,7 @@ angular.module('neo4jApp.services')
           frame = Frame.create(input: input)
 
           if !frame and input != ''
-            @setMessage("<b>Unrecognized:</b> <i>#{input}</i>. #{motdService.unrecognized}", 'error')
+            @setMessage("<b>Unrecognized:</b> <i>#{input}</i>.", 'error')
           else
             @addToHistory(input)
             @maximize(no)
