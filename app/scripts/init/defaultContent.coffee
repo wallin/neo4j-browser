@@ -103,7 +103,7 @@ CREATE (n) RETURN n
 //   'LabelName' with label of node to delete
 //   'propertyKey' with property to find
 //   'expected_value' with value of property
-START n=node(*) 
+START n=node(*)
 MATCH (n:LabelName)-[r?]-()
 WHERE n.propertyKey = "expected_value"
 DELETE n,r
@@ -220,7 +220,7 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
 :GET /db/data/ext
         """
       }
-      
+
     ]
 
     folders = [
@@ -247,9 +247,9 @@ RETURN DISTINCT head(labels(a)), type(r), head(labels(b)) LIMIT 100
     ]
 
     # Restore default content if empty
-    if Document.length is 0
-      Document.add(general_scripts.concat(system_scripts)).save()
-      Folder.add(folders).save()
+    #if Document.length is 0
+    #  Document.add(general_scripts.concat(system_scripts)).save()
+    #  Folder.add(folders).save()
 
     # Find and restore orphan folders
     for doc in Document.all()

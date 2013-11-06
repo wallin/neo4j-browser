@@ -18,30 +18,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-'use strict';
-
-angular.module('neo4jApp.services')
-  .factory 'Persistable', [
-    'Storage'
-    (Storage) ->
-      class Persistable
-        # Set all properties and generate an ID if missing
-        constructor: (data = {})->
-          if angular.isObject(data)
-            angular.extend(@, data)
-          @id ?= UUID.genV1().toString()
-
-        #
-        # Class methods
-        #
-
-        # Retrieve all items
-        @fetch: ->
-          Storage.get(@storageKey)
-
-        # Save all items
-        @save: (data) ->
-          Storage.add(@storageKey, JSON.stringify(data))
-
-      Persistable
-  ]
+angular.module('neo4jApp').run [
+  '$rootScope'
+  'Document'
+  'Folder'
+  ($rootScope, Document, Folder) ->
+    Userbin?.on 'login.success logout.success', ->
+      $rootScope.currentUser = Userbin.user()
+      Document.fetch()
+      Folder.fetch()
+      $rootScope.$apply()
+    $rootScope.currentUser = Userbin.user()
+]

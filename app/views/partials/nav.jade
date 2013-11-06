@@ -11,5 +11,9 @@
       a.icon-star(ng-click='toggleDrawer("scripts")')
     li(ng-class='{active: showingDrawer("info") }')
       a.icon-info-sign(ng-click='toggleDrawer("info")')
+    li
+      a(ng-hide='currentUser').icon-signin.ub-login
+      a(ng-show='currentUser').ub-logout
+        img(ng-src='{{currentUser.image}}')
     li.bottom(ng-class='{active: showingDrawer("credits") }')
       a(ng-click='toggleDrawer("credits")') &copy;
